@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Input, Select, Card, FormField, LoadingSpinner } from './ui';
 import styles from './MeditationForm.module.css';
 
-const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType }) => {
+const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType, duration, handleDurationChange }) => {
   const { t } = useTranslation();
   
   const meditationTypes = [
@@ -60,14 +60,21 @@ const MeditationForm = ({ text, setText, background, setBackground, language, se
           </div>
         </FormField>
         
-        <FormField label={t('textLabel')} required>
-          <Input
-            type="textarea"
-            rows={5}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={t('textPlaceholder')}
-          />
+        <FormField label={`${t('duration')}: ${duration} ${t('minutes')}`}>
+          <div className={styles.durationContainer}>
+            <input
+              type="range"
+              min="1"
+              max="20"
+              value={duration}
+              onChange={(e) => handleDurationChange(parseInt(e.target.value))}
+              className={styles.durationSlider}
+            />
+            <div className={styles.durationLabels}>
+              <span className={styles.durationLabel}>1{t('min')}</span>
+              <span className={styles.durationLabel}>20{t('min')}</span>
+            </div>
+          </div>
         </FormField>
         
         <div className={styles.formRow}>
@@ -87,6 +94,16 @@ const MeditationForm = ({ text, setText, background, setBackground, language, se
             />
           </FormField>
         </div>
+        
+        <FormField label={t('textLabel')} required>
+          <Input
+            type="textarea"
+            rows={5}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={t('textPlaceholder')}
+          />
+        </FormField>
         
         <FormField label={t('voiceLabel')}>
           <Select

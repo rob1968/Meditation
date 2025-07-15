@@ -25,5 +25,8 @@
   "stressMeditation": "Stress",
   "focusMeditation": "Concentration",
   "anxietyMeditation": "Anxiété",
-  "energyMeditation": "Énergie"
+  "energyMeditation": "Énergie",
+  "duration": "Durée",
+  "minutes": "minutes",
+  "min": "min"
 }
