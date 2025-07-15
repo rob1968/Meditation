@@ -1,0 +1,9 @@
+{
+  "title": "Meditation Generator",
+  "textPlaceholder": "Enter meditation text...",
+  "backgroundLabel": "Background:",
+  "languageLabel": "Language:",
+  "voiceLabel": "Voice:",
+  "generateButton": "Generate",
+  "generating": "Generating..."
+}

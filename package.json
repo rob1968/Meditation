@@ -1,0 +1,16 @@
+{
+  "name": "meditation-app",
+  "version": "1.0.0",
+  "description": "Meditation audio generation application",
+  "scripts": {
+    "start": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "dev": "concurrently --kill-others \"npm run backend:dev\" \"npm run frontend\"",
+    "backend": "cd backend && npm start",
+    "backend:dev": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install --legacy-peer-deps"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
