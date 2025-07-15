@@ -3,8 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Button, Input, Select, Card, FormField, LoadingSpinner } from './ui';
 import styles from './MeditationForm.module.css';
 
-const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading }) => {
+const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType }) => {
   const { t } = useTranslation();
+  
+  const meditationTypes = [
+    { type: 'sleep', icon: '🌙', label: t('sleepMeditation') },
+    { type: 'stress', icon: '😌', label: t('stressMeditation') },
+    { type: 'focus', icon: '🎯', label: t('focusMeditation') },
+    { type: 'anxiety', icon: '🌿', label: t('anxietyMeditation') },
+    { type: 'energy', icon: '⚡', label: t('energyMeditation') }
+  ];
   
   const backgroundOptions = [
     { value: 'rain', label: `🌧️ ${t('rain')}` },
@@ -34,6 +42,24 @@ const MeditationForm = ({ text, setText, background, setBackground, language, se
       </div>
       
       <form className={styles.form} onSubmit={(e) => { e.preventDefault(); generate(); }}>
+        <FormField label={t('meditationType')}>
+          <div className={styles.meditationTypes}>
+            {meditationTypes.map((meditation) => (
+              <Button
+                key={meditation.type}
+                type="button"
+                variant={meditationType === meditation.type ? 'primary' : 'secondary'}
+                size="small"
+                onClick={() => selectMeditationType(meditation.type)}
+                className={styles.typeButton}
+              >
+                <span className={styles.typeIcon}>{meditation.icon}</span>
+                {meditation.label}
+              </Button>
+            ))}
+          </div>
+        </FormField>
+        
         <FormField label={t('textLabel')} required>
           <Input
             type="textarea"

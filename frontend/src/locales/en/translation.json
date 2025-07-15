@@ -19,5 +19,11 @@
   "dutch": "Dutch",
   "german": "German",
   "spanish": "Spanish",
-  "french": "French"
+  "french": "French",
+  "meditationType": "Meditation Type",
+  "sleepMeditation": "Sleep",
+  "stressMeditation": "Stress Relief",
+  "focusMeditation": "Focus",
+  "anxietyMeditation": "Anxiety",
+  "energyMeditation": "Energy"
 }

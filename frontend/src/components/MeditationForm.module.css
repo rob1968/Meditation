@@ -44,6 +44,30 @@
   width: 100%;
 }
 
+.meditationTypes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.typeButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  min-height: 48px;
+  justify-content: center;
+}
+
+.typeIcon {
+  font-size: 16px;
+}
+
 .formRow {
   display: grid;
   grid-template-columns: 1fr;
@@ -85,6 +109,17 @@
     font-size: 18px;
   }
   
+  .meditationTypes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  
+  .typeButton {
+    padding: 14px 18px;
+    font-size: 15px;
+    min-height: 52px;
+  }
+  
   .formRow {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -99,6 +134,17 @@
   
   .title {
     font-size: 36px;
+  }
+  
+  .meditationTypes {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  
+  .typeButton {
+    padding: 16px 20px;
+    font-size: 16px;
+    min-height: 56px;
   }
   
   .formRow {
