@@ -10,7 +10,7 @@ import { Select, FormField } from './components/ui';
 import styles from './App.module.css';
 
 const App = () => {
-  const [text, setText] = useState("Close your eyes. Breathe deeply. Relax your body.");
+  const [text, setText] = useState("Close your eyes and breathe deeply. Feel your body sinking into the bed. With each exhale, release the tension from your day. Your mind is calm and peaceful. Let yourself drift into restful sleep.");
   const [background, setBackground] = useState("ocean");
   const [language, setLanguage] = useState("en");
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
