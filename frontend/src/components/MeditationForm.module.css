@@ -1,0 +1,107 @@
+/* MeditationForm Component - Mobile First */
+.formCard {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.form {
+  width: 100%;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.generateButton {
+  margin-top: 8px;
+}
+
+.loading {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .formCard {
+    max-width: 600px;
+  }
+  
+  .header {
+    margin-bottom: 40px;
+  }
+  
+  .icon {
+    font-size: 56px;
+  }
+  
+  .title {
+    font-size: 32px;
+  }
+  
+  .subtitle {
+    font-size: 18px;
+  }
+  
+  .formRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .formCard {
+    max-width: 700px;
+  }
+  
+  .title {
+    font-size: 36px;
+  }
+  
+  .formRow {
+    gap: 24px;
+  }
+}

@@ -1,0 +1,118 @@
+/* AudioPlayer Component - Mobile First */
+.audioPlayer {
+  margin-top: 24px;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.playButton {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  min-width: 56px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.time {
+  color: #6b7280;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressContainer {
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(102, 126, 234, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 3px;
+  transition: width 0.1s ease;
+}
+
+.hiddenAudio {
+  display: none;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .audioPlayer {
+    margin-top: 32px;
+  }
+  
+  .controls {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .playButton {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    font-size: 24px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .time {
+    font-size: 15px;
+  }
+  
+  .progressBar {
+    height: 8px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .audioPlayer {
+    margin-top: 40px;
+  }
+  
+  .controls {
+    gap: 24px;
+  }
+}

@@ -1,48 +1,92 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button, Input, Select, Card, FormField, LoadingSpinner } from './ui';
+import styles from './MeditationForm.module.css';
 
 const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading }) => {
   const { t } = useTranslation();
+  
+  const backgroundOptions = [
+    { value: 'rain', label: `🌧️ ${t('rain')}` },
+    { value: 'ocean', label: `🌊 ${t('ocean')}` },
+    { value: 'forest', label: `🌲 ${t('forest')}` }
+  ];
+  
+  const languageOptions = [
+    { value: 'nl', label: `🇳🇱 ${t('dutch')}` },
+    { value: 'en', label: `🇺🇸 ${t('english')}` },
+    { value: 'de', label: `🇩🇪 ${t('german')}` },
+    { value: 'es', label: `🇪🇸 ${t('spanish')}` },
+    { value: 'fr', label: `🇫🇷 ${t('french')}` }
+  ];
+  
+  const voiceOptions = voices.map(voice => ({
+    value: voice.voice_id,
+    label: voice.name
+  }));
+  
   return (
-    <>
-      <textarea
-        rows="5"
-        value={text}
-        onChange={e => setText(e.target.value)}
-        placeholder={t('textPlaceholder')}
-        className="w-full p-2 border mb-4"
-      ></textarea>
-      <div className="mb-2">
-        <label>{t('backgroundLabel')}</label>
-        <select onChange={e => setBackground(e.target.value)} value={background}>
-          <option value="ocean">{t('ocean')}</option>
-          <option value="rain">{t('rain')}</option>
-          <option value="forest">{t('forest')}</option>
-        </select>
+    <Card className={styles.formCard}>
+      <div className={styles.header}>
+        <span className={styles.icon}>🧘‍♀️</span>
+        <h1 className={styles.title}>{t('title')}</h1>
+        <p className={styles.subtitle}>{t('subtitle')}</p>
       </div>
-      <div className="mb-2">
-        <label>{t('languageLabel')}</label>
-        <select onChange={e => setLanguage(e.target.value)} value={language}>
-          <option value="en">{t('english')}</option>
-          <option value="nl">{t('dutch')}</option>
-          <option value="fr">{t('french')}</option>
-          <option value="de">{t('german')}</option>
-          <option value="es">{t('spanish')}</option>
-          {/* Add more languages as needed */}
-        </select>
-      </div>
-      <div className="mb-2">
-        <label>{t('voiceLabel')}</label>
-        <select onChange={e => setVoiceId(e.target.value)} value={voiceId}>
-          {voices.map((voice, index) => (
-            <option key={voice.voice_id || index} value={voice.voice_id}>{voice.name}</option>
-          ))}
-        </select>
-      </div>
-      <button onClick={generate} className="bg-blue-600 text-white px-4 py-2 rounded" disabled={isLoading}>
-        {isLoading ? t('generating') : t('generateButton')}
-      </button>
-    </>
+      
+      <form className={styles.form} onSubmit={(e) => { e.preventDefault(); generate(); }}>
+        <FormField label={t('textLabel')} required>
+          <Input
+            type="textarea"
+            rows={5}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={t('textPlaceholder')}
+          />
+        </FormField>
+        
+        <div className={styles.formRow}>
+          <FormField label={t('backgroundLabel')}>
+            <Select
+              value={background}
+              onChange={(e) => setBackground(e.target.value)}
+              options={backgroundOptions}
+            />
+          </FormField>
+          
+          <FormField label={t('languageLabel')}>
+            <Select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              options={languageOptions}
+            />
+          </FormField>
+        </div>
+        
+        <FormField label={t('voiceLabel')}>
+          <Select
+            value={voiceId}
+            onChange={(e) => setVoiceId(e.target.value)}
+            options={voiceOptions}
+          />
+        </FormField>
+        
+        <Button
+          type="submit"
+          disabled={isLoading}
+          size="large"
+          className={styles.generateButton}
+        >
+          {isLoading ? t('generating') : t('generateButton')}
+        </Button>
+        
+        {isLoading && (
+          <LoadingSpinner 
+            text={t('generatingText')}
+            className={styles.loading}
+          />
+        )}
+      </form>
+    </Card>
   );
 };
 
