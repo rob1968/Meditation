@@ -14,11 +14,33 @@ const MeditationForm = ({ text, setText, background, setBackground, voiceId, set
     { type: 'energy', icon: '⚡', label: t('energyMeditation') }
   ];
   
-  const backgroundOptions = [
-    { value: 'rain', label: `🌧️ ${t('rain')}` },
-    { value: 'ocean', label: `🌊 ${t('ocean')}` },
-    { value: 'forest', label: `🌲 ${t('forest')}` }
-  ];
+  // Intelligente achtergrond suggesties per meditatie type
+  const getBackgroundOptionsForType = (type) => {
+    const allOptions = [
+      { value: 'rain', label: `🌧️ ${t('rain')}`, types: ['sleep', 'stress', 'anxiety'] },
+      { value: 'ocean', label: `🌊 ${t('ocean')}`, types: ['sleep', 'focus', 'anxiety'] },
+      { value: 'forest', label: `🌲 ${t('forest')}`, types: ['stress', 'focus', 'energy'] },
+      // Nieuwe opties (als je deze bestanden toevoegt)
+      { value: 'white-noise', label: `🔇 White Noise`, types: ['sleep', 'focus'] },
+      { value: 'wind-chimes', label: `🎐 Wind Chimes`, types: ['stress', 'anxiety'] },
+      { value: 'singing-bowls', label: `🎵 Singing Bowls`, types: ['focus', 'anxiety'] },
+      { value: 'heartbeat', label: `💓 Heartbeat`, types: ['anxiety'] },
+      { value: 'birds', label: `🐦 Birds`, types: ['energy', 'focus'] },
+      { value: 'stream', label: `🏞️ Stream`, types: ['stress', 'focus'] }
+    ];
+    
+    // Filter opties voor huidig meditatie type, of toon alle als geen match
+    const filteredOptions = allOptions.filter(option => 
+      option.types.includes(type) || 
+      ['rain', 'ocean', 'forest'].includes(option.value) // Behoud originele opties
+    );
+    
+    return filteredOptions.length > 0 ? filteredOptions : allOptions.filter(option => 
+      ['rain', 'ocean', 'forest'].includes(option.value)
+    );
+  };
+  
+  const backgroundOptions = getBackgroundOptionsForType(meditationType);
   
   
   const voiceOptions = voices.map(voice => ({

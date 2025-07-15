@@ -85,9 +85,10 @@ router.post('/', async (req, res) => {
 
     const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
     const ffmpeg = spawn(ffmpegPath, [
+      '-y', // Automatically overwrite output files without asking
       '-i', speechPath,
       '-i', backgroundPath,
-      '-filter_complex', '[0:a]atempo=0.75[a0];[1:a]volume=0.10[a1];[a0][a1]amix=inputs=2:duration=first:dropout_transition=3',
+      '-filter_complex', '[1:a]volume=0.10[a1];[0:a][a1]amix=inputs=2:duration=first:dropout_transition=3',
       '-c:a', 'libmp3lame',
       '-q:a', '4',
       outputPath
