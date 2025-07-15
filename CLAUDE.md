@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 This is a full-stack meditation audio generation application that:
-- Takes user text input for meditation content
+- Generates unique AI-powered meditation texts using OpenAI API
+- Supports 5 meditation types (sleep, stress, focus, anxiety, energy)
 - Converts text to speech using Eleven Labs API
 - Mixes speech with background nature sounds (ocean, forest, rain)
 - Processes audio to slow down speech for a meditative effect
@@ -15,9 +16,10 @@ This is a full-stack meditation audio generation application that:
 
 ### Backend (Node.js/Express)
 - **Server**: `/backend/server.js` - Express server on port 5002
-- **Routes**: `/backend/routes/meditation.js` - Handles audio generation
+- **Routes**: `/backend/routes/meditation.js` - Handles audio generation and AI text generation
 - **Database**: MongoDB via Mongoose (connection string in .env)
 - **Audio Processing**: Uses FFmpeg for slowing speech and mixing audio
+- **AI Text Generation**: Uses OpenAI API to generate unique meditation scripts
 - **Logging**: Access logs to `backend/access.log`, errors to `routes/error.log`
 
 ### Frontend (React)
@@ -57,6 +59,7 @@ cd frontend && npm install && npm start   # Frontend only
 
 ### Environment Variables (backend/.env)
 - `ELEVEN_LABS_API_KEY`: API key for text-to-speech
+- `OPENAI_API_KEY`: OpenAI API key for AI text generation
 - `MONGODB_URI`: MongoDB connection string
 - `PORT`: Server port (defaults to 5002)
 
@@ -76,5 +79,17 @@ cd frontend && npm install && npm start   # Frontend only
 4. **No Tests**: Currently no test suite exists. Consider adding tests when implementing new features.
 
 5. **Audio Processing Flow**:
-   - User text → Eleven Labs TTS → Slow down audio with FFmpeg
+   - User selects meditation type and duration → AI generates unique text via OpenAI API
+   - Generated text → Eleven Labs TTS → Slow down audio with FFmpeg
    - Mix slowed speech with background sound → Return final audio file
+
+6. **AI Text Generation**: Each meditation type (sleep, stress, focus, anxiety, energy) generates completely unique content every time, customized for the specified duration and language.
+
+7. **Professional Meditation Coach Features**:
+   - **Expert Coach Persona**: AI generates content as an experienced meditation coach (20+ years experience)
+   - **Extended Pauses**: "..." for breathing space, "......" for deep reflection between sections
+   - **Slower Audio**: Speech slowed to 0.75x speed for professional meditation tempo
+   - **Enhanced Voice Settings**: Stability 0.65, Style 0.2 for calm, consistent meditation voice
+   - **Sentence-Level Pacing**: Extra pauses added after each sentence for natural flow
+   - **Professional Language**: Warm, nurturing guidance with specialized meditation terminology
+   - **Automatic Fallback**: Local templates also follow professional coach style with integrated pauses

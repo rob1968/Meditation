@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Input, Select, Card, FormField, LoadingSpinner } from './ui';
 import styles from './MeditationForm.module.css';
 
-const MeditationForm = ({ text, setText, background, setBackground, language, setLanguage, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType, duration, handleDurationChange }) => {
+const MeditationForm = ({ text, setText, background, setBackground, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType, duration, handleDurationChange }) => {
   const { t } = useTranslation();
   
   const meditationTypes = [
@@ -20,13 +20,6 @@ const MeditationForm = ({ text, setText, background, setBackground, language, se
     { value: 'forest', label: `🌲 ${t('forest')}` }
   ];
   
-  const languageOptions = [
-    { value: 'nl', label: `🇳🇱 ${t('dutch')}` },
-    { value: 'en', label: `🇺🇸 ${t('english')}` },
-    { value: 'de', label: `🇩🇪 ${t('german')}` },
-    { value: 'es', label: `🇪🇸 ${t('spanish')}` },
-    { value: 'fr', label: `🇫🇷 ${t('french')}` }
-  ];
   
   const voiceOptions = voices.map(voice => ({
     value: voice.voice_id,
@@ -77,23 +70,13 @@ const MeditationForm = ({ text, setText, background, setBackground, language, se
           </div>
         </FormField>
         
-        <div className={styles.formRow}>
-          <FormField label={t('backgroundLabel')}>
-            <Select
-              value={background}
-              onChange={(e) => setBackground(e.target.value)}
-              options={backgroundOptions}
-            />
-          </FormField>
-          
-          <FormField label={t('languageLabel')}>
-            <Select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              options={languageOptions}
-            />
-          </FormField>
-        </div>
+        <FormField label={t('backgroundLabel')}>
+          <Select
+            value={background}
+            onChange={(e) => setBackground(e.target.value)}
+            options={backgroundOptions}
+          />
+        </FormField>
         
         <FormField label={t('textLabel')} required>
           <Input
