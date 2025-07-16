@@ -122,15 +122,16 @@ const App = () => {
     }
   };
 
+  const fetchVoices = async () => {
+    try {
+      const res = await axios.get('http://localhost:5002/api/meditation/voices');
+      setVoices(res.data);
+    } catch (error) {
+      console.error("Error fetching voices:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchVoices = async () => {
-      try {
-        const res = await axios.get('http://localhost:5002/api/meditation/voices');
-        setVoices(res.data);
-      } catch (error) {
-        console.error("Error fetching voices:", error);
-      }
-    };
     fetchVoices();
   }, []);
 
