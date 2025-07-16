@@ -88,25 +88,20 @@ router.post('/', async (req, res) => {
       '-i', speechPath,
       '-i', backgroundPath,
       '-filter_complex', 
-      // Create 10 second intro with louder background music (0.4 volume)
-      '[1:a]atrim=0:10,volume=0.4[intro];' +
-      // Slow down speech even more for deeper meditative pace
-      '[0:a]atempo=0.7,atempo=0.75[speech_slow];' +
-      // Create background music for during speech (0.1 volume)
-      '[1:a]volume=0.1[bg_low];' +
-      // Add 10 second delay to speech
-      '[speech_slow]adelay=10000|10000[speech_delayed];' +
-      // Use sidechain compression to make background react to speech
-      // When speech is present, background ducks down; when silent, it rises
-      '[bg_low][speech_delayed]sidechaincompress=threshold=0.05:ratio=5:attack=50:release=500:makeup=2[bg_dynamic];' +
-      // Mix intro with silent padding for first 10 seconds
+      // Slow down speech for meditative pace (slightly faster now)
+      '[0:a]atempo=0.85[speech_slow];' +
+      // Add 10 second delay to speech and add 25 seconds outro padding
+      '[speech_slow]adelay=10000|10000,apad=pad_dur=25[speech_delayed];' +
+      // Create intro: first 10 seconds of background music with fade-in (0.25 volume)
+      '[1:a]atrim=0:10,volume=0.25,afade=t=in:d=3[intro];' +
+      // Create background music for during speech (0.05 volume - much softer)
+      '[1:a]volume=0.05,apad=pad_dur=60[bg_soft];' +
+      // Pad intro to exactly 10 seconds
       '[intro]apad=whole_dur=10[intro_padded];' +
-      // Create fade effect: crossfade from intro to dynamic background when speech starts
-      '[intro_padded][bg_dynamic]acrossfade=d=2:c1=tri:c2=tri[bg_faded];' +
-      // Add 25 seconds of silence to the end of speech for extended outro
-      '[speech_delayed]apad=pad_dur=25[speech_with_outro];' +
-      // Mix speech with outro and faded background
-      '[speech_with_outro][bg_faded]amix=inputs=2:duration=first:dropout_transition=3',
+      // Concatenate intro with soft background
+      '[intro_padded][bg_soft]concat=n=2:v=0:a=1[bg_full];' +
+      // Mix speech with background
+      '[speech_delayed][bg_full]amix=inputs=2:duration=first:weights=1 0.8',
       '-c:a', 'libmp3lame',
       '-q:a', '4',
       outputPath
