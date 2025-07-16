@@ -7,6 +7,8 @@
   "languageLabel": "Language",
   "voiceLabel": "Voice",
   "uiLanguage": "UI Language",
+  "audioLanguageLabel": "Audio Language",
+  "languagesSelected": "languages selected",
   "generateButton": "Generate Meditation",
   "generating": "Generating...",
   "generatingText": "Your meditation is being generated...",
@@ -34,5 +36,9 @@
   "energyMeditation": "Energy",
   "duration": "Duration",
   "minutes": "minutes",
-  "min": "min"
+  "min": "min",
+  "textPreview": "Text Preview",
+  "previewText": "Preview Text",
+  "generateAudio": "Generate Audio",
+  "editText": "Edit Text"
 }

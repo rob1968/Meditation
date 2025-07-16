@@ -8,6 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const meditationRoute = require('./routes/meditation');
+const authRoute = require('./routes/auth');
 const app = express();
 
 // Create a write stream (in append mode) for logging
@@ -18,7 +19,11 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from assets/meditations
+app.use('/assets/meditations', express.static(path.join(__dirname, '../assets/meditations')));
 app.use('/api/meditation', meditationRoute);
+app.use('/api/auth', authRoute);
 
 // Add a route for fetching voices
 app.use('/api/voices', meditationRoute);

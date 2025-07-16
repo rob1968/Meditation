@@ -7,6 +7,8 @@
   "languageLabel": "Taal",
   "voiceLabel": "Stem",
   "uiLanguage": "Interface Taal",
+  "audioLanguageLabel": "Audio Taal",
+  "languagesSelected": "talen geselecteerd",
   "generateButton": "Genereer Meditatie",
   "generating": "Genereren...",
   "generatingText": "Je meditatie wordt gegenereerd...",
@@ -34,5 +36,9 @@
   "energyMeditation": "Energie",
   "duration": "Duur",
   "minutes": "minuten",
-  "min": "min"
+  "min": "min",
+  "textPreview": "Tekst Voorbeeld",
+  "previewText": "Bekijk Tekst",
+  "generateAudio": "Genereer Audio",
+  "editText": "Bewerk Tekst"
 }

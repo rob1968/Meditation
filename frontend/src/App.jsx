@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import './i18n';
 import './styles/globals.css';
+import Auth from './components/Auth';
+import BottomNavigation from './components/BottomNavigation';
+import MyAudio from './components/MyAudio';
+import Profile from './components/Profile';
 
 const App = () => {
   const [text, setText] = useState("");
   const [meditationType, setMeditationType] = useState("sleep");
-  const [duration, setDuration] = useState(5); // Duration in minutes
+  const [duration, setDuration] = useState(5); // Duration in minutes (3, 5, 10, or 15)
   const [background, setBackground] = useState("ocean");
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
   const [voices, setVoices] = useState([]);
@@ -19,8 +23,18 @@ const App = () => {
   const [languageOpen, setLanguageOpen] = useState(false);
   const [backgroundOpen, setBackgroundOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
-
+  
   const { t, i18n } = useTranslation();
+  
+  // Use UI language only for audio generation
+  const [generatedText, setGeneratedText] = useState('');
+  const [showTextPreview, setShowTextPreview] = useState(false);
+  const [audioFiles, setAudioFiles] = useState([]);
+  const [generationProgress, setGenerationProgress] = useState([]);
+  
+  // User authentication state
+  const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState('create');
 
 
   const generateAIMeditationText = async (type, duration, currentLanguage) => {
@@ -39,87 +53,95 @@ const App = () => {
     }
   };
 
-  const generateRandomMeditationText = (type, duration, currentLanguage) => {
-    // Use AI generation instead of fixed templates
-    return generateAIMeditationText(type, duration, currentLanguage);
-  };
-
-  const selectMeditationType = async (type) => {
-    setMeditationType(type);
-    setIsLoading(true);
+  const generateTextPreview = async () => {
     try {
-      const newText = await generateRandomMeditationText(type, duration, i18n.language);
-      setText(newText);
+      const generated = await generateAIMeditationText(meditationType, duration, i18n.language);
+      setGeneratedText(generated);
+      setText(generated);
+      setError('');
     } catch (error) {
-      console.error('Error generating meditation text:', error);
-      setText(`Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.`);
-    } finally {
-      setIsLoading(false);
+      console.error('Error generating text preview:', error);
+      setError(error.response?.data?.error || 'Failed to generate meditation text. Please check your OpenAI API configuration.');
+      setText('');
+      setGeneratedText('');
     }
   };
 
-  const handleDurationChange = async (newDuration) => {
+  const selectMeditationType = (type) => {
+    setMeditationType(type);
+  };
+
+  const handleDurationChange = (newDuration) => {
     setDuration(newDuration);
-    if (text) {
-      setIsLoading(true);
-      try {
-        // Regenerate text with new duration
-        const newText = await generateRandomMeditationText(meditationType, newDuration, i18n.language);
-        setText(newText);
-      } catch (error) {
-        console.error('Error generating meditation text:', error);
-        setText(`Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.`);
-      } finally {
-        setIsLoading(false);
-      }
-    }
   };
 
-  // Initialize with a random sleep meditation on first load
+  // Clear text when meditation type or duration changes
   useEffect(() => {
-    if (!text) {
-      selectMeditationType('sleep');
-    }
-  }, [text]);
+    setText('');
+    setGeneratedText('');
+    setShowTextPreview(false);
+  }, [meditationType, duration, i18n.language]);
 
-  // Update text when UI language changes
+  // Check for existing user session on app start
   useEffect(() => {
-    if (text && meditationType) {
-      const updateText = async () => {
-        setIsLoading(true);
-        try {
-          const newText = await generateRandomMeditationText(meditationType, duration, i18n.language);
-          setText(newText);
-        } catch (error) {
-          console.error('Error generating meditation text:', error);
-          setText(`Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.`);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      updateText();
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
-  }, [i18n.language]);
+  }, []);
 
-  const generate = async () => {
+  const handleLogin = (userData) => {
+    setUser(userData);
+    setActiveTab('create');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    setActiveTab('create');
+  };
+
+  const generateAudio = async () => {
     setIsLoading(true);
     setError("");
+    setAudioFiles([]);
+    
     try {
       const res = await axios.post('http://localhost:5002/api/meditation', {
-        text,
+        text: text,
         background,
         language: i18n.language,
-        voiceId
+        audioLanguage: i18n.language,
+        voiceId,
+        meditationType,
+        duration,
+        userId: user?.id
       }, { responseType: 'blob' });
 
       const url = window.URL.createObjectURL(new Blob([res.data]));
       setAudioUrl(url);
+      setAudioFiles([{
+        language: i18n.language,
+        url: url,
+        label: audioLanguages.find(lang => lang.value === i18n.language)?.label || i18n.language
+      }]);
     } catch (error) {
       console.error("Error generating meditation:", error);
       setError(t('errorGenerating') || "Failed to generate meditation. Please try again.");
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleGenerateClick = () => {
+    generateTextPreview().then(() => {
+      setShowTextPreview(true);
+    });
+  };
+
+  const handleTextApproved = () => {
+    setShowTextPreview(false);
+    generateAudio();
   };
 
   const fetchVoices = async () => {
@@ -165,6 +187,22 @@ const App = () => {
     { value: 'it', label: '🇮🇹 Italiano' },
   ];
 
+  const audioLanguages = [
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'Español' },
+    { value: 'fr', label: 'Français' },
+    { value: 'de', label: 'Deutsch' },
+    { value: 'nl', label: 'Nederlands' },
+    { value: 'zh', label: '中文' },
+    { value: 'hi', label: 'हिन्दी' },
+    { value: 'ar', label: 'العربية' },
+    { value: 'pt', label: 'Português' },
+    { value: 'ru', label: 'Русский' },
+    { value: 'ja', label: '日本語' },
+    { value: 'ko', label: '한국어' },
+    { value: 'it', label: 'Italiano' },
+  ];
+
   const meditationTypes = [
     { type: 'sleep', icon: '🌙', label: t('sleepMeditation') },
     { type: 'stress', icon: '😌', label: t('stressMeditation') },
@@ -185,37 +223,49 @@ const App = () => {
     { value: 'stream', label: '🏞️ ' + t('stream') }
   ];
 
-  return (
-    <div className="container">
-      <div className="header">
-        <div className="language-selector">
-          <div className="custom-select">
-            <div className="select-button language-btn" onClick={() => setLanguageOpen(!languageOpen)}>
-              <span>{uiLanguages.find(lang => lang.value === i18n.language)?.label || 'Language'}</span>
-              <span>▼</span>
-            </div>
-            {languageOpen && (
-              <div className="select-options open">
-                {uiLanguages.map(language => (
-                  <div 
-                    key={language.value}
-                    className="select-option" 
-                    onClick={() => {
-                      i18n.changeLanguage(language.value);
-                      setLanguageOpen(false);
-                    }}
-                  >
-                    {language.label}
+  // Show auth screen if no user is logged in
+  if (!user) {
+    return <Auth onLogin={handleLogin} />;
+  }
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'myAudio':
+        return <MyAudio user={user} />;
+      case 'profile':
+        return <Profile user={user} onLogout={handleLogout} />;
+      default:
+        return (
+          <div className="create-content">
+            <div className="header">
+              <div className="language-selector">
+                <div className="custom-select">
+                  <div className="select-button language-btn" onClick={() => setLanguageOpen(!languageOpen)}>
+                    <span>{uiLanguages.find(lang => lang.value === i18n.language)?.label || 'Language'}</span>
+                    <span>▼</span>
                   </div>
-                ))}
+                  {languageOpen && (
+                    <div className="select-options open">
+                      {uiLanguages.map(language => (
+                        <div 
+                          key={language.value}
+                          className="select-option" 
+                          onClick={() => {
+                            i18n.changeLanguage(language.value);
+                            setLanguageOpen(false);
+                          }}
+                        >
+                          {language.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-        </div>
-        <div className="icon">🧘</div>
-        <h1 className="title">{t('title')}</h1>
-        <p className="subtitle">{t('subtitle')}</p>
-      </div>
+              <div className="icon">🧘</div>
+              <h1 className="title">{t('title')}</h1>
+              <p className="subtitle">{t('subtitle')}</p>
+            </div>
 
       <div className="section">
         <h2 className="section-title">🎯 {t('meditationType')}</h2>
@@ -235,33 +285,17 @@ const App = () => {
 
       <div className="section">
         <h2 className="section-title">⏰ {t('duration')}</h2>
-        <div className="duration-container">
-          <div className="duration-display">
-            <div className="duration-value">{duration}</div>
-            <div className="duration-label">{t('minutes')}</div>
-          </div>
-          <div className="slider-container">
-            <div className="slider-track" style={{width: `${((duration - 1) / 19) * 100}%`}}></div>
-            <input 
-              type="range" 
-              min="1" 
-              max="20" 
-              value={duration} 
-              className="slider"
-              onChange={(e) => handleDurationChange(parseInt(e.target.value))}
-            />
-          </div>
-          <div className="quick-times">
-            {[3, 5, 10, 15, 20].map(time => (
-              <div 
-                key={time}
-                className={`quick-time ${duration === time ? 'active' : ''}`}
-                onClick={() => handleDurationChange(time)}
-              >
-                {time} {t('min')}
-              </div>
-            ))}
-          </div>
+        <div className="duration-buttons">
+          {[3, 5, 10, 15].map(time => (
+            <div 
+              key={time}
+              className={`duration-button ${duration === time ? 'active' : ''}`}
+              onClick={() => handleDurationChange(time)}
+            >
+              <div className="duration-time">{time}</div>
+              <div className="duration-unit">{t('min')}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -297,7 +331,7 @@ const App = () => {
           className="text-area"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder={t('textPlaceholder')}
+          placeholder={t('textPlaceholder') || 'Meditation text will be generated when you click Generate...'}
         />
       </div>
 
@@ -327,20 +361,43 @@ const App = () => {
         </div>
       </div>
 
-      <button 
-        className="generate-btn"
-        onClick={generate}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-            {t('generating')}
+
+      {showTextPreview ? (
+        <div className="text-preview-section">
+          <h3 className="section-title">✏️ {t('textPreview', 'Text Preview')}</h3>
+          <div className="preview-buttons">
+            <button 
+              className="approve-btn"
+              onClick={handleTextApproved}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="loading-spinner">
+                  <div className="spinner"></div>
+                  {t('generating')}
+                </div>
+              ) : (
+                t('generateAudio', 'Generate Audio')
+              )}
+            </button>
+            <button 
+              className="edit-btn"
+              onClick={() => setShowTextPreview(false)}
+            >
+              {t('editText', 'Edit Text')}
+            </button>
           </div>
-        ) : (
-          t('generateButton')
-        )}
-      </button>
+        </div>
+      ) : (
+        <button 
+          className="generate-btn"
+          onClick={handleGenerateClick}
+          disabled={isLoading}
+        >
+          {t('previewText', 'Preview Text')}
+        </button>
+      )}
+
 
       {error && (
         <div className="error-message">
@@ -351,12 +408,28 @@ const App = () => {
       {audioUrl && (
         <div className="player-section">
           <div className="player-title">{t('audioTitle')}</div>
-          <audio controls style={{width: '100%', marginTop: '16px'}}>
+          <audio controls style={{width: '100%'}}>
             <source src={audioUrl} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>
       )}
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="app-container">
+      <div className="main-content">
+        {renderContent()}
+      </div>
+      <BottomNavigation 
+        activeTab={activeTab} 
+        onTabChange={setActiveTab}
+        user={user}
+        onLogout={handleLogout}
+      />
     </div>
   );
 };

@@ -59,7 +59,7 @@ cd frontend && npm install && npm start   # Frontend only
 
 ### Environment Variables (backend/.env)
 - `ELEVEN_LABS_API_KEY`: API key for text-to-speech
-- `OPENAI_API_KEY`: OpenAI API key for AI text generation
+- `ANTHROPIC_API_KEY`: Claude API key for AI text generation (replaces OpenAI)
 - `MONGODB_URI`: MongoDB connection string
 - `PORT`: Server port (defaults to 5002)
 
@@ -79,11 +79,11 @@ cd frontend && npm install && npm start   # Frontend only
 4. **No Tests**: Currently no test suite exists. Consider adding tests when implementing new features.
 
 5. **Audio Processing Flow**:
-   - User selects meditation type and duration → AI generates unique text via OpenAI API
+   - User selects meditation type and duration → AI generates unique text via Claude API
    - Generated text → Eleven Labs TTS → Slow down audio with FFmpeg
    - Mix slowed speech with background sound → Return final audio file
 
-6. **AI Text Generation**: Each meditation type (sleep, stress, focus, anxiety, energy) generates completely unique content every time, customized for the specified duration and language.
+6. **AI Text Generation**: Each meditation type (sleep, stress, focus, anxiety, energy) generates completely unique content every time, customized for the specified duration and language using Claude 3.5 Sonnet.
 
 7. **Professional Meditation Coach Features**:
    - **Expert Coach Persona**: AI generates content as an experienced meditation coach (20+ years experience)
