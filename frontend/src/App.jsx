@@ -11,7 +11,6 @@ import Profile from './components/Profile';
 const App = () => {
   const [text, setText] = useState("");
   const [meditationType, setMeditationType] = useState("sleep");
-  const [duration, setDuration] = useState(5); // Duration in minutes (3, 5, 10, or 15)
   const [background, setBackground] = useState("ocean");
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
   const [voices, setVoices] = useState([]);
@@ -37,11 +36,10 @@ const App = () => {
   const [activeTab, setActiveTab] = useState('create');
 
 
-  const generateAIMeditationText = async (type, duration, currentLanguage) => {
+  const generateAIMeditationText = async (type, currentLanguage) => {
     try {
       const response = await axios.post('http://localhost:5002/api/meditation/generate-text', {
         type,
-        duration,
         language: currentLanguage
       });
       
@@ -55,13 +53,13 @@ const App = () => {
 
   const generateTextPreview = async () => {
     try {
-      const generated = await generateAIMeditationText(meditationType, duration, i18n.language);
+      const generated = await generateAIMeditationText(meditationType, i18n.language);
       setGeneratedText(generated);
       setText(generated);
       setError('');
     } catch (error) {
       console.error('Error generating text preview:', error);
-      setError(error.response?.data?.error || 'Failed to generate meditation text. Please check your OpenAI API configuration.');
+      setError(error.response?.data?.error || 'Failed to generate meditation text. Please check your Claude API configuration.');
       setText('');
       setGeneratedText('');
     }
@@ -71,16 +69,12 @@ const App = () => {
     setMeditationType(type);
   };
 
-  const handleDurationChange = (newDuration) => {
-    setDuration(newDuration);
-  };
-
-  // Clear text when meditation type or duration changes
+  // Clear text when meditation type changes
   useEffect(() => {
     setText('');
     setGeneratedText('');
     setShowTextPreview(false);
-  }, [meditationType, duration, i18n.language]);
+  }, [meditationType, i18n.language]);
 
   // Check for existing user session on app start
   useEffect(() => {
@@ -114,7 +108,6 @@ const App = () => {
         audioLanguage: i18n.language,
         voiceId,
         meditationType,
-        duration,
         userId: user?.id
       }, { responseType: 'blob' });
 
@@ -283,21 +276,6 @@ const App = () => {
         </div>
       </div>
 
-      <div className="section">
-        <h2 className="section-title">⏰ {t('duration')}</h2>
-        <div className="duration-buttons">
-          {[3, 5, 10, 15].map(time => (
-            <div 
-              key={time}
-              className={`duration-button ${duration === time ? 'active' : ''}`}
-              onClick={() => handleDurationChange(time)}
-            >
-              <div className="duration-time">{time}</div>
-              <div className="duration-unit">{t('min')}</div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       <div className="section">
         <h2 className="section-title">🎵 {t('backgroundLabel')}</h2>
