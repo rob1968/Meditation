@@ -11,7 +11,11 @@
       "Bash(git config:*)",
       "Bash(mkdir:*)",
       "Bash(ffmpeg:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "Bash(awk:*)",
+      "Bash(sed:*)",
+      "Bash(node:*)"
     ],
     "deny": []
   }

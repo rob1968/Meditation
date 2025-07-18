@@ -276,6 +276,42 @@ body {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+.text-area-container {
+    position: relative;
+    width: 100%;
+}
+
+.text-area-loading {
+    width: 100%;
+    min-height: 120px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 16px;
+    color: #667eea;
+}
+
+.text-area-loading .loading-spinner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-direction: column;
+}
+
+.text-area-loading .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #e2e8f0;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
 .generate-btn {
     width: 100%;
     background: linear-gradient(45deg, #667eea, #764ba2);
@@ -385,22 +421,26 @@ body {
 }
 
 .play-button {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     background: rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.play-button:hover {
+.play-button:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
+}
+
+.play-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .play-icon {
@@ -427,6 +467,38 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.generation-status {
+    background: rgba(102, 126, 234, 0.1);
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.generation-status .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #667eea;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.generation-status .spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
 .error-message {
@@ -478,6 +550,47 @@ body {
     .language-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    /* Mobile-responsive meditation cards */
+    .meditation-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .meditation-thumbnail {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+    }
+
+    .meditation-details {
+        order: 2;
+    }
+
+    .meditation-controls {
+        order: 1;
+        margin-bottom: 12px;
+    }
+
+    .play-button {
+        width: 48px;
+        height: 48px;
+    }
+
+    .play-icon {
+        font-size: 20px;
+    }
+
+    .meditation-text {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .my-audio-container {
+        padding: 16px;
     }
 }
 
@@ -740,8 +853,57 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 20px;
+  overflow: hidden;
   color: white;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  min-height: 120px;
+}
+
+.meditation-thumbnail {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.meditation-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meditation-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.meditation-controls {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.play-icon {
+  font-size: 24px;
+  color: white;
+  margin-left: 3px; /* Slight adjustment for visual centering */
+}
+
+.audio-files-hidden {
+  display: none;
+}
+
+.audio-info-minimal {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .meditation-header {

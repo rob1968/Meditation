@@ -26,6 +26,11 @@
   "focusMeditation": "Concentration",
   "anxietyMeditation": "Anxiété",
   "energyMeditation": "Énergie",
+  "mindfulnessMeditation": "Pleine Conscience",
+  "compassionMeditation": "Compassion",
+  "walkingMeditation": "Marche",
+  "breathingMeditation": "Respiration",
+  "morningMeditation": "Matin",
   "duration": "Durée",
   "minutes": "minutes",
   "min": "min"

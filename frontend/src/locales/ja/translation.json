@@ -34,6 +34,11 @@
   "focusMeditation": "集中",
   "anxietyMeditation": "不安",
   "energyMeditation": "エネルギー",
+  "mindfulnessMeditation": "マインドフルネス",
+  "compassionMeditation": "慈悲",
+  "walkingMeditation": "歩行瞑想",
+  "breathingMeditation": "呼吸",
+  "morningMeditation": "朝の瞑想",
   "duration": "時間",
   "minutes": "分",
   "min": "分"

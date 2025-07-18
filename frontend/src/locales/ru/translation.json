@@ -34,6 +34,11 @@
   "focusMeditation": "Фокус",
   "anxietyMeditation": "Тревога",
   "energyMeditation": "Энергия",
+  "mindfulnessMeditation": "Осознанность",
+  "compassionMeditation": "Сострадание",
+  "walkingMeditation": "Медитация при ходьбе",
+  "breathingMeditation": "Дыхание",
+  "morningMeditation": "Утро",
   "duration": "Длительность",
   "minutes": "минут",
   "min": "мин"

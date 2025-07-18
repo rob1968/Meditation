@@ -22,6 +22,8 @@ app.use(express.json());
 
 // Serve static files from assets/meditations
 app.use('/assets/meditations', express.static(path.join(__dirname, '../assets/meditations')));
+// Serve static files from assets/images
+app.use('/assets/images', express.static(path.join(__dirname, '../assets/images')));
 app.use('/api/meditation', meditationRoute);
 app.use('/api/auth', authRoute);
 

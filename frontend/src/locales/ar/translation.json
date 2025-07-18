@@ -34,6 +34,11 @@
   "focusMeditation": "التركيز",
   "anxietyMeditation": "القلق",
   "energyMeditation": "الطاقة",
+  "mindfulnessMeditation": "اليقظة الذهنية",
+  "compassionMeditation": "الرحمة",
+  "walkingMeditation": "المشي",
+  "breathingMeditation": "التنفس",
+  "morningMeditation": "الصباح",
   "duration": "المدة",
   "minutes": "دقائق",
   "min": "د"

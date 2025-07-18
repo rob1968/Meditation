@@ -16,6 +16,7 @@ const App = () => {
   const [voices, setVoices] = useState([]);
   const [audioUrl, setAudioUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGeneratingText, setIsGeneratingText] = useState(false);
   const [error, setError] = useState("");
   
   // Dropdown states
@@ -52,7 +53,12 @@ const App = () => {
   };
 
   const generateTextPreview = async () => {
+    console.log('Starting text generation...');
+    setIsGeneratingText(true);
+    setError('');
     try {
+      // Add a small delay to ensure spinner is visible (templates are very fast)
+      await new Promise(resolve => setTimeout(resolve, 500));
       const generated = await generateAIMeditationText(meditationType, i18n.language);
       setGeneratedText(generated);
       setText(generated);
@@ -62,6 +68,9 @@ const App = () => {
       setError(error.response?.data?.error || 'Failed to generate meditation text. Please check your Claude API configuration.');
       setText('');
       setGeneratedText('');
+    } finally {
+      console.log('Text generation finished');
+      setIsGeneratingText(false);
     }
   };
 
@@ -76,11 +85,17 @@ const App = () => {
     setShowTextPreview(false);
   }, [meditationType, i18n.language]);
 
-  // Check for existing user session on app start
+  // Check for existing user session and language preference on app start
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    }
+    
+    // Load saved language preference
+    const savedLanguage = localStorage.getItem('selectedLanguage');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
     }
   }, []);
 
@@ -93,12 +108,19 @@ const App = () => {
     localStorage.removeItem('user');
     setUser(null);
     setActiveTab('create');
+    // Note: We keep the language preference even after logout
+  };
+
+  const handleLanguageChange = (languageCode) => {
+    i18n.changeLanguage(languageCode);
+    localStorage.setItem('selectedLanguage', languageCode);
   };
 
   const generateAudio = async () => {
     setIsLoading(true);
     setError("");
     setAudioFiles([]);
+    setActiveTab('myAudio'); // Switch to My Audio tab when generation starts
     
     try {
       const res = await axios.post('http://localhost:5002/api/meditation', {
@@ -118,6 +140,14 @@ const App = () => {
         url: url,
         label: audioLanguages.find(lang => lang.value === i18n.language)?.label || i18n.language
       }]);
+      
+      // Clear the form after successful generation
+      setText("");
+      setGeneratedText("");
+      setShowTextPreview(false);
+      setMeditationType("sleep");
+      setBackground("ocean");
+      setAudioUrl(""); // Clear audio URL as it's no longer needed on create page
     } catch (error) {
       console.error("Error generating meditation:", error);
       setError(t('errorGenerating') || "Failed to generate meditation. Please try again.");
@@ -126,10 +156,9 @@ const App = () => {
     }
   };
 
-  const handleGenerateClick = () => {
-    generateTextPreview().then(() => {
-      setShowTextPreview(true);
-    });
+  const handleGenerateClick = async () => {
+    setShowTextPreview(true);
+    await generateTextPreview();
   };
 
   const handleTextApproved = () => {
@@ -197,11 +226,66 @@ const App = () => {
   ];
 
   const meditationTypes = [
-    { type: 'sleep', icon: '🌙', label: t('sleepMeditation') },
-    { type: 'stress', icon: '😌', label: t('stressMeditation') },
-    { type: 'focus', icon: '🎯', label: t('focusMeditation') },
-    { type: 'anxiety', icon: '🌿', label: t('anxietyMeditation') },
-    { type: 'energy', icon: '⚡', label: t('energyMeditation') }
+    { 
+      type: 'sleep', 
+      icon: '🌙', 
+      label: t('sleepMeditation'),
+      image: 'http://localhost:5002/assets/images/sleep.jpg'
+    },
+    { 
+      type: 'stress', 
+      icon: '😌', 
+      label: t('stressMeditation'),
+      image: 'http://localhost:5002/assets/images/stress.jpg'
+    },
+    { 
+      type: 'focus', 
+      icon: '🎯', 
+      label: t('focusMeditation'),
+      image: 'http://localhost:5002/assets/images/focus.jpg'
+    },
+    { 
+      type: 'anxiety', 
+      icon: '🌿', 
+      label: t('anxietyMeditation'),
+      image: 'http://localhost:5002/assets/images/anxiety.jpg'
+    },
+    { 
+      type: 'energy', 
+      icon: '⚡', 
+      label: t('energyMeditation'),
+      image: 'http://localhost:5002/assets/images/energy.jpg'
+    },
+    { 
+      type: 'mindfulness', 
+      icon: '🧘', 
+      label: t('mindfulnessMeditation'),
+      image: 'http://localhost:5002/assets/images/mindfulness.jpg'
+    },
+    { 
+      type: 'compassion', 
+      icon: '💙', 
+      label: t('compassionMeditation'),
+      image: 'http://localhost:5002/assets/images/compassion.jpg'
+    },
+    { 
+      type: 'walking', 
+      icon: '🚶', 
+      label: t('walkingMeditation'),
+      image: 'http://localhost:5002/assets/images/walking.jpg'
+    },
+    { 
+      type: 'breathing', 
+      icon: '🫁', 
+      label: t('breathingMeditation'),
+      image: 'http://localhost:5002/assets/images/breathing.jpg'
+    },
+    { 
+      type: 'morning', 
+      icon: '🌅', 
+      label: t('morningMeditation'),
+      image: 'http://localhost:5002/assets/images/morning.jpg'
+    }
   ];
 
   const backgroundOptions = [
@@ -224,7 +308,7 @@ const App = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'myAudio':
-        return <MyAudio user={user} />;
+        return <MyAudio user={user} isGenerating={isLoading} />;
       case 'profile':
         return <Profile user={user} onLogout={handleLogout} />;
       default:
@@ -244,7 +328,7 @@ const App = () => {
                           key={language.value}
                           className="select-option" 
                           onClick={() => {
-                            i18n.changeLanguage(language.value);
+                            handleLanguageChange(language.value);
                             setLanguageOpen(false);
                           }}
                         >
@@ -255,9 +339,6 @@ const App = () => {
                   )}
                 </div>
               </div>
-              <div className="icon">🧘</div>
-              <h1 className="title">{t('title')}</h1>
-              <p className="subtitle">{t('subtitle')}</p>
             </div>
 
       <div className="section">
@@ -303,15 +384,6 @@ const App = () => {
         </div>
       </div>
 
-      <div className="section">
-        <h2 className="section-title">✨ {t('textLabel')}</h2>
-        <textarea 
-          className="text-area"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder={t('textPlaceholder') || 'Meditation text will be generated when you click Generate...'}
-        />
-      </div>
 
       <div className="section">
         <h2 className="section-title">🎤 {t('voiceLabel')}</h2>
@@ -340,56 +412,77 @@ const App = () => {
       </div>
 
 
-      {showTextPreview ? (
-        <div className="text-preview-section">
-          <h3 className="section-title">✏️ {t('textPreview', 'Text Preview')}</h3>
-          <div className="preview-buttons">
-            <button 
-              className="approve-btn"
-              onClick={handleTextApproved}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <div className="loading-spinner">
-                  <div className="spinner"></div>
-                  {t('generating')}
-                </div>
-              ) : (
-                t('generateAudio', 'Generate Audio')
-              )}
-            </button>
-            <button 
-              className="edit-btn"
-              onClick={() => setShowTextPreview(false)}
-            >
-              {t('editText', 'Edit Text')}
-            </button>
-          </div>
-        </div>
-      ) : (
+      {!showTextPreview && (
         <button 
           className="generate-btn"
           onClick={handleGenerateClick}
-          disabled={isLoading}
+          disabled={isGeneratingText || isLoading}
         >
-          {t('previewText', 'Preview Text')}
+          {isGeneratingText ? (
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+              {t('generating', 'Generating...')}
+            </div>
+          ) : (
+            t('previewText', 'Preview Text')
+          )}
         </button>
+      )}
+
+      {showTextPreview && (
+        <>
+          <div className="section">
+            <h2 className="section-title">✨ {t('textLabel')}</h2>
+            <div className="text-area-container">
+              {isGeneratingText ? (
+                <div className="text-area-loading">
+                  <div className="loading-spinner">
+                    <div className="spinner"></div>
+                    {t('generating', 'Generating meditation text...')}
+                  </div>
+                </div>
+              ) : (
+                <textarea 
+                  className="text-area"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder={t('textPlaceholder') || 'Meditation text will be generated when you click Generate...'}
+                />
+              )}
+            </div>
+          </div>
+          
+          <div className="text-preview-section">
+            <div className="preview-buttons">
+              <button 
+                className="approve-btn"
+                onClick={handleTextApproved}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="loading-spinner">
+                    <div className="spinner"></div>
+                    {t('generating')}
+                  </div>
+                ) : (
+                  t('generateAudio', 'Generate Audio')
+                )}
+              </button>
+              <button 
+                className="edit-btn"
+                onClick={() => setShowTextPreview(false)}
+              >
+                {t('editText', 'Edit Text')}
+              </button>
+            </div>
+          </div>
+        </>
       )}
 
 
       {error && (
         <div className="error-message">
           {error}
-        </div>
-      )}
-
-      {audioUrl && (
-        <div className="player-section">
-          <div className="player-title">{t('audioTitle')}</div>
-          <audio controls style={{width: '100%'}}>
-            <source src={audioUrl} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
         </div>
       )}
           </div>

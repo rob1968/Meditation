@@ -34,6 +34,11 @@
   "focusMeditation": "专注",
   "anxietyMeditation": "焦虑",
   "energyMeditation": "能量",
+  "mindfulnessMeditation": "正念",
+  "compassionMeditation": "慈悲",
+  "walkingMeditation": "行走",
+  "breathingMeditation": "呼吸",
+  "morningMeditation": "晨间",
   "duration": "持续时间",
   "minutes": "分钟",
   "min": "分"

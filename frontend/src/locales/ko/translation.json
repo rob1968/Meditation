@@ -34,6 +34,11 @@
   "focusMeditation": "집중",
   "anxietyMeditation": "불안",
   "energyMeditation": "에너지",
+  "mindfulnessMeditation": "마음챙김",
+  "compassionMeditation": "자비",
+  "walkingMeditation": "걷기명상",
+  "breathingMeditation": "호흡",
+  "morningMeditation": "아침",
   "duration": "시간",
   "minutes": "분",
   "min": "분"

@@ -241,6 +241,105 @@ const meditationTemplates = {
       
       closing: "As we complete this energizing meditation... Feel the vitality coursing through your veins... You are awake... alert... and fully charged... ... Begin to move your body however feels good... Maybe stretch your arms overhead... Roll your neck... Bounce gently on your toes... ... When you're ready, open your eyes wide... Take in the world with fresh energy... You are ready to embrace your day with enthusiasm and power... Go forth and shine your light......"
     }
+  ],
+
+  mindfulness: [
+    {
+      name: "Present Moment Awareness",
+      intro: "Welcome to this mindfulness meditation... Find a comfortable position where you can sit with alertness and ease... This practice is about cultivating awareness of the present moment... There's nowhere to go and nothing to achieve... simply be here now...",
+      
+      breathing: "Let's begin by anchoring ourselves in the breath... Notice your natural breathing rhythm... don't change it... just observe... ... Feel the air entering through your nostrils... the slight pause... and the gentle release... ... Your breath is always happening in the present moment... Use it as your anchor to the here and now... When your mind wanders... simply return to the breath... no judgment... just gentle return......",
+      
+      bodyAwareness: "Now expand your awareness to include your body... Notice how you're sitting... Feel the contact points where your body meets the surface... ... Scan through your body with gentle curiosity... What sensations are present right now?... Maybe warmth... coolness... tension... relaxation... ... Simply notice whatever is here... without trying to change anything... Your body is a gateway to presence......",
+      
+      thoughtAwareness: "As we continue... notice any thoughts that arise... Rather than getting caught up in the story... see if you can observe thoughts like clouds passing through the sky of your mind... ... Some thoughts are light and wispy... others might be heavy storm clouds... All are welcome... all will pass... ... You are not your thoughts... you are the aware space in which thoughts appear and disappear......",
+      
+      presentMoment: "Right now... in this very moment... everything is exactly as it is... There's a deep peace in accepting what's here... without resistance... ... Listen to the sounds around you... notice they're arising fresh in each moment... ... Feel the aliveness in your body... the energy of being here... now... ... This moment is the only moment that ever exists... and it's constantly renewing itself......",
+      
+      affirmations: "Let these words settle into your awareness... 'I am present'... ... 'I am here now'... ... 'This moment is enough'... ... 'I am aware and awake'... ... 'Peace is found in presence'...",
+      
+      closing: "As we conclude this practice... take a moment to appreciate that you've given yourself the gift of presence... ... Notice how you feel after spending time in mindful awareness... ... When you're ready... slowly open your eyes if they were closed... ... See if you can carry this quality of presence with you... into your next activity... and throughout your day... The present moment is always available... always waiting for your return......"
+    }
+  ],
+
+  compassion: [
+    {
+      name: "Loving-Kindness Heart Practice",
+      intro: "Welcome to this compassion meditation... Settle into a comfortable position and place one hand on your heart... We'll be cultivating loving-kindness... first for yourself... then extending it outward to others... This is a practice of opening the heart...",
+      
+      selfCompassion: "Begin by bringing yourself to mind... Imagine yourself as you are right now... See yourself with kind eyes... as you would look at a dear friend... ... Silently offer yourself these words of loving-kindness... 'May I be happy... May I be healthy... May I be at peace... May I live with ease...' ... Feel these wishes in your heart... Notice any resistance... and be gentle with that too... You deserve love... especially from yourself......",
+      
+      lovedOne: "Now bring to mind someone you love easily... a family member... a close friend... a beloved pet... See their face... feel your natural affection for them... ... Extend the same loving wishes... 'May you be happy... May you be healthy... May you be at peace... May you live with ease...' ... Feel the warmth in your heart as you send them love... Notice how good it feels to wish someone well......",
+      
+      neutral: "Now think of someone neutral... maybe a cashier you see regularly... a neighbor you barely know... someone neither friend nor enemy... ... Practice extending the same loving-kindness... 'May you be happy... May you be healthy... May you be at peace... May you live with ease...' ... This person wants to be happy just like you... They face struggles just like you... See if you can connect with their shared humanity......",
+      
+      difficult: "If you feel ready... bring to mind someone with whom you have difficulty... Start with someone mildly challenging... not the most difficult person in your life... ... This might feel hard... go slowly... 'May you be happy... May you be healthy... May you be at peace... May you live with ease...' ... Remember... their happiness doesn't take away from yours... Hurt people often hurt people... Can you find compassion for their pain?......",
+      
+      universal: "Finally... expand your awareness to include all beings everywhere... See the earth from space... all creatures... all humans... struggling and seeking happiness... ... With an open heart... offer this universal loving-kindness... 'May all beings be happy... May all beings be healthy... May all beings be at peace... May all beings live with ease...' ... Feel yourself as part of this vast web of connection... giving and receiving love......",
+      
+      closing: "Rest your hand on your heart once more... Feel the warmth there... the love you've generated... This loving-kindness lives in you always... ... Remember... true compassion includes yourself... Be gentle with yourself as you move through your day... ... When you encounter others... see if you can remember this heart connection... Everyone is doing their best with what they have... Everyone deserves love... starting with you......"
+    }
+  ],
+
+  walking: [
+    {
+      name: "Mindful Walking Practice",
+      intro: "Welcome to this walking meditation... You can do this practice anywhere... indoors in a quiet space... or outside in nature... Begin by standing still... feeling your feet on the ground... We'll transform walking into a meditation...",
+      
+      preparation: "Start by standing with your feet hip-width apart... Feel the contact between your feet and the earth... Notice your posture... spine tall but not rigid... shoulders relaxed... arms hanging naturally at your sides... ... Take a few deep breaths... arriving fully in your body... in this moment... Set the intention to walk with awareness... each step a meditation......",
+      
+      firstSteps: "Begin to lift your right foot slowly... Notice the shift of weight to your left foot... Feel the lifting... the moving... the placing of your foot... ... Take each step deliberately... about half your normal walking speed... There's no destination... no hurry... just the simple act of walking... ... Notice how your body naturally balances... coordinates... moves through space... Marvel at this everyday miracle......",
+      
+      breathAndSteps: "Now coordinate your breathing with your steps... Perhaps two steps on the inhale... two steps on the exhale... Find a rhythm that feels natural... ... If your mind wanders to your destination or your to-do list... gently bring attention back to the physical sensation of walking... The feeling of your feet touching the ground... lifting... moving forward......",
+      
+      awareness: "Expand your awareness to include your environment... If outdoors... notice the air temperature... any breeze... the sounds of nature... birds... rustling leaves... ... If indoors... be aware of the space around you... the lighting... the quality of air... ... Stay connected to the sensation of walking while taking in your surroundings... Walking as a dance between inner awareness and outer presence......",
+      
+      gratitude: "As you continue walking... bring appreciation to this amazing body... Your legs carrying you... your feet supporting you... your balance keeping you stable... ... Feel gratitude for your ability to move through the world... Not everyone has this gift... Each step is a privilege... ... Notice how walking meditation creates a moving sanctuary... peace in motion......",
+      
+      closing: "Gradually come to a stop... Stand still for a moment... Feel your feet firmly on the ground... Notice any sensations in your body from this mindful walking... ... Take a moment to appreciate that you can bring this quality of awareness to any movement... Walking to your car... up the stairs... across a room... ... Every step can be an opportunity for presence... for return to the here and now... Carry this walking awareness with you into your day......"
+    }
+  ],
+
+  breathing: [
+    {
+      name: "Complete Breath Practice",
+      intro: "Welcome to this breathing meditation... Find a comfortable position... sitting or lying down... Place one hand on your chest... one on your belly... We'll explore the full power of conscious breathing... Your breath is always available... always ready to center and calm you...",
+      
+      naturalBreath: "Begin by simply observing your natural breath... Don't change anything yet... just notice... ... Feel which hand moves more... the chest or the belly... Notice the rhythm... the depth... the pauses between inhale and exhale... ... Your breath reflects your current state... and by changing your breath... you can change how you feel... This is your superpower......",
+      
+      bellyBreathing: "Now let's practice deep belly breathing... On your next inhale... breathe down into your belly... Let the hand on your belly rise while the chest hand stays relatively still... ... Exhale slowly... feeling the belly hand lower... This is how babies breathe naturally... deep... relaxed... healing... ... Continue this pattern... Inhale into the belly... exhale completely... Each breath activating your body's relaxation response......",
+      
+      threePartBreath: "Now we'll explore the complete three-part breath... Inhale first into your belly... then expand your ribs... finally lift your chest... ... Exhale in reverse order... chest softens... ribs contract... belly draws in... ... This is like filling and emptying a balloon from bottom to top... Complete... nourishing... balancing... Take your time with each phase......",
+      
+      countedBreath: "Let's add counting to create rhythm and focus... Inhale for a count of four... one... two... three... four... Hold gently for two... one... two... Exhale for six... one... two... three... four... five... six... ... This pattern activates your parasympathetic nervous system... your rest and digest response... Continue at your own pace... adjusting the counts if needed......",
+      
+      breathAwareness: "Notice how your breathing affects your whole being... With each conscious breath... your nervous system settles... your mind clears... your body relaxes... ... Your breath is like a bridge between your conscious and unconscious mind... between your body and your spirit... ... Feel the life force... the prana... flowing in with each inhale... Stagnant energy releasing with each exhale......",
+      
+      affirmations: "With each inhale... silently say 'I am calm'... With each exhale... 'I am at peace'... ... Or choose your own words... 'Breathing in peace... breathing out tension'... 'Inhaling clarity... exhaling confusion'... ... Let your breath carry these intentions deep into every cell of your body......",
+      
+      closing: "As we complete this breathing practice... return to your natural rhythm... Notice any changes in how you feel... Perhaps more relaxed... more centered... more present... ... Remember... your breath is always with you... In moments of stress... anxiety... or overwhelm... you can return to conscious breathing... ... Take three final deep breaths... appreciating this ancient practice that's always available... Your breath is your constant companion... your pathway to peace......"
+    }
+  ],
+
+  morning: [
+    {
+      name: "Dawn Awakening Practice",
+      intro: "Welcome to this morning meditation... A beautiful way to begin your day... Sit comfortably... perhaps near a window where you can sense the morning light... We'll set a positive intention for the day ahead... awakening both body and spirit...",
+      
+      gratitude: "Begin by taking a moment to appreciate that you've awakened to a new day... A fresh start... new possibilities... ... Bring to mind three things you're grateful for right now... Maybe your comfortable bed... the roof over your head... someone you love... ... Feel that gratitude in your heart... Let it expand... This appreciation sets a positive tone for everything that follows......",
+      
+      bodyAwakening: "Now let's gently awaken your body... Roll your shoulders back... feeling your chest open to the new day... ... Stretch your arms overhead... reaching toward your highest potential... ... Take a deep yawn if it comes... letting your body transition from sleep to wakefulness... ... Wiggle your fingers and toes... feeling the life force flowing to your extremities... Your body is ready for the day......",
+      
+      breathingEnergy: "Let's use breathing to build gentle energy... Inhale slowly... imagining you're breathing in the fresh energy of the morning... Exhale... releasing any grogginess or fatigue... ... With each breath... feel yourself becoming more alert... more alive... more present... ... Imagine the morning light... whether you can see it or not... filling your body with vitality and clarity......",
+      
+      intention: "Now set an intention for your day... Not a to-do list... but a way of being... How do you want to show up today?... With kindness... with patience... with joy... with presence?... ... Choose one quality you want to embody... Let it settle into your heart... ... Visualize yourself moving through your day with this intention... Meeting challenges with grace... Connecting with others from this centered place......",
+      
+      visualization: "See your day unfolding with ease and flow... Important tasks completing smoothly... Interactions filled with warmth and understanding... Obstacles becoming opportunities for growth... ... You move through your day like a river... adaptable... flowing around challenges... always finding your way... ... Feel yourself at the end of the day... satisfied... accomplished... at peace......",
+      
+      affirmations: "Let's plant some positive seeds for the day... 'Today is full of possibilities'... ... 'I have everything I need within me'... ... 'I approach this day with curiosity and openness'... ... 'I am grateful for this opportunity to live and grow'... ... 'I choose joy and presence in each moment'... ... Feel these words taking root in your consciousness......",
+      
+      closing: "As we complete this morning meditation... feel yourself fully awake... alert... and ready... ... Take three deep breaths... each one bringing you more fully into the present moment... ... When you open your eyes... really see the world around you... Notice the light... the colors... the beauty that's always there... ... Carry this sense of appreciation and intention with you... You're ready to make this day meaningful... Step forward with confidence and joy......"
+    }
   ]
   },
 
@@ -350,6 +449,105 @@ const meditationTemplates = {
         
         closing: "Terwijl we deze energiegevende meditatie voltooien... Voel de vitaliteit door je aderen stromen... Je bent wakker... alert en volledig opgeladen... ... Begin je lichaam te bewegen zoals het goed voelt... Misschien je armen boven je hoofd strekken... Je nek rollen... Zachtjes op je tenen stuiteren... ... Wanneer je er klaar voor bent... open je ogen wijd... Neem de wereld in met frisse energie... Je bent klaar om je dag met enthousiasme en kracht te omarmen... Ga vooruit en laat je licht schijnen......"
       }
+    ],
+
+    mindfulness: [
+      {
+        name: "Huidig Moment Bewustzijn",
+        intro: "Welkom bij deze mindfulness meditatie... Zoek een comfortabele positie waar je alert en op je gemak kunt zitten... Deze praktijk gaat over het cultiveren van bewustzijn van het huidige moment... Er is nergens naartoe te gaan en niets te bereiken... gewoon hier zijn nu...",
+        
+        breathing: "Laten we beginnen door onszelf te verankeren in de adem... Merk je natuurlijke ademritme op... verander niets... observeer alleen... ... Voel de lucht die door je neusgaten binnenkomt... de korte pauze... en de zachte loslating... ... Je adem gebeurt altijd in het huidige moment... Gebruik het als je anker naar het hier en nu... Wanneer je geest afdwaalt... keer gewoon terug naar de adem... geen oordeel... gewoon zachtjes terugkeren......",
+        
+        bodyAwareness: "Breid nu je bewustzijn uit om je lichaam te omvatten... Merk op hoe je zit... Voel de contactpunten waar je lichaam het oppervlak raakt... ... Scan door je lichaam met zachte nieuwsgierigheid... Welke sensaties zijn er nu aanwezig?... Misschien warmte... koelte... spanning... ontspanning... ... Merk gewoon op wat er is... zonder iets te proberen te veranderen... Je lichaam is een poort naar aanwezigheid......",
+        
+        thoughtAwareness: "Terwijl we doorgaan... merk eventuele gedachten op die opkomen... In plaats van verstrikt te raken in het verhaal... kijk of je gedachten kunt observeren zoals wolken die door de lucht van je geest trekken... ... Sommige gedachten zijn licht en ijl... andere kunnen zware onweerswolken zijn... Alle zijn welkom... alle zullen voorbijgaan... ... Je bent niet je gedachten... je bent de bewuste ruimte waarin gedachten verschijnen en verdwijnen......",
+        
+        presentMoment: "Op dit moment... in dit exacte moment... is alles precies zoals het is... Er is diepe vrede in het accepteren van wat hier is... zonder weerstand... ... Luister naar de geluiden om je heen... merk op dat ze vers opkomen in elk moment... ... Voel de levendigheid in je lichaam... de energie van hier zijn... nu... ... Dit moment is het enige moment dat ooit bestaat... en het vernieuwt zichzelf constant......",
+        
+        affirmations: "Laat deze woorden in je bewustzijn bezinken... 'Ik ben aanwezig'... ... 'Ik ben hier nu'... ... 'Dit moment is genoeg'... ... 'Ik ben bewust en wakker'... ... 'Vrede wordt gevonden in aanwezigheid'...",
+        
+        closing: "Terwijl we deze praktijk afsluiten... neem een moment om te waarderen dat je jezelf het geschenk van aanwezigheid hebt gegeven... ... Merk op hoe je je voelt na tijd door te brengen in mindful bewustzijn... ... Wanneer je er klaar voor bent... open langzaam je ogen als ze gesloten waren... ... Kijk of je deze kwaliteit van aanwezigheid met je mee kunt nemen... naar je volgende activiteit... en door je dag heen... Het huidige moment is altijd beschikbaar... wacht altijd op je terugkeer......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Liefdesoefening voor het Hart",
+        intro: "Welkom bij deze compassie meditatie... Ga comfortabel zitten en leg een hand op je hart... We gaan liefdevolle vriendelijkheid cultiveren... eerst voor jezelf... dan uitbreidend naar anderen... Dit is een oefening van het openen van het hart...",
+        
+        selfCompassion: "Begin door jezelf in gedachten te brengen... Stel je jezelf voor zoals je nu bent... Bekijk jezelf met vriendelijke ogen... zoals je zou kijken naar een dierbare vriend... ... Bied jezelf in stilte deze woorden van liefdevolle vriendelijkheid aan... 'Moge ik gelukkig zijn... Moge ik gezond zijn... Moge ik in vrede zijn... Moge ik met gemak leven...' ... Voel deze wensen in je hart... Merk eventuele weerstand op... en wees daar ook zachtaardig mee... Je verdient liefde... vooral van jezelf......",
+        
+        lovedOne: "Breng nu iemand in gedachten die je gemakkelijk liefhebt... een familielid... een goede vriend... een geliefd huisdier... Zie hun gezicht... voel je natuurlijke genegenheid voor hen... ... Stuur dezelfde liefdevolle wensen... 'Moge je gelukkig zijn... Moge je gezond zijn... Moge je in vrede zijn... Moge je met gemak leven...' ... Voel de warmte in je hart terwijl je hen liefde stuurt... Merk op hoe goed het voelt om iemand het beste toe te wensen......",
+        
+        neutral: "Denk nu aan iemand neutraals... misschien een kassière die je regelmatig ziet... een buur die je nauwelijks kent... iemand die noch vriend noch vijand is... ... Oefen dezelfde liefdevolle vriendelijkheid uit... 'Moge je gelukkig zijn... Moge je gezond zijn... Moge je in vrede zijn... Moge je met gemak leven...' ... Deze persoon wil gelukkig zijn net zoals jij... Ze hebben uitdagingen net zoals jij... Kijk of je kunt verbinden met hun gedeelde menselijkheid......",
+        
+        difficult: "Als je je er klaar voor voelt... breng iemand in gedachten met wie je moeite hebt... Begin met iemand mild uitdagend... niet de moeilijkste persoon in je leven... ... Dit kan moeilijk voelen... ga langzaam... 'Moge je gelukkig zijn... Moge je gezond zijn... Moge je in vrede zijn... Moge je met gemak leven...' ... Onthoud... hun geluk neemt niets weg van het jouwe... Gekwetste mensen kwetsen vaak anderen... Kun je medeleven vinden voor hun pijn?......",
+        
+        universal: "Breid tenslotte je bewustzijn uit om alle wezens overal te omvatten... Zie de aarde vanuit de ruimte... alle schepsels... alle mensen... worstelend en geluk zoekend... ... Met een open hart... bied deze universele liefdevolle vriendelijkheid aan... 'Mogen alle wezens gelukkig zijn... Mogen alle wezens gezond zijn... Mogen alle wezens in vrede zijn... Mogen alle wezens met gemak leven...' ... Voel jezelf als onderdeel van dit uitgebreide web van verbinding... liefde geven en ontvangen......",
+        
+        closing: "Leg je hand nog een keer op je hart... Voel de warmte daar... de liefde die je hebt gegenereerd... Deze liefdevolle vriendelijkheid leeft altijd in je... ... Onthoud... echte compassie omvat jezelf... Wees zachtaardig voor jezelf terwijl je door je dag gaat... ... Wanneer je anderen tegenkomt... kijk of je je deze hartverbinding kunt herinneren... Iedereen doet zijn best met wat ze hebben... Iedereen verdient liefde... beginnend met jou......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Mindful Wandel Praktijk",
+        intro: "Welkom bij deze wandelmeditatie... Je kunt deze oefening overal doen... binnen in een rustige ruimte... of buiten in de natuur... Begin met stil staan... voel je voeten op de grond... We gaan wandelen transformeren in een meditatie...",
+        
+        preparation: "Start door te staan met je voeten heupbreedte uit elkaar... Voel het contact tussen je voeten en de aarde... Merk je houding op... ruggengraat lang maar niet stijf... schouders ontspannen... armen natuurlijk hangend langs je zijden... ... Neem een paar diepe ademhalingen... arriveer volledig in je lichaam... in dit moment... Stel de intentie om met bewustzijn te wandelen... elke stap een meditatie......",
+        
+        firstSteps: "Begin langzaam je rechtervoet op te tillen... Merk de verschuiving van gewicht naar je linkervoet op... Voel het optillen... het bewegen... het plaatsen van je voet... ... Neem elke stap bewust... ongeveer de helft van je normale wandelsnelheid... Er is geen bestemming... geen haast... alleen de eenvoudige handeling van wandelen... ... Merk op hoe je lichaam natuurlijk balanceert... coördineert... beweegt door de ruimte... Verwonder je over dit alledaagse wonder......",
+        
+        breathAndSteps: "Coördineer nu je ademhaling met je stappen... Misschien twee stappen bij het inademen... twee stappen bij het uitademen... Vind een ritme dat natuurlijk voelt... ... Als je geest afdwaalt naar je bestemming of je to-do lijst... breng zachtjes de aandacht terug naar de fysieke sensatie van wandelen... Het gevoel van je voeten die de grond raken... optillen... vooruit bewegen......",
+        
+        awareness: "Breid je bewustzijn uit om je omgeving te omvatten... Als je buiten bent... merk de luchttemperatur op... eventuele bries... de geluiden van de natuur... vogels... ritselende bladeren... ... Als je binnen bent... wees bewust van de ruimte om je heen... de verlichting... de luchtkwaliteit... ... Blijf verbonden met de sensatie van wandelen terwijl je je omgeving in je opneemt... Wandelen als een dans tussen innerlijk bewustzijn en uiterlijke aanwezigheid......",
+        
+        gratitude: "Terwijl je blijft wandelen... breng waardering naar dit geweldige lichaam... Je benen die je dragen... je voeten die je ondersteunen... je balans die je stabiel houdt... ... Voel dankbaarheid voor je vermogen om door de wereld te bewegen... Niet iedereen heeft dit geschenk... Elke stap is een voorrecht... ... Merk op hoe wandelmeditatie een bewegend heiligdom creëert... vrede in beweging......",
+        
+        closing: "Kom geleidelijk tot stilstand... Sta een moment stil... Voel je voeten stevig op de grond... Merk eventuele sensaties in je lichaam op van dit mindful wandelen... ... Neem een moment om te waarderen dat je deze kwaliteit van bewustzijn kunt brengen naar elke beweging... Wandelen naar je auto... de trap op... door een kamer... ... Elke stap kan een gelegenheid zijn voor aanwezigheid... voor terugkeer naar het hier en nu... Neem dit wandelbewustzijn mee naar je dag......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Volledige Adem Praktijk",
+        intro: "Welkom bij deze ademmeditatie... Zoek een comfortabele positie... zittend of liggend... Leg een hand op je borst... een op je buik... We gaan de volle kracht van bewuste ademhaling verkennen... Je adem is altijd beschikbaar... altijd klaar om je te centreren en te kalmeren...",
+        
+        naturalBreath: "Begin door gewoon je natuurlijke adem te observeren... Verander nog niets... merk alleen op... ... Voel welke hand meer beweegt... de borst of de buik... Merk het ritme op... de diepte... de pauzes tussen inademen en uitademen... ... Je adem weerspiegelt je huidige staat... en door je adem te veranderen... kun je veranderen hoe je je voelt... Dit is je superkracht......",
+        
+        bellyBreathing: "Laten we nu diepe buikademhaling oefenen... Bij je volgende inademing... adem naar beneden in je buik... Laat de hand op je buik omhoog gaan terwijl de borsthand relatief stil blijft... ... Adem langzaam uit... voel de buikhand omlaag gaan... Dit is hoe baby's natuurlijk ademen... diep... ontspannen... helend... ... Ga door met dit patroon... Inademen in de buik... volledig uitademen... Elke adem activeert je lichaam's ontspanningsreactie......",
+        
+        threePartBreath: "Nu gaan we de volledige driedelige adem verkennen... Adem eerst in je buik... breid dan je ribben uit... til tenslotte je borst op... ... Adem uit in omgekeerde volgorde... borst wordt zachter... ribben trekken samen... buik trekt naar binnen... ... Dit is zoals het vullen en legen van een ballon van onder naar boven... Compleet... voedend... balancerend... Neem je tijd voor elke fase......",
+        
+        countedBreath: "Laten we telling toevoegen om ritme en focus te creëren... Adem in gedurende vier tellen... één... twee... drie... vier... Houd zachtjes vast gedurende twee... één... twee... Adem uit gedurende zes... één... twee... drie... vier... vijf... zes... ... Dit patroon activeert je parasympathische zenuwstelsel... je rust en verteer reactie... Ga door in je eigen tempo... pas de tellingen aan indien nodig......",
+        
+        breathAwareness: "Merk op hoe je ademhaling je hele wezen beïnvloedt... Met elke bewuste adem... je zenuwstelsel komt tot rust... je geest wordt helder... je lichaam ontspant... ... Je adem is zoals een brug tussen je bewuste en onbewuste geest... tussen je lichaam en je geest... ... Voel de levenskracht... de prana... instromen met elke inademing... Stagnante energie vrijkomen met elke uitademing......",
+        
+        affirmations: "Met elke inademing... zeg in stilte 'Ik ben kalm'... Met elke uitademing... 'Ik ben in vrede'... ... Of kies je eigen woorden... 'Vrede inademen... spanning uitademen'... 'Helderheid inademen... verwarring uitademen'... ... Laat je adem deze intenties diep in elke cel van je lichaam dragen......",
+        
+        closing: "Terwijl we deze ademoefening voltooien... keer terug naar je natuurlijke ritme... Merk eventuele veranderingen op in hoe je je voelt... Misschien meer ontspannen... meer gecentreerd... meer aanwezig... ... Onthoud... je adem is altijd bij je... In momenten van stress... angst... of overweldiging... kun je terugkeren naar bewuste ademhaling... ... Neem drie laatste diepe ademhalingen... waardeer deze oude praktijk die altijd beschikbaar is... Je adem is je constante metgezel... je pad naar vrede......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Dageraad Ontwaken Praktijk",
+        intro: "Welkom bij deze ochtendmeditatie... Een mooie manier om je dag te beginnen... Ga comfortabel zitten... misschien bij een raam waar je het ochtendlicht kunt voelen... We gaan een positieve intentie zetten voor de komende dag... lichaam en geest ontwaken...",
+        
+        gratitude: "Begin door een moment te nemen om te waarderen dat je bent ontwaakt in een nieuwe dag... Een frisse start... nieuwe mogelijkheden... ... Breng drie dingen in gedachten waar je nu dankbaar voor bent... Misschien je comfortabele bed... het dak boven je hoofd... iemand van wie je houdt... ... Voel die dankbaarheid in je hart... Laat het uitbreiden... Deze waardering zet een positieve toon voor alles wat volgt......",
+        
+        bodyAwakening: "Laten we nu zachtjes je lichaam ontwaken... Rol je schouders naar achteren... voel je borst openen voor de nieuwe dag... ... Strek je armen boven je hoofd... reikend naar je hoogste potentieel... ... Neem een diepe geeuw als die komt... laat je lichaam overgaan van slaap naar wakkerte... ... Beweeg je vingers en tenen... voel de levenskracht stromen naar je extremiteiten... Je lichaam is klaar voor de dag......",
+        
+        breathingEnergy: "Laten we ademhaling gebruiken om zachte energie op te bouwen... Adem langzaam in... stel je voor dat je de frisse energie van de ochtend inademt... Adem uit... laat sufheid of vermoeidheid los... ... Met elke ademhaling... voel jezelf alerter worden... levendiger... meer aanwezig... ... Stel je het ochtendlicht voor... of je het kunt zien of niet... vul je lichaam met vitaliteit en helderheid......",
+        
+        intention: "Zet nu een intentie voor je dag... Geen to-do lijst... maar een manier van zijn... Hoe wil je vandaag verschijnen?... Met vriendelijkheid... met geduld... met vreugde... met aanwezigheid?... ... Kies een kwaliteit die je wilt belichamen... Laat het bezinken in je hart... ... Visualiseer jezelf door je dag bewegend met deze intentie... Uitdagingen ontmoeten met gratie... Verbinden met anderen vanuit deze gecentreerde plek......",
+        
+        visualization: "Zie je dag zich ontvouwen met gemak en flow... Belangrijke taken soepel voltooid... Interacties gevuld met warmte en begrip... Obstakels worden kansen voor groei... ... Je beweegt door je dag zoals een rivier... aanpasbaar... stromend rond uitdagingen... altijd je weg vindend... ... Voel jezelf aan het einde van de dag... tevreden... volbracht... in vrede......",
+        
+        affirmations: "Laten we wat positieve zaden planten voor de dag... 'Vandaag is vol mogelijkheden'... ... 'Ik heb alles wat ik nodig heb in mezelf'... ... 'Ik benader deze dag met nieuwsgierigheid en openheid'... ... 'Ik ben dankbaar voor deze kans om te leven en te groeien'... ... 'Ik kies vreugde en aanwezigheid in elk moment'... ... Voel deze woorden wortel schieten in je bewustzijn......",
+        
+        closing: "Terwijl we deze ochtendmeditatie voltooien... voel jezelf volledig wakker... alert... en klaar... ... Neem drie diepe ademhalingen... elk brengt je meer volledig in het huidige moment... ... Wanneer je je ogen opent... zie echt de wereld om je heen... Merk het licht op... de kleuren... de schoonheid die er altijd is... ... Neem dit gevoel van waardering en intentie met je mee... Je bent klaar om deze dag betekenisvol te maken... Stap vooruit met vertrouwen en vreugde......"
+      }
     ]
   },
 
@@ -432,6 +630,105 @@ const meditationTemplates = {
         
         closing: "Mientras completamos esta meditación energizante... Siente la vitalidad corriendo por tus venas... Estás despierto... alerta y completamente cargado... ... Comienza a mover tu cuerpo como se sienta bien... Tal vez estira tus brazos sobre tu cabeza... Rueda tu cuello... Rebota suavemente en tus dedos de los pies... ... Cuando estés listo... abre los ojos ampliamente... Absorbe el mundo con energía fresca... Estás listo para abrazar tu día con entusiasmo y poder... Ve adelante y deja brillar tu luz......"
       }
+    ],
+
+    mindfulness: [
+      {
+        name: "Conciencia del Momento Presente",
+        intro: "Bienvenido a esta meditación de conciencia plena... Encuentra una posición cómoda sentado... tu espalda erguida pero relajada... Coloca tus manos suavemente en tu regazo... Respira naturalmente... y simplemente permite que tu cuerpo se asiente... Cuando estés listo... cierra suavemente los ojos...",
+        
+        breathing: "Comencemos llevando toda nuestra atención a la respiración... Sin cambiar nada... simplemente nota la respiración tal como es... Siente el aire entrando suavemente por tu nariz... llenando tu pecho... y saliendo naturalmente... ... Cada respiración es una oportunidad para estar completamente presente... Inhala conciencia... exhala distracción... ... Continúa respirando con atención plena... sintiendo cada inhalación... cada exhalación... siendo uno con el momento presente......",
+        
+        bodyAwareness: "Ahora expande tu conciencia para incluir todo tu cuerpo... Comienza en la coronilla de tu cabeza... Siente cualquier sensación allí... sin juicio... simplemente notando... ... Mueve tu atención hacia abajo a tu frente... tus ojos... tus mejillas... tu mandíbula... Nota cualquier tensión o relajación... ... Continúa hacia tu cuello... hombros... brazos... hasta las puntas de tus dedos... Siente tu pecho subir y bajar... tu vientre expandir y contraer... ... Lleva tu conciencia a tu espalda... caderas... piernas... hasta los dedos de los pies... Todo tu cuerpo está vivo con sensaciones en este momento......",
+        
+        presentMoment: "Ahora abre tu conciencia al momento presente completo... Nota los sonidos a tu alrededor... cerca y lejos... No los juzgues... simplemente déjalos ser parte de tu experiencia... ... Siente la temperatura del aire en tu piel... La textura de tu ropa... El peso de tu cuerpo... ... Cuando surjan pensamientos... y lo harán... simplemente obsérvalos como nubes en el cielo... No necesitas seguirlos... solo déjalos pasar... ... Regresa a este momento... esta respiración... esta conciencia... Aquí... ahora... completamente presente......",
+        
+        affirmations: "Repite silenciosamente estas afirmaciones de presencia... 'Estoy completamente presente en este momento'... ... 'Abrazo todo lo que surge con conciencia'... ... 'Mi atención está anclada en el ahora'... ... 'Soy consciente... despierto... vivo'... ... 'La vida está sucediendo ahora... y estoy aquí para experimentarla'......",
+        
+        closing: "Mientras terminamos esta práctica... Siente la profundidad de tu presencia... La riqueza de estar completamente aquí... ... Comienza a profundizar tu respiración... Mueve suavemente tus dedos... rueda tus hombros... ... Cuando estés listo... abre los ojos lentamente... ... Lleva esta conciencia del momento presente contigo... La vida es una serie de momentos presentes... Y ahora sabes cómo habitarlos plenamente......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Práctica de Amor Bondadoso",
+        intro: "Bienvenido a esta meditación de amor bondadoso y compasión... Siéntate cómodamente con tu corazón abierto... Coloca una mano en tu pecho... sintiendo tu corazón latir... Este es el centro de tu capacidad natural para amar... Respira suavemente... y permite que tu corazón se ablande...",
+        
+        breathing: "Comencemos con respiraciones que abran el corazón... Respira hacia tu corazón... imagina que el aire entra directamente a tu centro cardíaco... Y exhala desde tu corazón... irradiando calidez... ... Con cada respiración... siente tu corazón expandirse... volviéndose más cálido... más abierto... más compasivo... ... Continúa respirando amor hacia adentro... y enviando bondad hacia afuera......",
+        
+        selfCompassion: "Comencemos dirigiendo amor bondadoso hacia ti mismo... Imagina una luz cálida y dorada en tu corazón... Esta es tu bondad natural... tu capacidad de amar... ... Repite mentalmente... 'Que yo sea feliz'... Siente estas palabras llenando tu corazón... ... 'Que yo esté en paz'... Deja que la paz se extienda por todo tu ser... ... 'Que yo esté libre de sufrimiento'... Abraza tu propia experiencia con ternura... ... 'Que yo sea amado'... Porque mereces amor... especialmente el tuyo propio......",
+        
+        lovedOnes: "Ahora trae a tu mente a alguien que amas... Puede ser un familiar... un amigo... incluso una mascota... Ve su rostro... siente su presencia... ... Dirige este amor bondadoso hacia ellos... 'Que seas feliz'... Ve su felicidad... siéntela en tu corazón... ... 'Que estés en paz'... Imagina que están rodeados de serenidad... ... 'Que estés libre de sufrimiento'... Envía tu deseo de que estén bien... ... 'Que seas amado'... Porque el amor es lo que conecta todos los corazones......",
+        
+        neutralPerson: "Ahora trae a tu mente a alguien neutral... Quizás alguien que viste hoy... un cajero... un vecino... Alguien por quien no sientes amor ni antipatía... ... Reconoce su humanidad... su deseo de ser feliz... igual que el tuyo... ... Ofrece bondad a esta persona... 'Que seas feliz'... 'Que estés en paz'... 'Que estés libre de sufrimiento'... 'Que seas amado'... ... Siente cómo tu corazón se expande para incluir a esta persona......",
+        
+        difficultPerson: "Si te sientes preparado... trae a tu mente a alguien con quien tienes dificultades... Comienza con alguien no muy desafiante... ... Reconoce que esta persona... como tú... quiere ser feliz... quiere estar libre de sufrimiento... ... Desde tu corazón abierto... ofrece bondad... 'Que seas feliz'... 'Que estés en paz'... 'Que estés libre de sufrimiento'... 'Que seas amado'... ... Si es difícil... está bien... La práctica es lo que importa......",
+        
+        allBeings: "Finalmente... extiende tu amor bondadoso a todos los seres... Imagina ondas de compasión irradiando desde tu corazón... ... A todos en tu vecindario... tu ciudad... tu país... ... A todos los seres en toda la tierra... humanos... animales... plantas... ... 'Que todos los seres sean felices'... 'Que todos los seres estén en paz'... 'Que todos los seres estén libres de sufrimiento'... 'Que todos los seres sean amados'... ... Siente la conexión... la bondad universal que compartes con toda la vida......",
+        
+        closing: "Mientras terminamos esta práctica... Siente la calidez en tu corazón... La expansión de tu compasión... ... Sabe que este amor bondadoso siempre está disponible... En cualquier momento... con cualquier persona... incluido tú mismo... ... Comienza a profundizar tu respiración... Mueve suavemente tu cuerpo... ... Cuando estés listo... abre los ojos... ... Lleva esta bondad contigo... Deja que tu corazón sea una fuente de amor para el mundo......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Práctica de Caminar Consciente",
+        intro: "Bienvenido a esta meditación de caminar consciente... Mientras que tradicionalmente caminamos para llegar a algún lugar... hoy caminamos para estar completamente presentes... No hay destino... solo el viaje... Comienza de pie... sintiendo tus pies en el suelo... tu cuerpo balanceado y alerta...",
+        
+        preparation: "Antes de comenzar a caminar... toma un momento para centrarte... Siente el peso de tu cuerpo... la estabilidad de tus piernas... ... Respira profundamente... y establece la intención de caminar con conciencia plena... Cada paso será una oportunidad para estar presente... ... Mira hacia adelante con ojos suaves... no enfocándote en nada específico... simplemente abierto a la experiencia......",
+        
+        beginningSteps: "Ahora comienza a caminar muy lentamente... Levanta un pie... siente el cambio de peso... coloca el pie suavemente en el suelo... ... Levanta el otro pie... nota la sensación de movimiento... el balanceo de tu cuerpo... coloca el pie conscientemente... ... Cada paso es completo en sí mismo... No hay prisa... no hay lugar al que llegar... solo este paso... luego el siguiente......",
+        
+        mindfulWalking: "Continúa caminando a este ritmo meditativo... Siente la conexión entre tus pies y la tierra... El peso trasladándose de un pie al otro... ... Nota cómo tu cuerpo se mueve naturalmente... El balanceo de tus brazos... el ritmo de tus pasos... la coordinación milagrosa del caminar... ... Cuando tu mente divague... y lo hará... simplemente regresa tu atención a la sensación del caminar... El contacto del pie con el suelo... el levantamiento... el movimiento... el contacto nuevamente......",
+        
+        awareness: "Expande tu conciencia para incluir todo lo que te rodea... Nota los sonidos... los olores... los colores... sin perder la conexión con tus pasos... ... Siente el aire en tu piel... la temperatura... cualquier brisa... Todo es parte de esta experiencia de caminar consciente... ... Cada momento es único... cada paso es una oportunidad para despertar... para estar completamente vivo en este momento......",
+        
+        gratitude: "Mientras continúas caminando... siente gratitud por esta capacidad de moverte... por tus piernas que te cargan... por tu cuerpo que te permite explorar el mundo... ... Gratitud por este momento de calma en tu día... por esta oportunidad de practicar la presencia... ... Cada paso es un regalo... cada respiración es una bendición......",
+        
+        closing: "Ahora comienza a reducir gradualmente tu ritmo... hasta detenerte suavemente... Párate por un momento... sintiendo la quietud después del movimiento... ... Respira profundamente... y aprecia esta experiencia de caminar consciente... ... Sabe que puedes llevar esta conciencia a cualquier momento que camines... Cada paso puede ser una meditación... cada movimiento una oportunidad para la presencia... ... Cuando estés listo... continúa con tu día... pero mantén esta calidad de conciencia... Esta es la práctica de vivir despierto......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Práctica de Respiración Completa",
+        intro: "Bienvenido a esta meditación de respiración completa... Siéntate cómodamente con tu espalda erguida... Coloca una mano en tu pecho y otra en tu vientre... Vamos a explorar la respiración profunda y natural... la base de toda práctica meditativa... Cierra suavemente los ojos y conéctate con tu respiración actual...",
+        
+        naturalBreathing: "Comencemos simplemente observando tu respiración natural... Sin cambiar nada... solo nota cómo respiras normalmente... ... Siente el aire entrando y saliendo... El ritmo natural de tu cuerpo... ... Nota si respiras más por la nariz o por la boca... si tu respiración es superficial o profunda... rápida o lenta... ... No hay respiración correcta o incorrecta... solo conciencia de lo que es......",
+        
+        deepBreathing: "Ahora comencemos a profundizar suavemente la respiración... Respira lentamente por la nariz... permitiendo que el aire llene primero tu vientre... ... Siente tu mano en el vientre subir... tu diafragma expandirse... ... Continúa llenando tu pecho... siente tu mano en el pecho subir... costillas expandiéndose... ... Haz una pausa suave en la parte superior de la inhalación... sosteniendo toda esta vitalidad... ... Ahora exhala lentamente... permitiendo que el aire salga suavemente de tu pecho... luego de tu vientre... ... Siente tu cuerpo relajarse con cada exhalación......",
+        
+        rhythmicBreathing: "Ahora estableceremos un ritmo calmante... Inhala durante cuatro cuentas... uno... dos... tres... cuatro... ... Pausa suavemente... uno... dos... ... Exhala durante seis cuentas... uno... dos... tres... cuatro... cinco... seis... ... Pausa natural... uno... dos... ... Continúa con este ritmo... cuatro adentro... pausa... seis afuera... pausa... ... Este patrón activa tu sistema nervioso parasimpático... tu respuesta natural de relajación......",
+        
+        energizingBreath: "Ahora probaremos una respiración más energizante... Inhala vigorosamente por la nariz durante tres cuentas... uno... dos... tres... ... Exhala con fuerza por la boca con un sonido 'AH'... uno... dos... tres... ... Otra vez... inhala energía y vitalidad... uno... dos... tres... ... Exhala cualquier fatiga o pesadez... AH... uno... dos... tres... ... Continúa algunas veces más... sintiendo cómo cada respiración te energiza......",
+        
+        balancingBreath: "Ahora una respiración para equilibrar... Cierra tu fosa nasal derecha con tu pulgar... Inhala por la fosa nasal izquierda durante cuatro cuentas... ... Cierra la fosa nasal izquierda con tu dedo anular... quita el pulgar... exhala por la fosa nasal derecha durante cuatro cuentas... ... Inhala por la fosa nasal derecha... cierra con el pulgar... exhala por la fosa nasal izquierda... ... Continúa este patrón... alternando... balanceando los dos lados de tu sistema nervioso... ... Esto crea equilibrio y calma......",
+        
+        returningToNatural: "Ahora suelta cualquier técnica... regresa a tu respiración natural... Pero mantén la conciencia que has desarrollado... ... Nota cómo se siente tu respiración ahora... Quizás más profunda... más suave... más consciente... ... Cada respiración es una oportunidad para estar presente... para nutrir tu cuerpo... para calmar tu mente......",
+        
+        closing: "Mientras terminamos esta práctica de respiración... Siente la quietud en tu cuerpo... la claridad en tu mente... ... Sabe que tu respiración es tu compañía constante... Siempre disponible... siempre presente... ... Comienza a profundizar tu respiración... Mueve suavemente tus dedos y dedos de los pies... ... Cuando estés listo... abre los ojos lentamente... ... Lleva esta conciencia respiratoria contigo... Recuerda que en cualquier momento puedes regresar a tu respiración... para centrarte... para calmarte... para estar presente......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Práctica de Despertar del Amanecer",
+        intro: "Bienvenido a esta meditación matutina del despertar... Siéntate cómodamente mientras tu cuerpo despierta suavemente... Imagina que eres como el sol naciente... lleno de potencial... listo para brillar... Respira profundamente... y permite que tu energía natural comience a despertar... Este es tu momento de prepararte para el día que está por venir...",
+        
+        awakening: "Comencemos despertando tu cuerpo suavemente... Toma una respiración profunda... llenando todo tu ser con aire fresco y oxígeno... ... Siente tu cuerpo despertando... tus células cobrando vida... tu energía comenzando a fluir... ... Estira suavemente tus brazos sobre tu cabeza... sintiendo el espacio en tu pecho... la apertura en tu corazón... ... Rueda tus hombros... mueve tu cuello suavemente... permitiendo que tu cuerpo se despierte naturalmente......",
+        
+        breathingPractice: "Ahora usemos la respiración para energizar... Inhala profundamente por la nariz... imagina que estás respirando luz dorada... energía del sol... ... Exhala cualquier cansancio o pesadez de la noche... soplando suavemente por la boca... ... Otra vez... inhala vitalidad... fuerza... posibilidad... ... Exhala cualquier duda o preocupación... liberando todo lo que no necesitas hoy... ... Continúa respirando energía hacia adentro... y liberando limitaciones hacia afuera......",
+        
+        intention: "Ahora es momento de establecer tu intención para el día... Pregúntate... ¿Cómo quiero ser hoy?... ¿Qué cualidades quiero encarnar?... ... Tal vez quieras ser más paciente... más amoroso... más enfocado... más presente... ... Siente esta intención en tu corazón... Visualízate viviendo este día con estas cualidades... ... Imagina interacciones llenas de esta energía... desafíos enfrentados con estas fortalezas... ... Tu intención es como una semilla... plantada en el suelo fértil de tu corazón......",
+        
+        gratitude: "Tomemos un momento para la gratitud matutina... Piensa en tres cosas por las que estás agradecido... ... Tal vez por este nuevo día... por tu salud... por las personas que amas... por oportunidades que tienes... ... Siente esta gratitud expandiéndose en tu pecho... llenándote de calidez... ... La gratitud es como el sol... ilumina todo lo que toca... ... Deja que esta apreciación llene cada célula de tu cuerpo... preparándote para ver la belleza en el día que tienes por delante......",
+        
+        energyVisualization: "Imagina una luz dorada brillante en el centro de tu pecho... Esta es tu energía del amanecer... tu vitalidad natural... ... Con cada respiración... esta luz se vuelve más brillante... más fuerte... ... Siente esta energía expandiéndose por todo tu cuerpo... hacia arriba por tu pecho... cuello... cabeza... ... Hacia abajo por tu vientre... caderas... piernas... hasta los dedos de los pies... ... Hacia los lados por tus brazos... hasta las puntas de tus dedos... ... Todo tu cuerpo brilla con esta energía del amanecer... listo para brillar en el mundo......",
+        
+        affirmations: "Repetamos algunas afirmaciones para comenzar el día... 'Hoy es un nuevo comienzo'... ... 'Estoy lleno de energía y posibilidad'... ... 'Abrazo este día con entusiasmo'... ... 'Soy capaz de manejar cualquier cosa que venga'... ... 'Elijo ver oportunidades en lugar de obstáculos'... ... 'Mi corazón está abierto a la alegría'... ... 'Hoy hago una diferencia positiva'... ... Siente estas afirmaciones hundiéndose profundamente en tu ser......",
+        
+        closing: "Mientras terminamos esta práctica matutina... Siente la vitalidad corriendo por tus venas... la claridad en tu mente... el propósito en tu corazón... ... Estás despierto... consciente... y listo para abrazar este día... ... Comienza a moverte como se sienta bien... Tal vez estira... rueda tus hombros... sonríe... ... Cuando estés listo... abre los ojos y abraza este nuevo día... ... Lleva esta energía del amanecer contigo... Eres la luz... y es tu momento de brillar......"
+      }
     ]
   },
 
@@ -503,6 +800,101 @@ const meditationTemplates = {
         affirmations: "Activons votre énergie avec des affirmations puissantes... 'Je suis rempli d'énergie vibrante'... ... 'Mon corps est fort et vivant'... ... 'J'ai toute l'énergie dont j'ai besoin pour ma journée'... ... 'Je suis motivé et prêt à l'action'... ... 'L'énergie coule librement à travers moi'... ... Sentez ces mots charger chaque cellule de votre corps......",
         
         closing: "Alors que nous terminons cette méditation énergisante... Sentez la vitalité couler dans vos veines... Vous êtes éveillé... alerte et complètement chargé... ... Commencez à bouger votre corps comme cela vous fait du bien... Peut-être étirer vos bras au-dessus de votre tête... Rouler votre cou... Rebondir doucement sur vos orteils... ... Quand vous êtes prêt... ouvrez grand les yeux... Prenez le monde avec une énergie fraîche... Vous êtes prêt à embrasser votre journée avec enthousiasme et puissance... Allez-y et laissez briller votre lumière......"
+      }
+    ],
+
+    mindfulness: [
+      {
+        name: "Conscience du Moment Présent",
+        intro: "Bienvenue dans cette méditation de pleine conscience... Trouvez une position confortable où vous pouvez vous asseoir avec vigilance et aisance... Cette pratique consiste à cultiver la conscience du moment présent... Il n'y a nulle part où aller et rien à accomplir... être simplement ici maintenant...",
+        
+        breathing: "Commençons par nous ancrer dans la respiration... Remarquez votre rythme respiratoire naturel... ne le changez pas... observez simplement... ... Sentez l'air entrer par vos narines... la légère pause... et la douce libération... ... Votre respiration se déroule toujours dans le moment présent... Utilisez-la comme votre ancre vers l'ici et maintenant... Quand votre esprit vagabonde... revenez simplement à la respiration... sans jugement... juste un retour doux......",
+        
+        bodyAwareness: "Maintenant élargissez votre conscience pour inclure votre corps... Remarquez comment vous êtes assis... Sentez les points de contact où votre corps rencontre la surface... ... Parcourez votre corps avec une curiosité douce... Quelles sensations sont présentes maintenant?... Peut-être de la chaleur... de la fraîcheur... de la tension... de la détente... ... Remarquez simplement ce qui est là... sans essayer de rien changer... Votre corps est une porte d'entrée vers la présence......",
+        
+        thoughtAwareness: "Alors que nous continuons... remarquez toute pensée qui surgit... Plutôt que de vous laisser prendre dans l'histoire... voyez si vous pouvez observer les pensées comme des nuages passant dans le ciel de votre esprit... ... Certaines pensées sont légères et vaporeuses... d'autres peuvent être de lourds nuages d'orage... Toutes sont bienvenues... toutes passeront... ... Vous n'êtes pas vos pensées... vous êtes l'espace conscient dans lequel les pensées apparaissent et disparaissent......",
+        
+        presentMoment: "En ce moment même... dans ce moment précis... tout est exactement comme il est... Il y a une paix profonde dans l'acceptation de ce qui est là... sans résistance... ... Écoutez les sons autour de vous... remarquez qu'ils surgissent frais à chaque moment... ... Sentez la vivacité dans votre corps... l'énergie d'être ici... maintenant... ... Ce moment est le seul moment qui existe jamais... et il se renouvelle constamment......",
+        
+        affirmations: "Laissez ces mots s'installer dans votre conscience... 'Je suis présent'... ... 'Je suis ici maintenant'... ... 'Ce moment suffit'... ... 'Je suis conscient et éveillé'... ... 'La paix se trouve dans la présence'...",
+        
+        closing: "Alors que nous concluons cette pratique... prenez un moment pour apprécier que vous vous êtes offert le cadeau de la présence... ... Remarquez comment vous vous sentez après avoir passé du temps dans la conscience attentive... ... Quand vous êtes prêt... ouvrez lentement les yeux s'ils étaient fermés... ... Voyez si vous pouvez porter cette qualité de présence avec vous... dans votre prochaine activité... et tout au long de votre journée... Le moment présent est toujours disponible... toujours en attente de votre retour......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Pratique de Bienveillance Aimante",
+        intro: "Bienvenue dans cette méditation de compassion... Installez-vous dans une position confortable et placez une main sur votre cœur... Nous allons cultiver la bienveillance... d'abord pour vous-même... puis l'étendre vers les autres... C'est une pratique d'ouverture du cœur...",
+        
+        selfCompassion: "Commencez par vous amener à l'esprit... Imaginez-vous tel que vous êtes maintenant... Voyez-vous avec des yeux bienveillants... comme vous regarderiez un ami cher... ... Offrez-vous silencieusement ces mots de bienveillance... 'Que je sois heureux... Que je sois en bonne santé... Que je sois en paix... Que je vive avec aisance...' ... Sentez ces souhaits dans votre cœur... Remarquez toute résistance... et soyez doux avec cela aussi... Vous méritez l'amour... surtout de vous-même......",
+        
+        lovedOne: "Maintenant amenez à l'esprit quelqu'un que vous aimez facilement... un membre de la famille... un ami proche... un animal de compagnie bien-aimé... Voyez leur visage... sentez votre affection naturelle pour eux... ... Étendez les mêmes souhaits aimants... 'Que tu sois heureux... Que tu sois en bonne santé... Que tu sois en paix... Que tu vives avec aisance...' ... Sentez la chaleur dans votre cœur alors que vous leur envoyez de l'amour... Remarquez comme il est bon de souhaiter du bien à quelqu'un......",
+        
+        neutral: "Maintenant pensez à quelqu'un de neutre... peut-être un caissier que vous voyez régulièrement... un voisin que vous connaissez à peine... quelqu'un ni ami ni ennemi... ... Pratiquez l'extension de la même bienveillance... 'Que tu sois heureux... Que tu sois en bonne santé... Que tu sois en paix... Que tu vives avec aisance...' ... Cette personne veut être heureuse comme vous... Elle fait face aux luttes comme vous... Voyez si vous pouvez vous connecter à votre humanité partagée......",
+        
+        difficult: "Si vous vous sentez prêt... amenez à l'esprit quelqu'un avec qui vous avez des difficultés... Commencez par quelqu'un légèrement défiant... pas la personne la plus difficile de votre vie... ... Cela peut sembler difficile... allez lentement... 'Que tu sois heureux... Que tu sois en bonne santé... Que tu sois en paix... Que tu vives avec aisance...' ... Souvenez-vous... leur bonheur n'enlève rien au vôtre... Les personnes blessées blessent souvent les autres... Pouvez-vous trouver de la compassion pour leur douleur?......",
+        
+        universal: "Enfin... élargissez votre conscience pour inclure tous les êtres partout... Voyez la terre depuis l'espace... toutes les créatures... tous les humains... luttant et cherchant le bonheur... ... Avec un cœur ouvert... offrez cette bienveillance universelle... 'Que tous les êtres soient heureux... Que tous les êtres soient en bonne santé... Que tous les êtres soient en paix... Que tous les êtres vivent avec aisance...' ... Sentez-vous comme faisant partie de ce vaste réseau de connexion... donnant et recevant de l'amour......",
+        
+        closing: "Reposez votre main sur votre cœur une fois de plus... Sentez la chaleur là... l'amour que vous avez généré... Cette bienveillance vit en vous toujours... ... Souvenez-vous... la vraie compassion vous inclut... Soyez doux avec vous-même alors que vous traversez votre journée... ... Quand vous rencontrez les autres... voyez si vous pouvez vous souvenir de cette connexion du cœur... Chacun fait de son mieux avec ce qu'il a... Chacun mérite l'amour... en commençant par vous......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Pratique de Marche Consciente",
+        intro: "Bienvenue dans cette méditation de marche... Vous pouvez faire cette pratique n'importe où... à l'intérieur dans un espace calme... ou dehors dans la nature... Commencez par vous tenir immobile... sentant vos pieds sur le sol... Nous allons transformer la marche en méditation...",
+        
+        preparation: "Commencez par vous tenir debout avec vos pieds écartés à la largeur des hanches... Sentez le contact entre vos pieds et la terre... Remarquez votre posture... colonne vertébrale droite mais pas rigide... épaules détendues... bras pendants naturellement à vos côtés... ... Prenez quelques respirations profondes... arrivant pleinement dans votre corps... dans ce moment... Fixez l'intention de marcher avec conscience... chaque pas une méditation......",
+        
+        firstSteps: "Commencez à lever votre pied droit lentement... Remarquez le transfert de poids vers votre pied gauche... Sentez le soulèvement... le mouvement... la pose de votre pied... ... Prenez chaque pas délibérément... environ la moitié de votre vitesse de marche normale... Il n'y a pas de destination... pas de hâte... juste l'acte simple de marcher... ... Remarquez comment votre corps s'équilibre naturellement... se coordonne... se déplace dans l'espace... Émerveillez-vous de ce miracle quotidien......",
+        
+        breathAndSteps: "Maintenant coordonnez votre respiration avec vos pas... Peut-être deux pas sur l'inspiration... deux pas sur l'expiration... Trouvez un rythme qui semble naturel... ... Si votre esprit vagabonde vers votre destination ou votre liste de tâches... ramenez doucement l'attention à la sensation physique de marcher... La sensation de vos pieds touchant le sol... se soulevant... avançant......",
+        
+        awareness: "Élargissez votre conscience pour inclure votre environnement... Si vous êtes dehors... remarquez la température de l'air... toute brise... les sons de la nature... les oiseaux... les feuilles qui bruissent... ... Si vous êtes à l'intérieur... soyez conscient de l'espace autour de vous... l'éclairage... la qualité de l'air... ... Restez connecté à la sensation de marcher tout en absorbant votre environnement... Marcher comme une danse entre la conscience intérieure et la présence extérieure......",
+        
+        gratitude: "Alors que vous continuez à marcher... apportez de l'appréciation à ce corps incroyable... Vos jambes qui vous portent... vos pieds qui vous soutiennent... votre équilibre qui vous garde stable... ... Sentez la gratitude pour votre capacité à vous déplacer dans le monde... Tout le monde n'a pas ce don... Chaque pas est un privilège... ... Remarquez comment la méditation de marche crée un sanctuaire en mouvement... la paix en mouvement......",
+        
+        closing: "Alors que nous terminons cette pratique de marche... revenez à la position debout... sentez vos pieds fermement sur le sol... ... Prenez un moment pour apprécier cette pratique simple mais profonde... Vous pouvez apporter cette conscience à toute marche... transformer des pas ordinaires en moments de méditation... ... Portez cette présence consciente avec vous... dans votre prochaine activité... Chaque pas peut être un retour au moment présent......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Pratique de Respiration Complète",
+        intro: "Bienvenue dans cette méditation de respiration... Trouvez une position confortable où votre colonne vertébrale peut être droite... Placez une main sur votre poitrine et une sur votre ventre... Nous allons explorer la respiration complète et consciente...",
+        
+        naturalBreath: "Commencez par observer votre respiration naturelle... sans la changer... juste la remarquer... ... Sentez le mouvement sous vos mains... Quelle main bouge le plus?... La plupart des gens respirent principalement avec la poitrine... mais nous allons apprendre à respirer avec tout le corps......",
+        
+        deepBreathing: "Maintenant commençons à approfondir doucement la respiration... Respirez lentement par le nez... permettant à l'air de remplir d'abord votre ventre... ... Sentez votre main sur le ventre se lever... votre diaphragme s'étendre... ... Continuez à remplir votre poitrine... sentez votre main sur la poitrine se lever... côtes s'expandant... ... Faites une pause douce au sommet de l'inspiration... tenant toute cette vitalité... ... Maintenant expirez lentement... permettant à l'air de sortir doucement de votre poitrine... puis de votre ventre... ... Sentez votre corps se détendre à chaque expiration......",
+        
+        breathCounting: "Trouvons maintenant un rythme... Inspirez pour quatre temps... un... deux... trois... quatre... ... Faites une pause douce pour deux temps... un... deux... ... Expirez pour six temps... un... deux... trois... quatre... cinq... six... ... Cette expiration plus longue active la réponse de relaxation de votre corps... ... Continuez ce rythme... 4 temps inspiration... 2 temps pause... 6 temps expiration... Trouvez votre propre rythme confortable......",
+        
+        breathAwareness: "Alors que vous continuez cette respiration rythmée... remarquez les sensations subtiles... L'air frais entrant... l'air chaud sortant... ... La pause naturelle entre l'inspiration et l'expiration... l'immobilité... la paix... ... Sentez comment cette respiration consciente calme votre système nerveux... apaise votre esprit... détend votre corps... ... Chaque respiration est un don... une occasion de revenir au présent......",
+        
+        affirmations: "Avec chaque inspiration... respirez ces qualités... 'J'inspire la paix'... ... 'J'inspire la clarté'... ... 'J'inspire la vitalité'... ... Avec chaque expiration... relâchez... 'J'expire la tension'... ... 'J'expire les inquiétudes'... ... 'J'expire tout ce qui ne me sert plus'...",
+        
+        closing: "Alors que nous terminons cette pratique de respiration... laissez votre respiration revenir à la normale... mais gardez cette conscience du souffle... ... Remarquez comment vous vous sentez... plus calme... plus centré... plus vivant... ... Souvenez-vous... votre respiration est toujours avec vous... un outil constant pour la paix et la présence... ... Chaque fois que vous vous sentez stressé ou distrait... vous pouvez revenir à cette respiration consciente... Votre souffle est votre maison......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Pratique d'Éveil de l'Aube",
+        intro: "Bienvenue dans cette méditation matinale... Alors que vous commencez votre journée... prenez ce temps pour vous réveiller en douceur... pas seulement votre corps... mais votre esprit et votre cœur aussi... Chaque matin est une renaissance... une chance de commencer frais...",
+        
+        awakening: "Commencez par étirer doucement votre corps... Levez vos bras au-dessus de votre tête... étirez-vous comme un chat au soleil... ... Bâillez si vous en avez envie... Laissez votre corps se réveiller naturellement... ... Prenez quelques respirations profondes... sentant l'air frais du matin remplir vos poumons... ... Votre corps a eu toute la nuit pour se reposer et se réparer... Maintenant il est temps de vous réveiller avec intention......",
+        
+        breathing: "Établissons un rythme respiratoire énergisant... Inspirez par le nez pour quatre temps... vous sentant alerte et vivant... ... Expirez par la bouche pour quatre temps... relâchant toute somnolence... ... Encore une fois... inspirez vitalité et énergie... expirez fatigue et brouillard... ... Sentez votre corps se réveiller avec chaque respiration... votre esprit devenant plus clair... plus concentré......",
+        
+        intention: "Maintenant fixons une intention pour cette journée... Qu'aimeriez-vous créer aujourd'hui?... Comment voulez-vous vous sentir?... ... Peut-être votre intention est 'Je veux être présent'... ou 'Je veux être bienveillant'... ou 'Je veux être courageux'... ... Choisissez une intention qui résonne avec votre cœur... Sentez-la s'installer dans votre être... ... Cette intention sera votre étoile guide tout au long de la journée......",
+        
+        gratitude: "Prenons un moment pour la gratitude matinale... Pensez à trois choses pour lesquelles vous êtes reconnaissant... ... Peut-être pour ce nouveau jour... pour votre santé... pour les personnes que vous aimez... pour les opportunités que vous avez... ... Sentez cette gratitude s'étendre dans votre poitrine... vous remplissant de chaleur... ... La gratitude est comme le soleil... elle illumine tout ce qu'elle touche... ... Laissez cette appréciation remplir chaque cellule de votre corps... vous préparant à voir la beauté dans la journée qui vous attend......",
+        
+        affirmations: "Remplissons votre esprit d'affirmations positives pour le matin... 'J'accueille ce nouveau jour avec joie'... ... 'J'ai tout ce dont j'ai besoin en moi'... ... 'Cette journée est pleine de possibilités'... ... 'Je suis prêt à embrasser ce qui vient'... ... 'Je rayonne de paix et de positivité'... ... Sentez ces mots s'ancrer profondément dans votre conscience......",
+        
+        closing: "Alors que nous terminons cette méditation matinale... prenez un moment pour apprécier ce cadeau que vous vous êtes offert... ... Sentez-vous prêt et énergisé pour votre journée... centré dans votre intention... rempli de gratitude... ... Quand vous vous lèverez... portez cette énergie consciente avec vous... ... Souvenez-vous... chaque matin est une nouvelle chance... une page blanche... Que ferez-vous de cette belle journée?... ... Levez-vous... brillez... et laissez votre lumière toucher le monde......"
       }
     ]
   },
@@ -599,6 +991,101 @@ const meditationTemplates = {
         
         closing: "Während wir diese energetisierende Meditation beenden... Spüre die Vitalität die durch deine Adern fließt... Du bist wach... aufmerksam und vollständig aufgeladen... ... Beginne deinen Körper zu bewegen wie es sich gut anfühlt... Vielleicht strecke deine Arme über den Kopf... Rolle deinen Nacken... Hüpfe sanft auf den Zehenspitzen... ... Wenn du bereit bist... öffne die Augen weit... Nimm die Welt mit frischer Energie auf... Du bist bereit deinen Tag mit Enthusiasmus und Kraft zu umarmen... Geh hinaus und lass dein Licht leuchten......"
       }
+    ],
+
+    mindfulness: [
+      {
+        name: "Achtsamkeit im Gegenwärtigen Moment",
+        intro: "Willkommen zu dieser Achtsamkeitsmeditation... Finde eine bequeme Position wo du wachsam und entspannt sitzen kannst... Diese Praxis geht darum Bewusstsein für den gegenwärtigen Moment zu kultivieren... Es gibt nirgendwo hinzugehen und nichts zu erreichen... einfach hier und jetzt sein...",
+        
+        breathing: "Beginnen wir damit uns im Atem zu verankern... Bemerke deinen natürlichen Atemrhythmus... verändere nichts... beobachte einfach... ... Spüre die Luft die durch deine Nasenlöcher einströmt... die kleine Pause... und das sanfte Loslassen... ... Dein Atem geschieht immer im gegenwärtigen Moment... Nutze ihn als deinen Anker zum Hier und Jetzt... Wenn dein Geist wandert... kehre einfach zum Atem zurück... ohne Urteil... nur sanfte Rückkehr......",
+        
+        bodyAwareness: "Erweitere nun dein Bewusstsein um deinen Körper einzuschließen... Bemerke wie du sitzt... Spüre die Kontaktpunkte wo dein Körper die Oberfläche berührt... ... Scanne durch deinen Körper mit sanfter Neugier... Welche Empfindungen sind gerade da?... Vielleicht Wärme... Kühle... Spannung... Entspannung... ... Bemerke einfach was da ist... ohne etwas verändern zu wollen... Dein Körper ist ein Tor zur Gegenwart......",
+        
+        thoughtAwareness: "Während wir fortfahren... bemerke alle Gedanken die aufkommen... Anstatt dich in der Geschichte zu verfangen... schau ob du Gedanken wie Wolken beobachten kannst die durch den Himmel deines Geistes ziehen... ... Manche Gedanken sind leicht und zart... andere mögen schwere Gewitterwolken sein... Alle sind willkommen... alle werden vorübergehen... ... Du bist nicht deine Gedanken... du bist der bewusste Raum in dem Gedanken erscheinen und verschwinden......",
+        
+        presentMoment: "Genau jetzt... in diesem Moment... ist alles genau so wie es ist... Es gibt tiefen Frieden darin zu akzeptieren was hier ist... ohne Widerstand... ... Höre die Geräusche um dich herum... bemerke sie entstehen frisch in jedem Moment... ... Spüre die Lebendigkeit in deinem Körper... die Energie des Hier-Seins... jetzt... ... Dieser Moment ist der einzige Moment der jemals existiert... und er erneuert sich ständig......",
+        
+        affirmations: "Wiederhole still diese Affirmationen der Gegenwart... 'Ich bin vollständig präsent in diesem Moment'... ... 'Ich umarme alles was auftaucht mit Bewusstsein'... ... 'Meine Aufmerksamkeit ist im Jetzt verankert'... ... 'Ich bin bewusst... wach... lebendig'... ... 'Das Leben geschieht jetzt... und ich bin hier um es zu erfahren'......",
+        
+        closing: "Während wir diese Praxis beenden... Spüre die Tiefe deiner Gegenwart... Die Fülle des vollständigen Hier-Seins... ... Beginne deine Atmung zu vertiefen... Bewege sanft deine Finger... rolle deine Schultern... ... Wenn du bereit bist... öffne langsam die Augen... ... Nimm dieses Bewusstsein für den gegenwärtigen Moment mit dir... Das Leben ist eine Reihe von gegenwärtigen Momenten... Und jetzt weißt du wie du sie vollständig bewohnen kannst......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Liebevolle Güte Praxis",
+        intro: "Willkommen zu dieser Meditation der liebevollen Güte... Setze dich bequem hin mit einem offenen Herzen... Diese Praxis geht darum Mitgefühl zu kultivieren... zuerst für dich selbst... dann für andere... Lege eine oder beide Hände auf dein Herz... spüre seine sanfte Bewegung... Wenn du bereit bist... schließe die Augen...",
+        
+        breathing: "Beginne mit einigen herzöffnenden Atemzügen... Atme in dein Herz ein... spüre wie es sich mit Wärme füllt... Atme aus und sende diese Wärme in die Welt... ... Noch einmal... atme Liebe ein... atme Güte aus... ... Setze diese herzbasierte Atmung fort... mit jedem Atemzug öffnest du dich mehr für Mitgefühl... für dich selbst und alle Wesen......",
+        
+        selfCompassion: "Beginnen wir mit liebevoller Güte für dich selbst... Bringe dich selbst in deinen Geist... wie du jetzt hier sitzt... ... Wiederhole diese Sätze still für dich... spüre ihre Bedeutung... 'Möge ich glücklich sein'... ... 'Möge ich gesund sein'... ... 'Möge ich in Sicherheit leben'... ... 'Möge ich mit Leichtigkeit leben'... ... 'Möge ich mich selbst so akzeptieren wie ich bin'... ... Spüre diese Wünsche in deinem Herzen... Du verdienst Liebe und Güte... besonders von dir selbst......",
+        
+        lovedOne: "Bringe nun jemanden in deinen Geist den du liebst... Vielleicht einen Freund... ein Familienmitglied... oder ein Haustier... Sieh ihr Gesicht... spüre deine Liebe für sie... ... Sende ihnen diese liebevollen Wünsche... 'Mögest du glücklich sein'... ... 'Mögest du gesund sein'... ... 'Mögest du in Sicherheit leben'... ... 'Mögest du mit Leichtigkeit leben'... ... 'Mögest du geliebt werden'... ... Spüre dein Herz sich mit Wärme für diese Person füllen......",
+        
+        neutralPerson: "Nun bringe jemanden neutralen in deinen Geist... Vielleicht einen Nachbarn... einen Kassierer... jemanden den du kennst aber nicht gut... Erkenne dass auch sie nach Glück suchen... ... Sende ihnen dieselben liebevollen Wünsche... 'Mögest du glücklich sein'... ... 'Mögest du gesund sein'... ... 'Mögest du in Sicherheit leben'... ... 'Mögest du mit Leichtigkeit leben'... ... Spüre dein Mitgefühl sich auf alle Wesen ausdehnen......",
+        
+        allBeings: "Schließlich erweitere dein Mitgefühl auf alle Wesen überall... Stelle dir vor deine liebevolle Güte strahlt aus wie die Sonne... berührt jeden den sie erreicht... ... 'Mögen alle Wesen glücklich sein'... ... 'Mögen alle Wesen gesund sein'... ... 'Mögen alle Wesen in Sicherheit leben'... ... 'Mögen alle Wesen mit Leichtigkeit leben'... ... 'Möge die ganze Welt erfüllt sein von liebevoller Güte'... ... Spüre dein Herz weit offen... verbunden mit allem Leben......",
+        
+        closing: "Während wir diese Praxis beenden... Spüre die Wärme des Mitgefühls in deinem Herzen... Diese liebevolle Güte ist immer verfügbar... eine Quelle der Heilung für dich und die Welt... ... Beginne deine Atmung zu vertiefen... Bewege sanft deine Hände... ... Wenn du bereit bist... öffne die Augen... ... Nimm dieses offene Herz mit dir... Mögest du durch deinen Tag gehen mit Güte zu dir selbst und anderen... Die Welt braucht dein Mitgefühl......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Achtsame Gehmeditation",
+        intro: "Willkommen zu dieser achtsamen Gehmeditation... Diese Praxis kann drinnen oder draußen gemacht werden... Finde einen Weg von etwa 10 bis 20 Schritten... oder einfach einen Bereich wo du langsam gehen kannst... Stehe am Anfang deines Weges... spüre deine Füße auf dem Boden... Wenn du bereit bist... beginne sehr langsam zu gehen...",
+        
+        preparation: "Bevor wir anfangen zu gehen... stehe still und spüre deinen Körper... Spüre deine Füße fest auf dem Boden... das Gewicht deines Körpers... die Länge deiner Wirbelsäule... ... Atme ein paar Mal tief ein... spüre dich geerdet und präsent... Setze eine Absicht für achtsames Gehen... vielleicht einfach vollständig hier zu sein bei jedem Schritt......",
+        
+        walkingPractice: "Beginne nun sehr langsam zu gehen... langsamere als gewöhnlich... Spüre das Heben deines einen Fußes... das Bewegen durch die Luft... das Platzieren auf dem Boden... ... Dann das Gewicht das sich verschiebt... das Heben des anderen Fußes... bewegen... platzieren... ... Lasse jeden Schritt eine Meditation sein... Heben... bewegen... platzieren... Gewicht verschieben... ... Wenn dein Geist wandert... bringe ihn sanft zurück zu den Empfindungen des Gehens......",
+        
+        coordination: "Koordiniere nun deine Atmung mit deinem Gehen... Vielleicht ein Atemzug pro Schritt... oder ein Atemzug für mehrere Schritte... Finde deinen eigenen Rhythmus... ... Spüre die Verbindung zwischen Atem und Bewegung... zwischen Körper und Geist... Du bist vollständig präsent in dieser einfachen Handlung des Gehens... ... Wenn du ans Ende deines Weges kommst... drehe dich achtsam um... pausiere... und beginne in die andere Richtung......",
+        
+        awareness: "Während du weiter gehst... erweitere dein Bewusstsein... Bemerke was du siehst... hörst... riechst... fühlst... ... Vielleicht die Temperatur der Luft... die Qualität des Lichts... die Geräusche um dich herum... ... Alles ist Teil deiner Meditation... Jeden Schritt... jeden Atemzug... jeden Moment der Wahrnehmung... ... Du bewegst dich durch die Welt mit vollständiger Aufmerksamkeit... vollständiger Gegenwart......",
+        
+        gratitude: "Während du weiter gehst... bringe Dankbarkeit für deinen Körper auf... für deine Füße die dich tragen... für deine Beine die dich bewegen... für deine Fähigkeit zu gehen... ... Dankbarkeit für diesen Moment... für diesen Ort... für diese Gelegenheit zur Achtsamkeit... ... Jeder Schritt ist ein Geschenk... jeder Atemzug eine Gelegenheit für Gegenwart......",
+        
+        closing: "Während wir diese Gehmeditation beenden... komme langsam zum Stillstand... Stehe einen Moment still... spüre deine Füße auf dem Boden... ... Bemerke wie du dich fühlst... vielleicht geerdet... zentriert... präsent... ... Du kannst achtsames Gehen jederzeit praktizieren... wo immer du bist... Es ist eine wunderbare Weise Meditation in dein tägliches Leben zu integrieren... ... Danke dass du dir diese Zeit genommen hast für achtsame Bewegung......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Vollständige Atempraxis",
+        intro: "Willkommen zu dieser vollständigen Atempraxis... Diese Meditation wird dich durch verschiedene Atemtechniken führen um dein Bewusstsein zu vertiefen und dein Nervensystem zu beruhigen... Setze dich bequem hin mit geradem Rücken... Lege eine Hand auf deine Brust... die andere auf deinen Bauch... Wenn du bereit bist... schließe die Augen...",
+        
+        naturalBreath: "Beginne einfach deinen natürlichen Atem zu beobachten... Ohne etwas zu verändern... bemerke nur den Rhythmus... die Tiefe... das Tempo... ... Spüre die Hand auf deiner Brust... die andere auf dem Bauch... Welche bewegt sich mehr?... Beurteile nicht... beobachte einfach... ... Dein Atem ist ein Spiegel deines inneren Zustands... Lass ihn dir zeigen wie du dich gerade fühlst... ohne zu versuchen etwas zu ändern......",
+        
+        deepBreathing: "Nun beginnen wir mit tiefem Atmen... Atme langsam und tief durch die Nase ein... fülle zuerst den Bauch... dann die Brust... ... Pausiere einen Moment am oberen Ende des Einatmens... spüre die Fülle... ... Dann atme langsam durch die Nase oder den Mund aus... lass die Brust sich senken... dann den Bauch... ... Wiederhole dies mehrere Male... ein... fülle... pausiere... aus... leere... ... Spüre wie sich dein Nervensystem mit jedem tiefen Atemzug beruhigt......",
+        
+        countedBreath: "Nun fügen wir Zählen hinzu... Atme für vier Zählzeiten ein... eins... zwei... drei... vier... Halte für vier... eins... zwei... drei... vier... Atme für vier aus... eins... zwei... drei... vier... Halte für vier... eins... zwei... drei... vier... ... Dieses 4-4-4-4 Muster hilft den Geist zu beruhigen... Wenn vier zu viel ist... versuche drei... oder bleib bei dem was sich natürlich anfühlt... ... Setze dieses rhythmische Atmen fort... spüre die Ruhe die es bringt......",
+        
+        nostrilBreathing: "Nun versuchen wir Wechselatmung... Verwende deinen rechten Daumen um dein rechtes Nasenloch zu schließen... Atme durch das linke Nasenloch ein... ... Schließe das linke Nasenloch mit deinem Zeigefinger... öffne das rechte... atme durch rechts aus... ... Atme durch rechts ein... schließe rechts... öffne links... atme durch links aus... ... Das ist ein Zyklus... Setze fort... links ein... rechts aus... rechts ein... links aus... ... Diese Praxis bringt die beiden Gehirnhälften ins Gleichgewicht......",
+        
+        breathAwareness: "Kehre nun zu natürlichem Atmen zurück... Lege beide Hände in den Schoß... Bemerke einfach jeden Atemzug... ein... aus... ein... aus... ... Spüre die Empfindung der Luft in deinen Nasenlöchern... kühl beim Einatmen... warm beim Ausatmen... ... Bemerke die Pausen zwischen den Atemzügen... die natürlichen Rhythmen deines Körpers... ... Dein Atem ist immer verfügbar als Anker zur Gegenwart... als Quelle der Ruhe......",
+        
+        closing: "Während wir diese Atempraxis beenden... Nimm einen Moment um zu bemerken wie du dich fühlst... Vielleicht ruhiger... zentrierter... präsenter... ... Diese Atemtechniken sind Werkzeuge die du jederzeit verwenden kannst... bei Stress... Angst... oder einfach um dich zu erden... ... Beginne deine Atmung zu vertiefen... Bewege sanft deine Finger... rolle deine Schultern... ... Wenn du bereit bist... öffne langsam die Augen... ... Nimm dieses Bewusstsein für den Atem mit dir... Es ist ein Geschenk das immer bei dir ist......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Morgendämmerung Erwachen",
+        intro: "Willkommen zu dieser Morgenmeditation... Eine Zeit des Erwachens und der Erneuerung... Setze dich bequem hin... vielleicht in der Nähe eines Fensters wo du das Morgenlicht spüren kannst... Fühle die Frische dieses neuen Tages... die Möglichkeiten die vor dir liegen... Wenn du bereit bist... schließe sanft die Augen oder lasse sie weich geöffnet...",
+        
+        awakening: "Beginne damit die Energie des Morgens zu spüren... Selbst wenn du müde bist... ist da eine Qualität der Erneuerung... der Neugeburt... ... Atme die frische Morgenluft... spüre deinen Körper der sich von der Nacht erholt... Strecke dich wenn du möchtest... rolle deine Schultern... bewege deinen Nacken... ... Du erwachst nicht nur aus dem Schlaf... sondern zu einem neuen Tag voller Möglichkeiten......",
+        
+        gratitude: "Bringe Dankbarkeit für diesen neuen Tag auf... 'Ich bin dankbar für diese Nacht der Ruhe'... ... 'Ich bin dankbar für diesen neuen Tag'... ... 'Ich bin dankbar für meinen Körper der mich trägt'... ... 'Ich bin dankbar für meine Fähigkeit zu atmen... zu fühlen... zu sein'... ... 'Ich bin dankbar für alle Möglichkeiten die heute vor mir liegen'... ... Lass diese Dankbarkeit dein Herz mit Wärme füllen......",
+        
+        intention: "Nun setze eine Absicht für deinen Tag... Nicht eine To-Do-Liste... sondern eine Qualität des Seins... ... Vielleicht 'Ich wähle heute präsent zu sein'... ... Oder 'Ich wähle heute freundlich zu mir selbst und anderen zu sein'... ... Oder 'Ich wähle heute neugierig und offen zu sein'... ... Spüre diese Absicht in deinem Körper... lass sie durch dein ganzes Sein durchdringen......",
+        
+        energy: "Stelle dir nun vor die Sonne geht in deinem Herzen auf... Ein warmes goldenes Licht das sich durch deinen ganzen Körper ausbreitet... ... Dieses Licht bringt Energie... Klarheit... Motivation... Es füllt jede Zelle mit Vitalität... ... Spüre diese Energie nach oben durch deine Brust... deinen Hals... deinen Kopf... Nach unten durch deinen Bauch... deine Beine... zu deinen Füßen... ... Du glühst mit innerer Sonne... bereit für was auch immer der Tag bringt......",
+        
+        affirmations: "Wiederhole diese Morgenaffirmationen... 'Ich begrüße diesen Tag mit Offenheit'... ... 'Ich habe die Kraft alle Herausforderungen zu bewältigen'... ... 'Ich bin bereit zu lernen und zu wachsen'... ... 'Ich bringe Güte in die Welt'... ... 'Dieser Tag ist voller Möglichkeiten'... ... 'Ich vertraue meiner Fähigkeit zu gedeihen'... ... Spüre diese Worte dich von innen stärken......",
+        
+        closing: "Während wir diese Morgenmeditation beenden... Spüre dich bereit und energetisiert für den Tag... Dein Geist ist klar... dein Herz ist offen... dein Körper ist wach... ... Beginne deine Atmung zu vertiefen... Bewege sanft deine Finger und Zehen... vielleicht strecke dich noch einmal... ... Wenn du bereit bist... öffne die Augen und begrüße den Tag... ... Nimm diese Energie... diese Absicht... diese Dankbarkeit mit dir... Du bist bereit für einen schönen Tag... Guten Morgen......"
+      }
     ]
   },
 
@@ -681,6 +1168,109 @@ const meditationTemplates = {
         
         closing: "Mentre completiamo questa meditazione energizzante... Senti la vitalità che scorre nelle tue vene... Sei sveglio... vigile e completamente carico... ... Inizia a muovere il tuo corpo come ti fa sentire bene... Forse allunga le braccia sopra la testa... Ruota il collo... Rimbalza dolcemente sulle punte dei piedi... ... Quando sei pronto... apri gli occhi spalancati... Prendi il mondo con energia fresca... Sei pronto ad abbracciare la tua giornata con entusiasmo e potenza... Vai avanti e fai brillare la tua luce......"
       }
+    ],
+
+    mindfulness: [
+      {
+        name: "Consapevolezza del Momento Presente",
+        intro: "Benvenuto in questa meditazione di consapevolezza del momento presente... Trova una posizione seduta comoda e dignitosa... La tua schiena dritta ma non rigida... Le tue spalle rilassate lontano dalle orecchie... Appoggia le mani naturalmente... Quando sei pronto... chiudi dolcemente gli occhi e porta la tua attenzione al qui e ora...",
+        
+        breathing: "Iniziamo ancorandoci nel momento presente attraverso il respiro... Nota il respiro che entra naturalmente... e che esce naturalmente... Non c'è bisogno di cambiare nulla... solo osservare... ... Senti l'aria fresca che entra attraverso le tue narici... Senti l'aria calda che esce... Ogni respiro è un'opportunità per tornare al presente... ... Semplicemente... inspira... espira... Essere qui... proprio qui... in questo momento......",
+        
+        bodyAwareness: "Ora espandi la tua consapevolezza al tuo corpo... Nota la sensazione di essere seduto... Il contatto con la sedia o il cuscino... La solidità del pavimento sotto i tuoi piedi... ... Porta l'attenzione alla tua postura... Il peso del tuo corpo... La temperatura dell'aria sulla tua pelle... ... Forse noti tensione da qualche parte... o comfort... o neutralità... Qualsiasi cosa tu stia sperimentando... è perfettamente ok... Semplicemente osserva con gentilezza e curiosità......",
+        
+        mindfulListening: "Ora apri la tua consapevolezza ai suoni intorno a te... Senza cercare di identificare o giudicare... semplicemente lascia che i suoni arrivino alle tue orecchie... ... Forse senti suoni vicini... suoni lontani... suoni del tuo stesso corpo... ... Nota come i suoni sorgono e svaniscono... Come onde che arrivano e si ritirano... ... Lascia che ogni suono sia solo quello che è... Un'altra porta verso il momento presente......",
+        
+        thoughtObservation: "Ora nota i pensieri che passano attraverso la tua mente... Come nuvole che si muovono nel cielo... Alcuni pensieri sono leggeri e veloci... altri più pesanti e lenti... ... Non c'è bisogno di fermarli o seguirli... Semplicemente osserva... Ecco un pensiero... ed ecco che se ne va... ... Ogni volta che ti accorgi di essere stato trascinato in un pensiero... dolcemente... senza giudizio... ritorna al momento presente... Questo è il cuore della pratica della consapevolezza......",
+        
+        presentMoment: "Ora porta la tua attenzione all'esperienza totale di essere qui ora... Il tuo respiro... Il tuo corpo... I suoni... I pensieri... tutto insieme... ... Questo è il momento presente... Non il momento fa... non il momento dopo... ma questo momento... ... Nota come questo momento è sempre qui... sempre disponibile... sempre fresco... ... Sei completamente qui... completamente presente... completamente vivo in questo momento......",
+        
+        closing: "Mentre ci prepariamo a terminare questa meditazione... Ricorda che questo momento presente è sempre qui per te... Sempre accessibile... sempre a portata di respiro... ... Inizia a muovere dolcemente le dita delle mani e dei piedi... Allunga le braccia se lo desideri... Fai un respiro profondo... ... Quando sei pronto... apri lentamente gli occhi... Porta questa qualità di presenza consapevole con te... Ogni momento è un'opportunità per essere pienamente qui... Grazie per aver praticato la consapevolezza......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Pratica di Amorevole Gentilezza",
+        intro: "Benvenuto in questa meditazione di compassione e amorevole gentilezza... Trova una posizione comoda che si senta aperta e ricettiva... Posa una mano sul tuo cuore se ti fa sentire connesso... Prendi un momento per impostare l'intenzione di aprire il tuo cuore... Quando sei pronto... chiudi dolcemente gli occhi...",
+        
+        selfCompassion: "Iniziamo offrendo gentilezza e compassione a noi stessi... Porta alla mente un'immagine di te stesso come un bambino... Innocente... meritevole di amore... ... Invia a questo bambino i tuoi auguri amorevoli... Possa io essere felice... Possa io essere in pace... Possa io essere libero dalla sofferenza... Possa io essere riempito di amore... ... Senti questi auguri che scaldano il tuo cuore... Nota qualsiasi resistenza senza giudizio... e dolcemente ritorna agli auguri amorevoli... ... Sei degno di gentilezza... Sei degno di compassione... Sei degno di amore... soprattutto dal tuo stesso cuore......",
+        
+        lovedOne: "Ora porta alla mente qualcuno che ami facilmente... Forse un familiare... un amico... o anche un animale domestico... Vedi il loro viso... Senti l'amore che provi per loro... ... Invia loro i tuoi auguri amorevoli... Possa tu essere felice... Possa tu essere in pace... Possa tu essere libero dalla sofferenza... Possa tu essere riempito di amore... ... Senti il tuo cuore espandersi con questi auguri... Nota la gioia che viene dal voler bene a qualcuno... Questa è la natura naturale del cuore aperto......",
+        
+        neutralPerson: "Ora porta alla mente qualcuno neutrale... forse qualcuno che hai visto oggi ma non conosci bene... Un commesso... un vicino... un passante... ... Ricorda che anche questa persona vuole essere felice... vuole evitare la sofferenza... proprio come te... ... Invia loro i tuoi auguri amorevoli... Possa tu essere felice... Possa tu essere in pace... Possa tu essere libero dalla sofferenza... Possa tu essere riempito di amore... ... Nota come il tuo cuore può aprirsi anche a chi non conosci bene... Siamo tutti interconnessi nel nostro desiderio di felicità......",
+        
+        difficultPerson: "Ora se ti senti pronto... porta alla mente qualcuno con cui hai difficoltà... Inizia con qualcuno solo leggermente difficile... non la persona più difficile della tua vita... ... Ricorda che anche questa persona soffre... anche questa persona vuole essere felice... È dalla loro sofferenza che spesso arriva il comportamento difficile... ... Prova a inviare loro piccoli auguri amorevoli... Possa tu essere libero dalla sofferenza... Possa tu trovare pace... ... Se senti resistenza... va bene... Semplicemente torna agli auguri per te stesso... La compassione inizia sempre a casa......",
+        
+        allBeings: "Ora espandi la tua compassione a tutti gli esseri viventi... Immagina il tuo amore che si irradia fuori da te... toccando tutti nella tua città... nel tuo paese... in tutto il mondo... ... Tutti vogliono essere felici... Tutti vogliono evitare la sofferenza... Tutti meritano gentilezza e compassione... ... Possa tutti gli esseri essere felici... Possa tutti gli esseri essere in pace... Possa tutti gli esseri essere liberi dalla sofferenza... Possa tutti gli esseri essere riempiti di amore... ... Senti il tuo cuore connesso al cuore di tutti gli esseri viventi......",
+        
+        closing: "Mentre terminiamo questa meditazione di compassione... Porta le mani al tuo cuore... Senti la warmth e l'apertura che hai coltivato... ... Ricorda che puoi sempre tornare a questi auguri amorevoli... quando stai lottando... quando qualcuno ti ferisce... quando il mondo sembra difficile... ... Inizia a muovere dolcemente il tuo corpo... Fai un respiro profondo... E quando sei pronto... apri gli occhi... ... Porta questa gentilezza amorevole con te nel mondo... Sii paziente con te stesso e con gli altri... Il mondo ha bisogno del tuo cuore aperto......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Pratica di Camminata Consapevole",
+        intro: "Benvenuto in questa meditazione di camminata consapevole... Trova un percorso dove puoi camminare lentamente e in sicurezza... Può essere dentro o fuori... lungo o corto... ... Inizia stando fermo... Senti i tuoi piedi collegati al terreno... Nota la tua postura... Il peso del tuo corpo... Quando sei pronto... inizieremo a camminare lentamente e consapevolmente...",
+        
+        standingAwareness: "Prima di iniziare a camminare... porta la tua consapevolezza al tuo corpo in piedi... Senti la solidità del terreno sotto i tuoi piedi... Il tuo corpo eretto contro la gravità... ... Nota l'equilibrio sottile che il tuo corpo mantiene automaticamente... La danza costante di micro-aggiustamenti... ... Senti il peso del tuo corpo... distribuito tra i tuoi piedi... Nota qualsiasi sensazione nelle tue gambe... nei tuoi piedi... nella tua schiena... ... Questa è la tua base... il tuo fondamento... Da qui inizieremo il nostro viaggio consapevole......",
+        
+        beginningSteps: "Ora inizia a camminare molto lentamente... Solleva un piede... Senti il peso trasferirsi all'altro piede... Muovi il piede in avanti... Appoggialo gentilmente a terra... ... Ora solleva l'altro piede... Senti il cambiamento di peso... Muovi... Appoggia... ... Ogni passo è una meditazione... Ogni passo è un momento di consapevolezza... Non c'è fretta... Non c'è destinazione... Solo questo passo... poi il prossimo......",
+        
+        footSensations: "Porta la tua attenzione alle sensazioni nei tuoi piedi... Senti il contatto con il terreno... La texture... La temperatura... La pressione... ... Nota il rollio naturale del piede... Dal tallone... attraverso la pianta... fino alle dita... ... Senti i muscoli delle tue gambe che lavorano... Il modo in cui il tuo corpo si muove nello spazio... L'equilibrio dinamico del camminare... ... Ogni passo è un miracolo di coordinazione... Un dono del tuo corpo incredibile......",
+        
+        bodyInMotion: "Ora espandi la tua consapevolezza all'intero corpo che cammina... Nota come le tue braccia si muovono naturalmente... Il dondolio gentile del tuo torso... ... Senti la tua respirazione che continua mentre cammini... Forse cambia ritmo... Forse rimane costante... Semplicemente osserva... ... Nota come il tuo corpo sa come camminare... Non devi controllare ogni movimento... Il tuo corpo ha la sua saggezza... Fidati di questa saggezza......",
+        
+        environmentAwareness: "Ora apri la tua consapevolezza all'ambiente intorno a te... Nota quello che vedi... non analizzando... ma semplicemente ricevendo... ... Senti l'aria sulla tua pelle... Ascolta i suoni intorno a te... Nota eventuali profumi... ... Sei parte di questo momento... di questo spazio... Stai camminando attraverso questo mondo... completamente presente... completamente vivo... ... Ogni passo ti connette più profondamente al qui e ora......",
+        
+        mindfulTurning: "Quando arrivi alla fine del tuo percorso... fermati... Stai in piedi per un momento... Senti la quietud dopo il movimento... ... Ora girati lentamente... Senti l'intero corpo che si gira... Il cambiamento di prospettiva... La vista diversa... ... Inizia a camminare nella direzione opposta... Ogni passo ancora fresco... ancora nuovo... ... Camminare consapevolmente trasforma l'ordinario in straordinario......",
+        
+        gratitude: "Mentre continui a camminare... porta gratitudine a questo corpo incredibile... Alle tue gambe che ti portano... Ai tuoi piedi che ti sostengono... Al tuo equilibrio che ti mantiene stabile... ... Senti gratitudine per la tua capacità di muoverti attraverso il mondo... Non tutti hanno questo dono... Ogni passo è un privilegio... ... Nota come la meditazione camminante crea un santuario in movimento... pace in movimento......",
+        
+        closing: "Vieni gradualmente a fermarti... Stai fermo per un momento... Senti i tuoi piedi saldamente a terra... Nota qualsiasi sensazione nel tuo corpo da questa camminata consapevole... ... Prenditi un momento per apprezzare che puoi portare questa qualità di consapevolezza a qualsiasi movimento... Camminare verso la tua auto... su per le scale... attraverso una stanza... ... Ogni passo può essere un'opportunità per la presenza... per il ritorno al qui e ora... Porta questa consapevolezza camminante con te nella tua giornata......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Pratica di Respirazione Completa",
+        intro: "Benvenuto in questa meditazione di respirazione completa... Trova una posizione comoda seduta o sdraiata... Posa una mano sul tuo petto e una sul tuo ventre... Chiudi dolcemente gli occhi e inizia a notare il tuo respiro naturale... Non cambiare nulla... solo osserva come respiri in questo momento...",
+        
+        naturalBreath: "Iniziamo semplicemente osservando il tuo respiro naturale... Nota dove senti il respiro più chiaramente... Forse alle narici... forse nel petto... forse nel ventre... ... Segui il respiro che entra... e il respiro che esce... Ogni respiro è unico... ogni respiro è un dono... ... Non c'è bisogno di renderlo più profondo... o più lento... Semplicemente lascia che il respiro sia se stesso... mentre tu lo osservi con gentile curiosità......",
+        
+        deepBreathing: "Ora inizieremo a approfondire delicatamente il respiro... Inspira lentamente attraverso il naso... sentendo l'aria riempire prima il tuo ventre... poi il tuo petto... poi la parte superiore dei polmoni... ... Espira lentamente attraverso la bocca... sentendo l'aria uscire dalla parte superiore... poi dal petto... poi dal ventre... ... Questo è un respiro completo... un respiro che usa tutta la tua capacità polmonare... Ripeti questo respiro profondo... sentendoti più calmo ad ogni espirazione......",
+        
+        countedBreathing: "Ora aggiungeremo il conteggio per aiutare a concentrare la mente... Inspira contando lentamente fino a quattro... uno... due... tre... quattro... Trattieni dolcemente il respiro per due conteggi... uno... due... ... Espira contando fino a sei... uno... due... tre... quattro... cinque... sei... Questa espirazione più lunga attiva la risposta di rilassamento del corpo... ... Continua questo ritmo... Dentro per quattro... trattieni per due... fuori per sei... Trova il tuo proprio ritmo confortevole......",
+        
+        energizingBreath: "Ora proviamo una tecnica di respirazione energizzante... Prendi un respiro profondo... poi espira con tre piccoli respiri veloci attraverso la bocca... HU-HU-HU... ... Questo risveglia il tuo sistema nervoso e porta energia... Ancora una volta... inspira profondamente... espira HU-HU-HU... ... Senti l'energia che si muove attraverso il tuo corpo... Sei più vigile... più presente... più vivo... ... Torna al respiro naturale... Nota come ti senti ora......",
+        
+        calmingBreath: "Ora utilizzeremo il respiro per creare calma profonda... Inspira lentamente contando fino a cinque... uno... due... tre... quattro... cinque... ... Espira ancora più lentamente contando fino a otto... uno... due... tre... quattro... cinque... sei... sette... otto... ... Ogni espirazione ti porta più in profondità nel rilassamento... Ogni espirazione rilascia tensione e stress... ... Continua questo respiro calmante... Dentro per cinque... fuori per otto... Sentiti sprofondare in pace tranquilla......",
+        
+        breathAwareness: "Ora torna al tuo respiro naturale... Nota come si sente diverso dall'inizio... Forse più profondo... forse più calmo... forse più presente... ... Porta la tua consapevolezza alla pausa naturale tra l'inspirazione e l'espirazione... Quello spazio di quiete... quello momento di pace... ... Questo è il tuo rifugio... sempre disponibile... sempre con te... Il tuo respiro è il tuo maestro più fedele... sempre lì per guidarti al momento presente......",
+        
+        closing: "Mentre completiamo questa pratica di respirazione... Prenditi un momento per apprezzare questo dono incredibile del respiro... Ti mantiene vivo... ti connette al momento presente... ti porta pace... ... Inizia a muovere dolcemente le dita delle mani e dei piedi... Allunga le braccia se lo desideri... Fai un respiro profondo e completo... ... Quando sei pronto... apri lentamente gli occhi... Ricorda che il tuo respiro è sempre lì... il tuo compagno costante... il tuo sentiero verso la pace... Porta questa consapevolezza del respiro con te nella tua giornata......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Pratica del Risveglio dell'Alba",
+        intro: "Benvenuto in questa meditazione mattutina per iniziare la giornata... Mentre ti prepari per questo nuovo giorno... trova una posizione comoda seduta o sdraiata... Prenditi un momento per notare come ti senti... nel tuo corpo... nella tua mente... nel tuo cuore... ... Questo è un nuovo inizio... un'opportunità fresca... un dono di 24 ore davanti a te...",
+        
+        gentleAwakening: "Iniziamo risvegliando dolcemente il tuo corpo... Allunga le braccia sopra la testa... raggiungendo verso le tue possibilità più elevate... ... Ruota le spalle indietro... sentendo il tuo petto aprirsi al nuovo giorno... ... Fai un profondo sbadiglio se arriva... lasciando che il tuo corpo transiti dal sonno alla veglia... ... Muovi le dita delle mani e dei piedi... sentendo la forza vitale che scorre verso le tue estremità... Il tuo corpo è pronto per il giorno......",
+        
+        morningBreath: "Ora usiamo il respiro per costruire energia dolce... Inspira lentamente... immaginando di respirare l'energia fresca del mattino... Espira... rilasciando qualsiasi sonnolenza o stanchezza... ... Ad ogni respiro... sentiti diventare più vigile... più vivo... più presente... ... Immagina la luce del mattino... che tu possa vederla o no... riempiendo il tuo corpo di vitalità e chiarezza... ... Ogni inspirazione porta possibilità... ogni espirazione rilascia il passato......",
+        
+        gratitude: "Prendiamo un momento per la gratitudine mattutina... Pensa a tre cose per cui sei grato... ... Forse per questo nuovo giorno... per la tua salute... per le persone che ami... per le opportunità che hai... ... Senti questa gratitudine espandersi nel tuo petto... riempiendoti di calore... ... La gratitudine è come il sole... illumina tutto ciò che tocca... ... Lascia che questo apprezzamento riempia ogni cellula del tuo corpo... preparandoti a vedere la bellezza nel giorno che ti aspetta......",
+        
+        intentionSetting: "Ora poniamo un'intenzione per la tua giornata... Non una lista di cose da fare... ma una qualità dell'essere... ... Forse 'Scelgo di essere presente oggi'... ... O 'Scelgo di essere gentile con me stesso e con gli altri oggi'... ... O 'Scelgo di essere curioso e aperto oggi'... ... Senti questa intenzione nel tuo corpo... lascia che permei tutto il tuo essere... ... Questa intenzione sarà la tua guida... la tua bussola per il giorno che hai davanti......",
+        
+        energyVisualization: "Immagina una luce dorata brillante nel centro del tuo petto... Questa è la tua energia dell'alba... la tua vitalità naturale... ... Ad ogni respiro... questa luce diventa più brillante... più forte... ... Senti questa energia espandersi attraverso tutto il tuo corpo... verso l'alto attraverso il tuo petto... collo... testa... ... Verso il basso attraverso il tuo ventre... fianchi... gambe... fino alle dita dei piedi... ... Verso i lati attraverso le tue braccia... fino alle punte delle dita... ... Tutto il tuo corpo splende di questa energia dell'alba... pronto a brillare nel mondo......",
+        
+        affirmations: "Riempiamo la tua mente con affirmazioni positive per il mattino... 'Accolgo questo nuovo giorno con gioia'... ... 'Ho tutto ciò di cui ho bisogno dentro di me'... ... 'Questo giorno è pieno di possibilità'... ... 'Sono pronto ad abbracciare ciò che viene'... ... 'Irradio pace e positività'... ... Senti queste parole ancorarsi profondamente nella tua coscienza......",
+        
+        closing: "Mentre completiamo questa meditazione mattutina... prenditi un momento per apprezzare questo dono che hai dato a te stesso... ... Sentiti pronto ed energizzato per la tua giornata... centrato nella tua intenzione... riempito di gratitudine... ... Quando ti alzerai... porta questa energia consapevole con te... ... Ricorda... ogni mattino è una nuova opportunità... una pagina bianca... Cosa farai di questa bella giornata?... ... Alzati... brilla... e lascia che la tua luce tocchi il mondo......"
+      }
     ]
   },
 
@@ -762,6 +1352,107 @@ const meditationTemplates = {
         affirmations: "Vamos ativar a sua energia com afirmações poderosas... 'Estou cheio de energia vibrante'... ... 'O meu corpo é forte e vivo'... ... 'Tenho toda a energia de que preciso para o meu dia'... ... 'Estou motivado e pronto para a ação'... ... 'A energia flui livremente através de mim'... ... Sinta estas palavras carregando cada célula do seu corpo......",
         
         closing: "Enquanto completamos esta meditação energizante... Sinta a vitalidade correndo pelas suas veias... Está desperto... alerta e completamente carregado... ... Comece a mover o seu corpo como se sente bem... Talvez estique os braços acima da cabeça... Role o pescoço... Salte suavemente nas pontas dos pés... ... Quando estiver pronto... abra os olhos bem abertos... Receba o mundo com energia fresca... Está pronto para abraçar o seu dia com entusiasmo e poder... Vá em frente e deixe a sua luz brilhar......"
+      }
+    ],
+
+    mindfulness: [
+      {
+        name: "Consciência do Momento Presente",
+        intro: "Bem-vindo a esta prática de mindfulness... Encontre uma posição confortável e estável... Permita que os seus olhos se fechem suavemente... Respire naturalmente... Está prestes a embarcar numa jornada de consciência plena... para descobrir a riqueza do momento presente...",
+        
+        breathing: "Vamos começar ancorando a nossa atenção na respiração... Não precisa de alterar o seu ritmo natural... apenas observe... Sinta a respiração entrar pelas narinas... talvez fresca ou ligeiramente fresca... ... Sinta a respiração sair... talvez mais quente... ... Quando a mente divagar... e irá divagar... simplesmente note 'pensando'... e traga gentilmente a sua atenção de volta à respiração... ... Não há julgamento... apenas um regresso gentil ao momento presente......",
+        
+        mindfulnessExercise: "Agora vamos expandir a nossa consciência... Mantenha a respiração como âncora... mas comece a notar os sons à sua volta... ... Talvez ouça sons distantes... sons próximos... Som do seu próprio corpo... ... Não precisa de identificar ou julgar estes sons... apenas deixe que existam no espaço da sua consciência... ... Agora note as sensações físicas... O contacto do seu corpo com a superfície onde está sentado... A temperatura do ar na sua pele... Talvez sensações de peso... leveza... tensão... relaxamento... ... Tudo é bem-vindo no momento presente......",
+        
+        thoughts: "Vamos praticar a consciência dos pensamentos... Imagine a sua mente como um céu vasto... Os pensamentos são como nuvens que passam... ... Quando notar um pensamento... simplesmente reconheça-o... 'Ah, um pensamento'... ... Não precisa de o seguir... não precisa de o combater... apenas observe-o passar... como uma nuvem no céu da sua consciência... ... Alguns pensamentos são grandes e dramáticos... outros são pequenos e subtis... Todos são temporários... todos passam... ... Você é o céu... não as nuvens... Você é a consciência que observa... não aquilo que é observado......",
+        
+        presentMoment: "Agora vamos aprofundar a nossa presença... Traga toda a sua atenção para este momento exato... ... Não há passado neste momento... não há futuro... apenas este respirar... este ouvir... este estar... ... Sinta a vida a pulsar através de si... A sua consciência brilhante e acordada... ... Este momento é um presente... por isso se chama 'presente'... Está completo exatamente como está... ... Você está completo exatamente como está......",
+        
+        closing: "Enquanto completamos esta prática de mindfulness... Leve consigo esta qualidade de presença... Pode aceder a esta consciência a qualquer momento... ... Basta pausar... respirar... e regressar ao agora... ... Comece a mover suavemente o seu corpo... Talvez os dedos das mãos e dos pés... ... Quando estiver pronto... abra os olhos... Traga esta consciência plena para o resto do seu dia... Cada momento é uma oportunidade para despertar......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "Prática de Bondade Amorosa",
+        intro: "Bem-vindo a esta prática de bondade amorosa... Encontre uma posição confortável... Permita que o seu coração se abra... Feche os olhos suavemente... Respire naturalmente... Está prestes a cultivar a qualidade mais bela da existência humana... a compaixão incondicional...",
+        
+        breathing: "Vamos começar criando espaço no coração... Respire para o centro do seu peito... Imagine cada respiração suavizando e expandindo o espaço em torno do seu coração... ... Sinta o peito expandir com cada inspiração... não apenas com ar... mas com bondade... ... Com cada expiração... liberte qualquer tensão... qualquer julgamento... qualquer dureza... ... Permita que o seu coração se torne espaçoso e caloroso... como uma lareira num dia frio de inverno......",
+        
+        selfCompassion: "Vamos começar oferecendo bondade a nós mesmos... Coloque a mão no coração se isso parecer natural... ... Imagine dirigir-se a si mesmo como faria a um amigo querido... Com a mesma gentileza... a mesma compreensão... ... Repita silenciosamente ou sussurre... 'Que eu seja feliz'... ... Sinta estas palavras no seu coração... não apenas na sua mente... 'Que eu seja feliz'... ... 'Que eu seja saudável'... ... 'Que eu viva com facilidade'... ... 'Que eu seja livre de sofrimento'... ... Se sentir resistência... está bem... Apenas note... e continue oferecendo bondade a si mesmo... Você merece amor... especialmente o seu próprio......",
+        
+        lovedOne: "Agora traga à mente alguém que ama facilmente... Talvez um familiar querido... um amigo próximo... até mesmo um animal de estimação... ... Veja o rosto desta pessoa... sinta o amor que tem por ela... ... Dirija estas palavras para ela... 'Que você seja feliz'... ... Sinta o calor destas palavras fluindo do seu coração para o deles... 'Que você seja saudável'... ... 'Que você viva com facilidade'... ... 'Que você seja livre de sofrimento'... ... Note como é natural desejar felicidade para alguém que ama......",
+        
+        neutralPerson: "Agora traga à mente uma pessoa neutra... Alguém que conhece mas por quem não sente nem amor especial nem desagrado... Talvez um vizinho... um funcionário de loja... alguém que vê regularmente... ... Veja se consegue estender a mesma bondade a esta pessoa... 'Que você seja feliz'... ... Mesmo que não sinta uma conexão profunda... pode oferecer boa vontade... 'Que você seja saudável'... ... 'Que você viva com facilidade'... ... 'Que você seja livre de sofrimento'... ... Esta pessoa também quer ser feliz... tal como você... tal como todos os seres......",
+        
+        difficultPerson: "Agora... se se sentir pronto... traga à mente alguém com quem tem dificuldades... Comece com alguém que só causa irritação ligeira... não a pessoa mais difícil da sua vida... ... Lembre-se... esta pessoa também já foi uma criança... também tem medos... também sente dor... ... Veja se consegue oferecer... mesmo que seja difícil... 'Que você seja feliz'... ... Se sentir resistência... está bem... Continue tentando... ou volte a si mesmo... 'Que você seja livre de sofrimento'... ... Lembre-se... desejar bem a alguém não significa concordar com as suas ações... É simplesmente reconhecer a nossa humanidade partilhada......",
+        
+        allBeings: "Agora vamos expandir a nossa bondade para todos os seres... Imagine ondas de compaixão irradiando do seu coração... ... Primeiro para todos na sua casa... no seu bairro... na sua cidade... ... Expandindo para toda a região... país... continente... ... Finalmente abraçando todo o planeta... todos os seres vivos... ... 'Que todos os seres sejam felizes'... ... 'Que todos os seres sejam saudáveis'... ... 'Que todos os seres vivam com facilidade'... ... 'Que todos os seres sejam livres de sofrimento'... ... Sinta-se conectado com toda a vida... parte da grande teia da existência......",
+        
+        closing: "Enquanto completamos esta prática de bondade amorosa... Sinta o seu coração expandido... mais espaçoso... mais compassivo... ... Esta bondade vive sempre dentro de si... Pode acedê-la a qualquer momento... especialmente quando enfrentar dificuldades... ... Comece a mover suavemente o seu corpo... Sinta a gratidão por ter praticado... ... Quando abrir os olhos... veja o mundo através dos olhos da compaixão... Lembre-se... a bondade que oferece aos outros... regressa sempre a si......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "Prática de Caminhada Consciente",
+        intro: "Bem-vindo a esta meditação de caminhada consciente... Encontre-se de pé numa posição confortável... Sinta os seus pés em contacto com o solo... Permita que os olhos se fechem suavemente ou mantenham um olhar suave... Está prestes a transformar o simples ato de caminhar numa prática profunda de consciência...",
+        
+        standingAwareness: "Comecemos por tomar consciência da posição de pé... Sinta o peso do seu corpo distribuído pelos pés... Note a estabilidade... a forma como o solo o suporta... ... Sinta a ligação entre os seus pés e a terra... Esta é a sua base... a sua fundação... ... Deixe os braços caírem naturalmente ao lado do corpo... Ombros relaxados... Coluna direita mas não rígida... ... Respire naturalmente... Sinta-se enraizado... mas também leve... como uma árvore forte mas flexível......",
+        
+        liftingSteps: "Agora vamos começar a caminhar muito lentamente... Comece levantando o pé direito... Note a sensação de levantamento... o peso transferindo-se para o pé esquerdo... ... Levante... levante... levante... Sinta os músculos envolvidos... a mudança de equilíbrio... ... Agora mova o pé direito para a frente... movendo... movendo... movendo... Sinta o pé mover-se pelo espaço... ... Agora coloque o pé direito no solo... colocando... colocando... colocando... Sinta o contacto com o solo... o peso transferindo-se... ... Agora levante o pé esquerdo... levante... levante... levante... Continue este processo lento e consciente......",
+        
+        walkingRhythm: "Encontre um ritmo natural para a sua caminhada consciente... Não precisa de ser muito lento... apenas consciente... ... Sinta cada passo como uma oportunidade de presença... Levantando... movendo... colocando... ... Se estiver a caminhar numa linha reta... quando chegar ao fim... pare... vire-se conscientemente... e comece novamente... ... Ou se estiver a caminhar em círculo... sinta a curva contínua... a mudança sutil de direção... ... Deixe que cada passo seja uma meditação... cada movimento uma oração silenciosa......",
+        
+        bodyAwareness: "Enquanto caminha... expanda a sua consciência para todo o corpo... Sinta como os braços se movem naturalmente... balançando suavemente... ... Note como o tronco se ajusta subtilmente com cada passo... mantendo o equilíbrio... ... Sinta a cabeça equilibrada no topo da coluna... os olhos suaves... a respiração natural... ... Todo o corpo caminhando em harmonia... cada parte colaborando com as outras... ... Você não está apenas observando a caminhada... você é a caminhada... você é o movimento consciente......",
+        
+        mindfulSteps: "Se a mente divagar... e irá divagar... simplesmente note 'pensando'... e traga a atenção de volta aos pés... ... Cada passo é uma oportunidade de regressar ao presente... Cada contacto com o solo é uma nova oportunidade de consciência... ... Não há pressa... não há destino... apenas este passo... depois o próximo... depois o seguinte... ... Caminhe como se cada passo fosse sagrado... como se estivesse a pisar terra sagrada... porque está......",
+        
+        surroundings: "Se estiver a caminhar no exterior... note suavemente os sons à sua volta... Os pássaros... o vento... o tráfego distante... ... Sinta o ar na sua pele... a temperatura... talvez uma brisa suave... ... Se estiver no interior... note os sons da casa... a qualidade da luz... a textura do solo sob os seus pés... ... Permita que o ambiente faça parte da sua prática... não como distração... mas como parte da rica tapeçaria da consciência......",
+        
+        closing: "Enquanto completamos esta prática de caminhada consciente... Pare lentamente... Sinta novamente os dois pés firmemente no solo... ... Saiba que pode trazer esta qualidade de consciência para qualquer caminhada... ... Cada passo pode ser uma meditação... cada movimento uma oportunidade de presença... ... Comece a mover-se normalmente... mas mantenha um vestígio desta consciência... ... Quando abrir os olhos completamente... leve esta presença corporal para o resto do seu dia... Cada passo é uma oportunidade de despertar......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "Prática de Respiração Completa",
+        intro: "Bem-vindo a esta prática de respiração completa... Encontre uma posição confortável... seja sentado ou deitado... Permita que os olhos se fechem suavemente... Está prestes a explorar a respiração como uma porta para a calma profunda e vitalidade radiante...",
+        
+        naturalBreath: "Comecemos simplesmente observando a sua respiração natural... Sem tentar mudá-la... apenas observe... ... Sinta a respiração entrar... talvez pelas narinas... talvez ligeiramente fresca... ... Sinta a respiração sair... talvez mais quente... talvez mais suave... ... Note as pausas naturais... a pequena pausa após a inspiração... a pequena pausa após a expiração... ... Estas pausas são portais para a quietude... momentos de perfeita quietude......",
+        
+        deepBreathing: "Agora vamos aprofundar a respiração suavemente... Inspire lentamente pelo nariz... enchendo primeiro o abdómen... ... Sinta o ventre expandir suavemente... como um balão que se enche... ... Continue inspirando... enchendo o peito... as costelas expandindo... ... Finalmente... levante ligeiramente os ombros... enchendo completamente os pulmões... ... Pause por um momento... segurando esta respiração preciosa... ... Agora expire lentamente pela boca... primeiro dos ombros... depois do peito... finalmente do abdómen... ... Sinta todo o ar sair... deixando o corpo relaxado e solto......",
+        
+        countedBreath: "Vamos adicionar uma contagem suave para aprofundar a prática... Inspire lentamente contando até quatro... um... dois... três... quatro... ... Segure a respiração contando até quatro... um... dois... três... quatro... ... Expire lentamente contando até seis... um... dois... três... quatro... cinco... seis... ... Segure vazio contando até dois... um... dois... ... Continue com este ritmo... 4-4-6-2... Encontre o seu próprio ritmo natural... não force......",
+        
+        energizingBreath: "Agora vamos praticar uma respiração energizante... Mantenha a boca ligeiramente aberta... Inspire rapidamente pelo nariz... expire rapidamente pela boca... ... Como um cão a arfar... mas controlado... rápido mas não forçado... ... Continue por cerca de 30 segundos... se sentir tonturas... pare e respire normalmente... ... Isto desperta o sistema nervoso... energiza o corpo... clarifica a mente... ... Agora volte à respiração normal... sinta a energia vibrante no seu corpo......",
+        
+        calmingBreath: "Agora vamos praticar uma respiração calmante... Inspire pelo nariz contando até quatro... um... dois... três... quatro... ... Expire pelo nariz contando até oito... um... dois... três... quatro... cinco... seis... sete... oito... ... Esta expiração mais longa ativa o sistema nervoso parassimpático... promove profundo relaxamento... ... Continue com este ritmo... 4-8... 4-8... Sinta cada expiração longa levando-o mais profundamente na calma......",
+        
+        breathAwareness: "Agora simplesmente descanse na consciência da respiração... Sem controlar... sem contar... apenas estar presente com cada inspiração... cada expiração... ... Sinta a respiração como uma onda suave... fluindo para dentro... fluindo para fora... ... A respiração é vida... é energia... é a força vital que o conecta com toda a existência... ... Cada respiração é um presente... uma oportunidade de estar plenamente vivo... ... Descanse nesta consciência da respiração... deixe que ela o sustente... deixe que ela o alimente......",
+        
+        closing: "Enquanto completamos esta prática de respiração... Sinta a gratidão por este sistema incrível que o mantém vivo... ... A respiração está sempre consigo... sempre disponível como âncora... como fonte de calma... como fonte de energia... ... Comece a mover suavemente o corpo... Talvez estique os braços... role os ombros... ... Quando abrir os olhos... leve consigo esta consciência da respiração... Sempre que sentir stress ou cansaço... pode voltar à respiração... A respiração é o seu professor mais fiel......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "Prática do Despertar da Aurora",
+        intro: "Bem-vindo a esta prática matinal de despertar... Encontre uma posição confortável... Permita que os olhos se fechem suavemente... Respire naturalmente... Está prestes a despertar não apenas o corpo... mas também a alma... para receber este novo dia como um presente sagrado...",
+        
+        awakening: "Comece notando que está vivo... que sobreviveu à noite... que tem um novo dia diante de si... ... Sinta a gratidão por ter acordado... por ter este corpo... por ter esta mente... por ter esta oportunidade de existir... ... Inspire profundamente... trazendo energia fresca para o seu ser... ... Expire... libertando qualquer sonolência... qualquer resistência ao despertar... ... Cada respiração é um convite para estar mais presente... mais acordado... mais vivo......",
+        
+        bodyActivation: "Vamos despertar suavemente o corpo... Comece movendo os dedos das mãos e dos pés... Sinta a vida fluir através das extremidades... ... Mova os pulsos em círculos... flexione os tornozelos... Desperte as articulações... ... Encolha os ombros até às orelhas... e deixe-os cair com um suspiro... 'Ahhhh'... ... Faça algumas rotações suaves com o pescoço... lado a lado... ... Sinta o corpo acordar... as células despertarem... a energia vital circular......",
+        
+        intention: "Agora vamos definir uma intenção para o dia... Pergunte-se... 'Como quero aparecer hoje?'... ... Talvez com mais paciência... mais alegria... mais compaixão... ... Talvez com mais presença... mais gratidão... mais coragem... ... Não precisa de ser perfeito... apenas uma intenção gentil... uma direção para o coração... ... Sinta esta intenção no seu peito... deixe-a irradiar através do seu ser... ... Esta intenção será a sua bússola interna ao longo do dia......",
+        
+        gratitude: "Vamos cultivar gratidão pelo dia que se aproxima... Traga à mente três coisas pelas quais se sente grato... ... Pode ser simples... o facto de ter uma cama confortável... uma chávena de café à espera... pessoas que o amam... ... Sinta a gratidão como uma sensação quente no peito... deixe-a expandir... ... Gratidão é o portal para a alegria... quando começamos o dia com gratidão... criamos a base para a felicidade... ... Deixe esta gratidão colorir a sua perspectiva... deixe que ela abra o seu coração......",
+        
+        energy: "Agora vamos despertar a energia vital... Inspire profundamente... imagine luz dourada entrando no seu corpo... ... Esta é a energia do sol... da vida... da possibilidade... ... Sinta esta luz dourada enchendo cada célula... cada órgão... cada músculo... ... Expire... deixando esta energia circular... ativando o seu sistema inteiro... ... Mais uma vez... inspire energia vital... expire vitalidade... ... Sinta-se energizado... mas também centrado... desperto... mas também calmo......",
+        
+        affirmations: "Vamos terminar com algumas afirmações poderosas para o dia... 'Estou grato por estar vivo'... ... 'Tenho tudo o que preciso para este dia'... ... 'Sou capaz de enfrentar qualquer desafio com graça'... ... 'Escolho ver beleza e bondade hoje'... ... 'Sou uma fonte de luz e amor no mundo'... ... Sinta estas palavras como verdades... não apenas pensamentos... deixe que elas se tornem a sua realidade......",
+        
+        closing: "Enquanto completamos esta prática matinal... Sinta-se desperto... energizado... e pronto para abraçar o dia... ... Leve consigo esta sensação de gratidão... esta clareza de intenção... esta energia vital... ... Comece a mover-se mais ativamente... talvez espreguice... talvez sorria... ... Quando abrir os olhos... veja o mundo com olhos frescos... como se fosse a primeira vez... ... Este é um dia novo... cheio de possibilidades... e você está pronto para dançar com ele... Vá em frente e faça deste dia uma obra-prima......"
       }
     ]
   },
@@ -873,6 +1564,113 @@ const meditationTemplates = {
       
       closing: "Медленно начните двигать пальцами рук и ног... Осторожно поверните головой из стороны в сторону... Потянитесь к небу... ... Откройте глаза и почувствуйте себя полностью пробуждённым... энергичным... готовым к дню... Унесите эту энергию с собой... возвращайтесь к ней, когда нужна мотивация... У вас есть всё необходимое для замечательного дня......"
     }
+  ],
+
+  mindfulness: [
+    {
+      name: "Осознанность Настоящего Момента",
+      intro: "Добро пожаловать на эту практику осознанности... Найдите удобное положение сидя, держа спину прямо и расслабленно... Поставьте ноги на пол, почувствуйте связь с землёй... Положите руки удобно на колени... Мягко закройте глаза и вернитесь в настоящий момент...",
+      
+      breathing: "Начните с того, что просто заметьте своё дыхание... Не пытайтесь изменить его... просто наблюдайте... Почувствуйте, как воздух входит через нос... как живот мягко поднимается... как воздух выходит... живот опускается... ... Если ум отвлекается, это нормально... мягко верните внимание к дыханию... Каждый возврат к дыханию - это момент пробуждения... момент осознанности......",
+      
+      presentMoment: "Теперь расширьте осознание на весь момент... Заметьте звуки вокруг вас... не называя их, просто слушая... Почувствуйте тело на стуле... температуру воздуха на коже... ... Это и есть настоящий момент... Не прошлое с его воспоминаниями... не будущее с его планами... а именно это... прямо сейчас... Здесь нет ничего, что нужно исправить... нет места, куда нужно идти... просто это......",
+      
+      awareness: "Заметьте качество своего осознания... Это открытое пространство, в котором возникают все переживания... мысли... чувства... ощущения... звуки... ... Вы не эти переживания... вы осознание, которое их наблюдает... Как небо наблюдает облака... осознание наблюдает все явления... с полным принятием... ... Заметьте, как в этом пространстве осознания есть естественная мудрость... естественный покой......",
+      
+      thoughts: "Теперь мягко обратите внимание на мысли... Заметьте, как они появляются в пространстве осознания... остаются некоторое время... затем растворяются... ... Не судите мысли... не анализируйте их... просто наблюдайте их приход и уход... Заметьте, что между мыслями есть промежутки... моменты тишины... ... Это естественные паузы в уме... пространство покоя, которое всегда доступно......",
+      
+      affirmations: "Покоясь в этом осознанном присутствии... знайте, что... Я полностью здесь... Я принимаю этот момент таким, какой он есть... Я нахожу мир в настоящем... ... Моё осознание безграничное и свободное... Я доверяю мудрости момента... Всё, что мне нужно, находится здесь и сейчас... ... Каждый момент осознанности - это дар... Я благодарен за способность присутствовать......",
+      
+      closing: "Мягко начните возвращаться... Почувствуйте тело в пространстве... звуки комнаты... Сохраните это качество присутствия... эту осознанность... ... Помните, что настоящий момент всегда доступен... в любое время можно вернуться к дыханию... к осознанности... ... Когда будете готовы, откройте глаза... неся это присутствие в свой день... Пусть каждый момент станет возможностью для осознанности......"
+    }
+  ],
+
+  compassion: [
+    {
+      name: "Практика Любящей Доброты",
+      intro: "Добро пожаловать на эту практику развития сострадания и любящей доброты... Сядьте удобно, позвольте телу расслабиться... Положите руку на сердце, почувствуйте его мягкое биение... Закройте глаза и обратитесь к сердечному центру... месту любви и доброты внутри вас...",
+      
+      selfCompassion: "Начнём с развития доброты к себе... Представьте себя сидящим здесь... со всеми своими достоинствами и недостатками... Мягко направьте к себе пожелания... ... Пусть я буду счастлив... Пусть я буду здоров... Пусть я буду в безопасности... Пусть я буду в мире... ... Почувствуйте, как эти пожелания исходят из сердца... Если есть сопротивление, это нормально... мягко продолжайте... Вы достойны любви... вы достойны доброты......",
+      
+      lovedOnes: "Теперь представьте дорогого вам человека... Увидьте его лицо... почувствуйте связь с ним... Направьте к нему те же пожелания... ... Пусть ты будешь счастлив... Пусть ты будешь здоров... Пусть ты будешь в безопасности... Пусть ты будешь в мире... ... Почувствуйте, как ваше сердце открывается... как любовь естественно течёт к этому человеку... Заметьте радость в даривании любви......",
+      
+      neutralPerson: "Теперь подумайте о нейтральном человеке... Возможно, кто-то, кого вы видели сегодня, но не знаете хорошо... Представьте, что у него есть такие же надежды и страхи, как у вас... ... Мягко предложите ему те же пожелания... Пусть ты будешь счастлив... Пусть ты будешь здоров... Пусть ты будешь в безопасности... Пусть ты будешь в мире... ... Заметьте, как сердце способно расширяться... включать даже незнакомых людей в круг заботы......",
+      
+      difficultPerson: "Теперь, если готовы, подумайте о ком-то, с кем у вас сложные отношения... Начните с малого... не обязательно с самым трудным человеком... Помните, что он тоже хочет быть счастливым... хочет избежать страданий... ... Мягко, без принуждения, предложите... Пусть ты будешь счастлив... Пусть ты будешь здоров... Пусть ты будешь в безопасности... Пусть ты будешь в мире... ... Это не означает оправдания действий... это освобождение своего сердца от тяжести......",
+      
+      allBeings: "Теперь расширьте сердце на всех живых существ... Представьте волны любящей доброты, исходящие из вашего сердца... Ко всем людям в вашем городе... стране... мире... ... Пусть все существа будут счастливы... Пусть все существа будут здоровы... Пусть все существа будут в безопасности... Пусть все существа будут в мире... ... Почувствуйте безграничность сердца... его способность любить без условий... без ограничений......",
+      
+      affirmations: "Покоясь в этом океане любящей доброты... знайте, что... Моё сердце - источник бесконечной любви... Я связан со всеми живыми существами... Сострадание - моя истинная природа... ... Любовь, которую я дарю, возвращается ко мне... Я исцеляю мир через любовь... Каждый акт доброты имеет значение... ... Я выбираю любовь вместо страха... доброту вместо суда... понимание вместо осуждения......",
+      
+      closing: "Мягко верните руки на колени... Почувствуйте тепло в груди... это сияние любящего сердца... ... Унесите эту доброту с собой... Пусть она направляет ваши слова и действия... Помните, что каждый человек, которого вы встречаете, хочет быть счастливым... ... Когда будете готовы, откройте глаза... видя мир глазами сострадания... готовые дарить любовь, где бы вы ни были......"
+    }
+  ],
+
+  walking: [
+    {
+      name: "Практика Осознанной Ходьбы",
+      intro: "Добро пожаловать на эту практику осознанной ходьбы... Найдите тихое место для медленной ходьбы... Это может быть комната, коридор или тихая дорожка... Встаньте прямо, почувствуйте связь ступней с землёй... Позвольте рукам свободно висеть по бокам...",
+      
+      grounding: "Начните с того, что просто стойте... Почувствуйте вес тела... как он распределяется через ступни на землю... Заметьте ощущение устойчивости... укоренённости... ... Сделайте несколько естественных вдохов... Почувствуйте тело в пространстве... высоту... ширину... присутствие... Это ваша отправная точка... место покоя перед началом движения......",
+      
+      intention: "Установите намерение для этой ходьбы... Это не ходьба, чтобы куда-то попасть... это ходьба ради самой ходьбы... ради присутствия... ради осознанности... ... Пусть каждый шаг будет медитацией... каждое движение - актом осознанности... Нет спешки... нет цели, кроме полного присутствия в каждом моменте......",
+      
+      firstSteps: "Начните с поднятия правой ноги... Делайте это очень медленно... осознанно... Почувствуйте, как вес переносится на левую ногу... как правая нога поднимается... движется вперёд... ... Медленно поставьте правую ногу... Почувствуйте контакт с землёй... перенос веса... Теперь левая нога... поднимается... движется... опускается... ... Каждый шаг - это отдельная медитация... отдельный момент полного присутствия......",
+      
+      walkingRhythm: "Найдите свой естественный ритм... Возможно, это три-четыре шага на вдох... три-четыре на выдох... Или просто позвольте дыханию течь естественно, пока идёте... ... Заметьте ощущения в ступнях... в ногах... в теле... качание рук... движение одежды... Всё это - часть танца осознанной ходьбы... ... Если ум отвлекается, мягко верните внимание к ступням... к земле... к этому шагу... именно к этому шагу......",
+      
+      environment: "Теперь расширьте осознание на окружающее... Заметьте звуки... не называя их, просто слушая... Почувствуйте воздух на коже... температуру... любые ароматы... ... Если идёте на улице, заметьте небо... деревья... землю под ногами... Если в помещении, почувствуйте пространство... стены... свет... Всё это - часть медитации... часть настоящего момента... ... Идите, как если бы касались земли благословением... как если бы каждый шаг был молитвой......",
+      
+      difficulties: "Если возникает беспокойство или нетерпение, остановитесь... Просто стойте и дышите... Заметьте эти чувства без суда... ... Помните, что цель не в том, чтобы чувствовать себя определённым образом... цель - присутствовать с тем, что есть... ... Когда будете готовы, продолжайте... Может быть, ещё медленнее... ещё более осознанно... Пусть каждый шаг учит вас терпению... присутствию... принятию......",
+      
+      affirmations: "Продолжая эту священную ходьбу... знайте, что... Каждый шаг - это возможность для осознанности... Я иду в мире с землёй и собой... Настоящий момент - мой дом... ... Мои ступни благословляют землю... Земля поддерживает меня... Я часть великого танца жизни... ... В каждом шаге есть мудрость... В каждом дыхании есть покой... Я иду по пути осознанности......",
+      
+      closing: "Медленно остановитесь... Встаньте неподвижно... Почувствуйте устойчивость... присутствие... Заметьте, как тело ощущается после этой осознанной ходьбы... ... Сделайте несколько глубоких вдохов... Поблагодарите землю за поддержку... ноги за то, что несли вас... ... Унесите это качество осознанности в обычную ходьбу... Помните, что каждый шаг может быть медитацией... каждое движение - возможностью для присутствия... Пусть весь мир станет вашим местом практики......"
+    }
+  ],
+
+  breathing: [
+    {
+      name: "Практика Полного Дыхания",
+      intro: "Добро пожаловать на эту практику глубокого, полного дыхания... Найдите удобное положение сидя или лёжа... Убедитесь, что позвоночник прямой... Положите одну руку на грудь, другую на живот... Закройте глаза и обратитесь к естественному дыханию...",
+      
+      naturalBreath: "Начните с наблюдения за своим естественным дыханием... Не пытайтесь его менять... просто заметьте... Какая рука больше движется?... Где вы чувствуете дыхание наиболее отчётливо?... ... Большинство людей дышат в основном грудью... Но есть более глубокий, более питательный способ дыхания... дыхание, которое использует всю ёмкость лёгких... ... Это дыхание, которое успокаивает нервную систему... которое приносит больше кислорода в тело... больше жизненной силы......",
+      
+      bellyBreathing: "Теперь мягко направьте дыхание в живот... Представьте, что у вас есть воздушный шарик в животе... На вдохе шарик мягко надувается... рука на животе поднимается... ... На выдохе шарик сдувается... рука на животе опускается... Рука на груди остаётся относительно неподвижной... ... Это может показаться странным сначала... это нормально... Мягко практикуйте... позвольте телу вспомнить этот естественный способ дыхания......",
+      
+      fullBreath: "Теперь перейдём к полному дыханию... Начните с выдоха... полностью освободите лёгкие... Затем медленно вдохните... ... Сначала наполните живот... чувствуя, как он мягко расширяется... Затем позвольте дыханию подняться в грудь... расширяя рёбра... ... Наконец, почувствуйте, как дыхание поднимается к ключицам... наполняя верхнюю часть лёгких... ... Теперь медленно выдохните в обратном порядке... Сначала из верхней части лёгких... затем из груди... наконец, из живота... полностью освобождая воздух......",
+      
+      breathingRhythm: "Давайте установим ритм... Вдохните на четыре счёта... наполняя живот... рёбра... верхнюю часть лёгких... раз... два... три... четыре... ... Задержите дыхание на два счёта... раз... два... ... Выдохните на шесть счётов... медленно освобождая воздух... раз... два... три... четыре... пять... шесть... ... Продолжайте этот ритм... 4-2-6... позвольте ему стать естественным... медитативным......",
+      
+      breathingEffects: "Заметьте, как это дыхание влияет на ваше тело... на ум... Полное дыхание массирует внутренние органы... стимулирует парасимпатическую нервную систему... ... Это дыхание говорит телу: 'Ты в безопасности... можешь расслабиться'... Это естественный способ снизить стресс... увеличить ясность ума... ... Каждый полный вдох приносит больше жизненной силы... каждый долгий выдох освобождает напряжение... токсины... всё, что больше не нужно......",
+      
+      breathingMeditation: "Теперь просто дышите... Позвольте дыханию стать якорем для присутствия... Если ум отвлекается, мягко верните внимание к дыханию... к животу... к рёбрам... к верхней части лёгких... ... Каждый цикл дыхания - это маленькая жизнь... рождение на вдохе... смерть на выдохе... и возрождение с следующим вдохом... ... Доверьтесь дыханию... оно знает, что делать... оно поддерживало вас всю жизнь... и будет поддерживать......",
+      
+      affirmations: "Продолжая эту практику дыхания... знайте, что... Каждый вдох наполняет меня жизненной силой... Каждый выдох освобождает меня от стресса... Дыхание - мой мост к покою... ... Я дышу в гармонии с жизнью... Моё дыхание исцеляет и обновляет... Я доверяю мудрости своего тела... ... С каждым дыханием я становлюсь более присутствующим... более спокойным... более живым......",
+      
+      closing: "Мягко позвольте дыханию вернуться к естественному ритму... Уберите руки с груди и живота... Но сохраните осознание более глубокого дыхания... ... Помните, что это дыхание всегда доступно вам... В моменты стресса... усталости... беспокойства... вернитесь к полному дыханию... ... Когда будете готовы, откройте глаза... Несите дар осознанного дыхания в свой день... Пусть каждый вдох напоминает вам о присутствии... каждый выдох - о покое......"
+    }
+  ],
+
+  morning: [
+    {
+      name: "Практика Утреннего Пробуждения",
+      intro: "Добро пожаловать на эту практику утреннего пробуждения... Если вы ещё в кровати, мягко потянитесь... Если сидите, найдите удобное положение... Позвольте себе мягко перейти от сна к бодрствованию... ... Закройте глаза и почувствуйте благодарность за новый день... за возможность начать заново... за дар дыхания и жизни...",
+      
+      awakening: "Начните с нежного пробуждения тела... Медленно пошевелите пальцами рук и ног... Осторожно поверните голову из стороны в сторону... ... Почувствуйте, как тело пробуждается... как энергия медленно возвращается... Нет спешки... позвольте пробуждению быть мягким... естественным... ... Сделайте несколько глубоких вдохов... наполняя тело свежим кислородом... пробуждая все клетки... подготавливая их к новому дню......",
+      
+      gratitude: "Теперь обратитесь к благодарности... Начните с простого... Поблагодарите за то, что проснулись... за кровать, которая поддерживала вас... за крышу над головой... ... Поблагодарите за своё тело... за сердце, которое билось всю ночь... за лёгкие, которые дышали... за ум, который может думать и чувствовать... ... Почувствуйте, как благодарность наполняет грудь... как она естественно поднимает настроение... открывает сердце... настраивает на позитивное восприятие дня......",
+      
+      intention: "Теперь установите намерение для дня... Не список дел... а качество бытия... Как вы хотите присутствовать в дне?... С каким сердцем встретить вызовы и возможности?... ... Возможно, вы хотите быть более терпеливым... более добрым... более присутствующим... Или более смелым... более творческим... более любящим... ... Почувствуйте это намерение в теле... пусть оно станет внутренним компасом... направляющим ваши выборы и действия......",
+      
+      bodyPreparation: "Теперь подготовим тело к дню... Представьте золотой свет, входящий в макушку головы... Этот свет - энергия нового дня... сила и витальность... ... Позвольте свету медленно наполнить голову... пробуждая ясность ума... Свет течёт в шею... плечи... освобождая любое напряжение... ... Свет наполняет грудь... сердце... живот... давая энергию для дня... Течёт в руки... наполняя их силой для работы... в ноги... давая устойчивость для пути... ... Всё тело теперь наполнено светом... готово к дню......",
+      
+      mindPreparation: "Теперь подготовим ум... Представьте его как чистое небо... открытое... ясное... готовое к новым переживаниям... ... Если есть беспокойства о дне, заметьте их как облака в небе... Они могут проходить через ум... но не определяют его... Ум остаётся открытым... спокойным... готовым встретить всё с мудростью... ... Установите намерение подходить к дню с любопытством... с открытостью... с доверием к жизни......",
+      
+      affirmations: "Теперь мягко повторите с собой... Я готов к новому дню... У меня есть всё необходимое для процветания... Я встречаю день с открытым сердцем... ... Я источник мира и любви... Я способен на великие дела... Я благодарен за возможности этого дня... ... Каждый момент - это подарок... Каждое дыхание - это благословение... Я выбираю радость... я выбираю любовь... я выбираю присутствие......",
+      
+      closing: "Медленно начните двигаться... Осторожно потянитесь... Почувствуйте энергию в теле... ясность в уме... открытость в сердце... ... Если глаза закрыты, мягко откройте их... Посмотрите на мир свежими глазами... глазами благодарности... глазами удивления... ... Встаньте медленно... почувствуйте устойчивость... готовность... Вы готовы к дню... день готов к вам... Пусть это будет прекрасный день... наполненный присутствием... любовью... и радостью... Доброго утра......"
+    }
   ]
   },
 
@@ -983,6 +1781,111 @@ const meditationTemplates = {
       
       closing: "慢慢开始移动手指和脚趾... 小心地左右转动头部... 向天空伸展... ... 睁开眼睛，感到完全觉醒... 有活力... 准备迎接这一天... 带着这能量与你同行... 当需要动机时回到它... 你拥有度过美好一天所需的一切......"
     }
+  ],
+
+  mindfulness: [
+    {
+      name: "当下觉知",
+      intro: "欢迎来到这个当下觉知的冥想... 舒适地坐直，双脚轻轻放在地上... 双手自然地放在膝盖上... 轻柔地闭上眼睛... 现在，让我们一起回到当下这个珍贵的时刻...",
+      
+      breathing: "将注意力带到你的呼吸上... 不需要改变什么，只是观察... 感受空气进入鼻孔的感觉... 感受胸腔的起伏... 感受腹部的自然扩张和收缩... ... 每一次呼吸都是一个新的当下... 每一次呼吸都是一个回到此时此地的机会......",
+      
+      bodyAwareness: "现在让我们觉察身体的感受... 从头顶开始，感受头皮的触觉... 感受额头的温度... 感受眼皮的重量... ... 将注意力移到肩膀... 感受肩膀的位置... 它们紧张吗？还是放松？... 不需要改变什么，只是观察... ... 感受背部靠在椅子上的感觉... 感受双手的位置... 感受双脚与地面的接触... 这就是当下的身体感受......",
+      
+      mindfulAwareness: "现在让我们觉察心念的流动... 当思绪出现时，不要抗拒... 也不要追随... 只是观察它们，就像观察天空中的云朵... ... 标记这些思绪... 如果是关于过去的，轻轻地说'回忆'... 如果是关于未来的，轻轻地说'计划'... 如果是情绪，轻轻地说'感受'... 然后温柔地回到呼吸......",
+      
+      presentMoment: "此时此刻... 你就在这里... 你就是完整的... 不需要成为别的什么... 不需要去到别的地方... 当下就是生命展现的地方... ... 感受这个当下的丰富... 感受心跳的律动... 感受呼吸的深度... 感受生命在你体内的流动... 这就是正念... 这就是当下觉知......",
+      
+      affirmations: "深深地吸气... 感受当下的宁静... 我在这里... 我是完整的... 我接受这个当下... ... 我对内心的智慧开放... 我对生命的美好开放... 我在觉知中安住... 我在当下中找到平静......",
+      
+      closing: "慢慢地将这份觉知带回到日常生活中... 知道无论何时，你都可以回到呼吸... 回到当下... 回到这份内在的宁静... ... 轻轻地张开眼睛... 带着新鲜的觉知... 带着对当下的珍视... 愿你在生活中保持这份正念觉知......"
+    }
+  ],
+
+  compassion: [
+    {
+      name: "慈悲心修习",
+      intro: "欢迎来到这个慈悲心修习的冥想... 找到一个舒适的姿势... 双手轻轻地放在心口... 感受心脏的跳动... 感受胸腔的温暖... 让我们一起培养内心的慈悲与爱...",
+      
+      breathing: "从慈悲的呼吸开始... 每次吸气时，想象你在吸入爱与慈悲... 每次呼气时，想象你在送出祝福与关怀... ... 让呼吸成为慈悲的载体... 让每一次呼吸都充满温暖的意图... 感受心中升起的柔软......",
+      
+      selfCompassion: "首先，让我们对自己送出慈悲... 将双手放在心口... 感受手掌的温暖... 对自己温柔地说... 愿我快乐... 愿我安全... 愿我内心平静... 愿我对自己慈悲... ... 如果内心有批判的声音，用慈悲包容它... 如果有痛苦，用爱抚慰它... 你值得被爱... 你值得被善待... 包括被自己善待......",
+      
+      lovedOnes: "现在想象一个你深爱的人... 可能是家人... 朋友... 或者一个孩子... 在心中看见他们的笑容... 感受对他们的爱... ... 将这份爱从心中送出... 愿你快乐... 愿你安全... 愿你内心平静... 愿你被爱包围... 感受这份爱的温暖在心中扩散......",
+      
+      difficultPerson: "现在，如果你准备好了，想象一个与你有矛盾的人... 不需要选择最困难的人... 只是一个让你略有不舒服的人... ... 看见他们也在寻求快乐... 他们也在试图避免痛苦... 就像你一样... 从慈悲的角度送出祝福... 愿你快乐... 愿你安全... 愿你内心平静... 愿你找到你寻求的幸福......",
+      
+      universalCompassion: "现在让慈悲之心扩展到所有众生... 想象这个世界上的每一个人... 每一个生命... 都在寻求快乐... 都在试图避免痛苦... ... 让慈悲之光从你的心中向四面八方散发... 愿所有众生快乐... 愿所有众生安全... 愿所有众生内心平静... 愿所有众生自由自在......",
+      
+      affirmations: "感受心中慈悲之花的绽放... 我的心是慈悲的... 我的心是开放的... 我选择以爱回应世界... ... 我原谅自己的不完美... 我接受他人的人性... 我是慈悲的载体... 我是爱的传播者......",
+      
+      closing: "将双手继续放在心口... 感受慈悲之心的跳动... 知道这颗慈悲心将伴随你整日... 在每一个相遇中... 在每一个决定中... ... 慢慢地张开眼睛... 带着一颗慈悲的心... 带着对众生的祝福... 愿你成为世界的光明......"
+    }
+  ],
+
+  walking: [
+    {
+      name: "正念行走",
+      intro: "欢迎来到这个正念行走的冥想... 如果可能，找一个可以慢慢走动的空间... 如果不能实际行走，你可以坐着想象... 让我们一起体验行走中的正念...",
+      
+      preparation: "首先，静静地站立... 感受双脚与地面的接触... 感受身体的重量如何分布在双脚上... 感受脚底的触感... 感受腿部肌肉的支撑... ... 让身体自然地摆正... 头部轻轻抬起... 肩膀放松... 双臂自然下垂... 这就是正念站立......",
+      
+      mindfulSteps: "现在，我们开始缓慢的行走... 抬起右脚... 感受脚离开地面的感觉... 感受腿部肌肉的收缩... 感受脚在空中的移动... ... 轻轻地将脚放下... 感受脚与地面的接触... 感受重心的转移... 感受身体重量的变化... ... 现在抬起左脚... 重复同样的过程... 抬起... 移动... 放下... 触地... 每一步都是一个完整的体验......",
+      
+      breathingWalk: "将呼吸与步伐同步... 吸气时迈出一步... 呼气时迈出一步... 不要急于求成... 让呼吸和步伐自然地协调... ... 如果心思游离，就停下来... 重新感受双脚与地面的接触... 重新感受呼吸... 然后继续... 没有目的地... 只有这个过程......",
+      
+      awareness: "在行走中保持觉知... 注意周围的声音... 但不要被它们带走... 注意身体的感觉... 腿部的运动... 手臂的摆动... 平衡的调节... ... 如果是在户外，感受微风... 感受阳光... 感受大地的支撑... 如果是在室内，感受空间... 感受温度... 感受光线... 每一个感觉都是当下的礼物......",
+      
+      innerWalk: "现在，即使在行走中... 也可以向内观察... 观察心念的流动... 观察情绪的变化... 观察身体的反应... ... 行走成为一种移动的冥想... 每一步都是一个新的当下... 每一步都是一个回到自己的机会... 行走不仅仅是身体的移动... 更是心灵的旅程......",
+      
+      affirmations: "在行走中体验生命的流动... 我的每一步都是神圣的... 我的身体是智慧的... 我在移动中找到宁静... ... 我与大地连接... 我与当下同在... 我在行走中修行... 我在移动中觉醒......",
+      
+      closing: "慢慢地停下脚步... 再次感受双脚与地面的接触... 感受身体的稳定... 感受呼吸的自然... ... 无论你走到哪里... 这份正念都可以伴随你... 每一步都可以是修行... 每一步都可以是觉醒... 带着这份正念行走的智慧... 继续你的人生旅程......"
+    }
+  ],
+
+  breathing: [
+    {
+      name: "完整呼吸法",
+      intro: "欢迎来到这个完整呼吸法的冥想... 舒适地坐直或躺下... 一只手放在胸口... 另一只手放在腹部... 让我们一起学习完整而深层的呼吸...",
+      
+      naturalBreath: "首先，观察你的自然呼吸... 不要试图改变什么... 只是观察... 感受空气进入的路径... 感受胸腔的变化... 感受腹部的移动... ... 注意哪只手移动得更多... 是胸口的手？还是腹部的手？... 只是观察... 没有对错... 这就是你当下的呼吸模式......",
+      
+      abdominalBreath: "现在让我们学习腹式呼吸... 想象你的腹部是一个温柔的气球... 吸气时，让这个气球慢慢膨胀... 呼气时，让它慢慢收缩... ... 胸口的手保持相对静止... 腹部的手随着呼吸轻柔地上下移动... 这就是深层的腹式呼吸... 这是最自然、最滋养的呼吸方式......",
+      
+      chestBreath: "现在让我们体验胸式呼吸... 保持腹部相对静止... 让胸腔主导呼吸... 感受肋骨的扩张... 感受胸腔的打开... ... 吸气时，胸腔向外扩展... 呼气时，轻柔地收缩... 感受这种更高位的呼吸... 它带来不同的感受... 不同的能量......",
+      
+      completeBreath: "现在，让我们结合两种呼吸... 进行完整的呼吸... 吸气时，首先让腹部膨胀... 然后让胸腔扩张... 最后让肩膀轻微抬起... ... 呼气时，反过来... 先让肩膀放下... 然后让胸腔收缩... 最后让腹部回收... 这是一个完整的呼吸循环... 像波浪一样流畅......",
+      
+      rhythmicBreath: "现在让我们为呼吸建立节奏... 吸气数四拍... 一... 二... 三... 四... 屏息两拍... 一... 二... 呼气数六拍... 一... 二... 三... 四... 五... 六... ... 如果这个节奏不适合你，可以调整... 重要的是保持呼吸的深度和完整性... 让呼吸成为你内在的音乐......",
+      
+      healingBreath: "感受这完整呼吸的治愈力量... 每一次吸气，你在吸入生命的能量... 吸入氧气... 吸入活力... 每一次呼气，你在释放紧张... 释放毒素... 释放不需要的东西... ... 让呼吸成为你最好的朋友... 它始终与你同在... 它是你内在平静的源泉... 它是你力量的根基......",
+      
+      affirmations: "深深地吸气... 感受呼吸的治愈力量... 我的呼吸是神圣的... 我的呼吸是治愈的... 我通过呼吸与生命连接... ... 每一次呼吸都是新的开始... 每一次呼吸都是内在的净化... 我在呼吸中找到平静... 我在呼吸中找到力量......",
+      
+      closing: "慢慢地将呼吸回归自然... 不需要控制... 只是让它自然地流动... 感受这份新的呼吸觉知... 感受身体的放松... 感受心灵的宁静... ... 记住，无论何时你需要平静... 你都可以回到呼吸... 回到这个完整的呼吸法... 它是你最忠实的伙伴... 它是你内在智慧的钥匙......"
+    }
+  ],
+
+  morning: [
+    {
+      name: "晨曦觉醒",
+      intro: "欢迎来到这个晨曦觉醒的冥想... 新的一天正在开始... 让我们一起以感恩和意图迎接这个美好的开始... 舒适地坐直... 面向东方如果可能... 准备迎接新一天的光明...",
+      
+      gratitude: "首先，让我们对这个新的一天表达感恩... 感恩你能够醒来... 感恩生命的礼物... 感恩呼吸的自由... 感恩身体的健康... ... 想想昨天的美好时刻... 想想今天的可能性... 想想生命中的支持和爱... 让感恩之心充满整个胸腔... 让它成为这一天的第一个礼物......",
+      
+      sunVisualization: "现在想象太阳正在升起... 即使你看不到它... 也能感受到它的存在... 想象金色的光芒穿过云层... 温暖大地... 唤醒自然... ... 这同样的光芒也在照亮你的心... 驱散夜晚的阴霾... 带来新的希望... 新的可能性... 感受这内在的阳光... 感受它的温暖和力量......",
+      
+      bodyAwakening: "让我们温柔地唤醒身体... 从头顶开始... 感受头脑的清晰... 感受眼睛的明亮... 感受面部的放松... ... 轻轻地转动肩膀... 感受胸腔的开放... 感受心脏的有力跳动... 感受呼吸的深度... ... 伸展手臂... 感受力量的流动... 感受脊柱的挺直... 感受腿部的稳定... 身体正在为新一天做准备......",
+      
+      intention: "现在让我们为这一天设定意图... 你今天想要如何生活？... 你想要带给世界什么？... 你想要体验什么样的情感？... ... 不是要做什么... 而是要成为什么样的人... 是否想要更有耐心？... 更有爱心？... 更有创造力？... 在心中种下这个意图的种子... 让它在今天开花结果......",
+      
+      energy: "感受内在能量的苏醒... 这是你天生的活力... 你与生俱来的力量... 它像清晨的甘露一样清新... 像初升的太阳一样明亮... ... 让这能量流遍全身... 从头顶到脚趾... 从心脏到手指... 感受每个细胞的活跃... 感受生命力的涌动... 你准备好迎接这一天了......",
+      
+      affirmations: "在这个美好的开始中... 重复这些肯定... 今天是新的开始... 我充满感恩... 我充满能量... 我准备好迎接挑战... ... 我选择喜悦... 我选择成长... 我选择爱... 我是自己生命的创造者... 今天将是美好的一天......",
+      
+      closing: "慢慢地将这份晨曦的能量带入你的一天... 无论遇到什么... 记住这个平静的开始... 记住这份感恩的心... 记住这个美好的意图... ... 轻轻地张开眼睛... 如果它们还没有睁开... 深深地吸一口气... 伸展身体... 准备迎接这个充满可能性的新一天... 愿你的一天如晨曦般美好......"
+    }
   ]
   },
 
@@ -1092,6 +1995,328 @@ const meditationTemplates = {
       affirmations: "エネルギーが循環し続けている間... 確信を持って繰り返してください... 私は生命力に満ちています... 私は重要なことのためのエネルギーを持っています... 私は熱意を持って一日に取り組みます... ... 私の体は強く健康です... 私の心は明晰で集中しています... 私の心は可能性に開かれています... 私は前向きなエネルギーを放射します......",
       
       closing: "ゆっくりと指と足の指を動かし始めてください... 注意深く頭を左右に向けてください... 空に向かって伸びをしてください... ... 目を開けて完全に目覚め... エネルギッシュで... 一日の準備ができていると感じてください... このエネルギーをあなたと共に持ち歩いてください... 動機が必要なときにそれに戻ってください... あなたは素晴らしい一日に必要なすべてを持っています......"
+    }
+  ],
+
+  mindfulness: [
+    {
+      name: "今この瞬間の気づき",
+      intro: "このマインドフルネス瞑想へようこそ... 警戒心と安らぎを持って座れる快適な姿勢を見つけてください... この実践は現在の瞬間への気づきを育むことです... どこへ行く必要も何かを達成する必要もありません... ただここにいてください...",
+      
+      breathing: "呼吸に自分を錨づけることから始めましょう... 自然な呼吸のリズムに気づいてください... 変えようとしないで... ただ観察してください... ... 鼻孔を通って入る空気を感じてください... 少しの間... そして穏やかな解放... ... あなたの呼吸は常に現在の瞬間に起こっています... これを今ここへの錨として使ってください... 心がさまようとき... ただ呼吸に戻ってください... 判断なく... ただ穏やかに戻ってください......",
+      
+      bodyAwareness: "今、あなたの体を含むように意識を拡張してください... どのように座っているか気づいてください... 体が表面に触れている接触点を感じてください... ... 穏やかな好奇心で体をスキャンしてください... 今どのような感覚がありますか？... 温かさ... 冷たさ... 緊張... リラックス... ... ここにあるものをただ気づいてください... 何も変えようとしないで... あなたの体は存在への入り口です......",
+      
+      thoughtAwareness: "続けているうちに... 浮かんでくる思考に気づいてください... 物語に巻き込まれるのではなく... 思考を心の空を通り過ぎる雲のように観察できるかどうか見てください... ... ある思考は軽くて薄い... 他のものは重い嵐の雲かもしれません... すべて歓迎されます... すべて過ぎ去ります... ... あなたは思考ではありません... あなたは思考が現れ消えていく気づきの空間です......",
+      
+      presentMoment: "今この瞬間の豊かさに気づいてください... 聞こえる音... 体の感覚... 呼吸の感覚... 感情の微細な変化... ... 過去の記憶や未来の計画が浮かんできたとき... 穏やかに現在に戻ってください... ここに... 今に... ... 存在とは何かをすることではありません... 存在とは今ここにあることです......",
+      
+      affirmations: "この気づきの中で... 静かに知ってください... 私は現在の瞬間に存在しています... 私は生きている体験に気づいています... 私は平和で警戒しています... ... 私は思考や感情から離れて観察できます... 私は現在の瞬間の豊かさに開かれています... 私は今ここにあることを選択します......",
+      
+      closing: "この瞑想を終えるとき... この気づきの質は常にあなたに利用可能であることを知ってください... 一呼吸で... 一瞬の注意で... ... ゆっくりと指と足の指を動かし始めてください... 準備ができたら目を開けてください... この現在の瞬間の気づきを一日に持ち歩いてください... あなたは平和で警戒しています... あなたは存在しています......"
+    }
+  ],
+
+  compassion: [
+    {
+      name: "慈悲の心の実践",
+      intro: "この慈悲の瞑想へようこそ... 快適な姿勢に落ち着いて一方の手を心臓に置いてください... 慈愛の心を育てていきます... 最初は自分自身に向けて... そして他者に向けて広げていきます... これは心を開く実践です...",
+      
+      selfCompassion: "今のあなた自身を心に思い浮かべることから始めましょう... 今のあなた自身を想像してください... 親愛なる友人を見るように... 優しい目で自分自身を見てください... ... 静かに自分自身にこの慈愛の言葉を捧げてください... 「私が幸せでありますように... 私が健康でありますように... 私が平和でありますように... 私が安らぎをもって生きられますように...」... これらの願いを心で感じてください... 抵抗に気づいたら... それにも優しくしてください... あなたは愛に値します... 特に自分自身からの愛に......",
+      
+      breathingCompassion: "呼吸を慈悲の橋として使いましょう... 息を吸うとき... 愛と理解を受け取ってください... 息を吐くとき... 慈悲と優しさを送り出してください... ... 一回一回の呼吸で... 心がより開かれ... より温かくなっていきます... これは自然な愛の状態です... あなたの心の真の本質です......",
+      
+      lovedOne: "今、あなたが愛する人... 家族や友人... ペットを心に思い浮かべてください... 彼らの顔を見てください... 彼らへの愛を感じてください... ... 静かに彼らに慈愛の言葉を捧げてください... 「あなたが幸せでありますように... あなたが健康でありますように... あなたが平和でありますように... あなたが安らぎをもって生きられますように...」... この愛を感じてください... 心から心へと流れる愛を......",
+      
+      neutralPerson: "今、中立的な人... 知り合いだが特に近くない人... 店員さんや近所の人を思い浮かべてください... 彼らも幸せを求め苦しみを避けたいのはあなたと同じです... ... 彼らに慈愛を捧げてください... 「あなたが幸せでありますように... あなたが健康でありますように... あなたが平和でありますように... あなたが安らぎをもって生きられますように...」... すべての存在が幸せを求めています......",
+      
+      difficultPerson: "準備ができたら... 困難な人... あなたとの間に緊張がある人を思い浮かべてください... 彼らも苦しみを抱えています... 彼らも愛されたいのです... ... 無理しないで... できる範囲で... 「あなたが幸せでありますように... あなたが苦しみから解放されますように... あなたが平和でありますように...」... 慈悲は境界を越えて流れます......",
+      
+      allBeings: "最後に... すべての存在に向けて慈悲を広げてください... あなたの街の人々... 国中の人々... 世界中の人々... すべての生き物... ... 「すべての存在が幸せでありますように... すべての存在が苦しみから解放されますように... すべての存在が平和でありますように...」... 愛には境界がありません... 慈悲は無限に広がります......",
+      
+      affirmations: "この慈愛の中で... 静かに知ってください... 私は愛に値します... 私は慈悲を与え受け取ることができます... 私の心は愛で満たされています... ... 私は他者の苦しみを理解できます... 私は優しさを選択します... 私は慈悲を通して世界をより良い場所にします... 愛が私の本質です......",
+      
+      closing: "この慈悲の瞑想を終えるとき... この愛の感覚をあなたの心に保ってください... 一日を通してこの慈愛を持ち歩いてください... ... 困難な瞬間に... この愛に戻ってください... 自分自身に... 他者に... すべての存在に... ... ゆっくりと目を開けてください... 慈愛に満たされ... 平和で... 他者とつながっていることを感じてください... 愛があなたの歩む道を照らしますように......"
+    }
+  ],
+
+  walking: [
+    {
+      name: "歩行瞑想の実践",
+      intro: "この歩行瞑想へようこそ... この実践はどこでもできます... 室内の静かな空間でも... 外の自然の中でも... 静止して立つことから始めましょう... 足が地面に触れているのを感じてください... 歩行を瞑想に変えていきます...",
+      
+      preparation: "足を腰幅に開いて立ってください... 足と大地の接触を感じてください... 姿勢に気づいてください... 背筋は伸びているが硬くない... 肩はリラックス... 腕は自然に体の横に垂れて... ... 深呼吸を数回してください... 完全に体に... この瞬間に到着してください... 気づきを持って歩くという意図を設定してください... 一歩一歩が瞑想です......",
+      
+      liftingStep: "最初の一歩の前に... 右足を持ち上げる準備をしてください... 足を持ち上げる筋肉の微細な準備に気づいてください... ... 今、ゆっくりと右足を持ち上げてください... 「持ち上げ」と心の中で静かに言います... 足の重さを感じてください... バランスが左足に移るのを感じてください... ... 足を前に運んでください... 「運ぶ」と心の中で言います... 空中での足の感覚に気づいてください......",
+      
+      placingStep: "足を地面に置く準備をしてください... 床や地面に触れる瞬間に気づいてください... 「置く」と心の中で言います... ... 足が地面に完全に触れたら... 体重を右足に移してください... 「移す」と心の中で言います... 体重移動の感覚を感じてください... ... 今、左足で同じプロセスを行います... 持ち上げ... 運ぶ... 置く... 移す... 非常にゆっくりと... 完全に意識的に......",
+      
+      rhythmWalking: "今、歩行の自然なリズムを確立してください... 歩行を呼吸と同調させてください... 吸いながら一歩... 吐きながら一歩... または心地よいリズムで... ... 一歩一歩に完全に存在してください... 足が地面に触れる感覚... 筋肉の協調... バランスの微細な調整... ... 心がさまよったら... 足の感覚に戻ってください... 歩行があなたの瞑想の錨です......",
+      
+      turningPractice: "道の端に着いたら... 止まって向きを変える準備をしてください... 止まることに気づいてください... 体が静止する感覚... ... ゆっくりと向きを変えてください... 体の動き... 足の位置変化... 新しい方向の感覚に気づいてください... ... 一瞬立ち止まって... 新しい方向への歩行を始める準備をしてください... 再び... 持ち上げ... 運ぶ... 置く... 移す......",
+      
+      affirmations: "歩きながら... 静かに知ってください... 私は大地とつながっています... 私は現在の瞬間に存在しています... 私は自分の体に気づいています... ... 一歩一歩が瞑想です... 私は動きの中で平和を見つけます... 私は歩行を通して心を静めます... 私は今ここに存在しています......",
+      
+      closing: "この歩行瞑想を終えるとき... しばらく静止して立ってください... 足が地面に触れている感覚を感じてください... 体全体を感じてください... ... この気づきの質を日常の歩行に持ち込むことができることを知ってください... 急いでいるときでも... 一歩一歩に少しの気づきを持ち込めます... ... 深呼吸をしてください... 歩行瞑想の実践に感謝してください... 動きと静寂の中で平和を見つけました... これを一日に持ち歩いてください......"
+    }
+  ],
+
+  breathing: [
+    {
+      name: "完全な呼吸法",
+      intro: "この呼吸瞑想へようこそ... 快適な姿勢を見つけてください... 座っても横になっても... 一方の手を胸に... もう一方の手をお腹に置いてください... 意識的な呼吸の完全な力を探求していきます... あなたの呼吸は常に利用可能です... 常に中心に戻り静める準備ができています...",
+      
+      naturalBreath: "まず自然な呼吸を観察することから始めましょう... まだ何も変えないで... ただ気づいてください... ... どちらの手がより動くか感じてください... 胸かお腹か... リズムに気づいてください... 深さ... 吸気と呼気の間の間... ... あなたの呼吸は現在の状態を反映しています... そして呼吸を変えることで... 感じ方を変えることができます... これがあなたの超能力です......",
+      
+      completeBreath: "今、完全な呼吸の技法を学びましょう... 最初にすべての息を吐き切ってください... 肺を空にしてください... ... 今、お腹の手の下から息を吸い始めてください... お腹が膨らむのを感じてください... 胸の手はまだ動かないでください... ... 続けて吸い続けて... 中間の肋骨が広がるのを感じてください... 最後に胸の手の下が上がります... これが完全な吸気です......",
+      
+      completeExhale: "今、完全に息を吐きましょう... 胸の手の下から始まって... 上の肺から息を吐き始めてください... ... 中間の肋骨が縮まるのを感じながら続けて... 最後にお腹の手の下を軽く押して... 残っている息をすべて吐き切ってください... ... これが完全な呼吸サイクルです... 体全体が呼吸に参加しています......",
+      
+      rhythmicBreathing: "今、リズミカルな呼吸を確立しましょう... 四つ数えながら完全に息を吸ってください... いち... に... さん... よん... ... 二つ数えながら息を保持してください... いち... に... ... 六つ数えながら完全に息を吐いてください... いち... に... さん... よん... ご... ろく... ... このリズムを続けてください... より長い呼気が深いリラクゼーションを促進します......",
+      
+      energizingBreath: "今、エネルギーを高める呼吸を試してみましょう... 鼻から素早く三回息を吸って... 一回で長く吐いてください... 吸、吸、吸... 吐〜... ... これを三回繰り返してください... 体が目覚め警戒するのを感じてください... ... 今、自然な呼吸に戻してください... エネルギーが循環しているのを感じてください......",
+      
+      calmingBreath: "今、神経系を静める呼吸を試してみましょう... 四つ数えながら息を吸ってください... 七つ数えながら息を保持してください... 八つ数えながら息を吐いてください... ... 4-7-8の呼吸パターンです... 長い呼気が副交感神経系を活性化します... 「休息と消化」のシステムです... ... 数回繰り返してください... より深い静けさを感じてください......",
+      
+      affirmations: "呼吸を続けながら... 静かに知ってください... 私の呼吸は生命力です... 私は呼吸を通して心を静めることができます... 私は呼吸を通してエネルギーを得ることができます... ... 私の呼吸は常に私と共にあります... 私は呼吸を通して現在の瞬間にいます... 私は呼吸の力を信頼します... 私は呼吸を通して平和を見つけます......",
+      
+      closing: "この呼吸の実践を終えるとき... 自然な呼吸に戻してください... 今、あなたの呼吸がどのように感じられるか気づいてください... ... この完全な呼吸の技法を一日を通して使えることを知ってください... ストレスを感じるとき... エネルギーが必要なとき... 静けさを求めるとき... ... 深呼吸をしてください... 呼吸の実践に感謝してください... あなたの呼吸は常にあなたを現在の瞬間に... 平和に... 中心に導いてくれます... 呼吸と共に歩んでください......"
+    }
+  ],
+
+  morning: [
+    {
+      name: "夜明けの目覚めの実践",
+      intro: "この朝の瞑想へようこそ... 一日を始める美しい方法です... 快適に座ってください... 朝の光を感じることができる窓の近くでもいいでしょう... 前に横たわる一日のために前向きな意図を設定します... 体と精神の両方を目覚めさせます...",
+      
+      gratitude: "目覚めたことに感謝する瞬間を取ることから始めましょう... 新しい一日の贈り物を... 呼吸できることを... 感じられることを... 愛し愛されることを... ... 心に浮かぶ感謝の気持ちをすべて認めてください... 小さなことでも... 昨日の良い瞬間... 今日の可能性... ... 感謝は心を開き一日を美しく始めます......",
+      
+      bodyAwakening: "今、体を穏やかに目覚めさせましょう... 首と肩をゆっくり回してください... 背筋を伸ばし胸を開いてください... ... 腕を頭上に伸ばし大きく伸びをしてください... 体の各部分が目覚めるのを感じてください... ... 足と手の指を動かしてください... 体の生命力を感じてください... あなたは生きています... 意識しています... 新しい一日に準備ができています......",
+      
+      breathingEnergy: "エネルギーを高める呼吸を行いましょう... 鼻から深く息を吸い... 新鮮な朝の空気を感じてください... 口から完全に息を吐き... 昨夜の重さを解放してください... ... 再び吸ってください... 明晰さと活力を吸い込んで... 吐いて... 眠気や疲労を吐き出してください... ... もう一度... 可能性のエネルギーを吸い込んで... 吐いて... 抵抗や疑いを吐き出してください......",
+      
+      intentionSetting: "今、一日のための意図を設定しましょう... 今日どのような人になりたいですか？... どのような気持ちで一日を過ごしたいですか？... ... 今日の目標や希望を心に浮かべてください... でも結果に執着しないでください... むしろ今日をどのように体験したいかに焦点を当ててください... ... 一日を通してあなたを導く言葉やフレーズを選んでください... 平和... 喜び... 思いやり... 勇気... 何でも今日のあなたにとって意味があるもの......",
+      
+      visualization: "この意図を持って一日を生きている自分を想像してください... 朝の活動を意識的に行っている自分を見てください... 他の人々と温かく関わっている自分を... 課題を平静と知恵で扱っている自分を... ... 一日を通して感謝と存在感を保っている自分を想像してください... 困難な瞬間でも... この朝の平和を思い出している自分を... ... この日がどのように展開するかに関係なく... あなたは内側に平和を持っています......",
+      
+      affirmations: "この新しい一日を迎えるとき... 確信を持って繰り返してください... 私は新しい一日の贈り物に感謝します... 私は意識的に一日を生きます... 私は平和と喜びを選択します... ... 私は今日の課題に対処する力を持っています... 私は他者に思いやりを持ちます... 私は学び成長する機会を受け入れます... ... 私は今日を美しく生きます... 私は自分の光を世界に輝かせます... 私は愛と平和の中で歩みます......",
+      
+      closing: "この朝の瞑想を終えるとき... この平和と意図を心に保ってください... 一日を通してこの静けさに戻ることができることを知ってください... ... 深呼吸をしてください... 体を伸ばしてください... 準備ができたら目を開けてください... ... 新しい一日に足を踏み出してください... 感謝と目的を持って... 平和で... 意識的で... 一日があなたにもたらすすべてに開かれて... 美しい一日となりますように......"
+    }
+  ]
+  },
+
+  ko: {
+    sleep: [
+    {
+      name: "바디스캔 수면 명상",
+      intro: "깊은 잠을 위한 명상에 오신 것을 환영합니다... 침대에 편안하게 누워서 몸이 매트리스에 완전히 이완되도록 하세요... 부드럽게 눈을 감고 호흡에 주의를 기울이기 시작하세요... 지금은 아무것도 할 필요가 없습니다. 그저 편안히 이완하며 제 목소리를 들어주세요...",
+      
+      breathing: "차분한 호흡부터 시작해보겠습니다... 코로 천천히 숨을 들이마시며 다섯을 세어주세요... 하나... 둘... 셋... 넷... 다섯... 부드럽게 숨을 멈추고 다섯을 세어주세요... 하나... 둘... 셋... 넷... 다섯... 이제 입으로 천천히 숨을 내쉬며 다섯을 세어주세요... 하나... 둘... 셋... 넷... 다섯... 호흡이 자연스러운 리듬으로 돌아가도록 하세요... 매 호흡마다 더 깊은 이완을 느끼세요......",
+      
+      bodyRelaxation: "이제 긴장을 풀어주기 위해 부드러운 바디스캔을 해보겠습니다... 먼저 발에 주의를 기울여주세요... 발이 무겁고 따뜻해지는 것을 느껴보세요... 이 무거움이 발목을 통해 위로 올라가는 것을 느껴주세요... 종아리... 무릎... 다리가 침대 속으로 더 깊이 가라앉는 것을 느껴보세요... ... 이제 엉덩이와 허리에 주의를 기울여주세요... 그것들이 부드러워지고 이완되는 것을 느껴보세요... 배가 호흡과 함께 오르내리는 것을 느껴보세요... 가슴이 부드럽게 확장됩니다... ... 어깨에 주의를 기울여주세요... 어깨를 귀에서 떨어뜨리듯 내려주세요... 팔의 무게를 느껴보세요... 무겁고 이완된 상태로... 손이 조용히 쉬고 있습니다... ... 목에 주의를 기울여주세요... 목이 늘어나고 부드러워지는 것을 느껴보세요... 턱이 이완됩니다... 얼굴이 이완됩니다... 심지어 눈 주위의 작은 근육들도 모두 놓아줍니다......",
+      
+      visualization: "평화로운 장소에 있는 자신을 상상해보세요... 아마도 당신은 부드러운 구름 위에 누워... 별이 빛나는 하늘을 부드럽게 떠다니고 있을지도 모릅니다... 또는 아름다운 정원에서 쉬고 있을지도 모릅니다... 부드러운 라벤더 향기에 둘러싸여... 공기의 온도가 완벽합니다... 당신은 완전히 안전하고 보호받고 있다고 느낍니다... ... 매 호흡마다 당신은 더 깊은 이완 속으로 빠져듭니다... 당신의 마음이 고요하고 평화로워집니다... 달을 비추는 고요한 호수처럼... 떠오르는 어떤 생각도 구름처럼 흘러가 버립니다... 무언가를 붙잡을 필요가 없습니다......",
+      
+      affirmations: "이 완벽한 평화 속에서 쉬면서 알아주세요... 당신은 안전합니다... 당신은 따뜻합니다... 당신은 보호받고 있습니다... 당신은 사랑받고 있습니다... ... 당신의 몸은 잠드는 방법을 알고 있습니다... 이제 모든 것을 놓아도 안전합니다... 당신은 이 휴식을 받을 자격이 있습니다... 내일은 스스로 돌봐질 것입니다... ... 바로 이 순간, 모든 것이 있어야 할 곳에 있습니다......",
+      
+      closing: "이 평화로운 상태에서 계속 쉬세요... 당신의 몸은 무겁고 이완되어 있습니다... 당신의 마음은 고요하고 평화롭습니다... 매 호흡마다 당신은 더 평온한 잠 속으로 빠져듭니다... ... 이제 당신을 평화로운 꿈 속으로 떠나보내겠습니다... 편히 주무세요... 깊이 쉬세요... 그리고 일어날 때가 되면 상쾌하게 깨어나세요... 좋은 꿈 꾸세요......"
+    },
+    
+    {
+      name: "파도소리 수면 명상",
+      intro: "마음을 진정시키는 바다 수면 명상에 오신 것을 환영합니다... 침대에 편안하게 자리를 잡고 완전히 편안하게 만드세요... 눈을 감고 석양의 아름다운 해변에 누워 있다고 상상해보세요... 부드러운 파도 소리가 당신을 평화로운 잠으로 안내해줄 것입니다...",
+      
+      breathing: "깊은 호흡부터 시작하세요... 신선한 바다 공기를 들이마시세요... 그것이 당신의 폐를 완전히 채우는 것을 느껴보세요... 천천히 숨을 내쉬세요... 하루의 모든 긴장을 놓아주면서... ... 파도의 리듬을 들어보세요... 들이마시고... 내쉬고... 들이마시고... 내쉬고... 당신의 호흡이 이 자연스러운 리듬에 맞춰지도록 하세요... 매 호흡마다 당신을 더 깊은 이완으로 이끕니다......",
+      
+      oceanVisualization: "따뜻하고 부드러운 모래 위에 누워 있는 자신을 상상해보세요... 태양이 지고 있어 하늘을 아름다운 색깔로 물들이고 있습니다... 당신은 부드러운 파도 소리가 해변에 밀려오는 것을 듣고 있습니다... 하나하나의 파도가 당신의 걱정과 스트레스를 가져가 줍니다... ... 따뜻한 모래가 당신의 몸을 받쳐주는 것을 느껴보세요... 부드러운 바다 바람이 당신의 피부를 어루만지고 있습니다... 여기서 당신은 완전히 안전하고 평화롭습니다... ... 밀려오는 파도마다 당신은 더 졸리고... 더 이완됩니다... 바다가 당신에게 자장가를 불러주고 있습니다......",
+      
+      bodyRelaxation: "이제 파도가 당신의 몸을 씻어주는 것을 느껴보세요... 발부터 시작해서... 발이 젖은 모래처럼 무거워지는 것을 느껴보세요... 파도가 당신의 다리를 흘러... 완전히 이완되고 무겁게 만듭니다... ... 부드러운 물이 엉덩이와 허리를 흘러갑니다... 모든 긴장이 조수에 다듬어진 모래처럼 녹아 사라집니다... 팔이 평화롭게 떠다닙니다... 무겁고 이완되어... ... 파도가 가슴을... 어깨를... 목을 씻어주는 것을 느껴보세요... 얼굴이 부드럽고 평화로워집니다... 완전히 이완되어......",
+      
+      affirmations: "파도마다 당신은 알고 있습니다... 당신은 안전하고 보호받고 있습니다... 바다가 당신을 부드럽게 품어주고 있습니다... 당신은 완벽한 평화 속에 있습니다... ... 당신의 몸은 깊고 회복적인 잠을 위해 준비되어 있습니다... 파도가 모든 걱정을 가져가 줍니다... 내일은 새로운 가능성을 가져다줄 것입니다... ... 지금 이 순간에는 평화만이... 휴식만이... 부드러운 파도 소리만이 있습니다......",
+      
+      closing: "이 평화로운 해변에서 계속 쉬세요... 파도가 부드러운 리듬을 계속하고 있습니다... 당신을 잠으로 흔들어 주면서... ... 바다의 소리가 당신을 아름다운 꿈으로 데려가게 하세요... 깊이 주무세요... 완전히 쉬세요... 그리고 바다 위의 새벽처럼 상쾌하게 깨어나세요... 좋은 꿈 꾸세요......"
+    }
+  ],
+
+  stress: [
+    {
+      name: "마음챙김 스트레스 해소",
+      intro: "스트레스 해소 명상에 오신 것을 환영합니다... 편안한 앉은 자세를 찾아서 등을 곧게 세우되 긴장하지는 마세요... 발을 바닥에 평평하게 놓고 땅의 지지를 느껴보세요... 부드럽게 손을 무릎 위에 놓으세요... 준비가 되면 눈을 감거나 부드럽게 아래를 내려다보세요...",
+      
+      breathing: "몇 번의 깊은 정화 호흡부터 시작하겠습니다... 코로 숨을 들이마시며 폐를 완전히 채우세요... 입으로 숨을 내쉬며 모든 긴장을 놓아주세요... ... 다시 깊게 숨을 들이마시세요... 가슴과 배가 확장되는 것을 느껴보세요... 그리고 숨을 내쉬세요... 스트레스와 걱정을 놓아주면서... 한 번 더... 신선하고 진정시키는 에너지를 들이마시고... 더 이상 당신에게 도움이 되지 않는 모든 것을 내뱉으세요......",
+      
+      stressAcknowledgment: "이제 당신이 지고 있는 모든 스트레스나 긴장을 부드럽게 인정해주세요... 이런 감정들을 판단하지 마세요... 그저 친절한 마음으로 알아차리기만 하세요... 스트레스는 자연스러운 것입니다... 이것은 몸이 도전에 반응하는 방식입니다... ... 이 스트레스를 당신 마음의 하늘에 있는 구름으로 상상해보세요... 구름은 왔다가 갑니다... 구름은 하늘이 아닙니다... 당신이 하늘입니다... 광활하고 열려있고 평화로운......",
+      
+      breathingFocus: "이제 당신의 호흡에 부드러운 주의를 기울여주세요... 들숨과 날숨의 자연스러운 흐름을 알아차리세요... 매 들숨마다 평온과 명료함이 옵니다... 매 날숨마다 긴장과 스트레스가 풀려납니다... ... 만약 마음이 걱정으로 산만해진다면 부드럽게 주의를 호흡으로 되돌리세요... 이것이 당신의 닻입니다... 현재 순간에서의 당신의 안전한 장소입니다......",
+      
+      bodyRelease: "머리 꼭대기부터 발끝까지 몸을 스캔해보세요... 긴장이나 경직이 있는 부분을 알아차리세요... 이런 부분들로 호흡을 보내주세요... 매 날숨마다 긴장이 녹아 사라지는 것을 상상해보세요... ... 특히 어깨에 주의를 기울여주세요... 스트레스가 종종 여기에 머물러 있습니다... 어깨를 귀에서 떨어뜨리듯... 부드럽게 이완시켜주세요... 해방감을 느껴보세요......",
+      
+      affirmations: "이 차분한 리듬으로 호흡하는 동안 부드럽게 반복하세요... 나는 평온합니다... 나는 안전합니다... 이 순간은 지나갈 것입니다... 나에게는 필요한 모든 것이 있습니다... ... 나는 스트레스 대신 평화를 선택합니다... 나는 혼란 대신 명료함을 선택합니다... 나는 걱정 대신 현재를 선택합니다... ... 매 들숨마다 나에게 힘이 옵니다... 매 날숨마다 내가 필요 없는 것들을 놓아줍니다......",
+      
+      closing: "이 평화로운 상태에 계속 앉아 있으세요... 호흡은 자연스럽고 차분합니다... 몸은 이완되고 부드럽습니다... ... 이 평온함의 느낌을 당신의 하루로 가져가세요... 언제든지 이 호흡으로 돌아올 수 있다는 것을 기억하세요... 이것이 당신의 평화의 원천입니다... 언제나 당신에게 사용 가능합니다... 준비가 되면 부드럽게 눈을 뜨세요......"
+    }
+  ],
+
+  focus: [
+    {
+      name: "집중력 향상 명상",
+      intro: "집중력과 주의력을 향상시키는 명상에 오신 것을 환영합니다... 등을 곧게 세우고 편안하게 앉으세요... 발을 바닥에 놓고 어깨를 이완시키세요... 손을 편안하게 무릎 위에 놓으세요... 준비가 되면 부드럽게 눈을 감으세요...",
+      
+      breathing: "호흡 리듬을 설정하는 것부터 시작하겠습니다... 네 박자를 세며 숨을 들이마시세요... 하나... 둘... 셋... 넷... 두 박자를 세며 숨을 멈추세요... 하나... 둘... 네 박자를 세며 숨을 내쉬세요... 하나... 둘... 셋... 넷... ... 이 리듬을 계속하세요... 마음이 이 단순한 연습에 맞춰지도록 하세요... 호흡이 당신의 집중점이 됩니다......",
+      
+      mindTraining: "마음은 자연스럽게 방황합니다... 이것은 정상적인 것입니다... 생각이 산만해졌다는 것을 알아차렸을 때 판단하지 말고 부드럽게 주의를 호흡으로 되돌리세요... 이것은 주의력의 근육을 훈련하는 것과 같습니다... ... 집중을 되찾을 때마다 당신은 집중 능력을 강화하고 있습니다... 마음이 방황하는 것은 실패가 아닙니다... 그것은 연습의 기회입니다......",
+      
+      singlePointFocus: "이제 하나의 집중점을 선택하세요... 그것은 코에서의 호흡 감각일 수도... 배의 오르내림일 수도... 호흡 소리일 수도 있습니다... ... 모든 주의를 이 한 점에 향하게 하세요... 마음이 다른 생각, 소리, 감각으로 산만해질 때 부드럽게 선택한 점으로 되돌리세요... ... 이것은 한 점 집중의 연습입니다... 모든 형태의 집중의 기초입니다......",
+      
+      concentration: "마음이 더 집중되고... 더 명료해지는 것을 느껴보세요... 주의력의 질을 알아차리세요... 그것이 한 방향으로 향할 때 자연스러운 가벼움과 평온이 나타납니다... ... 당신이 여기서 발달시키고 있는 이 집중 능력은 인생의 모든 측면으로 전이됩니다... 일, 관계, 창의성... ... 현재에 있는 매 순간이 당신의 집중을 유지하는 능력을 강화합니다......",
+      
+      affirmations: "집중하며 계속 호흡하는 동안... 알아주세요... 내 마음은 명료하고 집중되어 있습니다... 나는 선택에 따라 주의를 향하게 할 수 있습니다... 나는 이 순간에 현재하고 있습니다... ... 집중은 내가 발달시키고 있는 기술입니다... 연습할 때마다 나는 더 집중하게 됩니다... 나에게는 내 마음을 이끌 힘이 있습니다......",
+      
+      closing: "집중점에서 의식을 천천히 확장하세요... 방의 소리들을 포함하세요... 의자에 앉아 있는 몸의 감각을... ... 이 명료하고 집중된 주의력의 질을 당신의 하루로 가져가세요... 언제든지 중심을 잡기 위해 호흡으로 돌아올 수 있다는 것을 기억하세요... ... 준비가 되면 부드럽게 눈을 뜨세요... 명료하고 집중되고 현재하고 있다고 느끼면서......"
+    }
+  ],
+
+  anxiety: [
+    {
+      name: "불안 완화 명상",
+      intro: "불안을 다루는 명상에 오신 것을 환영합니다... 안전하고 편안한 곳에 앉으세요... 발을 바닥에 놓고 대지의 지지를 느껴보세요... 한 손은 심장에, 다른 한 손은 배에 놓으세요... 눈을 감거나 부드럽게 시선을 아래로 향하세요...",
+      
+      grounding: "현재 순간에 뿌리내리는 것부터 시작하겠습니다... 당신의 몸과 의자의 접촉점을 느껴보세요... 바닥의 발... 몸 위의 손... ... 당신은 여기 있습니다... 당신은 안전합니다... 이 순간 모든 것이 괜찮습니다... 몇 번의 깊은 호흡을 하며 스스로에게 상기시키세요: '나는 여기 있다, 나는 안전하다'......",
+      
+      breathingForAnxiety: "이제 신경계를 진정시키기 위해 호흡을 사용하겠습니다... 네 박자를 세며 천천히 숨을 들이마시세요... 하나... 둘... 셋... 넷... 네 박자를 세며 숨을 멈추세요... 하나... 둘... 셋... 넷... 여섯 박자를 세며 천천히 숨을 내쉬세요... 하나... 둘... 셋... 넷... 다섯... 여섯... ... 긴 날숨은 부교감신경계를 활성화합니다... '휴식과 회복' 시스템을... 이 리듬을 계속하세요......",
+      
+      anxietyAcknowledgment: "존재하는 모든 불안을 부드럽게 인정해주세요... 그것을 쫓아내려 하지 마세요... 그저 자비로운 마음으로 알아차리세요... 불안은 종종 우리를 보호하려고 합니다... 그 돌봄의 시도에 감사하세요... ... 불안에게 말하세요: '돌봐줘서 고마워... 지금 이 순간 나는 안전해... 지금 이 순간 모든 것이 괜찮아'... ... 불안을 파도로 상상해보세요... 파도는 일어났다가 가라앉습니다... 그것들은 영원히 지속되지 않습니다......",
+      
+      bodyCalming: "몸에서 불안을 느끼는 부분에 주의를 기울여주세요... 그것은 가슴, 배, 또는 목일 수 있습니다... 이런 부분들로 부드럽게 호흡을 보내주세요... ... 매 들숨마다 따뜻한 황금빛이 이런 곳들로 들어오는 것을 상상해보세요... 빛이 평온과 치유를 가져다줍니다... 매 날숨마다 긴장과 불안이 녹아 사라집니다......",
+      
+      affirmations: "진정시키는 리듬으로 계속 호흡하는 동안... 부드럽게 반복하세요... 이 순간은 지나갈 것입니다... 나에게는 그것을 다룰 수 있는 모든 것이 있습니다... 나는 내 불안보다 강합니다... ... 나는 평화를 선택합니다... 나는 차분함을 선택합니다... 나는 삶을 신뢰하기를 선택합니다... 매 들숨마다 평화가 옵니다... 매 날숨마다 두려움을 놓아줍니다......",
+      
+      closing: "이 평온한 상태에 계속 앉아 있으세요... 호흡은 느리고 깊습니다... 몸은 더 이완되어 있습니다... 마음은 더 평화롭습니다... ... 이런 도구들이 항상 당신과 함께 있다는 것을 기억하세요... 진정이 필요할 때 호흡으로 돌아오세요... 당신은 생각보다 강합니다... ... 준비가 되면 부드럽게 눈을 뜨세요... 이 평온함을 당신과 함께 가져가세요......"
+    }
+  ],
+
+  energy: [
+    {
+      name: "아침 활력 명상",
+      intro: "활력을 주는 명상에 오신 것을 환영합니다... 가슴을 열고 머리를 들어 똑바로 앉으세요... 발을 바닥에 단단히 놓으세요... 손바닥을 위로 향하게 해서 무릎 위에 놓으세요... 눈을 감고 에너지를 받을 준비가 되었다고 느끼세요...",
+      
+      energizingBreath: "에너지를 깨우는 호흡부터 시작하겠습니다... 코로 깊게 숨을 들이마시며 배를 채우세요... 그다음 입으로 빠르고 강하게 숨을 내쉬세요... 이것을 세 번 반복하세요... ... 이제 자연스러운 호흡으로 돌아가세요... 몸이 이미 더 경계하고... 더 활력이 넘치는 것을 알아차리세요......",
+      
+      bodyActivation: "가슴 중앙에 밝은 황금빛이 있다고 상상해보세요... 이것이 당신의 내면 에너지 원천입니다... 매 들숨마다 빛이 더 밝아지고... 더 강해집니다... ... 이제 이 빛을 척추를 따라 아래로 안내하세요... 각 척추골에 에너지를 충전시킵니다... 에너지가 다리로 흘러들어가는 것을 느껴보세요... 당신에게 힘의 기반을 줍니다... ... 빛을 목을 통해 머리로 위쪽으로 안내하세요... 마음의 명료함을 깨웁니다... 그다음 팔로 아래쪽으로 흘러보내세요... 행동의 힘으로 채웁니다......",
+      
+      vitality: "이 생명 에너지가 온몸을 순환하는 것을 느껴보세요... 이것이 당신의 자연스러운 힘입니다... 당신의 타고난 활력입니다... 그것은 언제나 당신에게 사용 가능합니다... ... 이 에너지가 당신의 몸에서 방사되는 것을 상상해보세요... 힘과 자신감의 빛나는 오라를 만들어냅니다... 당신은 활력이 넘치고... 경계하며... 하루를 위해 준비되었다고 느낍니다......",
+      
+      intention: "이제 하루를 위한 의도를 설정하세요... 당신은 이 에너지를 어떻게 사용하고 싶나요?... 어떤 목표가 당신에게 중요한가요?... 내면에서 일어나는 동기와 열정을 느껴보세요... ... 이 에너지로 하루를 살아가는 자신을 시각화해보세요... 과제들을 쉽게 해결하고... 힘과 기쁨의 자리에서 다른 사람들과 상호작용하는 모습을......",
+      
+      affirmations: "에너지가 계속 순환하는 동안... 확신을 가지고 반복하세요... 나는 생명력으로 가득 차 있습니다... 나에게는 중요한 일들을 위한 에너지가 있습니다... 나는 열정을 가지고 하루에 접근합니다... ... 내 몸은 강하고 건강합니다... 내 마음은 명료하고 집중되어 있습니다... 내 마음은 가능성에 열려 있습니다... 나는 긍정적인 에너지를 방사합니다......",
+      
+      closing: "천천히 손가락과 발가락을 움직이기 시작하세요... 조심스럽게 머리를 좌우로 돌려보세요... 하늘을 향해 스트레칭하세요... ... 눈을 뜨고 완전히 깨어났고... 활력이 넘치며... 하루를 위해 준비되었다고 느끼세요... 이 에너지를 당신과 함께 가져가세요... 동기가 필요할 때 그것으로 돌아오세요... 당신에게는 멋진 하루를 위해 필요한 모든 것이 있습니다......"
+    }
+  ],
+
+  mindfulness: [
+    {
+      name: "현재 순간의 깨달음",
+      intro: "마음챙김 명상에 오신 것을 환영합니다... 편안하고 안정된 자세로 앉으세요... 등을 곧게 세우되 긴장하지는 마세요... 발을 바닥에 평평하게 놓고 손을 편안하게 무릎 위에 놓으세요... 부드럽게 눈을 감고 현재 순간에 도착하세요...",
+      
+      breathing: "호흡에 주의를 기울이는 것부터 시작하겠습니다... 호흡을 바꾸려고 하지 마세요... 그저 있는 그대로 관찰하세요... 공기가 콧구멍으로 들어오는 것을 느끼세요... 차갑고 신선한 공기가... 그리고 따뜻한 공기가 나가는 것을... ... 호흡의 자연스러운 리듬을 따라가세요... 들숨... 날숨... 들숨... 날숨... 이것이 현재 순간의 닻입니다......",
+      
+      presentMoment: "지금 이 순간에 완전히 도착하세요... 과거는 기억 속에만 존재합니다... 미래는 상상 속에만 존재합니다... 삶은 오직 지금 이 순간에만 일어납니다... ... 몸의 감각을 알아차리세요... 의자에 앉아 있는 느낌... 공기의 온도... 옷이 피부에 닿는 느낌... 이 모든 것이 현재 순간의 선물입니다......",
+      
+      awareness: "주변의 소리에 귀 기울여보세요... 그것들을 판단하지 마세요... 그저 들어보세요... 가까운 소리... 먼 소리... 소리들이 나타났다가 사라지는 것을 관찰하세요... ... 생각이 나타나면 그것들도 소리처럼 관찰하세요... 생각에 휩쓸리지 말고... 그저 구름이 하늘을 지나가는 것처럼 지나가도록 하세요... 당신은 생각이 아닙니다... 당신은 생각을 관찰하는 의식입니다......",
+      
+      mindfulObservation: "마음의 활동을 부드럽게 관찰하세요... 판단하지 마세요... 그저 호기심을 가지고 지켜보세요... 감정이 일어나면 그것을 환영하세요... '아, 슬픔이 여기 있구나' 또는 '기쁨이 나타났구나'... ... 모든 경험이 일시적임을 알아차리세요... 즐거운 것도... 불편한 것도... 모든 것이 변화합니다... 이것이 삶의 자연스러운 흐름입니다......",
+      
+      affirmations: "마음챙김의 자세로 계속 호흡하며... 부드럽게 반복하세요... 나는 현재 순간에 있습니다... 나는 깨어있고 의식하고 있습니다... 모든 경험을 환영합니다... ... 나는 내 삶을 완전히 살아갑니다... 매 순간이 새로운 시작입니다... 나는 지금 여기서 평화를 찾습니다......",
+      
+      closing: "이 마음챙김의 자세를 유지하세요... 호흡은 자연스럽고 편안합니다... 몸은 이완되고 깨어있습니다... 마음은 열려있고 평화롭습니다... ... 이 현재 순간의 의식을 당신의 하루로 가져가세요... 언제든지 호흡으로 돌아와서 지금 여기에 도착할 수 있습니다... ... 준비가 되면 부드럽게 눈을 뜨세요... 현재 순간에 깨어있으면서......"
+    }
+  ],
+
+  compassion: [
+    {
+      name: "자비 마음의 실천",
+      intro: "자비 명상에 오신 것을 환영합니다... 따뜻하고 편안한 자세로 앉으세요... 한 손을 심장에 놓으세요... 심장의 따뜻함을 느끼세요... 부드럽게 눈을 감고 마음을 사랑과 친절함으로 여세요... 자비는 우리의 자연스러운 본성입니다...",
+      
+      breathing: "심장 중심에서 호흡하세요... 매 들숨마다 따뜻함과 사랑이 가슴으로 들어옵니다... 매 날숨마다 이 사랑을 세상으로 내보내세요... ... 호흡이 사랑의 파도처럼 흐르도록 하세요... 받고... 주고... 받고... 주고... 이것이 자비의 리듬입니다......",
+      
+      selfCompassion: "먼저 자신에게 자비를 베풀어보세요... 마음 속으로 자신에게 말해보세요... '내가 행복하기를... 내가 건강하기를... 내가 평화롭기를... 내가 사랑받기를...'... ... 만약 자신에게 자비를 베푸는 것이 어렵다면... 그 어려움도 자비로 대하세요... 자신의 고통을 인정하세요... 당신은 사랑받을 자격이 있습니다......",
+      
+      lovedOnes: "이제 사랑하는 사람을 마음에 떠올려보세요... 가족... 친구... 반려동물... 그들의 얼굴을 마음에 그려보세요... 그들에게 사랑을 보내세요... '당신이 행복하기를... 당신이 건강하기를... 당신이 평화롭기를... 당신이 사랑받기를...'... ... 이 사랑이 당신의 가슴에서 그들에게로 흘러가는 것을 느끼세요... 따뜻한 황금빛처럼......",
+      
+      neutralPerson: "이제 중립적인 사람을 떠올려보세요... 아는 사람이지만 특별한 감정이 없는 사람... 상점 직원... 이웃... 동료... 그들도 당신과 같은 인간입니다... 행복을 원하고 고통을 피하고 싶어합니다... ... 그들에게도 같은 자비를 보내세요... '당신이 행복하기를... 당신이 건강하기를... 당신이 평화롭기를... 당신이 사랑받기를...'......",
+      
+      difficultPerson: "이제... 어려운 사람을 떠올려보세요... 당신에게 상처를 준 사람... 천천히... 강요하지 마세요... 그들도 고통받고 있기 때문에 상처를 준다는 것을 이해하세요... ... 가능한 만큼만... 그들에게도 자비를 보내보세요... '당신이 고통에서 벗어나기를... 당신이 평화를 찾기를...'... 이것이 어렵다면 괜찮습니다... 자비는 연습입니다......",
+      
+      allBeings: "마지막으로 모든 생명체에게 자비를 확장하세요... 당신의 도시의 모든 사람들... 나라의 모든 사람들... 세계의 모든 존재들... 모든 동물들... ... 마음 속으로 말해보세요... '모든 존재가 행복하기를... 모든 존재가 고통에서 벗어나기를... 모든 존재가 평화롭기를... 모든 존재가 사랑받기를...'... ... 자비의 빛이 당신에게서 모든 방향으로 퍼져나가는 것을 상상하세요......",
+      
+      closing: "이 자비로운 마음을 유지하세요... 호흡은 사랑으로 가득 차 있습니다... 마음은 따뜻하고 열려있습니다... 당신은 사랑의 원천입니다... ... 이 자비를 당신의 하루로 가져가세요... 자신과 다른 사람들에게 친절하세요... 자비가 세상을 치유합니다... ... 준비가 되면 부드럽게 눈을 뜨세요... 사랑으로 가득 찬 마음으로......"
+    }
+  ],
+
+  walking: [
+    {
+      name: "걷기 명상 실천",
+      intro: "걷기 명상에 오신 것을 환영합니다... 서서 두 발로 안정되게 서세요... 발이 바닥에 닿아 있는 느낌을 인식하세요... 몸의 균형을 느끼세요... 편안하고 자연스러운 자세로 서서... 걷기를 시작하기 전에 잠시 멈추세요...",
+      
+      breathing: "서 있는 상태에서 자연스럽게 호흡하세요... 호흡과 몸의 연결을 느끼세요... 매 들숨마다 몸이 살짝 올라가고... 매 날숨마다 몸이 살짝 내려가는 것을 느끼세요... ... 호흡이 움직임의 리듬을 만들어갑니다... 이 리듬이 걷기의 기초가 될 것입니다......",
+      
+      footAwareness: "왼발의 무게를 느끼세요... 그리고 오른발의 무게를... 무게가 두 발 사이에서 어떻게 분배되는지 관찰하세요... ... 천천히 한 발을 들어올리세요... 발이 바닥에서 떨어지는 감각을 느끼세요... 들어올리기... 앞으로 이동하기... 내려놓기... 각 단계를 의식적으로 경험하세요......",
+      
+      slowWalking: "매우 천천히 걷기 시작하세요... 일반적인 걷기보다 훨씬 느리게... 매 걸음을 의식적으로 하세요... 들어올리기... 이동하기... 내려놓기... 체중 이동... ... 발바닥이 바닥에 닿는 느낌을 세심히 관찰하세요... 딱딱한 바닥인가요? 부드러운가요? 차가운가요? 따뜻한가요? 모든 감각을 느끼세요......",
+      
+      bodyInMotion: "걷는 동안 몸 전체를 인식하세요... 다리와 발만이 아니라... 팔이 자연스럽게 흔들리는 것을... 몸통이 균형을 잡는 것을... 머리가 척추 위에서 균형을 잡는 것을... ... 걷기는 전신의 협력입니다... 근육들이 어떻게 함께 작동하는지 느끼세요... 이 놀라운 조화를 감사하세요......",
+      
+      mindfulSteps: "만약 마음이 산만해지면... 발걸음으로 주의를 되돌리세요... 걸음이 당신의 명상 대상입니다... 각 걸음과 함께 현재 순간으로 돌아오세요... ... 걸음걸음마다 깨어있으세요... 이 순간... 이 걸음... 이 감각... 과거도 미래도 없습니다... 오직 지금 이 걸음만이 있습니다......",
+      
+      gratitude: "걷는 능력에 감사하세요... 이 다리들이... 이 발들이... 이 몸이 당신을 지탱하고 움직이게 해주는 것에... 지구가 당신을 받쳐주는 것에... ... 매 걸음이 지구와의 만남입니다... 매 걸음이 삶과의 만남입니다... 이 단순한 행위 안에서 기적을 발견하세요......",
+      
+      closing: "걷기를 천천히 멈추세요... 다시 두 발로 안정되게 서서... 몸의 균형을 느끼세요... 호흡을 인식하세요... 이 걷기 명상의 경험을 마음에 새기세요... ... 일상의 걷기에서도 이 의식을 가져가세요... 매 걸음이 명상이 될 수 있습니다... 매 걸음이 현재 순간으로의 귀환입니다... ... 이 마음챙김 걷기를 당신의 일상 실천으로 만드세요......"
+    }
+  ],
+
+  breathing: [
+    {
+      name: "완전한 호흡법",
+      intro: "완전한 호흡법 명상에 오신 것을 환영합니다... 편안하고 안정된 자세로 앉으세요... 등을 곧게 세우되 경직되지 않게... 어깨를 이완시키고 턱을 살짝 당기세요... 한 손을 가슴에, 다른 손을 배에 놓으세요... 자연스러운 호흡을 관찰하는 것부터 시작하겠습니다...",
+      
+      naturalBreath: "지금 있는 그대로의 호흡을 인식하세요... 바꾸려 하지 마세요... 그저 관찰하세요... 들숨의 길이... 날숨의 길이... 호흡 사이의 자연스러운 멈춤... ... 가슴에 있는 손과 배에 있는 손 중 어느 것이 더 많이 움직이는지 느껴보세요... 판단하지 마세요... 그저 알아차리세요......",
+      
+      abdominalBreath: "이제 배꼽 호흡을 연습해보겠습니다... 배에 있는 손에 집중하세요... 천천히 코로 숨을 들이마시며 배를 부풀려보세요... 가슴은 거의 움직이지 않게 하고... ... 배가 풍선처럼 팽창하는 것을 느끼세요... 그리고 입이나 코로 천천히 숨을 내쉬며 배를 살짝 안쪽으로 당기세요... 이것을 몇 번 반복하세요......",
+      
+      chestBreath: "이제 가슴 호흡을 연습해보세요... 가슴에 있는 손에 집중하세요... 천천히 숨을 들이마시며 가슴을 확장시키세요... 갈비뼈가 바깥쪽으로 벌어지는 것을 느끼세요... 배는 상대적으로 안정되게 유지하세요... ... 가슴이 넓어지는 것을 느끼세요... 그리고 천천히 숨을 내쉬며 가슴을 이완시키세요... 이것을 몇 번 반복하세요......",
+      
+      completeBreath: "이제 완전한 호흡을 연습해보겠습니다... 세 단계로 나누어서... 먼저 배로 숨을 들이마시세요... 그다음 가슴으로... 마지막으로 쇄골 부분까지... 하나의 부드러운 흐름으로... ... 배가 먼저 팽창하고... 가슴이 확장되며... 쇄골이 살짝 올라가는 것을 느끼세요... 폐가 완전히 채워지는 것을 상상하세요... ... 이제 역순으로 숨을 내쉬세요... 쇄골부터... 가슴... 그리고 배... 완전히 비워내세요......",
+      
+      rhythmicBreath: "이제 리듬을 만들어보겠습니다... 네 박자를 세며 들이마시세요... 하나... 둘... 셋... 넷... 두 박자를 세며 숨을 멈추세요... 하나... 둘... 여섯 박자를 세며 천천히 내쉬세요... 하나... 둘... 셋... 넷... 다섯... 여섯... ... 이 리듬이 자연스러워질 때까지 계속하세요... 4-2-6의 리듬... 이것이 진정과 균형을 가져다줍니다......",
+      
+      breathAwareness: "호흡의 질을 관찰하세요... 부드러운가요? 거친가요? 깊은가요? 얕은가요? 판단하지 마세요... 그저 의식적으로 관찰하세요... ... 공기가 콧구멍으로 들어올 때의 감각... 목을 지날 때... 폐로 들어갈 때... 그리고 같은 길을 따라 나올 때... 호흡의 전체 여정을 의식하세요......",
+      
+      affirmations: "완전한 호흡을 계속하며... 마음으로 반복하세요... 매 들숨마다 생명력이 옵니다... 매 날숨마다 평화가 옵니다... 나는 호흡과 하나입니다... ... 나의 호흡은 나의 힘의 원천입니다... 나는 깊고 차분하게 호흡합니다... 호흡이 나를 현재 순간에 머물게 합니다......",
+      
+      closing: "이 완전한 호흡법을 몇 번 더 반복하세요... 각 호흡이 당신을 더 깊은 평온으로 인도합니다... 호흡이 자연스러운 리듬으로 돌아가도록 하세요... ... 이 호흡 기법을 당신의 일상으로 가져가세요... 스트레스를 느낄 때... 집중이 필요할 때... 평온이 필요할 때... 호흡이 항상 당신과 함께 있습니다... ... 준비가 되면 부드럽게 눈을 뜨세요... 호흡의 힘을 기억하며......"
+    }
+  ],
+
+  morning: [
+    {
+      name: "새벽 깨어남 실천",
+      intro: "새벽 깨어남 명상에 오신 것을 환영합니다... 새로운 하루가 시작되는 이 신성한 시간에... 편안하게 앉아서 밤의 고요함이 낮의 활력으로 변화하는 것을 느끼세요... 부드럽게 눈을 감고 이 전환의 순간을 받아들이세요... 당신은 새로운 시작의 문턱에 서 있습니다...",
+      
+      breathing: "새벽 공기와 함께 호흡하세요... 공기가 더 신선하고... 더 순수하고... 더 생명력이 넘치는 것을 느끼세요... 천천히 깊게 들이마시세요... 새로운 하루의 가능성을 받아들이면서... ... 숨을 내쉬며 어젯밤의 모든 것을 놓아주세요... 꿈들... 걱정들... 피로... 모든 것을 정화시키는 호흡으로 놓아주세요......",
+      
+      gratitude: "깨어날 수 있음에 감사하세요... 새로운 하루를 볼 수 있음에... 숨을 쉴 수 있음에... 살아있음에... 이 순간 당신에게 주어진 모든 것에 감사하세요... ... 잠자리에서 깨어나게 해준 몸에 감사하세요... 당신을 보호해준 밤에 감사하세요... 앞으로 펼쳐질 하루에 감사하세요... 감사가 마음을 따뜻하게 채우도록 하세요......",
+      
+      intention: "이 새로운 하루를 위한 의도를 설정하세요... 오늘 어떤 사람이 되고 싶나요?... 어떤 에너지를 세상에 가져다주고 싶나요?... 어떤 방식으로 살고 싶나요?... ... 마음 깊은 곳에서 일어나는 진정한 의도를 들어보세요... 그것이 무엇이든... 그것을 존중하고 받아들이세요... 이 의도가 하루의 나침반이 되도록 하세요......",
+      
+      visualization: "오늘 하루를 아름답게 살아가는 자신을 상상해보세요... 평온하고 집중된 마음으로... 다른 사람들과 조화롭게 상호작용하면서... 도전들을 지혜롭게 다루면서... ... 당신이 세상에 긍정적인 영향을 미치는 것을 상상해보세요... 미소로... 친절한 말로... 존재 자체로... 당신의 빛이 다른 사람들의 하루를 밝게 만드는 것을 봅니다......",
+      
+      energy: "새벽의 에너지를 느끼세요... 세상이 깨어나는 에너지를... 새들의 첫 노래... 바람의 부드러운 속삭임... 빛이 천천히 돌아오는 것... 이 모든 에너지가 당신 안에서도 깨어나고 있습니다... ... 생명력이 몸 전체에 흐르는 것을 느끼세요... 세포 하나하나가 활력으로 깨어나고... 마음이 명료해지며... 정신이 맑아집니다... 당신은 하루를 위해 준비되어 있습니다......",
+      
+      affirmations: "새벽의 평온함 속에서... 마음으로 확언하세요... 오늘은 새로운 시작입니다... 나에게는 무한한 가능성이 있습니다... 나는 이 하루를 아름답게 살아갈 것입니다... ... 나는 평화로운 마음으로 하루를 시작합니다... 나는 사랑과 친절함을 나누겠습니다... 나는 현재 순간에 깨어있겠습니다... 오늘은 선물입니다......",
+      
+      closing: "이 새벽 명상을 마무리하면서... 이 평온함과 의도를 마음에 새기세요... 천천히 손가락과 발가락을 움직여보세요... 몸을 부드럽게 깨우세요... ... 눈을 뜨고 새로운 하루를 맞이하세요... 마음은 평온하고... 정신은 명료하며... 몸은 활력이 넘칩니다... 이 새벽의 축복을 하루 종일 기억하세요... ... 아름다운 하루를 시작하세요... 매 순간을 선물로 받아들이며... 당신의 존재 자체가 세상에 빛을 가져다줍니다......"
     }
   ]
   }

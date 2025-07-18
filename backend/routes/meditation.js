@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
       originalText: text,
       originalLanguage: language,
       meditationType: meditationType || 'sleep',
-      duration: 10, // Default duration for compatibility
+      duration: 5, // Default duration for compatibility
       textHash: textHash,
       translations: new Map([[language, text]]),
       audioFiles: [],
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
           originalText: text,
           originalLanguage: language,
           meditationType: meditationType || 'sleep',
-          duration: 10, // Default duration for compatibility
+          duration: 5, // Default duration for compatibility
           textHash: textHash,
           translations: new Map([[language, text]]),
           user: userId || null
@@ -279,24 +279,36 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Fallback function removed - Only Claude generation is supported
-// All template code has been removed - use Claude API only
+// Import meditation templates for primary text generation
+const { generateMeditation } = require('../templates/meditationTemplates');
 
 router.post('/generate-text', async (req, res) => {
   const { type, language } = req.body;
-  const claudeApiKey = process.env.ANTHROPIC_API_KEY;
+  
+  try {
+    // Use templates as primary method (saves API tokens)
+    const generatedText = generateMeditation(type, 5, language); // 5 minutes default
+    
+    if (generatedText) {
+      console.log(`Generated meditation text using templates: ${type} in ${language}`);
+      return res.json({ text: generatedText });
+    }
+    
+    // If templates fail, fallback to Claude API
+    const claudeApiKey = process.env.ANTHROPIC_API_KEY;
+    
+    if (!claudeApiKey) {
+      return res.status(500).json({ 
+        error: 'Template generation failed and Claude API key is not configured. Please set ANTHROPIC_API_KEY for fallback generation.' 
+      });
+    }
 
-  // If no Claude key, return error
-  if (!claudeApiKey) {
-    return res.status(500).json({ 
-      error: 'Claude API key is not configured. Please set ANTHROPIC_API_KEY in your environment variables to generate meditation texts.' 
+    console.log(`Template generation failed, using Claude API fallback for: ${type} in ${language}`);
+    
+    // Initialize Claude client as fallback
+    const anthropic = new Anthropic({
+      apiKey: claudeApiKey,
     });
-  }
-
-  // Initialize Claude client
-  const anthropic = new Anthropic({
-    apiKey: claudeApiKey,
-  });
 
   try {
     const prompts = {
@@ -1428,12 +1440,19 @@ ${prompt}`
     const generatedText = response.content[0].text.trim();
     res.json({ text: generatedText });
 
-  } catch (error) {
-    console.error("Error generating meditation text with Claude:", error.message);
+    } catch (claudeError) {
+      console.error("Error generating meditation text with Claude:", claudeError.message);
+      
+      // Return error if both templates and Claude API fail
+      res.status(500).json({ 
+        error: 'Failed to generate meditation text using both templates and Claude API. Please try again.' 
+      });
+    }
     
-    // Return error to frontend since we no longer have fallback templates
+  } catch (error) {
+    console.error("Error in generate-text route:", error.message);
     res.status(500).json({ 
-      error: 'Failed to generate meditation text. Please check your Claude API configuration and try again.' 
+      error: 'An unexpected error occurred while generating meditation text.' 
     });
   }
 });
@@ -1451,7 +1470,48 @@ router.get('/voices', async (req, res) => {
         "xi-api-key": apiKey,
       }
     });
-    res.json(response.data.voices);
+    // Filter for meditation-appropriate voices
+    const meditationVoices = response.data.voices.filter(voice => {
+      const name = voice.name.toLowerCase();
+      const description = (voice.description || '').toLowerCase();
+      
+      // Include voices that are calming, soft, or suitable for meditation
+      const isMeditationVoice = 
+        name.includes('calm') ||
+        name.includes('soft') ||
+        name.includes('gentle') ||
+        name.includes('sooth') ||
+        name.includes('meditat') ||
+        name.includes('relax') ||
+        name.includes('peace') ||
+        name.includes('whisper') ||
+        description.includes('calm') ||
+        description.includes('soft') ||
+        description.includes('gentle') ||
+        description.includes('sooth') ||
+        description.includes('meditat') ||
+        description.includes('relax') ||
+        description.includes('peace') ||
+        description.includes('whisper') ||
+        // Include specific known meditation-friendly voices
+        voice.voice_id === 'EXAVITQu4vr4xnSDxMaL' || // Bella (calm female)
+        voice.voice_id === 'ErXwobaYiN019PkySvjV' || // Antoni (calm male)
+        voice.voice_id === 'VR6AewLTigWG4xSOukaG' || // Arnold (deep, calming)
+        voice.voice_id === 'pNInz6obpgDQGcFmaJgB' || // Adam (professional)
+        voice.voice_id === 'yoZ06aMxZJJ28mfd3POQ' || // Sam (neutral)
+        voice.voice_id === '21m00Tcm4TlvDq8ikWAM' || // Rachel (professional female)
+        voice.voice_id === 'AZnzlk1XvdvUeBnXmlld' || // Domi (young female)
+        voice.voice_id === 'CYw3kZ02Hs0563khs1Fj' || // Dave (conversational)
+        voice.voice_id === 'N2lVS1w4EtoT3dr4eOWO' || // Callum (hoarse but calm)
+        voice.voice_id === 'XB0fDUnXU5powFXDhCwa' || // Charlotte (seductive but calm)
+        // Include any custom/cloned voices (they usually have longer IDs)
+        voice.category === 'cloned' ||
+        voice.category === 'custom';
+      
+      return isMeditationVoice;
+    });
+    
+    res.json(meditationVoices);
   } catch (error) {
     console.error("Error fetching voices from Eleven Labs:", error.message);
     if (error.response) {
