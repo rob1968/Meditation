@@ -44,11 +44,25 @@ const MeditationSchema = new mongoose.Schema({
     filename: String,
     voiceId: String,
     background: String,
+    duration: {
+      type: Number, // Duration in seconds
+      default: null
+    },
     createdAt: {
       type: Date,
       default: Date.now
     }
   }],
+  
+  // Custom image
+  customImage: {
+    filename: String,
+    originalName: String,
+    uploadedAt: {
+      type: Date,
+      default: Date.now
+    }
+  },
   
   // Metadata
   createdAt: {

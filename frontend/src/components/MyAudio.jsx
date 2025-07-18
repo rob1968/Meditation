@@ -1,14 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { getFullUrl, getAssetUrl, API_ENDPOINTS } from '../config/api';
 
 const MyAudio = ({ user, isGenerating }) => {
   const [meditations, setMeditations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [playingMeditationId, setPlayingMeditationId] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(null);
+  const [showImageOptions, setShowImageOptions] = useState(null);
   const { t } = useTranslation();
   const prevIsGenerating = useRef(isGenerating);
+  const fileInputRef = useRef(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     if (user) {
@@ -37,7 +43,7 @@ const MyAudio = ({ user, isGenerating }) => {
       if (meditations.length === 0) {
         setIsLoading(true);
       }
-      const response = await axios.get(`http://localhost:5002/api/auth/user/${user.id}/meditations`);
+      const response = await axios.get(getFullUrl(API_ENDPOINTS.USER_MEDITATIONS(user.id)));
       setMeditations(response.data.meditations);
     } catch (error) {
       console.error('Error fetching meditations:', error);
@@ -55,6 +61,111 @@ const MyAudio = ({ user, isGenerating }) => {
     return `${minutes} ${t('minutes', 'minutes')}`;
   };
 
+  const formatAudioDuration = (seconds) => {
+    if (!seconds) return t('unknown', 'Unknown');
+    
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    
+    if (minutes === 0) {
+      return `${remainingSeconds}s`;
+    } else if (remainingSeconds === 0) {
+      return `${minutes}m`;
+    } else {
+      return `${minutes}m ${remainingSeconds}s`;
+    }
+  };
+
+  const handleImageUpload = async (meditationId, file) => {
+    setUploadingImage(meditationId);
+    
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      
+      const response = await axios.post(
+        getFullUrl(API_ENDPOINTS.UPLOAD_IMAGE(meditationId)),
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      
+      // Refresh meditations to show the new image
+      await fetchUserMeditations();
+      setShowImageOptions(null);
+      
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setError('Failed to upload image. Please try again.');
+    } finally {
+      setUploadingImage(null);
+    }
+  };
+
+  const handleFileSelect = (meditationId, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      handleImageUpload(meditationId, file);
+    }
+  };
+
+  const startCamera = async (meditationId) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+      videoRef.current.play();
+      setShowImageOptions(meditationId + '_camera');
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      setError('Could not access camera. Please check permissions.');
+    }
+  };
+
+  const capturePhoto = async (meditationId) => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0);
+    
+    // Convert canvas to blob
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'camera-capture.jpg', { type: 'image/jpeg' });
+      await handleImageUpload(meditationId, file);
+      
+      // Stop camera stream
+      const stream = video.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      
+      setShowImageOptions(null);
+    }, 'image/jpeg', 0.8);
+  };
+
+  const deleteCustomImage = async (meditationId) => {
+    try {
+      await axios.delete(getFullUrl(API_ENDPOINTS.DELETE_IMAGE(meditationId)));
+      await fetchUserMeditations();
+      setShowImageOptions(null);
+    } catch (error) {
+      console.error('Error deleting custom image:', error);
+      setError('Failed to delete image. Please try again.');
+    }
+  };
+
+  const getImageUrl = (meditation) => {
+    if (meditation.customImage && meditation.customImage.filename) {
+      return getAssetUrl(API_ENDPOINTS.CUSTOM_IMAGE(meditation.customImage.filename));
+    }
+    return meditationTypeImages[meditation.meditationType] || meditationTypeImages.sleep;
+  };
+
   const meditationTypeLabels = {
     sleep: t('sleepMeditation', 'Sleep'),
     stress: t('stressMeditation', 'Stress Relief'),
@@ -69,16 +180,16 @@ const MyAudio = ({ user, isGenerating }) => {
   };
 
   const meditationTypeImages = {
-    sleep: 'http://localhost:5002/assets/images/sleep.jpg',
-    stress: 'http://localhost:5002/assets/images/stress.jpg',
-    focus: 'http://localhost:5002/assets/images/focus.jpg',
-    anxiety: 'http://localhost:5002/assets/images/anxiety.jpg',
-    energy: 'http://localhost:5002/assets/images/energy.jpg',
-    mindfulness: 'http://localhost:5002/assets/images/mindfulness.jpg',
-    compassion: 'http://localhost:5002/assets/images/compassion.jpg',
-    walking: 'http://localhost:5002/assets/images/walking.jpg',
-    breathing: 'http://localhost:5002/assets/images/breathing.jpg',
-    morning: 'http://localhost:5002/assets/images/morning.jpg'
+    sleep: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('sleep')),
+    stress: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('stress')),
+    focus: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('focus')),
+    anxiety: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('anxiety')),
+    energy: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('energy')),
+    mindfulness: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('mindfulness')),
+    compassion: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('compassion')),
+    walking: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('walking')),
+    breathing: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('breathing')),
+    morning: getAssetUrl(API_ENDPOINTS.DEFAULT_IMAGE('morning'))
   };
 
   if (isLoading) {
@@ -103,8 +214,8 @@ const MyAudio = ({ user, isGenerating }) => {
   return (
     <div className="my-audio-container">
       <div className="my-audio-header">
-        <h2>{t('myAudio', 'My Audio')}</h2>
-        <p>{t('myAudioSubtitle', 'Your meditation history')}</p>
+        <h2>{t('myMeditation', 'My Meditations')}</h2>
+        <p>{t('myMeditationSubtitle', 'Your meditation history')}</p>
       </div>
 
       {isGenerating && (
@@ -128,12 +239,21 @@ const MyAudio = ({ user, isGenerating }) => {
             <div key={meditation._id} className="meditation-card">
               <div className="meditation-thumbnail">
                 <img 
-                  src={meditationTypeImages[meditation.meditationType] || meditationTypeImages.sleep}
+                  src={getImageUrl(meditation)}
                   alt={meditationTypeLabels[meditation.meditationType] || meditation.meditationType}
                   onError={(e) => {
                     e.target.style.display = 'none';
                   }}
                 />
+                <div className="image-overlay">
+                  <button 
+                    className="image-edit-button"
+                    onClick={() => setShowImageOptions(meditation._id)}
+                    disabled={uploadingImage === meditation._id}
+                  >
+                    {uploadingImage === meditation._id ? '⏳' : '📸'}
+                  </button>
+                </div>
               </div>
 
               <div className="meditation-details">
@@ -148,7 +268,9 @@ const MyAudio = ({ user, isGenerating }) => {
                 
                 <div className="meditation-info">
                   <span className="meditation-duration">
-                    ⏰ {formatDuration(meditation.duration)}
+                    ⏰ {meditation.audioFiles && meditation.audioFiles.length > 0 && meditation.audioFiles[0].duration 
+                        ? formatAudioDuration(meditation.audioFiles[0].duration) 
+                        : formatDuration(meditation.duration)}
                   </span>
                   <span className="meditation-language">
                     🗣️ {meditation.originalLanguage}
@@ -206,7 +328,7 @@ const MyAudio = ({ user, isGenerating }) => {
                       }}
                     >
                       <source 
-                        src={`http://localhost:5002/assets/meditations/${audioFile.filename}`} 
+                        src={getAssetUrl(API_ENDPOINTS.MEDITATION_AUDIO(audioFile.filename))} 
                         type="audio/mpeg" 
                       />
                       {t('audioNotSupported', 'Your browser does not support the audio element.')}
@@ -221,6 +343,87 @@ const MyAudio = ({ user, isGenerating }) => {
           ))}
         </div>
       )}
+
+      {/* Image Options Modal */}
+      {showImageOptions && !showImageOptions.includes('_camera') && (
+        <div className="image-options-modal">
+          <div className="image-options-content">
+            <h3>{t('changeImage', 'Change Image')}</h3>
+            <div className="image-options-buttons">
+              <button 
+                className="image-option-btn"
+                onClick={() => fileInputRef.current.click()}
+              >
+                📁 {t('uploadImage', 'Upload Image')}
+              </button>
+              <button 
+                className="image-option-btn"
+                onClick={() => startCamera(showImageOptions)}
+              >
+                📷 {t('takePhoto', 'Take Photo')}
+              </button>
+              {meditations.find(m => m._id === showImageOptions)?.customImage && (
+                <button 
+                  className="image-option-btn delete-btn"
+                  onClick={() => deleteCustomImage(showImageOptions)}
+                >
+                  🗑️ {t('deleteImage', 'Delete Image')}
+                </button>
+              )}
+            </div>
+            <button 
+              className="close-modal-btn"
+              onClick={() => setShowImageOptions(null)}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Camera Modal */}
+      {showImageOptions && showImageOptions.includes('_camera') && (
+        <div className="camera-modal">
+          <div className="camera-content">
+            <h3>{t('takePhoto', 'Take Photo')}</h3>
+            <video ref={videoRef} className="camera-video" autoPlay muted />
+            <div className="camera-controls">
+              <button 
+                className="camera-btn capture-btn"
+                onClick={() => capturePhoto(showImageOptions.replace('_camera', ''))}
+              >
+                📸 {t('capture', 'Capture')}
+              </button>
+              <button 
+                className="camera-btn cancel-btn"
+                onClick={() => {
+                  const video = videoRef.current;
+                  const stream = video.srcObject;
+                  if (stream) {
+                    const tracks = stream.getTracks();
+                    tracks.forEach(track => track.stop());
+                  }
+                  setShowImageOptions(null);
+                }}
+              >
+                ✕ {t('cancel', 'Cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        onChange={(e) => handleFileSelect(showImageOptions, e)}
+      />
+
+      {/* Hidden canvas for camera capture */}
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>
   );
 };

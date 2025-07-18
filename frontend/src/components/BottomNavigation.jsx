@@ -6,7 +6,7 @@ const BottomNavigation = ({ activeTab, onTabChange, user, onLogout }) => {
 
   const tabs = [
     { id: 'create', icon: '🧘', label: t('create', 'Create') },
-    { id: 'myAudio', icon: '📱', label: t('myAudio', 'My Audio') },
+    { id: 'myAudio', icon: '📱', label: t('myMeditation', 'My Meditations') },
     { id: 'profile', icon: '👤', label: t('profile', 'Profile') }
   ];
 

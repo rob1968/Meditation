@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { getFullUrl, API_ENDPOINTS } from '../config/api';
 
 const Auth = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -15,8 +16,8 @@ const Auth = ({ onLogin }) => {
     setError('');
 
     try {
-      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const response = await axios.post(`http://localhost:5002${endpoint}`, {
+      const endpoint = isLogin ? API_ENDPOINTS.LOGIN : API_ENDPOINTS.REGISTER;
+      const response = await axios.post(getFullUrl(endpoint), {
         username: username.trim()
       });
 

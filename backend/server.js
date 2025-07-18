@@ -37,8 +37,11 @@ mongoose.connect(process.env.MONGODB_URI, {
   .catch(err => console.log("❌ MongoDB connection error:", err));
 
 const PORT = process.env.PORT || 5002;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0'; // Listen on all interfaces
+
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 Server running on http://${HOST}:${PORT}`);
+  console.log(`🌐 Network access: http://192.168.68.111:${PORT}`);
 });
 
 // Centralized error handling middleware

@@ -1,6 +1,86 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Meditation = require('../models/Meditation');
+const path = require('path');
+const fs = require('fs');
+const { spawn } = require('child_process');
+const multer = require('multer');
+const crypto = require('crypto');
+
+// Configure multer for image uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = path.join(__dirname, '..', 'assets', 'images', 'custom');
+    // Create directory if it doesn't exist
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    // Generate unique filename with timestamp and random hash
+    const uniqueSuffix = Date.now() + '-' + crypto.randomBytes(6).toString('hex');
+    const extension = path.extname(file.originalname);
+    cb(null, 'meditation-' + uniqueSuffix + extension);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  fileFilter: function (req, file, cb) {
+    // Only allow image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'), false);
+    }
+  }
+});
+
+// Function to extract audio duration using ffprobe
+const getAudioDuration = async (filePath) => {
+  return new Promise((resolve, reject) => {
+    const ffprobePath = path.join(path.dirname(process.env.FFMPEG_PATH || 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'), 'ffprobe.exe');
+    
+    const ffprobe = spawn(ffprobePath, [
+      '-v', 'quiet',
+      '-print_format', 'json',
+      '-show_format',
+      '-show_streams',
+      filePath
+    ]);
+
+    let output = '';
+    let error = '';
+
+    ffprobe.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    ffprobe.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+
+    ffprobe.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`FFprobe failed with code ${code}: ${error}`));
+        return;
+      }
+
+      try {
+        const metadata = JSON.parse(output);
+        const duration = parseFloat(metadata.format.duration);
+        resolve(duration);
+      } catch (parseError) {
+        reject(new Error(`Failed to parse ffprobe output: ${parseError.message}`));
+      }
+    });
+  });
+};
 
 // Register new user
 router.post('/register', async (req, res) => {
@@ -146,6 +226,157 @@ router.get('/user/:userId/stats', async (req, res) => {
   } catch (error) {
     console.error('Error fetching user stats:', error);
     res.status(500).json({ error: 'Failed to fetch statistics' });
+  }
+});
+
+// Upload custom image for meditation
+router.post('/meditation/:meditationId/upload-image', upload.single('image'), async (req, res) => {
+  try {
+    const { meditationId } = req.params;
+    
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file uploaded' });
+    }
+    
+    // Find the meditation
+    const meditation = await Meditation.findById(meditationId);
+    if (!meditation) {
+      return res.status(404).json({ error: 'Meditation not found' });
+    }
+    
+    // Delete old custom image if exists
+    if (meditation.customImage && meditation.customImage.filename) {
+      const oldImagePath = path.join(__dirname, '..', 'assets', 'images', 'custom', meditation.customImage.filename);
+      if (fs.existsSync(oldImagePath)) {
+        fs.unlinkSync(oldImagePath);
+      }
+    }
+    
+    // Save new image info
+    meditation.customImage = {
+      filename: req.file.filename,
+      originalName: req.file.originalname,
+      uploadedAt: new Date()
+    };
+    
+    await meditation.save();
+    
+    res.json({
+      message: 'Image uploaded successfully',
+      imageUrl: `/assets/images/custom/${req.file.filename}`,
+      filename: req.file.filename
+    });
+    
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    // Clean up uploaded file on error
+    if (req.file) {
+      fs.unlinkSync(req.file.path);
+    }
+    res.status(500).json({ error: 'Failed to upload image' });
+  }
+});
+
+// Delete custom image for meditation
+router.delete('/meditation/:meditationId/custom-image', async (req, res) => {
+  try {
+    const { meditationId } = req.params;
+    
+    const meditation = await Meditation.findById(meditationId);
+    if (!meditation) {
+      return res.status(404).json({ error: 'Meditation not found' });
+    }
+    
+    if (meditation.customImage && meditation.customImage.filename) {
+      // Delete the image file
+      const imagePath = path.join(__dirname, '..', 'assets', 'images', 'custom', meditation.customImage.filename);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+      
+      // Remove from database
+      meditation.customImage = undefined;
+      await meditation.save();
+      
+      res.json({ message: 'Custom image deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'No custom image found' });
+    }
+    
+  } catch (error) {
+    console.error('Error deleting custom image:', error);
+    res.status(500).json({ error: 'Failed to delete custom image' });
+  }
+});
+
+// Update existing audio files with duration
+router.post('/update-audio-durations', async (req, res) => {
+  try {
+    console.log('Starting audio duration update process...');
+    
+    // Get all meditations with audio files
+    const meditations = await Meditation.find({
+      'audioFiles.0': { $exists: true }
+    });
+    
+    let updatedCount = 0;
+    let errorCount = 0;
+    
+    for (const meditation of meditations) {
+      let meditationUpdated = false;
+      
+      for (let i = 0; i < meditation.audioFiles.length; i++) {
+        const audioFile = meditation.audioFiles[i];
+        
+        // Skip if duration already exists
+        if (audioFile.duration) {
+          continue;
+        }
+        
+        // Construct path to audio file
+        const audioPath = path.join(__dirname, '..', 'assets', 'meditations', audioFile.filename);
+        
+        // Check if file exists
+        if (!fs.existsSync(audioPath)) {
+          console.warn(`Audio file not found: ${audioPath}`);
+          errorCount++;
+          continue;
+        }
+        
+        try {
+          // Extract duration
+          const duration = await getAudioDuration(audioPath);
+          
+          // Update the audio file with duration
+          meditation.audioFiles[i].duration = duration;
+          meditationUpdated = true;
+          
+          console.log(`Updated ${audioFile.filename} with duration: ${duration}s`);
+          updatedCount++;
+        } catch (durationError) {
+          console.error(`Failed to extract duration from ${audioFile.filename}:`, durationError.message);
+          errorCount++;
+        }
+      }
+      
+      // Save meditation if any audio files were updated
+      if (meditationUpdated) {
+        await meditation.save();
+      }
+    }
+    
+    console.log(`Audio duration update completed. Updated: ${updatedCount}, Errors: ${errorCount}`);
+    
+    res.json({
+      message: 'Audio duration update completed',
+      updatedCount,
+      errorCount,
+      totalProcessed: updatedCount + errorCount
+    });
+    
+  } catch (error) {
+    console.error('Error updating audio durations:', error);
+    res.status(500).json({ error: 'Failed to update audio durations' });
   }
 });
 

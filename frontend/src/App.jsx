@@ -7,6 +7,10 @@ import Auth from './components/Auth';
 import BottomNavigation from './components/BottomNavigation';
 import MyAudio from './components/MyAudio';
 import Profile from './components/Profile';
+import VoiceSlider from './components/VoiceSlider';
+import MeditationTypeSlider from './components/MeditationTypeSlider';
+import BackgroundSlider from './components/BackgroundSlider';
+import { getFullUrl, getAssetUrl, API_ENDPOINTS } from './config/api';
 
 const App = () => {
   const [text, setText] = useState("");
@@ -21,8 +25,6 @@ const App = () => {
   
   // Dropdown states
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [backgroundOpen, setBackgroundOpen] = useState(false);
-  const [voiceOpen, setVoiceOpen] = useState(false);
   
   const { t, i18n } = useTranslation();
   
@@ -39,7 +41,7 @@ const App = () => {
 
   const generateAIMeditationText = async (type, currentLanguage) => {
     try {
-      const response = await axios.post('http://localhost:5002/api/meditation/generate-text', {
+      const response = await axios.post(getFullUrl(API_ENDPOINTS.GENERATE_TEXT), {
         type,
         language: currentLanguage
       });
@@ -123,7 +125,7 @@ const App = () => {
     setActiveTab('myAudio'); // Switch to My Audio tab when generation starts
     
     try {
-      const res = await axios.post('http://localhost:5002/api/meditation', {
+      const res = await axios.post(getFullUrl(API_ENDPOINTS.GENERATE_MEDITATION), {
         text: text,
         background,
         language: i18n.language,
@@ -168,7 +170,7 @@ const App = () => {
 
   const fetchVoices = async () => {
     try {
-      const res = await axios.get('http://localhost:5002/api/meditation/voices');
+      const res = await axios.get(getFullUrl(API_ENDPOINTS.GET_VOICES));
       setVoices(res.data);
     } catch (error) {
       console.error("Error fetching voices:", error);
@@ -184,8 +186,6 @@ const App = () => {
     const handleClickOutside = (event) => {
       if (!event.target.closest('.custom-select')) {
         setLanguageOpen(false);
-        setBackgroundOpen(false);
-        setVoiceOpen(false);
       }
     };
 
@@ -225,80 +225,6 @@ const App = () => {
     { value: 'it', label: 'Italiano' },
   ];
 
-  const meditationTypes = [
-    { 
-      type: 'sleep', 
-      icon: '🌙', 
-      label: t('sleepMeditation'),
-      image: 'http://localhost:5002/assets/images/sleep.jpg'
-    },
-    { 
-      type: 'stress', 
-      icon: '😌', 
-      label: t('stressMeditation'),
-      image: 'http://localhost:5002/assets/images/stress.jpg'
-    },
-    { 
-      type: 'focus', 
-      icon: '🎯', 
-      label: t('focusMeditation'),
-      image: 'http://localhost:5002/assets/images/focus.jpg'
-    },
-    { 
-      type: 'anxiety', 
-      icon: '🌿', 
-      label: t('anxietyMeditation'),
-      image: 'http://localhost:5002/assets/images/anxiety.jpg'
-    },
-    { 
-      type: 'energy', 
-      icon: '⚡', 
-      label: t('energyMeditation'),
-      image: 'http://localhost:5002/assets/images/energy.jpg'
-    },
-    { 
-      type: 'mindfulness', 
-      icon: '🧘', 
-      label: t('mindfulnessMeditation'),
-      image: 'http://localhost:5002/assets/images/mindfulness.jpg'
-    },
-    { 
-      type: 'compassion', 
-      icon: '💙', 
-      label: t('compassionMeditation'),
-      image: 'http://localhost:5002/assets/images/compassion.jpg'
-    },
-    { 
-      type: 'walking', 
-      icon: '🚶', 
-      label: t('walkingMeditation'),
-      image: 'http://localhost:5002/assets/images/walking.jpg'
-    },
-    { 
-      type: 'breathing', 
-      icon: '🫁', 
-      label: t('breathingMeditation'),
-      image: 'http://localhost:5002/assets/images/breathing.jpg'
-    },
-    { 
-      type: 'morning', 
-      icon: '🌅', 
-      label: t('morningMeditation'),
-      image: 'http://localhost:5002/assets/images/morning.jpg'
-    }
-  ];
-
-  const backgroundOptions = [
-    { value: 'rain', label: '🌧️ ' + t('rain') },
-    { value: 'ocean', label: '🌊 ' + t('ocean') },
-    { value: 'forest', label: '🌲 ' + t('forest') },
-    { value: 'white-noise', label: '🔇 ' + t('white-noise') },
-    { value: 'wind-chimes', label: '🎐 ' + t('wind-chimes') },
-    { value: 'singing-bowls', label: '🎵 ' + t('singing-bowls') },
-    { value: 'heartbeat', label: '💓 ' + t('heartbeat') },
-    { value: 'birds', label: '🐦 ' + t('birds') },
-    { value: 'stream', label: '🏞️ ' + t('stream') }
-  ];
 
   // Show auth screen if no user is logged in
   if (!user) {
@@ -341,75 +267,24 @@ const App = () => {
               </div>
             </div>
 
-      <div className="section">
-        <h2 className="section-title">🎯 {t('meditationType')}</h2>
-        <div className="meditation-types">
-          {meditationTypes.map((meditation) => (
-            <div
-              key={meditation.type}
-              className={`meditation-type ${meditationType === meditation.type ? 'active' : ''}`}
-              onClick={() => selectMeditationType(meditation.type)}
-            >
-              <span className="emoji">{meditation.icon}</span>
-              <div className="label">{meditation.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <MeditationTypeSlider 
+        selectedType={meditationType}
+        onTypeSelect={selectMeditationType}
+      />
 
 
-      <div className="section">
-        <h2 className="section-title">🎵 {t('backgroundLabel')}</h2>
-        <div className="custom-select">
-          <div className="select-button" onClick={() => setBackgroundOpen(!backgroundOpen)}>
-            <span>{backgroundOptions.find(bg => bg.value === background)?.label || 'Background'}</span>
-            <span>▼</span>
-          </div>
-          {backgroundOpen && (
-            <div className="select-options open">
-              {backgroundOptions.map(bg => (
-                <div 
-                  key={bg.value}
-                  className="select-option" 
-                  onClick={() => {
-                    setBackground(bg.value);
-                    setBackgroundOpen(false);
-                  }}
-                >
-                  {bg.label}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <BackgroundSlider 
+        selectedBackground={background}
+        onBackgroundSelect={setBackground}
+        meditationType={meditationType}
+      />
 
 
-      <div className="section">
-        <h2 className="section-title">🎤 {t('voiceLabel')}</h2>
-        <div className="custom-select">
-          <div className="select-button" onClick={() => setVoiceOpen(!voiceOpen)}>
-            <span>{voices.find(v => v.voice_id === voiceId)?.name || 'Voice'}</span>
-            <span>▼</span>
-          </div>
-          {voiceOpen && (
-            <div className="select-options open">
-              {voices.map(voice => (
-                <div 
-                  key={voice.voice_id}
-                  className="select-option" 
-                  onClick={() => {
-                    setVoiceId(voice.voice_id);
-                    setVoiceOpen(false);
-                  }}
-                >
-                  {voice.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <VoiceSlider 
+        voices={voices}
+        selectedVoiceId={voiceId}
+        onVoiceSelect={setVoiceId}
+      />
 
 
       {!showTextPreview && (

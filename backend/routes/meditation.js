@@ -11,17 +11,66 @@ const crypto = require('crypto'); // For generating file hashes
 const Meditation = require('../models/Meditation');
 const translationService = require('../services/translationService');
 const Anthropic = require('@anthropic-ai/sdk');
-// Function to add SSML-like pauses to text for Eleven Labs
+// Function to add SSML pauses to text for Eleven Labs
 const addSSMLPauses = (text) => {
-  // Replace ... with a medium pause (breathing space)
-  let processedText = text.replace(/\.\.\.(?!\.)/g, '. . ');
-  // Replace ...... with a longer pause (deep reflection)
-  processedText = processedText.replace(/\.{6,}/g, '. . . ');
+  // Replace extra long pauses (10+ dots) with 3 second pause (maximum allowed)
+  let processedText = text.replace(/\.{10,}/g, ' <break time="3s" /> ');
+  // Replace medium-long pauses (6-9 dots) with 1.5 second pause (between breath phases)
+  processedText = processedText.replace(/\.{6,9}/g, ' <break time="1.5s" /> ');
+  // Replace short pauses (3 dots exactly) with 3 second pause (between counting)
+  processedText = processedText.replace(/\.{3}(?!\.)/g, ' <break time="3s" /> ');
+  // Replace medium pauses (4-5 dots) with 1 second pause (general pauses)
+  processedText = processedText.replace(/\.{4,5}(?!\.)/g, ' <break time="1s" /> ');
+  // Add pause after paragraphs (double newline)
+  processedText = processedText.replace(/\n\n/g, '\n\n<break time="2s" /> ');
+  // Add pause after single newline (line breaks)
+  processedText = processedText.replace(/\n/g, '\n<break time="2s" /> ');
   // Add extra pause after each sentence that ends with a period
-  processedText = processedText.replace(/\. (?=[A-Z])/g, '. . ');
+  processedText = processedText.replace(/\. (?=[A-Z])/g, '. <break time="2s" /> ');
   // Add pause after commas for natural flow
-  processedText = processedText.replace(/, /g, ', ');
+  processedText = processedText.replace(/, /g, ', <break time="0.3s" /> ');
   return processedText;
+};
+
+// Function to extract audio duration using ffprobe
+const getAudioDuration = async (filePath) => {
+  return new Promise((resolve, reject) => {
+    const ffprobePath = path.join(path.dirname(process.env.FFMPEG_PATH || 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'), 'ffprobe.exe');
+    
+    const ffprobe = spawn(ffprobePath, [
+      '-v', 'quiet',
+      '-print_format', 'json',
+      '-show_format',
+      '-show_streams',
+      filePath
+    ]);
+
+    let output = '';
+    let error = '';
+
+    ffprobe.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    ffprobe.stderr.on('data', (data) => {
+      error += data.toString();
+    });
+
+    ffprobe.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`FFprobe failed with code ${code}: ${error}`));
+        return;
+      }
+
+      try {
+        const metadata = JSON.parse(output);
+        const duration = parseFloat(metadata.format.duration);
+        resolve(duration);
+      } catch (parseError) {
+        reject(new Error(`Failed to parse ffprobe output: ${parseError.message}`));
+      }
+    });
+  });
 };
 
 router.post('/', async (req, res) => {
@@ -121,9 +170,9 @@ router.post('/', async (req, res) => {
         text: processedText,
         model_id: speechLanguage === 'en' ? "eleven_monolingual_v1" : "eleven_multilingual_v2",
         voice_settings: { 
-          stability: 0.65,
+          stability: 0.85,
           similarity_boost: 0.75,
-          style: 0.2,
+          style: 0,
           use_speaker_boost: true
         }
       },
@@ -183,8 +232,8 @@ router.post('/', async (req, res) => {
       '-i', speechPath,
       '-i', backgroundPath,
       '-filter_complex', 
-      // Slow down speech for meditative pace
-      '[0:a]atempo=0.85[speech_slow];' +
+      // Slow down speech for meditative pace (reduced to 0.6 for very slow, meditative tempo)
+      '[0:a]atempo=0.6[speech_slow];' +
       // Add intro delay to speech and pad with outro
       `[speech_slow]adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
       // Create intro: first 5 seconds at higher volume with fade-in
@@ -223,13 +272,24 @@ router.post('/', async (req, res) => {
     console.log(`File saved to: ${outputPath}`);
     console.log(`Copy for download created at: ${publicPath}`);
 
+    // Extract audio duration from the generated file
+    let audioDuration = null;
+    try {
+      audioDuration = await getAudioDuration(outputPath);
+      console.log(`Audio duration extracted: ${audioDuration} seconds`);
+    } catch (durationError) {
+      console.error('Failed to extract audio duration:', durationError.message);
+      // Continue without duration - it's better to have the audio file than fail completely
+    }
+
     // Update meditation record with generated audio file
     try {
       meditation.audioFiles.push({
         language: speechLanguage,
         filename: filename,
         voiceId: voiceId,
-        background: background
+        background: background,
+        duration: audioDuration
       });
       await meditation.save();
       console.log(`Meditation record updated with audio file: ${filename}`);
@@ -1470,13 +1530,126 @@ router.get('/voices', async (req, res) => {
         "xi-api-key": apiKey,
       }
     });
-    // Filter for meditation-appropriate voices
-    const meditationVoices = response.data.voices.filter(voice => {
+    // Helper function to detect gender from voice metadata
+    const getVoiceGender = (voice) => {
+      // First check labels for gender
+      if (voice.labels && voice.labels.gender) {
+        return voice.labels.gender;
+      }
+      
+      // Then check name and description
       const name = voice.name.toLowerCase();
       const description = (voice.description || '').toLowerCase();
       
-      // Include voices that are calming, soft, or suitable for meditation
+      // Female indicators
+      if (name.includes('female') || name.includes('woman') || description.includes('female') || description.includes('woman') ||
+          ['aria', 'sarah', 'laura', 'charlotte', 'alice', 'matilda', 'jessica', 'lily', 'ruth'].includes(name)) {
+        return 'female';
+      }
+      
+      // Male indicators
+      if (name.includes('male') || name.includes('man') || description.includes('male') || description.includes('man') ||
+          ['charlie', 'george', 'callum', 'liam', 'will', 'eric', 'chris', 'brian', 'daniel', 'bill', 'rob', 'carter', 'pudi'].includes(name)) {
+        return 'male';
+      }
+      
+      // Neutral voices
+      if (name.includes('neutral') || description.includes('neutral') || ['river'].includes(name)) {
+        return 'neutral';
+      }
+      
+      return 'neutral';
+    };
+
+    // Helper function to extract voice characteristics
+    const getVoiceCharacteristics = (voice) => {
+      const name = voice.name.toLowerCase();
+      const description = (voice.description || '').toLowerCase();
+      const labels = voice.labels || {};
+      const characteristics = [];
+      
+      // Check labels first for descriptive characteristics
+      if (labels.descriptive) {
+        characteristics.push(labels.descriptive);
+      }
+      
+      // Add characteristics from name and description
+      if (name.includes('calm') || description.includes('calm')) characteristics.push('calm');
+      if (name.includes('soft') || description.includes('soft')) characteristics.push('soft');
+      if (name.includes('deep') || description.includes('deep') || description.includes('resonant')) characteristics.push('deep');
+      if (name.includes('gentle') || description.includes('gentle')) characteristics.push('gentle');
+      if (name.includes('sooth') || description.includes('sooth')) characteristics.push('soothing');
+      if (name.includes('warm') || description.includes('warm') || labels.description === 'warm') characteristics.push('warm');
+      if (name.includes('clear') || description.includes('clear')) characteristics.push('clear');
+      if (name.includes('professional') || description.includes('professional')) characteristics.push('professional');
+      if (description.includes('comforting')) characteristics.push('soothing');
+      if (description.includes('resonant')) characteristics.push('deep');
+      if (description.includes('smooth')) characteristics.push('smooth');
+      if (description.includes('confident')) characteristics.push('confident');
+      if (description.includes('mature')) characteristics.push('mature');
+      
+      // Remove duplicates
+      const uniqueCharacteristics = [...new Set(characteristics)];
+      
+      // Default characteristics if none found
+      if (uniqueCharacteristics.length === 0) {
+        uniqueCharacteristics.push('clear');
+      }
+      
+      return uniqueCharacteristics;
+    };
+
+    // Helper function to get age estimation
+    const getVoiceAge = (voice) => {
+      const labels = voice.labels || {};
+      const description = (voice.description || '').toLowerCase();
+      
+      // First check labels for age
+      if (labels.age) {
+        if (labels.age === 'middle_aged') return 'middle-aged';
+        return labels.age;
+      }
+      
+      // Then check description
+      if (description.includes('young') || description.includes('youthful')) {
+        return 'young';
+      }
+      if (description.includes('mature') || description.includes('old')) {
+        return 'mature';
+      }
+      if (description.includes('middle-aged') || description.includes('middle aged')) {
+        return 'middle-aged';
+      }
+      
+      return 'middle-aged';
+    };
+
+    // Filter and enhance meditation-appropriate voices
+    const meditationVoices = response.data.voices.filter(voice => {
+      const name = voice.name.toLowerCase();
+      const description = (voice.description || '').toLowerCase();
+      const labels = voice.labels || {};
+      
+      // Exclude voices that are explicitly NOT suitable for meditation
+      const unsuitableVoices = 
+        name.includes('hyped') ||
+        name.includes('energetic') ||
+        name.includes('quirky') ||
+        name.includes('sassy') ||
+        description.includes('hyped') ||
+        description.includes('energetic') ||
+        description.includes('quirky') ||
+        description.includes('sassy') ||
+        labels.descriptive === 'hyped' ||
+        labels.descriptive === 'sassy';
+      
+      if (unsuitableVoices) {
+        return false;
+      }
+      
+      // Include all other voices that could work for meditation
       const isMeditationVoice = 
+        // Specifically good for meditation
         name.includes('calm') ||
         name.includes('soft') ||
         name.includes('gentle') ||
@@ -1493,23 +1666,44 @@ router.get('/voices', async (req, res) => {
         description.includes('relax') ||
         description.includes('peace') ||
         description.includes('whisper') ||
-        // Include specific known meditation-friendly voices
-        voice.voice_id === 'EXAVITQu4vr4xnSDxMaL' || // Bella (calm female)
-        voice.voice_id === 'ErXwobaYiN019PkySvjV' || // Antoni (calm male)
-        voice.voice_id === 'VR6AewLTigWG4xSOukaG' || // Arnold (deep, calming)
-        voice.voice_id === 'pNInz6obpgDQGcFmaJgB' || // Adam (professional)
-        voice.voice_id === 'yoZ06aMxZJJ28mfd3POQ' || // Sam (neutral)
-        voice.voice_id === '21m00Tcm4TlvDq8ikWAM' || // Rachel (professional female)
-        voice.voice_id === 'AZnzlk1XvdvUeBnXmlld' || // Domi (young female)
-        voice.voice_id === 'CYw3kZ02Hs0563khs1Fj' || // Dave (conversational)
-        voice.voice_id === 'N2lVS1w4EtoT3dr4eOWO' || // Callum (hoarse but calm)
-        voice.voice_id === 'XB0fDUnXU5powFXDhCwa' || // Charlotte (seductive but calm)
-        // Include any custom/cloned voices (they usually have longer IDs)
+        description.includes('warm') ||
+        description.includes('resonant') ||
+        description.includes('comforting') ||
+        description.includes('professional') ||
+        description.includes('mature') ||
+        description.includes('deep') ||
+        description.includes('smooth') ||
+        description.includes('clear') ||
+        // Good voice characteristics from labels
+        labels.descriptive === 'calm' ||
+        labels.descriptive === 'professional' ||
+        labels.descriptive === 'mature' ||
+        labels.descriptive === 'warm' ||
+        labels.descriptive === 'confident' ||
+        labels.descriptive === 'relaxed' ||
+        labels.descriptive === 'classy' ||
+        labels.descriptive === 'crisp' ||
+        labels.descriptive === 'deep' ||
+        labels.descriptive === 'husky' ||
+        // Include narrative/informative voices
+        labels.use_case === 'narrative_story' ||
+        labels.use_case === 'informative_educational' ||
+        labels.use_case === 'narration' ||
+        // Include any custom/cloned voices
         voice.category === 'cloned' ||
-        voice.category === 'custom';
+        voice.category === 'professional' ||
+        voice.category === 'custom' ||
+        // Include voices without explicit unsuitable characteristics
+        !unsuitableVoices;
       
       return isMeditationVoice;
-    });
+    }).map(voice => ({
+      ...voice,
+      gender: getVoiceGender(voice),
+      characteristics: getVoiceCharacteristics(voice),
+      age: getVoiceAge(voice),
+      preview_url: voice.preview_url || null
+    }));
     
     res.json(meditationVoices);
   } catch (error) {
@@ -1518,6 +1712,106 @@ router.get('/voices', async (req, res) => {
       res.status(error.response.status).json({ error: `Eleven Labs API Error: ${error.response.statusText || 'Unknown error'}` });
     } else {
       res.status(500).json({ error: 'An unexpected server error occurred while fetching voices.' });
+    }
+  }
+});
+
+// Route to generate voice preview in specified language
+router.post('/voice-preview', async (req, res) => {
+  const { voiceId, language } = req.body;
+  const apiKey = process.env.ELEVEN_API_KEY;
+  
+  try {
+    if (!apiKey) {
+      throw new Error('Eleven Labs API key is not set in .env file');
+    }
+
+    if (!voiceId || !language) {
+      return res.status(400).json({ error: 'Voice ID and language are required' });
+    }
+
+    // Define preview texts for different languages
+    const previewTexts = {
+      'nl': 'Adem rustig in... en langzaam uit. Voel hoe je lichaam ontspant met elke uitademing. Laat alle spanning los en kom tot rust in dit vredige moment.',
+      'en': 'Take a deep breath in... and slowly release. Feel your body settling into this moment of calm. Let go of any tension and allow yourself to find peace within.',
+      'ar': 'خذ نفساً عميقاً... وأطلقه ببطء. اشعر بجسدك يستقر في هذه اللحظة من الهدوء. تخلص من أي توتر واسمح لنفسك بأن تجد السلام الداخلي.',
+      'hi': 'गहरी सांस लें... और धीरे-धीरे छोड़ें। महसूस करें कि हर सांस के साथ आपका शरीर शांत हो रहा है। सभी तनाव को छोड़ दें और इस शांत क्षण में स्वयं को पाएं।',
+      'de': 'Atme tief ein... und langsam aus. Spüre, wie dein Körper sich mit jedem Atemzug entspannt. Lass alle Anspannung los und finde Ruhe in diesem stillen Augenblick.',
+      'es': 'Respira profundamente... y suelta lentamente. Siente cómo tu cuerpo se asienta en este momento de calma. Deja ir toda tensión y permítete encontrar la paz interior.',
+      'fr': 'Prenez une profonde inspiration... et relâchez lentement. Sentez votre corps s\'installer dans ce moment de calme. Laissez partir toute tension et permettez-vous de trouver la paix intérieure.',
+      'it': 'Fai un respiro profondo... e rilascia lentamente. Senti il tuo corpo che si stabilizza in questo momento di calma. Lascia andare ogni tensione e permettiti di trovare pace dentro.',
+      'pt': 'Respire profundamente... e solte lentamente. Sinta seu corpo se assentando neste momento de calma. Deixe ir toda tensão e permita-se encontrar a paz interior.',
+      'ru': 'Сделайте глубокий вдох... и медленно выдохните. Почувствуйте, как ваше тело успокаивается в этот момент покоя. Отпустите все напряжение и позвольте себе найти внутренний мир.',
+      'ja': '深く息を吸って... そしてゆっくりと吐き出してください。この穏やかな瞬間に体が落ち着いていくのを感じてください。すべての緊張を手放し、内なる平安を見つけることを許してください。',
+      'ko': '깊게 숨을 들이쉬고... 천천히 내쉬세요. 이 평온한 순간에 당신의 몸이 안정되는 것을 느껴보세요. 모든 긴장을 놓아주고 내면의 평화를 찾도록 허용하세요.',
+      'zh': '深深地吸气... 然后慢慢呼出。感受你的身体在这个平静的时刻中安定下来。释放所有的紧张，让自己找到内在的平静。'
+    };
+
+    // Get the preview text for the requested language, fallback to English
+    const previewText = previewTexts[language] || previewTexts['en'];
+
+    // Generate the audio using Eleven Labs TTS API
+    const response = await axios.post(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        text: previewText,
+        model_id: "eleven_multilingual_v2",
+        voice_settings: { 
+          stability: 0.7,
+          similarity_boost: 0.8,
+          style: 0.2,
+          use_speaker_boost: true
+        }
+      },
+      {
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json"
+        },
+        responseType: "arraybuffer"
+      }
+    );
+
+    // Set appropriate headers for audio response
+    res.set({
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': response.data.length,
+      'Cache-Control': 'public, max-age=3600' // Cache for 1 hour
+    });
+
+    // Send the audio data directly
+    res.send(response.data);
+
+  } catch (error) {
+    console.error('Error generating voice preview:', error);
+    
+    if (error.response) {
+      // Handle specific HTTP errors
+      if (error.response.status === 401) {
+        res.status(401).json({ 
+          error: 'Unauthorized: Invalid Eleven Labs API Key for voice preview.' 
+        });
+      } else if (error.response.status === 429) {
+        res.status(429).json({ 
+          error: 'Too Many Requests: Voice preview rate limit exceeded. Please try again later.' 
+        });
+      } else if (error.response.status === 400) {
+        res.status(400).json({ 
+          error: 'Bad Request: Invalid voice ID or parameters for voice preview.' 
+        });
+      } else {
+        res.status(error.response.status).json({ 
+          error: `Voice preview generation failed: ${error.response.statusText || 'Unknown error'}` 
+        });
+      }
+    } else if (error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED') {
+      res.status(503).json({ 
+        error: 'Service unavailable: Unable to connect to Eleven Labs API.' 
+      });
+    } else {
+      res.status(500).json({ 
+        error: 'Failed to generate voice preview. Please try again.' 
+      });
     }
   }
 });

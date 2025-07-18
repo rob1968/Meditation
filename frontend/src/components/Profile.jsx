@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { getFullUrl, API_ENDPOINTS } from '../config/api';
 
 const Profile = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
@@ -17,7 +18,7 @@ const Profile = ({ user, onLogout }) => {
   const fetchUserStats = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`http://localhost:5002/api/auth/user/${user.id}/stats`);
+      const response = await axios.get(getFullUrl(API_ENDPOINTS.USER_STATS(user.id)));
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching user stats:', error);
@@ -94,7 +95,7 @@ const Profile = ({ user, onLogout }) => {
             <div className="stat-card">
               <div className="stat-icon">🎵</div>
               <div className="stat-info">
-                <div className="stat-label">{t('audioFiles', 'Audio Files')}</div>
+                <div className="stat-label">{t('meditationFiles', 'Meditation Files')}</div>
                 <div className="stat-value">{stats.totalAudioFiles}</div>
               </div>
             </div>
