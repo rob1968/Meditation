@@ -6,6 +6,20 @@ const MeditationSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
+  // Edited text (draft functionality)
+  editedText: {
+    type: String,
+    default: null
+  },
+  isDraft: {
+    type: Boolean,
+    default: false
+  },
+  draftSavedAt: {
+    type: Date,
+    default: null
+  },
   originalLanguage: {
     type: String,
     required: true
@@ -63,6 +77,20 @@ const MeditationSchema = new mongoose.Schema({
       default: Date.now
     }
   },
+  
+  // Text version history
+  textHistory: [{
+    text: String,
+    version: Number,
+    editedAt: {
+      type: Date,
+      default: Date.now
+    },
+    editedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  }],
   
   // Metadata
   createdAt: {

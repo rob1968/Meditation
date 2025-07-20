@@ -391,6 +391,44 @@ const meditationTemplates = {
         visualization: "Stel je een warm... gouden licht boven je hoofd voor... Dit is het licht van vrede en rust... Met elke ademhaling stroomt dit licht naar beneden door je lichaam... ... Het stroomt door je hoofd... lost mentale spanning op... Naar beneden door je nek en schouders... smelt stress weg... Door je borst... kalmeert je hart... Naar beneden door je armen tot je vingertoppen... ... Het gouden licht gaat verder door je buik... kalmeert elke angst... Naar beneden door je heupen en benen... aard je... Helemaal tot je tenen... ... Je bent nu gevuld met dit vredige... gouden licht......",
         
         closing: "Terwijl we deze meditatie beëindigen... Weet dat dit gevoel van rust altijd beschikbaar is... Slechts een paar ademhalingen ver weg... ... Begin je vingers en tenen te bewegen... Rol je schouders zachtjes... En wanneer je er klaar voor bent... open langzaam je ogen... ... Neem een moment om te voelen hoe je je voelt... Neem deze vrede mee terwijl je verder gaat met je dag... Onthoud... je kunt altijd terugkeren naar dit rustige centrum wanneer je dat nodig hebt... Dank je dat je deze tijd voor jezelf hebt genomen......"
+      },
+      
+      {
+        name: "Lichaamsscan Stressverlichting",
+        intro: "Welkom bij deze lichaamsscan meditatie voor stressverlichting... Deze oefening helpt je systematisch spanning los te laten die door je lichaam vastgehouden wordt... Zoek een comfortabele positie... Sluit je ogen en bereid je voor om met bewustzijn en medeleven door je lichaam te reizen...",
+        
+        breathing: "Begin met drie diepe... bevrijdende ademhalingen... Adem in door je neus... vul je lichaam met kalmerende energie... Adem uit door je mond... laat de stress van de dag los... ... Voel je lichaam beginnen te ontspannen... Je ademhaling wordt dieper en natuurlijker... Elke uitademing draagt spanning weg... Elke inademing brengt vrede......",
+        
+        headAndNeck: "Begin met je aandacht naar de bovenkant van je hoofd te brengen... Merk spanning of strakheid op... Adem in dit gebied... Stuur ontspanning naar je hoofdhuid... ... Verplaats je aandacht naar je voorhoofd... Vaak houden we hier stress vast... Laat je voorhoofd glad en ontspannen worden... ... Merk je ogen op... Laat ze zacht worden... Je kaak... Laat deze ontgrendelen en ontspannen... Voel je hele gezicht vredig worden......",
+        
+        shouldersAndArms: "Focus nu op je nek... Dit gebied draagt vaak het gewicht van onze stress... Adem in je nek... Laat deze langer worden en zachter... ... Breng je aandacht naar je schouders... Merk op of ze opgetrokken zijn naar je oren... Laat ze naar beneden vallen... Voel de opluchting terwijl ze loslaten... ... Je armen... Laat ze zwaar en ontspannen worden... Je handen... Laat ze vredig rusten... Alle spanning stroomt weg door je vingertoppen......",
+        
+        torsoAndCore: "Focus op je borst... Soms maakt stress dat onze borst zich strak voelt... Adem in je borst... Laat deze uitzetten en ontspannen... ... Je hart... Stuur het liefde en waardering... Het heeft hard gewerkt... Laat het rusten in vrede... ... Je buik... Hier houden we vaak emotionele spanning vast... Adem in je buik... Laat deze zacht worden en loslaten... ... Je rug... Laat deze ondersteund worden... Alle lasten die je draagt... laat ze gaan......",
+        
+        lowerBodyRelease: "Breng je aandacht naar je heupen... Laat ze settelen en ontspannen... ... Je benen... Laat ze zwaar en los worden... Voel de stress naar beneden stromen door je benen... ... Je voeten... Laat ze volledig ontspannen... Voel alle spanning je lichaam verlaten door je voeten... stromend in de aarde... ... Je hele lichaam is nu ontspannen en in vrede......",
+        
+        integration: "Neem een moment om je hele lichaam te voelen... Ontspannen... vredig... vrij van spanning... ... Merk op hoe anders je je voelt wanneer stress wordt losgelaten... Dit is je lichaam's natuurlijke staat... Onthoud dit gevoel... Je kunt er altijd naar terugkeren wanneer je dat nodig hebt... ... Adem deze vrede in... Adem eventuele resterende spanning uit......",
+        
+        closing: "Terwijl we deze lichaamsscan voltooien... Weet dat je de kracht hebt om stress op elk moment los te laten... Adem gewoon in spanning en laat het gaan... ... Begin langzaam je vingers en tenen te bewegen... Wanneer je er klaar voor bent... open je ogen... Neem deze ontspanning mee naar je dag... Je bent kalm... Je bent in vrede... Je hebt controle over je stressreactie..."
+      },
+      
+      {
+        name: "Ademhaling voor Stressverlichting",
+        intro: "Welkom bij deze ademmeditatie voor stressverlichting... Wanneer we gestrest zijn... wordt onze ademhaling oppervlakkig en snel... Deze oefening helpt je je adem te gebruiken om je lichaam's natuurlijke ontspanningsreactie te activeren... Zoek een comfortabele positie en sluit je ogen...",
+        
+        breathAwareness: "Begin met gewoon je adem op te merken... Probeer het niet te veranderen... Observeer gewoon... Merk op waar je je adem het duidelijkst voelt... Misschien bij je neusgaten... of in je borst... of je buik... ... Kijk gewoon even naar je adem... Dit is je levenskracht... Altijd beschikbaar... Altijd ondersteunend......",
+        
+        deepBreathing: "Nu gaan we je ademhaling verdiepen... Leg één hand op je borst en één op je buik... Terwijl je inademt... voel je buik uitzetten... Dit is diepe... diafragmatische ademhaling... ... Adem langzaam in door je neus... voel je buik omhoog komen... Adem uit door je mond... voel je buik naar beneden gaan... ... Ga door met deze diepe ademhaling... In door de neus... Uit door de mond... Elke ademhaling laat stress los......",
+        
+        countedBreathing: "Laten we nu tellen toevoegen om je adem te reguleren... Adem in gedurende vier tellen... één... twee... drie... vier... Houd vast gedurende vier... één... twee... drie... vier... Adem uit gedurende zes... één... twee... drie... vier... vijf... zes... ... De langere uitademing helpt je ontspanningsreactie te activeren... Ga door met dit patroon... In gedurende vier... Vasthouden gedurende vier... Uit gedurende zes... Voel je zenuwstelsel kalmeren met elke ademhaling......",
+        
+        breathVisualization: "Terwijl je doorgaat met dit adempatroon... Stel je voor dat je kalmerende... koele lucht inademt... Deze lucht draagt vrede en rust... ... Terwijl je uitademt... stel je voor dat je hete... gespannen lucht loslaat... Deze lucht draagt je stress en zorgen weg... ... In... koele... kalmerende lucht... Uit... hete... stressvolle lucht... ... Met elke cyclus word je meer ontspannen... meer in vrede......",
+        
+        affirmations: "Terwijl je ademt... herhaal deze affirmaties stil... 'Ik ben kalm'... Adem in... 'Ik ben in vrede'... Adem uit... ... 'Ik laat alle stress los'... Adem in... 'Ik heb controle'... Adem uit... ... 'Ik ben veilig'... Adem in... 'Ik ben ontspannen'... Adem uit... ... Ga door met alle affirmaties die goed voelen voor jou......",
+        
+        integration: "Laat nu je ademhaling terugkeren naar normaal... Maar merk op hoe anders het voelt... Dieper... meer ontspannen... natuurlijker... ... Onthoud... je adem is altijd bij je... Wanneer je je gestrest voelt... kun je altijd terugkeren naar deze rustige ademhaling... ... Neem een moment om dit hulpmiddel te waarderen dat je altijd bij je draagt......",
+        
+        closing: "Terwijl we deze ademmeditatie beëindigen... Weet dat je toegang hebt gekregen tot je lichaam's natuurlijke stressverlichting systeem... Je adem is je constante metgezel... altijd klaar om je te helpen rust te vinden... ... Neem drie meer diepe ademhalingen... Beweeg je vingers en tenen... Wanneer je er klaar voor bent... open je ogen... Je bent kalm... Je bent gecentreerd... Je bent in vrede..."
       }
     ],
 
@@ -410,6 +448,42 @@ const meditationTemplates = {
         affirmations: "Herhaal deze affirmaties voor focus mentaal... 'Mijn geest is helder en scherp'... ... 'Ik ben volledig aanwezig en bewust'... ... 'Mijn concentratie is sterk en stabiel'... ... 'Ik focus met gemak en helderheid'... ... Laat deze woorden diep in je bewustzijn zinken......",
         
         closing: "Terwijl we deze meditatie voltooien... Voel de verbeterde helderheid in je geest... Je verbeterde vermogen om te focussen... ... Begin je ademhaling te verdiepen... Beweeg je vingers en tenen... En wanneer je er klaar voor bent... open je ogen... ... Merk op hoe alert en gefocust je je voelt... Je geest is helder... scherp en klaar... Neem deze gerichte aandacht mee naar je volgende activiteit... Je bent voorbereid om met precisie en helderheid te werken......"
+      },
+      
+      {
+        name: "Laserstraal Concentratie",
+        intro: "Welkom bij deze intense focus meditatie... We gaan je concentratie trainen als een laserstraal... eenpuntig... helder... en krachtig... Ga zitten met je ruggengraat recht... voeten stevig op de grond... ogen gesloten maar alert...",
+        
+        preparation: "Stel je voor dat je geest een vergrootglas is... dat zonlicht kan bundelen tot een krachtige... gerichte straal... Vandaag train je die vaardigheid... ... Neem drie scherpe... energieke ademhalingen... Bij elke ademhaling word je alerter... scherper... meer gefocust... ... Voel energie samenkomen in het centrum van je voorhoofd... Dit wordt je focuspunt......",
+        
+        singlePointed: "Kies één enkel punt om op te focussen... Dit kan het gevoel van je adem zijn... het geluid van je hart... of een visualisatie van een heldere vlam... ... Wat je ook kiest... houd je volledige aandacht erop gericht... Als een laserstraal... smal... intens... onwrikbaar... ... Wanneer je geest probeert af te dwalen... en dat zal gebeuren... breng hem meteen terug... Geen zachte terugkeer... maar een sterke... besliste redirectie......",
+        
+        intensification: "Maak je focus nu nog scherper... Stel je voor dat je kunt inzoomen op je gekozen punt... Als je focust op adem... zoom in op één neusgat... Als je focust op geluid... zoom in op één specifieke toon... ... Voel de intensiteit van je concentratie toenemen... Je geest wordt een fijn afgestelde... precisie instrument... Elke seconde van gefocuste aandacht maakt je sterker......",
+        
+        distractionTraining: "Nu gaan we je weerstand tegen afleiding trainen... Sta toe dat gedachten... geluiden... sensaties opkomen... Maar laat ze je focus niet verstoren... ... Je bent zoals een rots in de branding... Golven van afleiding kunnen tegen je aanslaan... maar je blijft stabiel... onbeweeglijk... gefocust... ... Elke keer dat je weerstand biedt aan afleiding... word je mentale spier sterker......",
+        
+        laserVisualization: "Visualiseer nu een heldere... blauwe laserstraal die uitstraalt van je voorhoofd... Deze straal vertegenwoordigt je geconcentreerde aandacht... ... Zie hoe stabiel en krachtig deze straal is... Hij snijdt door alle afleiding heen... direct naar je doel... ... Voel hoe deze laserstraal je mentale kracht vertegenwoordigt... Je vermogen om te focussen op wat echt belangrijk is......",
+        
+        affirmations: "Versterk je focus met deze krachtige affirmaties... 'Mijn geest is een laserstraal van concentratie'... 'Ik ben de meester van mijn aandacht'... 'Niets kan mijn focus verstoren'... 'Ik ben mentaal onverslaanbaar'... ... Voel deze woorden je geest scherpte geven... zoals slijpen een mes scherp maakt......",
+        
+        closing: "Je hebt zojuist je mentale focus getraind als een atleet... Je geest is nu scherper... sterker... meer gericht... ... Onthoud dit gevoel van intense concentratie... Dit is je natuurlijke vermogen... altijd beschikbaar wanneer je het nodig hebt... ... Open je ogen met laserstraal focus... Klaar om elke taak aan te pakken met absolute precisie en controle..."
+      },
+      
+      {
+        name: "Bergstabiele Concentratie",
+        intro: "Welkom bij deze berg-geïnspireerde focus meditatie... We gaan je concentratie opbouwen met de stabiliteit van een eeuwenoude berg... onwrikbaar... kalm... en betrouwbaar... Ga comfortabel zitten en voel je verbinding met de aarde...",
+        
+        bergConnection: "Stel je voor dat je zit als een berg... Je basis is breed en diep geworteld in de aarde... Je ruggengraat rijst op als een bergpiek... stabiel en majestueus... ... Voel deze berg-energie in je lichaam... Zwaar... stabiel... onbeweeglijk... Storms kunnen komen en gaan... maar jij blijft onveranderd......",
+        
+        breathMountain: "Je adem wordt nu de wind die rond de berg waait... Soms zacht en kalm... soms sterker... maar de berg blijft altijd stabiel... ... Focus op het natuurlijke ritme van je adem... zonder het te veranderen... Gewoon observeren... zoals een berg observeert zonder oordeel... ... Je bent zowel de berg als de observeerder... stabiel en bewust......",
+        
+        weatherPatterns: "Gedachten en emoties zijn zoals weerspatronen rond de berg... Soms zijn er heldere... zonnige momenten... Soms wolken van verwarring... Soms storms van sterke emoties... ... Maar de berg blijft altijd hetzelfde... Onbeïnvloed door het weer... Jij bent die berg... Stabiel... rustig... gefocust ondanks alle mentale 'weer'......",
+        
+        rootedFocus: "Voel je focus geworteld zijn in de aarde... zoals boomwortels die diep groeien... Hoe dieper je wortels... hoe stabieler je concentratie... ... Elke keer dat je merkt dat je afdwaalt... stel je voor dat je je wortels dieper laat groeien... Groundende je aandacht steeds steviger... ... Dit is gefocust zijn zonder spanning... Stabiel zonder star te zijn......",
+        
+        peakClarity: "Van de top van je berg-bewustzijn... heb je een helder overzicht... Je kunt alles zien... maar niets verstoort je vrede... ... Je focus is nu panoramisch... breed genoeg om alles waar te nemen... maar stabiel genoeg om niet afgeleid te worden... ... Dit is echte concentratie... ruim en stabiel tegelijk......",
+        
+        closing: "Neem deze berg-stabiliteit mee naar je dag... Weet dat je altijd kunt terugkeren naar deze innerlijke berg... ... Wanneer je je overweldigd voelt... herinner je deze stabiliteit... Je bent de berg... onveranderlijk... vredig... gefocust... ... Open je ogen en voel je geworteld... stabiel... en helder klaar voor wat komen gaat..."
       }
     ],
 
@@ -429,6 +503,46 @@ const meditationTemplates = {
         affirmations: "Laten we onszelf wat kalmerende affirmaties geven... 'Ik ben veilig in dit moment'... ... 'Dit gevoel zal voorbijgaan'... ... 'Ik heb angst eerder overleefd... en ik zal het weer overleven'... ... 'Ik ben sterker dan mijn angst'... ... 'Vrede is mijn natuurlijke staat'... ... 'Ik kies voor rust'......",
         
         closing: "Terwijl we deze meditatie beëindigen... Onthoud dat je deze hulpmiddelen altijd beschikbaar hebt... Je adem... Je veilige plek... Je innerlijke kracht... ... Begin je lichaam zachtjes te bewegen... Misschien een beetje rekken... Neem een diepe ademhaling en open langzaam je ogen... ... Merk elke verandering in hoe je je voelt op... Zelfs een kleine verandering is significant... Wees zacht voor jezelf terwijl je terugkeert naar je dag... Je bent moedig... Je bent capabel... En je bent niet alleen......"
+      },
+      
+      {
+        name: "Hart-Gecentreerde Kalmte",
+        intro: "Welkom bij deze hart-gecentreerde meditatie voor angst... Leg één hand op je hart en voel de warmte... Dit is je centrum van kalmte en wijsheid... We gaan je leren verbinden met de natuurlijke vrede van je hart...",
+        
+        heartConnection: "Voel de warmte van je hand op je hart... Merk de zachte... regelmatige klop van je hartslag... Dit hart heeft je door alles heen gedragen... het is je trouwe metgezel... ... Adem langzaam en diep... stel je voor dat je rechtstreeks naar je hart ademt... Met elke ademhaling wordt je hart zachter... opener... vriendelijker naar jezelf......",
+        
+        heartBreathing: "We gaan nu hart-gecentreerd ademhalen... Adem in naar je hart gedurende vier tellen... Voel je hart uitzetten met liefde... Houd een moment vast... Adem uit vanuit je hart gedurende zes tellen... Stuur kalmte naar elke cel... ... Met elke hartslag... met elke ademhaling... voel je veiliger... meer geliefd... meer in vrede met jezelf......",
+        
+        selfCompassion: "Vanuit je hart... stuur jezelf medeleven... Zoals je zou doen voor een dierbare vriend die angstig is... Zeg tegen jezelf... 'Het is oké om angstig te zijn'... 'Ik ben menselijk en soms voelen mensen zich angstig'... 'Ik ben waardig van liefde en begrip'... ... Voel hoe je hart zich opent voor jezelf... Je bent je eigen beste vriend......",
+        
+        heartShield: "Stel je voor dat je hart een beschermend schild van licht uitstraalt... Dit licht omhult je hele lichaam... Niets kwaadaardigs kan dit licht binnendringen... ... Je bent veilig binnen deze hart-energie... Zelfs als angst probeert binnen te komen... wordt het getransformeerd door liefde... Je hart is machtiger dan angst......",
+        
+        lovingPresence: "Voel de aanwezigheid van alle mensen die ooit van je gehouden hebben... Ouders... vrienden... familie... leraren... Zelfs als ze er fysiek niet zijn... hun liefde leeft in je hart... ... Je bent nooit alleen... Je bent omringd door een onzichtbare cirkel van liefde... Deze liefde beschermt je... troost je... geeft je moed......",
+        
+        heartWisdom: "Je hart bevat diepe wijsheid... Stel het een vraag over je angst... Luister niet met je hoofd... maar met je hart... Wat wil je hart dat je weet?... ... Misschien is het... 'Je bent veiliger dan je denkt'... Of... 'Dit gevoel zal voorbijgaan'... Vertrouw de zachte stem van je hart......",
+        
+        closing: "Terwijl we deze hart meditatie afsluiten... Weet dat je hart altijd beschikbaar is als toevluchtsoord... Leg gewoon je hand erop en voel de liefde... ... Je hart is je thuisbasis... je centrum van kalmte... Je kunt er altijd naar terugkeren... Nu en altijd... Je bent geliefd... Je bent veilig... Je bent heel..."
+      },
+      
+      {
+        name: "5-4-3-2-1 Grounding Techniek",
+        intro: "Welkom bij deze grounding meditatie voor angst... Wanneer angst ons overweldigt... kan het helpen om terug te keren naar onze zintuigen... naar het hier en nu... Deze techniek brengt je direct terug naar het huidige moment...",
+        
+        preparation: "Ga comfortabel zitten... voeten plat op de grond... Neem drie diepe ademhalingen... Met elke uitademing laat je lichaam een beetje meer ontspannen... We gaan nu je zintuigen gebruiken om je te gronden in dit moment......",
+        
+        fiveThings: "Kijk om je heen en identificeer VIJF dingen die je kunt zien... Zeg ze hardop of in gedachten... 'Ik zie een deur... Ik zie mijn handen... Ik zie licht... Ik zie een muur... Ik zie schaduwen...' ... Neem de tijd om elk object echt te bekijken... Merk details op... kleuren... vormen... texturen......",
+        
+        fourThings: "Nu identificeer VIER dingen die je kunt voelen... 'Ik voel mijn voeten op de grond... Ik voel de stoel tegen mijn rug... Ik voel de lucht op mijn huid... Ik voel mijn kleding...' ... Concentreer je volledig op deze fysieke sensaties... Dit is je lichaam in dit moment... echt en stabiel......",
+        
+        threeThings: "Luister en identificeer DRIE dingen die je kunt horen... 'Ik hoor mijn ademhaling... Ik hoor verkeer buiten... Ik hoor het zoemen van een apparaat...' ... Luister echt... zelfs naar de stilte tussen geluiden... Deze geluiden ankeren je in het nu......",
+        
+        twoThings: "Merk TWEE dingen op die je kunt ruiken... 'Ik ruik de lucht in deze kamer... Ik ruik een zweem van parfum...' ... Als je niets specifieks ruikt... merk gewoon de kwaliteit van de lucht op... Frisse lucht... warme lucht... neutrale lucht......",
+        
+        oneThing: "Ten slotte... één ding dat je kunt proeven... Misschien de smaak van iets dat je recent gedronken hebt... of gewoon de neutrale smaak van je mond... ... Dit is je smaakzintuig... aanwezig in dit moment......",
+        
+        integration: "Merk op hoe je je nu voelt... Meer gegrond... meer verbonden met dit moment... Minder in je hoofd... meer in je lichaam... ... Dit is het verschil tussen angst (vaak over de toekomst) en het huidige moment (waar je veilig bent)......",
+        
+        closing: "Je hebt zojuist een krachtige techniek geleerd... 5-4-3-2-1... Gebruik dit wanneer angst je probeert mee te nemen naar zorgen over de toekomst... Kom terug naar je zintuigen... naar dit moment... naar de veiligheid van het nu... Deze techniek gaat altijd met je mee..."
       }
     ],
 
@@ -567,6 +681,36 @@ const meditationTemplates = {
         affirmations: "Mientras descansas aquí en perfecta paz... sabe que... Estás seguro... Estás cálido... Estás protegido... Eres amado... ... Tu cuerpo sabe cómo dormir... Es seguro dejarse llevar ahora... Mereces este descanso... Mañana se cuidará de sí mismo... ... En este momento... en este ahora... todo está exactamente como debe estar......",
         
         closing: "Continúa descansando en este estado pacífico... Tu cuerpo está pesado y relajado... Tu mente está calmada y silenciosa... Con cada respiración, te hundes más profundamente en un sueño reparador... ... Te dejo ahora para que te deslices hacia sueños pacíficos... Duerme bien... Descansa profundamente... Y despierta renovado cuando sea el momento... Que tengas dulces sueños......"
+      },
+      
+      {
+        name: "Olas del Océano para Dormir",
+        intro: "Bienvenido a esta meditación del océano para dormir... Acomódate cómodamente en tu cama... Cierra los ojos e imagina que estás acostado en una hermosa playa al atardecer... El sonido de las suaves olas te guiará hacia un sueño pacífico...",
+        
+        breathing: "Comienza respirando profundamente... Inhala el aire fresco del océano... sintiendo cómo llena completamente tus pulmones... Exhala lentamente... liberando toda la tensión del día... ... Escucha el ritmo de las olas... Dentro... y fuera... Dentro... y fuera... Deja que tu respiración siga este ritmo natural... Cada respiración te lleva más profundo hacia la relajación......",
+        
+        oceanVisualization: "Imagínate acostado sobre arena cálida y suave... El sol se está poniendo, pintando el cielo con hermosos colores... Puedes escuchar el sonido gentil de las olas llegando a la orilla... Cada ola se lleva tus preocupaciones y estrés... ... Siente la arena cálida que sostiene tu cuerpo... La suave brisa marina acariciando tu piel... Estás completamente seguro y en paz aquí... ... Con cada ola que llega, te sientes más somnoliento... más relajado... El océano te está cantando para dormir......",
+        
+        bodyRelaxation: "Ahora deja que las olas fluyan sobre tu cuerpo... Comenzando con tus pies... Siente cómo se vuelven tan pesados como arena húmeda... Las olas fluyen por tus piernas... haciéndolas completamente relajadas y pesadas... ... El agua suave fluye sobre tus caderas y espalda baja... Toda tensión se derrite como arena siendo alisada por la marea... Tus brazos flotan pacíficamente... pesados y relajados... ... Siente las olas lavando sobre tu pecho... tus hombros... tu cuello... Tu rostro se vuelve suave y pacífico... completamente relajado......",
+        
+        affirmations: "Con cada ola, sabes... Estás seguro y protegido... El océano te sostiene suavemente... Estás en perfecta paz... ... Tu cuerpo está listo para un sueño profundo y reparador... Las olas se llevan todas tus preocupaciones... Mañana traerá nuevas posibilidades... ... Ahora mismo, solo hay paz... solo descanso... solo el sonido suave de las olas......",
+        
+        closing: "Continúa descansando aquí en esta playa pacífica... Las olas continúan su ritmo suave... meciéndote hacia el sueño... ... Deja que el sonido del océano te lleve hacia hermosos sueños... Duerme profundamente... Descansa completamente... Y despierta renovado como el amanecer sobre el océano... Que tengas dulces sueños......"
+      },
+      
+      {
+        name: "Relajación Muscular Progresiva",
+        intro: "Bienvenido a esta relajación muscular progresiva para dormir... Esta práctica te ayudará a liberar la tensión física y preparar tu cuerpo para un descanso profundo... Encuentra una posición cómoda y cierra los ojos... Vamos a relajar sistemáticamente cada músculo de tu cuerpo...",
+        
+        breathing: "Comienza con tres respiraciones profundas y liberadoras... Inhala lentamente por la nariz... Mantén por un momento... Luego exhala completamente por la boca... liberando el día... ... Otra vez, respira profundamente... siente tu cuerpo expandirse... Mantén... y libera con una exhalación larga y lenta... ... Una vez más... inhala paz... mantén... exhala toda tensión... Ahora deja que tu respiración se vuelva natural y fácil......",
+        
+        tensionRelease: "Ahora vamos a tensar y relajar cada grupo muscular... Esto ayuda a tu cuerpo a aprender la diferencia entre tensión y relajación... Primero, enfócate en tus pies... Curva fuertemente los dedos de los pies... Mantén por cinco segundos... uno... dos... tres... cuatro... cinco... Ahora libera... Siente la relajación inundar tus pies... ... Siguiente, tensa los músculos de tus pantorrillas... Apriétalos fuerte... Mantén... uno... dos... tres... cuatro... cinco... Y libera... Siente la tensión derritiéndose......",
+        
+        fullBodyProgression: "Ahora tensa los músculos de tus muslos... Apriétalos tan fuerte como puedas... Mantén por cinco... cuatro... tres... dos... uno... Y déjalos ir completamente... Siente el alivio... ... Cierra tus puños... Mantenlos apretados... cinco... cuatro... tres... dos... uno... Libera y siente tus brazos volverse pesados y relajados... ... Tensa los músculos de tus hombros... Levántalos hacia tus oídos... Mantén... Y déjalos caer... Siente la liberación... ... Aprieta los músculos de tu rostro... Cierra fuerte los ojos... Mantén... Y relaja completamente... Deja que tu rostro se vuelva suave y pacífico......",
+        
+        integration: "Ahora que cada músculo de tu cuerpo ha sido tensado y liberado... Siente la relajación profunda en todo tu cuerpo... Tus pies están completamente relajados... Tus piernas están pesadas y en paz... Tus brazos están sueltos y cómodos... Tu rostro está suave y pacífico... ... Nota qué diferente se siente la relajación de la tensión... Este es el estado natural de descanso de tu cuerpo... Deja que te hundas más profundo en esta sensación pacífica......",
+        
+        closing: "Tu cuerpo ahora está completamente preparado para dormir... Cada músculo está relajado y en paz... Has liberado toda la tensión del día... ... Es seguro dejarse llevar completamente ahora... Tu cuerpo sabe cómo descansar y repararse... Mereces este sueño pacífico... ... Confía en la sabiduría natural de tu cuerpo... Permítete deslizarte hacia un sueño profundo y reparador... Que tengas dulces sueños..."
       }
     ],
 
@@ -584,6 +728,63 @@ const meditationTemplates = {
         visualization: "Imagina una luz dorada y cálida sobre tu cabeza... Esta es la luz de la paz y la calma... Con cada respiración... esta luz fluye hacia abajo a través de tu cuerpo... ... Fluye a través de tu cabeza... liberando tensión mental... Hacia abajo por tu cuello y hombros... derritiendo el estrés... A través de tu pecho... calmando tu corazón... Hacia abajo por tus brazos hasta las puntas de tus dedos... ... La luz dorada continúa a través de tu vientre... calmando cualquier ansiedad... Hacia abajo por tus caderas y piernas... conectándote a tierra... Hasta tus dedos de los pies... ... Ahora estás lleno de esta luz dorada y pacífica......",
         
         closing: "Mientras preparamos para terminar esta meditación... Sabe que esta sensación de calma siempre está disponible para ti... Solo a unas respiraciones de distancia... ... Comienza a mover tus dedos de manos y pies... Rueda tus hombros suavemente... Y cuando estés listo... abre lentamente los ojos... ... Toma un momento para notar cómo te sientes... Lleva esta paz contigo mientras continúas tu día... Recuerda... puedes regresar a este centro calmado cuando lo necesites... Gracias por tomar este tiempo para ti......"
+      },
+      
+      {
+        name: "Escaneo Corporal para Alivio del Estrés",
+        intro: "Bienvenido a esta meditación de escaneo corporal para el alivio del estrés... Esta práctica te ayuda a liberar sistemáticamente la tensión acumulada en todo tu cuerpo... Encuentra una posición cómoda... Cierra los ojos y prepárate para viajar a través de tu cuerpo con conciencia y compasión...",
+        
+        breathing: "Comienza con tres respiraciones profundas y liberadoras... Inhala por la nariz... llenando tu cuerpo con energía calmante... Exhala por la boca... liberando el estrés del día... ... Siente tu cuerpo comenzando a relajarse... Tu respiración volviéndose más profunda y natural... Cada exhalación lleva tensión... Cada inhalación trae paz......",
+        
+        headAndNeck: "Comienza llevando tu atención a la parte superior de tu cabeza... Nota cualquier tensión o rigidez... Respira en esta área... Envía relajación a tu cuero cabelludo... ... Mueve tu atención a tu frente... A menudo mantenemos estrés aquí... Deja que tu frente se vuelva lisa y relajada... ... Nota tus ojos... Deja que se ablanden... Tu mandíbula... Deja que se desbloquee y relaje... Siente todo tu rostro volviéndose pacífico......",
+        
+        shouldersAndArms: "Ahora enfócate en tu cuello... Esta área a menudo carga el peso de nuestro estrés... Respira en tu cuello... Deja que se alargue y ablande... ... Lleva tu atención a tus hombros... Nota si están levantados hacia tus oídos... Déjalos caer... Siente el alivio mientras se liberan... ... Tus brazos... Deja que se vuelvan pesados y relajados... Tus manos... Deja que descansen pacíficamente... Toda tensión fluyendo hacia fuera por las puntas de tus dedos......",
+        
+        torsoAndCore: "Enfócate en tu pecho... A veces el estrés hace que nuestro pecho se sienta apretado... Respira en tu pecho... Deja que se expanda y relaje... ... Tu corazón... Envíale amor y aprecio... Ha estado trabajando duro... Deja que descanse en paz... ... Tu vientre... Aquí a menudo mantenemos tensión emocional... Respira en tu vientre... Deja que se ablande y libere... ... Tu espalda... Deja que esté apoyada... Todas las cargas que llevas... déjalas ir......",
+        
+        lowerBodyRelease: "Lleva tu atención a tus caderas... Deja que se asienten y relajen... ... Tus piernas... Deja que se vuelvan pesadas y sueltas... Siente el estrés drenando hacia abajo por tus piernas... ... Tus pies... Deja que se relajen completamente... Siente toda tensión saliendo de tu cuerpo por tus pies... fluyendo hacia la tierra... ... Todo tu cuerpo ahora está relajado y en paz......",
+        
+        integration: "Toma un momento para sentir todo tu cuerpo... Relajado... pacífico... libre de tensión... ... Nota qué diferente te sientes cuando el estrés es liberado... Este es el estado natural de tu cuerpo... Recuerda esta sensación... Puedes regresar a ella cuando lo necesites... ... Respira esta paz... Exhala cualquier tensión restante......",
+        
+        closing: "Mientras completamos este escaneo corporal... Sabe que tienes el poder de liberar estrés en cualquier momento... Simplemente respira en la tensión y déjala ir... ... Lentamente comienza a mover tus dedos de manos y pies... Cuando estés listo... abre los ojos... Lleva esta relajación contigo a tu día... Estás calmado... Estás en paz... Tienes control sobre tu respuesta al estrés..."
+      },
+      
+      {
+        name: "Respiración para Alivio del Estrés",
+        intro: "Bienvenido a esta meditación de respiración para el alivio del estrés... Cuando estamos estresados... nuestra respiración se vuelve superficial y rápida... Esta práctica te ayudará a usar tu respiración para activar la respuesta natural de relajación de tu cuerpo... Encuentra una posición cómoda y cierra los ojos...",
+        
+        breathAwareness: "Comienza simplemente notando tu respiración... No trates de cambiarla... Solo observa... Nota dónde sientes tu respiración más claramente... Tal vez en tus fosas nasales... o en tu pecho... o tu vientre... ... Simplemente observa tu respiración por unos momentos... Esta es tu fuerza vital... Siempre disponible... Siempre apoyándote......",
+        
+        deepBreathing: "Ahora vamos a profundizar tu respiración... Coloca una mano en tu pecho y una en tu vientre... Mientras inhalas... siente tu vientre expandirse... Esta es respiración profunda y diafragmática... ... Respira lentamente por la nariz... sintiendo tu vientre subir... Exhala por la boca... sintiendo tu vientre bajar... ... Continúa con esta respiración profunda... Dentro por la nariz... Fuera por la boca... Cada respiración libera estrés......",
+        
+        countedBreathing: "Ahora agreguemos conteo para regular tu respiración... Respira por cuatro cuentas... uno... dos... tres... cuatro... Mantén por cuatro... uno... dos... tres... cuatro... Respira hacia fuera por seis... uno... dos... tres... cuatro... cinco... seis... ... La exhalación más larga ayuda a activar tu respuesta de relajación... Continúa este patrón... Dentro por cuatro... Mantén por cuatro... Fuera por seis... Siente tu sistema nervioso calmándose con cada respiración......",
+        
+        breathVisualization: "Mientras continúas con este patrón de respiración... Imagina respirar aire calmante y fresco... Este aire lleva paz y tranquilidad... ... Mientras exhalas... imagina liberar aire caliente y tenso... Este aire lleva tu estrés y preocupación... ... Dentro... aire fresco y calmante... Fuera... aire caliente y estresante... ... Con cada ciclo... te vuelves más relajado... más en paz......",
+        
+        affirmations: "Mientras respiras... repite estas afirmaciones silenciosamente... 'Estoy calmado'... Respira hacia dentro... 'Estoy en paz'... Respira hacia fuera... ... 'Libero todo estrés'... Respira hacia dentro... 'Tengo control'... Respira hacia fuera... ... 'Estoy seguro'... Respira hacia dentro... 'Estoy relajado'... Respira hacia fuera... ... Continúa con cualquier afirmación que se sienta correcta para ti......",
+        
+        integration: "Ahora deja que tu respiración regrese a lo normal... Pero nota qué diferente se siente... Más profunda... más relajada... más natural... ... Recuerda... tu respiración siempre está contigo... Cuando te sientes estresado... puedes regresar a esta respiración calmada... ... Toma un momento para apreciar esta herramienta que siempre llevas contigo......",
+        
+        closing: "Mientras terminamos esta meditación de respiración... Sabe que has accedido al sistema natural de alivio del estrés de tu cuerpo... Tu respiración es tu compañera constante... siempre lista para ayudarte a encontrar calma... ... Toma tres respiraciones más profundas... Mueve tus dedos de manos y pies... Cuando estés listo... abre los ojos... Estás calmado... Estás centrado... Estás en paz..."
+      },
+      
+      {
+        name: "Conexión a Tierra para Alivio del Estrés",
+        intro: "Bienvenido a esta meditación de conexión a tierra para el alivio del estrés... Cuando estamos estresados... a menudo nos sentimos dispersos y abrumados... Esta práctica te ayudará a sentirte centrado... estable... y conectado al momento presente... Encuentra una posición cómoda sentado con tus pies en el suelo...",
+        
+        physicalGrounding: "Comienza sintiendo tu conexión con la tierra... Siente tus pies planos en el suelo... Presiόnalos suavemente contra el suelo... ... Siente tus huesos de sentado en contacto con tu silla... Tu espalda contra la silla... ... Nota la temperatura del aire en tu piel... La textura de tu ropa... ... Estas sensaciones físicas te anclan en el momento presente... Estás aquí... Estás seguro... Estás conectado a tierra......",
+        
+        breathingAndEarth: "Ahora imagina raíces creciendo desde tus pies... Profundo en la tierra... Estas raíces te conectan con la energía estable y de apoyo de la tierra... ... Con cada respiración... siente estas raíces creciendo más profundo... anclándote... apoyándote... ... La tierra siempre está aquí para ti... Sólida... confiable... sin cambios... ... Siente esta estabilidad subiendo a través de tus raíces... hacia tu cuerpo... conectándote a tierra......",
+        
+        fiveToGrounding: "Usemos la técnica 5-4-3-2-1 para conectarte a tierra... Nota cinco cosas que puedes escuchar... Tal vez el sonido de tu respiración... sonidos afuera... el zumbido de la electricidad... ... Nota cuatro cosas que puedes tocar... Tus pies en el suelo... tus manos en tu regazo... la silla apoyándote... tu ropa... ... Nota tres cosas que puedes oler... El aire en la habitación... tal vez un toque de productos de limpieza... o aire exterior... ... Nota dos cosas que puedes saborear... Tal vez el sabor persistente de algo que bebiste... o solo el sabor de tu boca... ... Nota una cosa que puedes ver con los ojos cerrados... Tal vez patrones de luz... o solo oscuridad... ... Estás completamente presente... completamente conectado a tierra......",
+        
+        mountainVisualization: "Imagínate como una montaña... Fuerte... sólida... inmovible... ... Tu base es profunda y amplia... enraizada firmemente en la tierra... Nada puede sacudirte... ... Las tormentas pueden venir e irse a tu alrededor... Pero permaneces estable... estable... conectado a tierra... ... Siente esta fuerza de montaña en tu propio cuerpo... Eres sólido... Eres estable... Estás conectado a tierra......",
+        
+        stressRelease: "Ahora imagina todo tu estrés... todas tus preocupaciones... todas tus tensiones... fluyendo hacia abajo a través de tu cuerpo... Hacia abajo a través de tus raíces... hacia la tierra... ... La tierra es infinitamente capaz de absorber y transformar este estrés... ... Con cada respiración... envía más estrés hacia abajo a través de tus raíces... Deja que la tierra lo tome... lo transforme... ... Te estás volviendo más ligero... más claro... más en paz......",
+        
+        affirmations: "Repite estas afirmaciones de conexión a tierra... 'Estoy conectado a la tierra'... 'Soy estable y fuerte'... 'Estoy presente en este momento'... ... 'Estoy seguro y protegido'... 'Estoy conectado a tierra y centrado'... 'Estoy en paz'... ... Siente estas verdades en tu cuerpo... en tus huesos... en tu conexión con la tierra......",
+        
+        closing: "Mientras terminamos esta meditación de conexión a tierra... Siente qué diferente eres ahora... Más estable... más centrado... más en paz... ... Recuerda... puedes conectarte con esta energía de conexión a tierra en cualquier momento... Simplemente siente tus pies en el suelo... tu conexión con la tierra... ... Toma tres respiraciones profundas... Mueve tus dedos de manos y pies... Cuando estés listo... abre los ojos... Estás conectado a tierra... Estás centrado... Estás en paz..."
       }
     ],
 
@@ -599,6 +800,42 @@ const meditationTemplates = {
         affirmations: "Repite mentalmente estas afirmaciones para el enfoque... 'Mi mente está clara y aguda'... ... 'Estoy completamente presente y consciente'... ... 'Mi concentración es fuerte y estable'... ... 'Me enfoco con facilidad y claridad'... ... Deja que estas palabras se hundan profundamente en tu conciencia......",
         
         closing: "Mientras completamos esta meditación... Siente la claridad mejorada en tu mente... Tu capacidad mejorada para enfocarte... ... Comienza a profundizar tu respiración... Mueve tus dedos de manos y pies... Y cuando estés listo... abre los ojos... ... Nota qué tan alerta y enfocado te sientes... Tu mente está clara... aguda y lista... Lleva esta atención enfocada a tu próxima actividad... Estás preparado para trabajar con precisión y claridad......"
+      },
+      
+      {
+        name: "Concentración Láser",
+        intro: "Bienvenido a esta meditación de concentración intensa... Vamos a entrenar tu concentración como un rayo láser... enfocado... claro... y poderoso... Siéntate con tu columna recta... pies firmemente en el suelo... ojos cerrados pero alerta...",
+        
+        preparation: "Imagina que tu mente es una lupa... que puede concentrar la luz solar en un rayo poderoso y enfocado... Hoy entrenarás esa habilidad... ... Toma tres respiraciones agudas y energizantes... Con cada respiración te vuelves más alerta... más agudo... más enfocado... ... Siente energía reuniéndose en el centro de tu frente... Este se convierte en tu punto focal......",
+        
+        singlePointed: "Elige un solo punto en el cual enfocarte... Puede ser la sensación de tu respiración... el sonido de tu corazón... o una visualización de una llama brillante... ... Lo que elijas... mantén toda tu atención dirigida hacia él... Como un rayo láser... estrecho... intenso... inquebrantable... ... Cuando tu mente trate de divagar... y lo hará... tráela de vuelta inmediatamente... No un regreso suave... sino una redirección fuerte y decidida......",
+        
+        intensification: "Ahora haz tu enfoque aún más agudo... Imagina que puedes hacer zoom en tu punto elegido... Si te enfocas en la respiración... haz zoom en una fosa nasal... Si te enfocas en sonido... haz zoom en un tono específico... ... Siente la intensidad de tu concentración aumentar... Tu mente se convierte en un instrumento de precisión finamente ajustado... Cada segundo de atención enfocada te hace más fuerte......",
+        
+        distractionTraining: "Ahora vamos a entrenar tu resistencia a la distracción... Permite que pensamientos... sonidos... sensaciones surjan... Pero no dejes que disturben tu enfoque... ... Eres como una roca en las olas... Las ondas de distracción pueden golpearte... pero permaneces estable... inmóvil... enfocado... ... Cada vez que resistes la distracción... tu músculo mental se vuelve más fuerte......",
+        
+        laserVisualization: "Ahora visualiza un rayo láser azul brillante... irradiando desde tu frente... Este rayo representa tu atención concentrada... ... Mira qué estable y poderoso es este rayo... Corta a través de toda distracción... directo a tu objetivo... ... Siente cómo este rayo láser representa tu poder mental... Tu capacidad de enfocarte en lo que realmente importa......",
+        
+        affirmations: "Fortalece tu enfoque con estas afirmaciones poderosas... 'Mi mente es un rayo láser de concentración'... 'Soy el maestro de mi atención'... 'Nada puede disturbar mi enfoque'... 'Soy mentalmente invencible'... ... Siente estas palabras dando agudeza a tu mente... como afilar hace agudo un cuchillo......",
+        
+        closing: "Acabas de entrenar tu enfoque mental como un atleta... Tu mente ahora está más aguda... más fuerte... más dirigida... ... Recuerda esta sensación de concentración intensa... Esta es tu capacidad natural... siempre disponible cuando la necesites... ... Abre los ojos con enfoque de rayo láser... Listo para abordar cualquier tarea con absoluta precisión y control..."
+      },
+      
+      {
+        name: "Concentración Estable como Montaña",
+        intro: "Bienvenido a esta meditación de enfoque inspirada en montañas... Vamos a construir tu concentración con la estabilidad de una montaña ancestral... inmovible... calmada... y confiable... Siéntate cómodamente y siente tu conexión con la tierra...",
+        
+        mountainConnection: "Imagina que te sientas como una montaña... Tu base es amplia y profundamente enraizada en la tierra... Tu columna se alza como un pico montañoso... estable y majestuoso... ... Siente esta energía de montaña en tu cuerpo... Pesada... estable... inmóvil... Las tormentas pueden venir e irse... pero tú permaneces sin cambios......",
+        
+        breathMountain: "Tu respiración ahora se convierte en el viento que sopla alrededor de la montaña... A veces suave y calmado... a veces más fuerte... pero la montaña siempre permanece estable... ... Enfócate en el ritmo natural de tu respiración... sin cambiarlo... Solo observando... como una montaña observa sin juicio... ... Eres tanto la montaña como el observador... estable y consciente......",
+        
+        weatherPatterns: "Los pensamientos y emociones son como patrones climáticos alrededor de la montaña... A veces hay momentos claros y soleados... A veces nubes de confusión... A veces tormentas de emociones fuertes... ... Pero la montaña siempre permanece igual... Sin ser afectada por el clima... Tú eres esa montaña... Estable... calmado... enfocado a pesar de todo el 'clima' mental......",
+        
+        rootedFocus: "Siente tu enfoque enraizado en la tierra... como raíces de árboles que crecen profundo... Mientras más profundas tus raíces... más estable tu concentración... ... Cada vez que notes que divaga... imagina que permites que tus raíces crezcan más profundo... Conectando tu atención cada vez más firmemente... ... Esto es estar enfocado sin tensión... Estable sin estar rígido......",
+        
+        peakClarity: "Desde la cima de tu conciencia-montaña... tienes una vista clara... Puedes ver todo... pero nada disturba tu paz... ... Tu enfoque ahora es panorámico... lo suficientemente amplio para percibir todo... pero lo suficientemente estable para no ser distraído... ... Esta es verdadera concentración... espaciosa y estable al mismo tiempo......",
+        
+        closing: "Lleva esta estabilidad de montaña a tu día... Sabe que siempre puedes regresar a esta montaña interior... ... Cuando te sientes abrumado... recuerda esta estabilidad... Eres la montaña... inmutable... pacífica... enfocada... ... Abre los ojos y siéntete enraizado... estable... y claramente listo para lo que venga..."
       }
     ],
 
@@ -614,6 +851,46 @@ const meditationTemplates = {
         affirmations: "Ofrezcámonos algunas afirmaciones calmantes... 'Estoy seguro en este momento'... ... 'Este sentimiento pasará'... ... 'He sobrevivido a la ansiedad antes y la sobreviviré de nuevo'... ... 'Soy más fuerte que mi ansiedad'... ... 'La paz es mi estado natural'... ... 'Elijo la calma'......",
         
         closing: "Mientras terminamos esta meditación... Recuerda que siempre tienes estas herramientas disponibles... Tu respiración... Tu lugar seguro... Tu fuerza interior... ... Comienza a mover suavemente tu cuerpo... Tal vez estírate un poco... Toma una respiración profunda y abre lentamente los ojos... ... Nota cualquier cambio en cómo te sientes... Incluso un pequeño cambio es significativo... Sé gentil contigo mismo mientras regresas a tu día... Eres valiente... Eres capaz... Y no estás solo......"
+      },
+      
+      {
+        name: "Calma Centrada en el Corazón",
+        intro: "Bienvenido a esta meditación centrada en el corazón para la ansiedad... Coloca una mano en tu corazón y siente la calidez... Este es tu centro de calma y sabiduría... Vamos a aprender a conectar con la paz natural de tu corazón...",
+        
+        heartConnection: "Siente la calidez de tu mano en tu corazón... Nota el latido suave y regular de tu corazón... Este corazón te ha llevado a través de todo... es tu compañero fiel... ... Respira lenta y profundamente... imagina que respiras directamente hacia tu corazón... Con cada respiración... tu corazón se vuelve más suave... más abierto... más amable contigo mismo......",
+        
+        heartBreathing: "Ahora vamos a hacer respiración centrada en el corazón... Respira hacia tu corazón durante cuatro cuentas... Siente tu corazón expandirse con amor... Mantén por un momento... Exhala desde tu corazón durante seis cuentas... Enviando calma a cada célula... ... Con cada latido... con cada respiración... te sientes más seguro... más amado... más en paz contigo mismo......",
+        
+        selfCompassion: "Desde tu corazón... envíate compasión... Como lo harías para un querido amigo que está ansioso... Dite a ti mismo... 'Está bien sentir ansiedad'... 'Soy humano y a veces las personas se sienten ansiosas'... 'Soy digno de amor y comprensión'... ... Siente cómo tu corazón se abre hacia ti mismo... Eres tu mejor amigo......",
+        
+        heartShield: "Imagina que tu corazón irradia un escudo protector de luz... Esta luz envuelve todo tu cuerpo... Nada dañino puede penetrar esta luz... ... Estás seguro dentro de esta energía del corazón... Incluso si la ansiedad trata de entrar... es transformada por el amor... Tu corazón es más poderoso que la ansiedad......",
+        
+        lovingPresence: "Siente la presencia de todas las personas que alguna vez te han amado... Padres... amigos... familia... maestros... Incluso si no están físicamente presentes... su amor vive en tu corazón... ... Nunca estás solo... Estás rodeado por un círculo invisible de amor... Este amor te protege... te consuela... te da valor......",
+        
+        heartWisdom: "Tu corazón contiene sabiduría profunda... Hazle una pregunta sobre tu ansiedad... No escuches con tu cabeza... sino con tu corazón... ¿Qué quiere tu corazón que sepas?... ... Tal vez sea... 'Estás más seguro de lo que piensas'... O... 'Este sentimiento pasará'... Confía en la voz suave de tu corazón......",
+        
+        closing: "Mientras concluimos esta meditación del corazón... Sabe que tu corazón siempre está disponible como refugio... Simplemente pon tu mano en él y siente el amor... ... Tu corazón es tu hogar... tu centro de calma... Siempre puedes regresar a él... Ahora y siempre... Eres amado... Estás seguro... Estás completo..."
+      },
+      
+      {
+        name: "Técnica 5-4-3-2-1 de Conexión a Tierra",
+        intro: "Bienvenido a esta meditación de conexión a tierra para la ansiedad... Cuando la ansiedad nos abruma... puede ayudar regresar a nuestros sentidos... al aquí y ahora... Esta técnica te trae directamente de vuelta al momento presente...",
+        
+        preparation: "Siéntate cómodamente... pies planos en el suelo... Toma tres respiraciones profundas... Con cada exhalación... deja que tu cuerpo se relaje un poco más... Ahora vamos a usar tus sentidos para conectarte a tierra en este momento......",
+        
+        fiveThings: "Mira a tu alrededor e identifica CINCO cosas que puedes ver... Dílas en voz alta o mentalmente... 'Veo una puerta... Veo mis manos... Veo luz... Veo una pared... Veo sombras...' ... Tómate tiempo para realmente mirar cada objeto... Nota detalles... colores... formas... texturas......",
+        
+        fourThings: "Ahora identifica CUATRO cosas que puedes sentir... 'Siento mis pies en el suelo... Siento la silla contra mi espalda... Siento el aire en mi piel... Siento mi ropa...' ... Concéntrate completamente en estas sensaciones físicas... Este es tu cuerpo en este momento... real y estable......",
+        
+        threeThings: "Escucha e identifica TRES cosas que puedes oír... 'Escucho mi respiración... Escucho tráfico afuera... Escucho el zumbido de un aparato...' ... Escucha realmente... incluso el silencio entre sonidos... Estos sonidos te anclan en el ahora......",
+        
+        twoThings: "Nota DOS cosas que puedes oler... 'Huelo el aire en esta habitación... Huelo un toque de perfume...' ... Si no hueles nada específico... simplemente nota la calidad del aire... Aire fresco... aire cálido... aire neutral......",
+        
+        oneThing: "Finalmente... una cosa que puedes saborear... Tal vez el sabor persistente de algo que bebiste recientemente... o solo el sabor neutral de tu boca... ... Este es tu sentido del gusto... presente en este momento......",
+        
+        integration: "Nota cómo te sientes ahora... Más conectado a tierra... más conectado con este momento... Menos en tu cabeza... más en tu cuerpo... ... Esta es la diferencia entre ansiedad (a menudo sobre el futuro) y el momento presente (donde estás seguro)......",
+        
+        closing: "Acabas de aprender una técnica poderosa... 5-4-3-2-1... Úsala cuando la ansiedad trate de llevarte a preocupaciones sobre el futuro... Regresa a tus sentidos... a este momento... a la seguridad del ahora... Esta técnica siempre va contigo..."
       }
     ],
 
@@ -629,6 +906,40 @@ const meditationTemplates = {
         affirmations: "Activemos tu energía con afirmaciones poderosas... 'Estoy lleno de energía vibrante'... ... 'Mi cuerpo está fuerte y vivo'... ... 'Tengo toda la energía que necesito para mi día'... ... 'Estoy motivado y listo para la acción'... ... 'La energía fluye libremente a través de mí'... ... Siente estas palabras cargando cada célula de tu cuerpo......",
         
         closing: "Mientras completamos esta meditación energizante... Siente la vitalidad corriendo por tus venas... Estás despierto... alerta y completamente cargado... ... Comienza a mover tu cuerpo como se sienta bien... Tal vez estira tus brazos sobre tu cabeza... Rueda tu cuello... Rebota suavemente en tus dedos de los pies... ... Cuando estés listo... abre los ojos ampliamente... Absorbe el mundo con energía fresca... Estás listo para abrazar tu día con entusiasmo y poder... Ve adelante y deja brillar tu luz......"
+      },
+      
+      {
+        name: "Despertar Corporal Energético",
+        intro: "Bienvenido a esta meditación de despertar corporal... Vamos a activar tu energía desde dentro hacia fuera... usando movimiento consciente y respiración poderosa... Siéntate o párate en una posición que se sienta vibrante y viva...",
+        
+        bodyAwakening: "Comencemos despertando tu cuerpo... Frota vigorosamente tus palmas... Siente el calor y la energía acumulándose... Coloca tus palmas cálidas sobre tus ojos por un momento... ... Ahora toca suavemente por toda tu cabeza con las puntas de tus dedos... Despertando tu mente... Masajea tus sienes en pequeños círculos... ... Rueda tus hombros hacia atrás... sintiendo tu pecho abrirse y expandirse... Gira suavemente tu columna hacia la izquierda y derecha... Sintiendo energía fluir a través de tu núcleo......",
+        
+        energeticBreathing: "Ahora vamos a cargar tu sistema con respiración energética... Toma una respiración profunda y retén... Luego exhala rápidamente con tres pequeñas exhalaciones... 'ha-ha-ha'... ... Siente esta respiración vibrando a través de tu cuerpo... despertando cada célula... ... Repite... Inhalación profunda... retén... 'ha-ha-ha'... Cada ciclo te energiza más... Sientes tu sistema nervioso activándose de manera positiva......",
+        
+        powerVisualization: "Imagina un poderoso río de energía dorada fluyendo a través de tu columna... Desde la base de tu columna hasta la corona de tu cabeza... ... Esta energía es tu fuerza vital... tu poder personal... tu vitalidad innata... Siente cómo se intensifica con cada respiración... ... Ahora imagina esta energía irradiando hacia afuera... llenando todo tu campo energético... Eres como un sol brillante... irradiando vitalidad......",
+        
+        movementActivation: "Si te sientes cómodo... permite que tu cuerpo se mueva... Rueda tus hombros... Mueve tu cabeza suavemente... Deja que tus brazos se balanceen... ... No hay manera correcta o incorrecta... solo deja que tu cuerpo exprese esta energía que estás sintiendo... Movimiento consciente despierta energía dormida......",
+        
+        affirmations: "Siente esta energía mientras afirmas... 'Soy vibrante y vivo'... 'Mi energía es ilimitada'... 'Estoy completamente despierto y alerta'... 'Mi cuerpo es un templo de vitalidad'... 'Irradio energía positiva'... ... Estas palabras se convierten en realidad en tu cuerpo......",
+        
+        closing: "Mientras sellamos esta energía... Toma tres respiraciones poderosas... Cada una más grande que la anterior... Siente tu energía estabilizándose en un nivel alto y sostenible... ... Tu cuerpo ahora está completamente activado... Tu mente clara y enfocada... Tu espíritu elevado... Lleva esta vitalidad contigo... Eres una fuerza de la naturaleza... radiante y poderosa..."
+      },
+      
+      {
+        name: "Luz Solar Matutina",
+        intro: "Bienvenido a esta meditación de luz solar matutina... Imagina que estás absorbiendo los primeros rayos del amanecer... Esta práctica te conecta con la energía renovadora del nuevo día... Siéntate mirando hacia donde imaginas que sale el sol...",
+        
+        sunConnection: "Visualiza el sol naciente... Sus rayos dorados tocando tu rostro... Siente la calidez suave en tu piel... Esta es energía pura... vida... vitalidad... ... Imagina que tu piel puede absorber esta luz solar... Cada poro de tu cuerpo bebiendo esta energía dorada... Sientes cómo te llena desde afuera hacia adentro......",
+        
+        solarBreathing: "Ahora respira esta luz solar... Con cada inhalación... imagina que estás respirando rayos dorados... Esta luz llena tus pulmones... tu sangre... cada célula de tu cuerpo... ... Con cada exhalación... irradia esta luz desde tu interior... Te conviertes en una fuente de luz solar... brillando desde adentro hacia afuera......",
+        
+        bodyIllumination: "Siente esta luz solar moviéndose a través de tu cuerpo... Iluminando tu cabeza... despejando cualquier niebla mental... Fluyendo por tu garganta... dándote voz clara y fuerte... ... A través de tu corazón... llenándolo de calidez y alegría... Por tus brazos... dándoles fuerza vital... A través de tu vientre... tu centro de poder personal... ... Hacia abajo por tus piernas... conectándote a tierra mientras te eleva... Hasta las plantas de tus pies... donde te conectas con la energía de la Tierra......",
+        
+        solarAffirmations: "Desde esta conexión con la luz solar... afirma... 'Soy uno con la energía del sol'... 'Irradio luz y vitalidad'... 'Cada día me renuevo como el amanecer'... 'Soy una fuente de energía positiva'... 'Brillo con mi luz interior'... ... Siente estas verdades resonando en cada fibra de tu ser......",
+        
+        radiatingEnergy: "Ahora imagina que esta energía solar no solo te llena... sino que se extiende más allá de tu cuerpo... Creando un campo de luz dorada a tu alrededor... ... Esta es tu aura energética... tu campo de vitalidad... Cualquiera que se acerque a ti puede sentir esta energía positiva... Eres un regalo de luz para el mundo......",
+        
+        closing: "Mientras concluimos esta meditación solar... Siente cómo llevas esta luz contigo... No dependes del sol exterior... eres tu propio sol interior... ... Lleva esta irradiación solar a tu día... Ilumina cada espacio que entres... cada persona que encuentres... Eres luz solar caminando en forma humana..."
       }
     ],
 
@@ -646,6 +957,23 @@ const meditationTemplates = {
         affirmations: "Repite silenciosamente estas afirmaciones de presencia... 'Estoy completamente presente en este momento'... ... 'Abrazo todo lo que surge con conciencia'... ... 'Mi atención está anclada en el ahora'... ... 'Soy consciente... despierto... vivo'... ... 'La vida está sucediendo ahora... y estoy aquí para experimentarla'......",
         
         closing: "Mientras terminamos esta práctica... Siente la profundidad de tu presencia... La riqueza de estar completamente aquí... ... Comienza a profundizar tu respiración... Mueve suavemente tus dedos... rueda tus hombros... ... Cuando estés listo... abre los ojos lentamente... ... Lleva esta conciencia del momento presente contigo... La vida es una serie de momentos presentes... Y ahora sabes cómo habitarlos plenamente......"
+      },
+      
+      {
+        name: "Observación de Pensamientos",
+        intro: "Bienvenido a esta práctica de observación de pensamientos... En lugar de ser arrastrado por los pensamientos... vamos a aprender a observarlos desde una perspectiva más amplia... Siéntate cómodamente... tu columna erguida... y permite que tu respiración se vuelva natural...",
+        
+        breathing: "Comienza estableciendo una base estable en tu respiración... Nota el flujo natural de inhalar y exhalar... Sin controlar... solo observando... ... Tu respiración es tu ancla... tu punto de regreso cuando te das cuenta de que has sido arrastrado por pensamientos... ... Continúa respirando conscientemente... cada respiración te trae más plenamente al momento presente......",
+        
+        thoughtObservation: "Ahora permite que tu atención se expanda para incluir pensamientos... Nota que los pensamientos surgen naturalmente... como burbujas en agua... ... No trates de detener los pensamientos... Esto es imposible... En lugar de eso... obsérvalos... ¿De dónde vienen?... ¿Cómo se sienten?... ¿Hacia dónde van?... ... Imagina que eres el cielo... y los pensamientos son nubes que pasan... El cielo no es afectado por las nubes... permanece vasto y abierto......",
+        
+        labelingPractice: "Cuando notes un pensamiento... puedes etiquetarlo suavemente... Si es sobre el pasado... simplemente nota 'recordando'... Si es sobre el futuro... 'planificando'... Si es crítico... 'juzgando'... ... No hay pensamientos buenos o malos... todos son simplemente fenómenos mentales pasajeros... Observa sin involucrarte... como un científico curioso estudiando la mente......",
+        
+        spaciousAwareness: "Ahora expande tu conciencia aún más... Eres el espacio consciente en el que surgen pensamientos... sensaciones... sonidos... ... Este espacio consciente es inmutable... siempre presente... siempre en paz... Los pensamientos van y vienen... pero tú... la conciencia que los observa... permaneces... ... Descansa en esta conciencia espaciosa... Esta es tu naturaleza más profunda......",
+        
+        integration: "Nota la diferencia entre estar perdido en pensamientos y observar pensamientos... Cuando observas... hay espacio... libertad... elección... ... Esta capacidad de observar está siempre disponible... En cualquier momento... puedes dar un paso atrás y observar tu experiencia en lugar de ser arrastrado por ella......",
+        
+        closing: "Mientras terminamos esta práctica... Aprecia esta capacidad que tienes de observar tu propia mente... Es un poder extraordinario... ... Lleva esta conciencia observadora contigo... Durante el día... cuando notes que estás perdido en pensamientos... simplemente regresa a la observación... Al espacio consciente que eres... Eres mucho más que tus pensamientos..."
       }
     ],
 
@@ -667,6 +995,42 @@ const meditationTemplates = {
         allBeings: "Finalmente... extiende tu amor bondadoso a todos los seres... Imagina ondas de compasión irradiando desde tu corazón... ... A todos en tu vecindario... tu ciudad... tu país... ... A todos los seres en toda la tierra... humanos... animales... plantas... ... 'Que todos los seres sean felices'... 'Que todos los seres estén en paz'... 'Que todos los seres estén libres de sufrimiento'... 'Que todos los seres sean amados'... ... Siente la conexión... la bondad universal que compartes con toda la vida......",
         
         closing: "Mientras terminamos esta práctica... Siente la calidez en tu corazón... La expansión de tu compasión... ... Sabe que este amor bondadoso siempre está disponible... En cualquier momento... con cualquier persona... incluido tú mismo... ... Comienza a profundizar tu respiración... Mueve suavemente tu cuerpo... ... Cuando estés listo... abre los ojos... ... Lleva esta bondad contigo... Deja que tu corazón sea una fuente de amor para el mundo......"
+      },
+      
+      {
+        name: "Sanación del Corazón Herido",
+        intro: "Bienvenido a esta práctica de sanación compasiva... Todos llevamos heridas en el corazón... de palabras duras... de pérdidas... de desilusiones... Hoy vamos a traer gentileza a esos lugares doloridos... Siéntate con las manos en tu corazón... respira suavemente...",
+        
+        recognition: "Comencemos reconociendo que el sufrimiento es parte de la vida humana... No estás solo en tu dolor... Millones de personas han sentido lo que tú sientes... ... Respira hacia tu corazón... y di silenciosamente... 'Este dolor también forma parte de la vida'... 'No estoy solo en esto'... 'Mi corazón puede sanar'......",
+        
+        selfTenderness: "Ahora lleva ternura a tu propio dolor... Como si fueras tu mejor amigo... ¿qué te dirías en este momento difícil?... ... Tal vez... 'Has estado haciendo lo mejor que puedes'... 'Es natural sentir dolor'... 'Mereces amor y cuidado'... 'Tu corazón es fuerte y puede sanar'... ... Siente estas palabras como un bálsamo en tu corazón......",
+        
+        breathingLove: "Respira amor hacia las partes de ti que duelen... Con cada inhalación... imagina luz dorada entrando a los lugares heridos de tu corazón... ... Con cada exhalación... suelta el resentimiento... la amargura... la autocrítica... ... Continúa respirando sanación hacia adentro... y liberando dolor hacia afuera... Tu corazón sabe cómo sanar......",
+        
+        forgiveness: "Si te sientes preparado... lleva a tu mente a alguien que te ha lastimado... No para excusar su comportamiento... sino para liberar tu corazón... ... Reconoce que aferrarse al dolor te lastima más a ti... Es hora de liberarte... ... Respira y di... 'Te perdono por mi propia paz'... 'Libero este dolor por mi propio bienestar'... Esto no es debilidad... es el acto más valiente......",
+        
+        heartHealing: "Imagina tu corazón rodeado de luz curativa dorada... Esta luz disuelve el dolor... repara las grietas... fortalece lo que se había debilitado... ... Siente tu corazón volviéndose más fuerte... más sabio... más compasivo por haber pasado por el dolor... ... El corazón que ha sido herido y sanado es el más hermoso de todos......",
+        
+        closing: "Mientras terminamos esta sanación... Siente la nueva fuerza en tu corazón... el espacio que has creado para más amor... ... Sabe que la sanación es un proceso... sé paciente contigo mismo... ... Lleva esta ternura contigo... Tu corazón sanado ahora puede ser fuente de sanación para otros..."
+      },
+      
+      {
+        name: "Círculo de Compasión Universal",
+        intro: "Bienvenido a esta práctica de expansión compasiva... Vamos a comenzar contigo y expandir círculos de amor hasta incluir a todos los seres... Imagina que estás en el centro de círculos concéntricos de luz... Cada círculo representa un nivel de conexión... Respira profundamente y permite que tu corazón se abra...",
+        
+        innerCircle: "Comienza con el círculo más íntimo... Tú y tu familia más cercana... aquellos que amas profundamente... Visualiza sus rostros... siente el amor natural que tienes por ellos... ... Envía bendiciones a este círculo... 'Que seamos felices... Que estemos sanos... Que estemos en paz... Que vivamos en armonía'... ... Siente la calidez de este amor familiar llenando tu corazón......",
+        
+        secondCircle: "Ahora expande al segundo círculo... Tus amigos... compañeros de trabajo... conocidos... personas que ves regularmente... ... Incluye a todos aquellos con quienes tienes una relación positiva... Ve sus rostros... siente la conexión... ... Envía las mismas bendiciones... 'Que sean felices... Que estén sanos... Que estén en paz... Que vivan con alegría'... ... Nota cómo tu corazón puede abarcar a más personas......",
+        
+        thirdCircle: "Expande al tercer círculo... Personas neutrales... extraños que has visto... gente en la calle... en tiendas... en transporte público... ... Reconoce que cada una de estas personas tiene una vida completa... sueños... luchas... esperanzas... igual que tú... ... Ofrece bendiciones a todos... 'Que encuentren felicidad... Que estén libres de sufrimiento... Que encuentren paz'... ... Siente tu compasión expandiéndose más allá de lo familiar......",
+        
+        fourthCircle: "Ahora incluye el círculo más desafiante... Personas con las que tienes conflictos... aquellos que te han lastimado... incluso enemigos... ... Esto no significa aprobar sus acciones... sino reconocer su humanidad... ... Con gran valentía del corazón... susurra... 'Que encuentres paz en tu corazón... Que tu sufrimiento disminuya... Que encuentres el camino hacia la felicidad'... ... Esta es la compasión más poderosa......",
+        
+        universalCircle: "Finalmente... expande tu compasión a todos los seres en el universo... Humanos... animales... plantas... toda la vida... ... Imagina la Tierra desde el espacio... todos compartiendo este hogar... todos interconectados... ... Con un corazón completamente abierto... envía amor universal... 'Que todos los seres sean libres de sufrimiento... Que todos los seres encuentren felicidad... Que todos los seres vivan en paz'... ... Siente tu conexión con toda la vida......",
+        
+        integration: "Ahora trae toda esta compasión de vuelta a ti... Siente cómo tu corazón se ha expandido... cómo has crecido en tu capacidad de amar... ... Eres parte de esta red infinita de conexión... tanto dando como recibiendo amor... ... Lleva esta perspectiva expandida contigo... Ve a todos los seres como parte de tu familia universal......",
+        
+        closing: "Mientras completamos este círculo de compasión... Siente la transformación en tu corazón... Tu capacidad de amar se ha expandido exponencialmente... ... Recuerda que toda la humanidad está conectada... somos una familia global... ... Sal al mundo con este corazón abierto... sé un embajador de compasión... Tu amor puede cambiar el mundo..."
       }
     ],
 
@@ -686,6 +1050,44 @@ const meditationTemplates = {
         gratitude: "Mientras continúas caminando... siente gratitud por esta capacidad de moverte... por tus piernas que te cargan... por tu cuerpo que te permite explorar el mundo... ... Gratitud por este momento de calma en tu día... por esta oportunidad de practicar la presencia... ... Cada paso es un regalo... cada respiración es una bendición......",
         
         closing: "Ahora comienza a reducir gradualmente tu ritmo... hasta detenerte suavemente... Párate por un momento... sintiendo la quietud después del movimiento... ... Respira profundamente... y aprecia esta experiencia de caminar consciente... ... Sabe que puedes llevar esta conciencia a cualquier momento que camines... Cada paso puede ser una meditación... cada movimiento una oportunidad para la presencia... ... Cuando estés listo... continúa con tu día... pero mantén esta calidad de conciencia... Esta es la práctica de vivir despierto......"
+      },
+      
+      {
+        name: "Caminata de Conexión con la Tierra",
+        intro: "Bienvenido a esta caminata meditativa de conexión terrestre... Vamos a usar el simple acto de caminar para reconectarnos con la Tierra... nuestro hogar... nuestra fuente... Si es posible... practica esto al aire libre... en la naturaleza... pero si estás adentro... visualiza que caminas sobre la tierra...",
+        
+        grounding: "Comienza de pie con los pies descalzos si es posible... o imagina que lo estás... Siente la solidez de la tierra debajo de ti... Esta tierra te ha sostenido toda tu vida... ... Respira profundamente y siente tu conexión con este planeta... Cada molécula de tu cuerpo una vez fue parte de la tierra... del aire... del agua... Eres tierra caminando......",
+        
+        earthConnection: "Con cada paso... imagina que tus pies besan la tierra... Siente la gratitud fluyendo desde tus pies hacia la tierra... agradeciendo su soporte... ... La tierra te da todo lo que necesitas... comida... agua... aire... refugio... Con cada paso... envía amor de vuelta... ... 'Gracias tierra por sostenerme'... 'Gracias por todo lo que me das'... 'Soy tu hijo/hija caminando sobre ti con amor'......",
+        
+        naturalRhythm: "Encuentra el ritmo natural de la tierra... No el prisa de la ciudad... sino el ritmo lento y constante de la naturaleza... Como el crecimiento de los árboles... el flujo de los ríos... el movimiento de las nubes... ... Deja que tus pasos sigan este ritmo ancestral... Estás participando en la danza eterna de la vida en la Tierra......",
+        
+        elementalAwareness: "Mientras caminas... siente todos los elementos... La tierra sólida bajo tus pies... El agua en tu cuerpo y en el aire... El fuego del sol calentándote... El aire que respiras... ... Eres una expresión caminante de todos estos elementos... Eres la tierra experimentándose a sí misma a través de tus sentidos......",
+        
+        ancestralSteps: "Imagina que caminas por los mismos senderos que han caminado tus ancestros... por miles de años... Humanos han caminado sobre esta tierra... sintiendo los mismos elementos... respirando el mismo aire... ... Eres parte de una cadena ininterrumpida de vida... conectado a todos los que han caminado antes... y todos los que caminarán después......",
+        
+        healing: "Con cada paso... imagina que estás sanando la tierra... Tu amor... tu presencia consciente... tu gratitud... todo esto es sanación para nuestro planeta... ... La tierra necesita tu amor... tu respeto... tu cuidado... Con cada paso consciente... estás bendiciendo la tierra... estás siendo parte de la solución......",
+        
+        closing: "Mientras terminas esta caminata sagrada... detente y coloca ambas manos en la tierra si puedes... o imagínalo... ... Siente la conexión... eres hijo/hija de esta tierra... ella es tu madre... tu hogar... ... Lleva esta conexión contigo... recuerda que cada paso puede ser una bendición para la tierra... cada caminata una oportunidad para honrar tu hogar planetario..."
+      },
+      
+      {
+        name: "Caminata de Liberación Mental",
+        intro: "Bienvenido a esta caminata meditativa para liberar la mente... A veces nuestros pensamientos se vuelven pegajosos... atascados en bucles... Esta práctica usa el movimiento físico para liberar patrones mentales rígidos... Comienza de pie... sintiendo tu cuerpo listo para moverse y liberar...",
+        
+        intention: "Antes de comenzar... identifica qué necesitas liberar... ¿Hay pensamientos repetitivos?... ¿Preocupaciones que dan vueltas?... ¿Emociones atascadas?... ... No necesitas analizarlos... solo reconoce que algo necesita moverse... ... Establece la intención de usar esta caminata para liberar lo que ya no necesitas... Como hojas que caen de un árbol en otoño......",
+        
+        releasingSteps: "Comienza a caminar con pasos deliberados... Con cada paso izquierdo... di mentalmente 'libero'... Con cada paso derecho... di 'lo que no necesito'... ... Izquierda... 'libero'... Derecha... 'lo que no necesito'... ... Siente que con cada paso estás literalmente dejando atrás pensamientos viejos... como si los dejaras en el camino detrás de ti......",
+        
+        shaking: "Ahora mientras caminas... permite que tu cuerpo se mueva libremente... Rueda tus hombros... mueve tus brazos... incluso sacude tu cabeza suavemente... ... Los animales se sacuden naturalmente para liberar tensión y trauma... Tu cuerpo sabe cómo liberar... permítele moverse... ... Este movimiento libera no solo tensión física... sino también energía mental estancada......",
+        
+        breathAndRelease: "Mientras continúas caminando... usa la respiración para la liberación... Inhala... recogiendo toda la tensión mental... Exhala fuertemente por la boca... 'HAAAA'... liberando... ... Con cada exhalación... imagina que estás soplando nubes grises de preocupación... alejándolas de ti... El viento se las lleva... Ya no son tuyas......",
+        
+        freshStart: "Ahora camina como si fuera la primera vez... Como si hubieras acabado de nacer y todo fuera nuevo... Los colores más brillantes... los sonidos más claros... ... Tu mente es ahora como un cielo despejado después de una tormenta... Espaciosa... clara... libre... ... Cada paso es un paso hacia una nueva forma de ser... más ligera... más libre......",
+        
+        integration: "Mientras reduces el ritmo... siente la diferencia en tu estado mental... Nota el espacio que has creado... la claridad que has encontrado... ... Este es tu estado natural... espacioso y libre... Los pensamientos pueden venir y ir... pero no tienes que aferrarte a ellos... ... Puedes usar la caminata consciente cuando sea para volver a este estado de libertad mental......",
+        
+        closing: "Detente suavemente... para un momento en quietud... Siente la liberación que has logrado... la ligereza en tu mente... ... Sabe que siempre puedes regresar a esta práctica... cuando la mente se sienta atascada... el movimiento consciente es medicina... ... Lleva esta sensación de libertad mental contigo... eres libre de elegir tus pensamientos... libre de soltar lo que no sirve..."
       }
     ],
 
@@ -707,6 +1109,44 @@ const meditationTemplates = {
         returningToNatural: "Ahora suelta cualquier técnica... regresa a tu respiración natural... Pero mantén la conciencia que has desarrollado... ... Nota cómo se siente tu respiración ahora... Quizás más profunda... más suave... más consciente... ... Cada respiración es una oportunidad para estar presente... para nutrir tu cuerpo... para calmar tu mente......",
         
         closing: "Mientras terminamos esta práctica de respiración... Siente la quietud en tu cuerpo... la claridad en tu mente... ... Sabe que tu respiración es tu compañía constante... Siempre disponible... siempre presente... ... Comienza a profundizar tu respiración... Mueve suavemente tus dedos y dedos de los pies... ... Cuando estés listo... abre los ojos lentamente... ... Lleva esta conciencia respiratoria contigo... Recuerda que en cualquier momento puedes regresar a tu respiración... para centrarte... para calmarte... para estar presente......"
+      },
+      
+      {
+        name: "Respiración del Océano",
+        intro: "Bienvenido a la respiración del océano... Esta práctica imita el sonido rítmico de las olas... creando calma profunda y tranquilidad interior... Siéntate cómodamente... imagina que estás junto al mar... escuchando el eterno ritmo del océano... Tu respiración se convertirá en olas de paz...",
+        
+        listening: "Primero... escucha tu respiración natural... ¿Puedes oír un sonido sutil cuando respiras?... ... Ahora vamos a hacer este sonido más audible... como el susurro suave del océano... Esto se llama respiración Ujjayi... el aliento del mar......",
+        
+        technique: "Inhala lentamente por la nariz... cerrando ligeramente la garganta... como si estuvieras empañando un espejo... pero con la boca cerrada... ... Deberías escuchar un sonido suave... como 'AAAHH'... similar al sonido del océano... ... Exhala de la misma manera... con el mismo sonido suave... manteniendo la boca cerrada... ... Este es el sonido de tu océano interior......",
+        
+        rhythm: "Encuentra un ritmo como las olas del mar... Inhala lentamente... escuchando el sonido del océano... cuatro... cinco... seis segundos... ... Exhala lentamente... mismo sonido... misma duración... cuatro... cinco... seis segundos... ... Como olas que llegan y se retiran... llegan y se retiran... ... Tu respiración es ahora el ritmo eterno del océano......",
+        
+        visualization: "Mientras respiras como el océano... visualiza olas azules fluyendo en tu cuerpo... Con cada inhalación... olas de calma entran a tu ser... ... Con cada exhalación... olas de tensión se alejan... llevándose el estrés... ... Tu cuerpo es como una playa... y las olas de tu respiración te están limpiando... relajando... sanando......",
+        
+        deepening: "Continúa con esta respiración oceánica... Cada ola más profunda... más tranquilizadora... ... Siente como si estuvieras flotando en un mar interno de paz... Sostenido por las olas de tu propia respiración... ... El sonido del océano te está llenando de serenidad... Tu mente se calma como aguas tranquilas......",
+        
+        presence: "Con cada respiración oceánica... regresa al momento presente... El océano siempre está aquí ahora... Nunca en el pasado... nunca en el futuro... siempre en este momento... ... Tu respiración oceánica te ancla en la presencia... Como un faro en la costa... siempre estable... siempre aquí......",
+        
+        closing: "Gradualmente... permite que el sonido del océano se vuelva más suave... pero mantén esa calidad profunda y tranquila... ... Tu respiración oceánica está siempre disponible... en cualquier momento que necesites calma... simplemente regresa al sonido del mar interior... ... Cuando abras los ojos... lleva contigo esta paz oceánica... Eres vasto como el mar... profundo como el océano..."
+      },
+      
+      {
+        name: "Respiración de Fuego Transformador",
+        intro: "Bienvenido a la respiración de fuego transformador... Esta práctica usa la respiración para quemar lo que ya no necesitas... transformando energía estancada en vitalidad... Siéntate erguido... imagina un fuego sagrado en tu vientre... listo para purificar y energizar...",
+        
+        preparation: "Coloca tus manos en tu vientre bajo... Siente tu centro de poder... tu núcleo... Aquí es donde encenderemos el fuego transformador... ... Respira naturalmente por unos momentos... conectándote con tu centro... Establece la intención de liberar lo viejo y dar la bienvenida a lo nuevo... ... Este fuego no destruye... transforma... convierte lo denso en luz... lo pesado en liviano......",
+        
+        ignition: "Ahora vamos a encender el fuego... Inhala profundamente... llenando tu vientre de aire... ... Exhala rápido y fuerte por la nariz... 'HU'... contrayendo tu vientre hacia adentro... ... Otra vez... inhala llenando... exhala rápido 'HU'... contrayendo... ... Continúa... inhala profundo... exhala fuerte... Siente el calor generándose en tu centro......",
+        
+        building: "Continúa esta respiración de fuego... Inhalaciones profundas... exhalaciones rápidas y fuertes... Siente el fuego creciendo en tu vientre... ... Este fuego está quemando todo lo que ya no necesitas... miedos viejos... resentimientos... autocríticas... ... Con cada exhalación explosiva... estás liberando energía atascada... Con cada inhalación... estás avivando el fuego de tu transformación......",
+        
+        visualization: "Visualiza llamas doradas en tu centro... creciendo más brillantes con cada respiración... Este fuego se extiende por todo tu cuerpo... ... Las llamas suben por tu columna... limpian tu corazón... iluminan tu mente... ... Todo lo que no es auténtico se está quemando... dejando solo tu esencia pura... tu verdadero ser radiante......",
+        
+        integration: "Ahora permite que la respiración se calme gradualmente... Pero mantén la sensación de calor... la energía transformada... ... Siente el poder en tu centro... purificado y renovado... Tu fuego interior ahora brilla limpio y claro... ... Este es tu fuego sagrado... tu poder personal transformado... tu capacidad de crear cambio en tu vida......",
+        
+        cooling: "Para completar la transformación... toma tres respiraciones largas y lentas... Como brisa fresca que calma el fuego... ... Inhala serenidad... exhala suavemente... Inhala paz... exhala suavemente... Inhala nueva energía... exhala suavemente... ... El fuego se ha establecido en una llama estable y poderosa... El proceso de transformación está completo......",
+        
+        closing: "Coloca ambas manos en tu corazón... Siente la nueva energía que has creado... la vitalidad que has liberado... ... Sabe que siempre puedes acceder a este fuego transformador... cuando necesites cambio... cuando te sientas atascado... ... Lleva esta energía transformada contigo... Eres capaz de cambiar... de crecer... de transformarte... El fuego sagrado vive en ti..."
       }
     ],
 
@@ -728,6 +1168,48 @@ const meditationTemplates = {
         affirmations: "Repetamos algunas afirmaciones para comenzar el día... 'Hoy es un nuevo comienzo'... ... 'Estoy lleno de energía y posibilidad'... ... 'Abrazo este día con entusiasmo'... ... 'Soy capaz de manejar cualquier cosa que venga'... ... 'Elijo ver oportunidades en lugar de obstáculos'... ... 'Mi corazón está abierto a la alegría'... ... 'Hoy hago una diferencia positiva'... ... Siente estas afirmaciones hundiéndose profundamente en tu ser......",
         
         closing: "Mientras terminamos esta práctica matutina... Siente la vitalidad corriendo por tus venas... la claridad en tu mente... el propósito en tu corazón... ... Estás despierto... consciente... y listo para abrazar este día... ... Comienza a moverte como se sienta bien... Tal vez estira... rueda tus hombros... sonríe... ... Cuando estés listo... abre los ojos y abraza este nuevo día... ... Lleva esta energía del amanecer contigo... Eres la luz... y es tu momento de brillar......"
+      },
+      
+      {
+        name: "Ritual de Preparación del Guerrero",
+        intro: "Bienvenido a este ritual matutino del guerrero interior... No un guerrero de violencia... sino un guerrero de vida... un guerrero de propósito... un guerrero de amor... Siéntate erguido... con dignidad... como un guerrero preparándose para la batalla de vivir plenamente...",
+        
+        warriorPosture: "Adopta la postura del guerrero... Columna recta... hombros hacia atrás... pecho abierto... barbilla ligeramente levantada... ... Esta no es arrogancia... es dignidad... Es la postura de alguien que está listo para enfrentar lo que venga... ... Siente la fuerza en tu postura... Tu cuerpo comunica poder... confianza... preparación... Eres un guerrero despertando......",
+        
+        breathOfPower: "Respira como un guerrero... Inhalaciones profundas y poderosas... llenando todo tu ser con fuerza vital... ... Exhala con poder... 'HAAA'... liberando cualquier debilidad... cualquier duda... ... Otra vez... inhala fuerza... exhala 'HAAA'... poder... ... Siente cómo cada respiración te fortalece... te prepara... te energiza para las batallas del día......",
+        
+        innerWarrior: "Conecta con tu guerrero interior... Esa parte de ti que nunca se rinde... que siempre se levanta... que enfrenta desafíos con valor... ... Este guerrero ha estado contigo toda tu vida... en cada momento difícil... en cada triunfo... ... Honra a este guerrero... agradece su protección... su fuerza... su resistencia... ... Hoy caminarás con la fuerza del guerrero......",
+        
+        mission: "Todo guerrero necesita una misión... ¿Cuál es tu misión hoy?... ¿Por qué luchas?... ¿Qué defiendes?... ... Tal vez luchas por la felicidad de tu familia... por tu crecimiento personal... por hacer una diferencia en el mundo... ... Siente esta misión en tu corazón... Tu propósito te da fuerza... te da dirección... te hace invencible... ... Eres un guerrero con una causa sagrada......",
+        
+        armorOfLove: "Ahora ponte la armadura del guerrero... Pero esta armadura está hecha de amor... compasión... sabiduría... ... Coloca el casco de claridad mental... Ponte la coraza de corazón abierto... Los guantes de manos gentiles... Las botas de pasos conscientes... ... Esta armadura te protege no endureciéndote... sino manteniéndote suave pero fuerte... amoroso pero poderoso......",
+        
+        warriorPledge: "Haz el juramento del guerrero de la vida... Repite mentalmente... 'Hoy elijo el valor sobre el miedo'... ... 'Elijo el amor sobre el odio'... ... 'Elijo la acción sobre la parálisis'... ... 'Elijo la esperanza sobre la desesperación'... ... 'Soy un guerrero de luz... y hoy brillaré'... ... Siente estas palabras grabándose en tu alma......",
+        
+        readyForBattle: "Ahora estás preparado... equipado no con espadas... sino con amor... No con escudos... sino con sabiduría... No con lanzas... sino con compasión... ... Eres un guerrero completo... preparado para cualquier batalla que el día traiga... ... Las batallas de la paciencia... del perdón... de la perseverancia... de mantener el corazón abierto en un mundo difícil......",
+        
+        closing: "Levántate como el guerrero que eres... Camina al mundo con dignidad... con propósito... con fuerza interior... ... Recuerda... no peleas contra otros... peleas por el bien más alto... por el amor... por la verdad... por la vida plena... ... Eres un guerrero de la luz... Y este es tu día para brillar con valor y compasión..."
+      },
+      
+      {
+        name: "Ceremonia de Nacimiento del Día",
+        intro: "Bienvenido a esta ceremonia sagrada del nacimiento del día... Cada amanecer es un nacimiento... el universo dando a luz a un nuevo día... Y tú eres parte de este milagro... testigo y participante en la creación continua... Siéntate en posición de testigo sagrado... preparándote para recibir este nuevo día...",
+        
+        cosmicAwareness: "Toma conciencia de tu lugar en el cosmos... En este momento... la Tierra está girando hacia el sol... exponiendo tu parte del mundo a la luz... ... Tú eres parte de este baile cósmico... Millones de personas están despertando contigo... millones de vidas comenzando un nuevo día... ... Siente tu conexión con toda la humanidad... todos compartiendo este momento de transición... de noche a día... de sueño a vigilia......",
+        
+        witnessing: "Sé testigo del milagro del despertar... Dentro de ti... células se están activando... procesos biológicos comenzando... tu consciencia emergiendo del sueño... ... Es un milagro que despiertes cada día... que tu corazón lata... que tu mente se active... que puedas experimentar la vida... ... No es algo garantizado... es un regalo precioso... Recibe este regalo con asombro......",
+        
+        rebirth: "Cada día eres renacido... El tú de ayer ha muerto en el sueño... El tú de hoy está naciendo ahora... ... ¿Quién quieres ser en este nuevo nacimiento?... ¿Qué versión de ti quieres traer al mundo?... ... Puedes elegir ser más sabio que ayer... más amoroso... más presente... más auténtico... ... Este es tu día de nacimiento... puedes nacer como quien quieras ser......",
+        
+        blessings: "Recibe las bendiciones del nuevo día... El sol te bendice con luz... El aire te bendice con vida... La Tierra te bendice con soporte... ... Tu corazón te bendice con amor... Tu mente te bendice con conciencia... Tu alma te bendice con propósito... ... Eres un ser bendecido... viviendo en un día bendecido... en un universo bendecido......",
+        
+        offering: "¿Qué ofreces a cambio de este regalo del día?... ¿Cómo honrarás este nuevo comienzo?... ... Tal vez ofreces tu presencia... tu amor... tu servicio... tu creatividad... tu alegría... ... Haz una ofrenda silenciosa al día... un compromiso de cómo usarás este regalo de tiempo y vida... ... Tu vida es tanto un regalo recibido como una ofrenda dada......",
+        
+        dedication: "Dedica este día a algo más grande que tú... Tal vez a tu familia... a la humanidad... a la Tierra... al crecimiento... al amor... ... Cuando dedicamos nuestro día... se vuelve sagrado... Cada acción se convierte en una oración... cada momento en una ofrenda... ... Tu día ya no es ordinario... es una ceremonia viviente......",
+        
+        emergence: "Ahora emerge completamente en este nuevo día... Como una mariposa saliendo de su capullo... como el sol emergiendo del horizonte... ... Sientes la energía de la creación fluyendo através de ti... Eres parte del impulso creativo del universo... ... Levántate y entra al día no como alguien ordinario... sino como una expresión sagrada de la vida misma......",
+        
+        closing: "La ceremonia del nacimiento del día está completa... Has sido testigo del milagro... has recibido las bendiciones... has hecho tu ofrenda... ... Ahora ve al mundo como un ser sagrado... viviendo un día sagrado... cada momento una parte de la gran ceremonia de la vida... Que tu día sea una bendición para todos los que encuentres..."
       }
     ]
   },
@@ -748,6 +1230,68 @@ const meditationTemplates = {
         affirmations: "Alors que vous reposez ici dans une paix parfaite... sachez que... Vous êtes en sécurité... Vous êtes au chaud... Vous êtes protégé... Vous êtes aimé... ... Votre corps sait comment dormir... Il est sûr de lâcher prise maintenant... Vous méritez ce repos... Demain prendra soin de lui-même... ... En ce moment... dans cet instant... tout est exactement comme cela devrait être......",
         
         closing: "Continuez à vous reposer dans cet état paisible... Votre corps est lourd et détendu... Votre esprit est calme et silencieux... À chaque respiration, vous sombrez plus profondément dans un sommeil réparateur... ... Je vous laisse maintenant dériver vers des rêves paisibles... Dormez bien... Reposez-vous profondément... Et réveillez-vous rafraîchi quand ce sera le moment... Doux rêves......"
+      },
+      {
+        name: "Voyage au Jardin de Sommeil",
+        intro: "Bienvenue dans ce voyage vers le jardin secret du sommeil... Ce soir, nous allons voyager ensemble vers un lieu magique... un jardin où règne une paix profonde... Installez-vous confortablement et préparez-vous pour ce voyage nocturne...",
+        
+        entranceToGarden: "Imaginez que vous marchez sur un sentier doux et moussu... Vos pieds nus touchent la terre tiède... Devant vous s'ouvre une porte dorée... C'est l'entrée du jardin de sommeil... ... Poussez doucement la porte... Elle s'ouvre sans bruit... Vous entrez dans le jardin le plus paisible que vous ayez jamais vu... L'air sent la lavande et le jasmin... Une brise douce caresse votre peau......",
+        
+        magicalElements: "Ce jardin est rempli de merveilles apaisantes... Des fontaines murmurent doucement... Leurs sons créent une mélodie hypnotique... Des fleurs nocturnes brillent d'une lumière tendre... Elles éclairent votre chemin vers le repos... ... Au centre du jardin se trouve un lit de mousse dorée... Plus doux que la soie... Plus confortable que tout ce que vous avez connu... C'est votre lit de sommeil magique......",
+        
+        restingPlace: "Allongez-vous sur cette mousse dorée... Elle épouse parfaitement la forme de votre corps... Vous vous sentez porté... soutenu par la terre elle-même... ... Au-dessus de vous, les étoiles forment un dais protecteur... Leur lumière douce vous berce... Vous êtes en sécurité dans ce jardin... Rien ne peut vous déranger ici......",
+        
+        sleepSpells: "Les fleurs du jardin commencent à chanter une berceuse silencieuse... Leurs vibrations pénètrent votre corps... relâchant chaque muscle... chaque tension... ... La fontaine magique coule avec l'eau du sommeil... Chaque goutte qui tombe vous aide à sombrer plus profondément... Plus vous écoutez... plus vous vous endormez......",
+        
+        deepSleep: "Maintenant les gardiens du sommeil viennent vous visiter... Ce sont des esprits bienveillants... Ils veillent sur votre repos... Ils posent leurs mains invisibles sur votre front... bénissant votre sommeil... ... Vous dérivez maintenant vers les rêves les plus beaux... Dans ce jardin magique... votre âme se repose... se régénère... se prépare pour un nouveau jour......",
+        
+        closing: "Restez dans ce jardin de sommeil... Il est vôtre pour toute la nuit... Les esprits gardiens veillent... Les étoiles vous protègent... La mousse dorée vous porte... Dormez en paix... rêvez en beauté... Et réveillez-vous comme une fleur qui s'épanouit au matin..."
+      },
+      {
+        name: "Descente dans les Profondeurs Tranquilles",
+        intro: "Bienvenue dans cette descente méditative vers le sommeil profond... Imaginez que vous descendez lentement dans les profondeurs tranquilles de votre être... Chaque niveau plus paisible que le précédent... Préparez-vous pour ce voyage vers l'intérieur...",
+        
+        firstLevel: "Nous commençons au premier niveau de relaxation... Ici votre corps commence à se détendre... Sentez vos épaules qui tombent... vos mâchoires qui se desserrent... ... Respirez profondément et descendez plus bas... vers le deuxième niveau... Ici votre respiration devient plus lente... plus profonde... Votre cœur bat plus calmement......",
+        
+        deeperLevels: "Descendez maintenant au troisième niveau... Ici vos pensées deviennent floues... moins importantes... Elles flottent comme des bulles et disparaissent... ... Plus bas encore... au quatrième niveau... Ici règne un silence presque total... Seul le murmure de votre respiration... le battement paisible de votre cœur......",
+        
+        coreOfPeace: "Vous atteignez maintenant le cœur de la tranquillité... Le cinquième niveau... Ici tout est paix... tout est silence... tout est repos... ... C'est votre sanctuaire intérieur... Votre refuge de sommeil... Rien ne peut vous atteindre ici... Vous êtes en sécurité dans les profondeurs de votre être......",
+        
+        submersion: "Laissez-vous maintenant submergé par cette paix profonde... Comme si vous vous enfonciez dans un océan de tranquillité... Chaque vague vous porte plus loin du monde éveillé... ... Vous respirez cette paix... elle remplit vos poumons... votre sang... chaque cellule de votre corps... Vous êtes devenu la tranquillité elle-même......",
+        
+        sleepTransition: "Depuis ces profondeurs... le sommeil vient naturellement... Il monte vers vous comme une marée douce... Vous n'avez pas besoin de le chercher... il vous trouve... ... Abandonnez-vous à cette montée du sommeil... Laissez-le vous emporter... vers les rêves... vers le repos total... vers la régénération......",
+        
+        closing: "Restez dans ces profondeurs tranquilles... Elles sont votre demeure pour la nuit... Ici vous êtes en sécurité... ici vous pouvez vraiment vous reposer... Dormez dans la paix profonde... et remontez au matin... rafraîchi et renouvelé..."
+      },
+      {
+        name: "Méditation des Vagues Océaniques",
+        intro: "Bienvenue dans cette méditation apaisante inspirée de l'océan... Installez-vous confortablement dans votre lit... Fermez les yeux et imaginez que vous êtes allongé sur une belle plage au coucher du soleil... Le son des vagues douces vous guidera vers un sommeil paisible...",
+        
+        breathing: "Commencez par respirer profondément... Inspirez l'air frais de l'océan... sentez-le remplir complètement vos poumons... Expirez lentement... relâchant toute la tension de votre journée... ... Écoutez le rythme des vagues... Inspirez... et expirez... Inspirez... et expirez... Laissez votre respiration s'harmoniser avec ce rythme naturel... Chaque respiration vous emmène plus profondément dans la relaxation......",
+        
+        oceanVisualization: "Imaginez-vous allongé sur du sable chaud et doux... Le soleil se couche... peignant le ciel de belles couleurs... Vous pouvez entendre le son doux des vagues qui roulent sur le rivage... Chaque vague emporte vos soucis et votre stress... ... Sentez le sable chaud qui soutient votre corps... La brise douce de l'océan caresse votre peau... Vous êtes complètement en sécurité et en paix ici... ... Avec chaque vague qui roule... vous vous sentez plus somnolent... plus détendu... L'océan vous chante une berceuse......",
+        
+        bodyRelaxation: "Maintenant laissez les vagues se répandre sur votre corps... En commençant par vos pieds... Sentez-les devenir aussi lourds que du sable mouillé... Les vagues remontent le long de vos jambes... les rendant complètement détendues et lourdes... ... L'eau douce coule sur vos hanches et le bas de votre dos... Toute tension fond comme le sable lissé par la marée... Vos bras flottent paisiblement... lourds et détendus... ... Sentez les vagues se répandre sur votre poitrine... vos épaules... votre cou... Votre visage devient doux et paisible... complètement détendu......",
+        
+        affirmations: "Avec chaque vague... vous savez... Vous êtes en sécurité et protégé... L'océan vous tient doucement... Vous êtes dans une paix parfaite... ... Votre corps est prêt pour un sommeil profond et réparateur... Les vagues emportent tous vos soucis... Demain apportera de nouvelles possibilités... ... En ce moment... il n'y a que la paix... que le repos... que le son doux des vagues......",
+        
+        closing: "Continuez à vous reposer ici sur cette plage paisible... Les vagues continuent leur rythme doux... vous berçant vers le sommeil... ... Laissez le son de l'océan vous porter dans de beaux rêves... Dormez profondément... Reposez-vous complètement... Et réveillez-vous rafraîchi comme l'aube sur l'océan... Doux rêves......"
+      },
+      {
+        name: "Relaxation Progressive Françoise",
+        intro: "Bienvenue dans cette relaxation musculaire progressive pour le sommeil... Cette pratique vous aidera à relâcher la tension physique et à préparer votre corps pour un repos profond... Trouvez une position confortable et fermez les yeux... Nous allons systématiquement détendre chaque muscle de votre corps...",
+        
+        breathing: "Commencez par trois respirations profondes et libératrices... Inspirez lentement par le nez... Retenez un moment... Puis expirez complètement par la bouche... relâchant la journée... ... Encore une fois... respirez profondément... sentez votre corps s'expandre... Retenez... et relâchez avec une longue expiration lente... ... Une fois de plus... inspirez la paix... retenez... expirez toute tension... Maintenant laissez votre respiration devenir naturelle et facile......",
+        
+        progressiveTension: "Nous allons maintenant contracter et relâcher chaque groupe musculaire... Cela aide votre corps à apprendre la différence entre tension et relaxation... D'abord... concentrez-vous sur vos pieds... Contractez vos orteils fortement... Maintenez pendant cinq secondes... un... deux... trois... quatre... cinq...... Maintenant relâchez... Sentez la relaxation inonder vos pieds... ... Ensuite... contractez vos muscles des mollets... Serrez-les fort... Maintenez... un... deux... trois... quatre... cinq...... Et relâchez... Sentez la tension qui fond......",
+        
+        fullBodyRelease: "Maintenant contractez vos muscles des cuisses... Serrez-les aussi fort que possible... Maintenez pendant cinq... quatre... trois... deux... un... Et relâchez complètement... Sentez le soulagement... ... Serrez vos poings... Maintenez-les serrés... cinq... quatre... trois... deux... un... Relâchez et sentez vos bras devenir lourds et détendus... ... Contractez vos muscles des épaules... Montez-les vers vos oreilles... Maintenez... Et laissez-les tomber... Sentez le relâchement... ... Contractez les muscles de votre visage... Fermez fort vos yeux... Maintenez... Et relâchez complètement... Laissez votre visage devenir doux et paisible......",
+        
+        bodyIntegration: "Maintenant que chaque muscle de votre corps a été contracté et relâché... Sentez la relaxation profonde dans tout votre corps... Vos pieds sont complètement détendus... Vos jambes sont lourdes et à l'aise... Vos bras sont relâchés et confortables... Votre visage est doux et paisible... ... Remarquez comme la relaxation est différente de la tension... C'est l'état naturel de repos de votre corps... Laissez-vous sombrer plus profondément dans cette sensation paisible......",
+        
+        affirmations: "Votre corps est maintenant complètement préparé pour le sommeil... Chaque muscle est détendu et à l'aise... Vous avez relâché toute la tension de votre journée... ... Il est sûr de lâcher prise complètement maintenant... Votre corps sait comment se reposer et se réparer... Vous méritez ce sommeil paisible... ... Faites confiance à la sagesse naturelle de votre corps... Permettez-vous de dériver dans un sommeil profond et réparateur......",
+        
+        closing: "Reposez-vous ici dans cet état de relaxation profonde... Votre corps est lourd et confortable... Votre esprit est calme et silencieux... ... Laissez cette relaxation vous porter dans un sommeil paisible... Dormez profondément... Reposez-vous complètement... Et réveillez-vous en vous sentant rafraîchi et renouvelé... Bonne nuit......"
       }
     ],
 
@@ -761,6 +1305,70 @@ const meditationTemplates = {
         mindfulness: "Laissez votre attention se poser sur le moment présent... Remarquez la sensation de votre respiration qui entre et sort... Le doux mouvement de montée et descente de votre poitrine... ... Quand des pensées sur votre journée surgissent... et elles le feront... remarquez-les simplement sans jugement... Comme des nuages passant dans le ciel... Laissez-les dériver... ... Ramenez votre attention à votre respiration... C'est votre ancre... Toujours disponible... Toujours présente... ... Il n'y a rien que vous devez résoudre maintenant... Aucun problème à résoudre... Juste cette respiration... puis la suivante......",
         
         closing: "Alors que nous nous préparons à terminer cette méditation... Sachez que cette sensation de calme est toujours disponible pour vous... À seulement quelques respirations... ... Commencez à bouger vos doigts et orteils... Roulez doucement vos épaules... Et quand vous êtes prêt... ouvrez lentement les yeux... ... Prenez un moment pour remarquer comment vous vous sentez... Portez cette paix avec vous alors que vous continuez votre journée... Rappelez-vous... vous pouvez toujours revenir à ce centre calme quand vous en avez besoin... Merci d'avoir pris ce temps pour vous......"
+      },
+      {
+        name: "Libération des Tensions",
+        intro: "Bienvenue dans cette pratique de libération des tensions... Le stress s'accumule dans notre corps comme des nœuds... Aujourd'hui nous allons les dénouer un par un... Installez-vous confortablement et préparez-vous à relâcher...",
+        
+        bodyMapping: "Commençons par cartographier les tensions dans votre corps... Scannez de la tête aux pieds... Où sentez-vous de la rigidité?... Des contractions?... Des zones tendues?... ... Ne jugez pas ce que vous trouvez... notez simplement... Votre corps vous parle... il vous montre où le stress s'est installé......",
+        
+        breathingRelease: "Maintenant nous allons utiliser le souffle pour libérer... Inspirez profondément... et dirigez ce souffle vers la première zone tendue... ... Imaginez que votre souffle est comme de l'eau chaude... qui dissout la tension... qui aménage l'espace... qui apporte la détente... ... Expirez et laissez partir cette tension... Elle sort avec votre souffle......",
+        
+        progressiveRelease: "Continuons avec chaque zone tendue... Une par une... Vos épaules... respirez dedans... et relâchez... Votre mâchoire... respirez dedans... et relâchez... ... Votre dos... votre ventre... vos hanches... Chaque respiration libère... chaque expiration dissout... ... Vous sentez votre corps qui s'adoucit... qui retrouve sa fluidité naturelle......",
+        
+        energyFlow: "Maintenant sentez l'énergie qui circule librement... Là où il y avait des blocages... maintenant il y a du mouvement... de la vie... ... C'est comme si des rivières bloquées se remettaient à couler... Votre énergie vitale peut circuler... vous nourrir... vous revitaliser......",
+        
+        newBeginning: "Vous vous sentez maintenant différent... plus léger... plus libre... C'est votre nouvel état... sans les tensions habituelles... ... Souvenez-vous de cette sensation... Votre corps peut être détendu... Vous pouvez vivre sans porter le poids du stress......",
+        
+        closing: "Emportez cette libération avec vous... Quand vous sentez le stress revenir... rappelez-vous cette pratique... Votre corps sait comment se détendre... Vous avez le pouvoir de relâcher... À tout moment... en quelques respirations..."
+      },
+      {
+        name: "Refuge de Calme Intérieur",
+        intro: "Bienvenue dans la création de votre refuge intérieur... Un lieu en vous où le stress ne peut pas entrer... où règne une paix permanente... Fermons les yeux et construisons ensemble ce sanctuaire...",
+        
+        visualization: "Imaginez un lieu qui vous apaise profondément... Peut-être une cabane en montagne... une plage déserte... une forêt silencieuse... Peu importe... l'important c'est que vous vous y sentiez complètement en sécurité... ... Créez ce lieu dans votre esprit... Ajoutez tous les détails qui vous plaisent... les couleurs... les textures... les parfums... C'est VOTRE refuge......",
+        
+        protection: "Maintenant entourez ce lieu d'une barrière protectrice... Une bulle de lumière dorée... Rien de négatif ne peut traverser cette barrière... Ni stress... ni anxiété... ni peur... ... À l'intérieur de cette bulle... seuls la paix et le calme existent... C'est votre espace sacré... votre refuge personnel......",
+        
+        dwelling: "Installez-vous dans ce refuge... Sentez la paix qui y règne... Votre respiration devient naturellement plus calme... Votre cœur bat plus doucement... ... Ici vous n'avez rien à faire... rien à prouver... rien à accomplir... Vous pouvez simplement être... dans la paix complète......",
+        
+        healing: "Ce refuge a des propriétés curatives... Plus vous y restez... plus votre stress se dissout... plus votre énergie se restaure... ... Imaginez que l'air de ce lieu guérit vos blessures émotionnelles... que la terre absorbe vos soucis... que la lumière recharge votre âme......",
+        
+        memorization: "Maintenant mémorisez ce lieu... Chaque détail... chaque sensation... Créez un signal... peut-être un mot... un geste... qui vous ramènera instantanément ici... ... Ce refuge existe maintenant en vous... Il est toujours accessible... peu importe où vous êtes... peu importe ce qui se passe......",
+        
+        closing: "Quand vous quittez ce refuge... sachez que vous pouvez y retourner à tout moment... Il est à vous pour toujours... Votre havre de paix... votre antidote au stress... Portez sa sérénité avec vous dans le monde..."
+      },
+      {
+        name: "Méditation du Lâcher-Prise",
+        intro: "Bienvenue dans cette méditation du lâcher-prise... Parfois le stress vient de notre tentative de tout contrôler... Aujourd'hui nous allons apprendre l'art de lâcher prise... de faire confiance... de nous détendre dans le flux de la vie...",
+        
+        breathing: "Commençons par quelques respirations qui vous ancrent dans le moment présent... Inspirez profondément... sentez votre corps qui se pose... Expirez complètement... laissez partir les tensions... ... Avec chaque respiration... vous vous abandonnez un peu plus... vous relâchez un peu plus la résistance... Vous vous laissez porter par le souffle......",
+        
+        recognizeControl: "Prenez un moment pour identifier ce que vous essayez de contrôler aujourd'hui... Peut-être une situation... une personne... un résultat... Reconnaissez cette tendance sans jugement... C'est humain de vouloir contrôler... ... Maintenant imaginez tenir ces préoccupations comme des objets dans vos mains... Sentez leur poids... leur résistance... Comme c'est fatigant de les porter......",
+        
+        lettingGo: "Maintenant... une par une... ouvrez vos mains... Laissez ces préoccupations s'envoler... Comme des oiseaux qui retrouvent leur liberté... Comme des ballons qui montent vers le ciel... ... Vous n'abandonnez pas... vous faites confiance... Vous permettez à la vie de vous porter... de vous surprendre... de vous soutenir......",
+        
+        trust: "Dans ce lâcher-prise... découvrez la confiance... Confiance en la vie qui vous porte... Confiance en votre capacité d'adaptation... Confiance en votre résilience... ... Vous n'avez pas besoin de tout contrôler pour être en sécurité... La vie veut votre bien... Elle conspire pour vous... Laissez-la vous montrer le chemin......",
+        
+        freedom: "Sentez la liberté qui vient du lâcher-prise... Vos épaules se détendent... Votre respiration s'approfondit... Votre cœur s'ouvre... C'est cela... vivre sans résistance... ... Vous restez responsable de vos actions... mais vous lâchez l'attachement aux résultats... Vous faites de votre mieux... et vous laissez la vie faire le reste......",
+        
+        closing: "Alors que nous terminons... emportez cette sagesse avec vous... Le lâcher-prise n'est pas de l'abandon... c'est de la confiance... ... Quand le stress revient... rappelez-vous... vous pouvez lâcher prise... vous pouvez faire confiance... vous pouvez vous détendre dans le courant de la vie... Vous êtes porté... vous êtes soutenu... vous êtes libre..."
+      },
+      {
+        name: "Respiration Anti-Stress 4-7-8",
+        intro: "Bienvenue dans cette technique de respiration anti-stress... La respiration 4-7-8 est un outil puissant pour calmer instantanément votre système nerveux... Cette pratique ancestrale peut transformer votre état en quelques minutes seulement...",
+        
+        preparation: "Installez-vous confortablement... Placez le bout de votre langue contre l'arrière de vos dents du haut... Vous allez respirer par la bouche autour de votre langue... Cela peut sembler étrange au début... mais c'est normal... ... Prenez d'abord quelques respirations normales pour vous détendre... Laissez votre corps s'installer... Préparez-vous à activer votre réponse de relaxation......",
+        
+        technique: "Maintenant commençons le cycle 4-7-8... Expirez complètement par la bouche avec un son 'whoosh'... Fermez la bouche et inspirez silencieusement par le nez en comptant jusqu'à 4... un... deux... trois... quatre... ... Retenez votre souffle en comptant jusqu'à 7... un... deux... trois... quatre... cinq... six... sept... ... Expirez complètement par la bouche avec un 'whoosh' en comptant jusqu'à 8... un... deux... trois... quatre... cinq... six... sept... huit......",
+        
+        continuation: "C'est un cycle complet... Recommençons... Inspirez par le nez pour 4... un... deux... trois... quatre... Retenez pour 7... un... deux... trois... quatre... cinq... six... sept... Expirez par la bouche pour 8... un... deux... trois... quatre... cinq... six... sept... huit... ... Encore une fois... Gardez le rythme... 4... 7... 8... Sentez votre système nerveux qui se calme... votre stress qui diminue......",
+        
+        effects: "Continuez ce cycle... Remarquez comment votre corps répond... Votre rythme cardiaque ralentit... Vos muscles se détendent... Votre esprit s'apaise... ... Cette respiration envoie un message direct à votre cerveau... 'Je suis en sécurité... Je peux me détendre'... Votre système nerveux parasympathique s'active... l'antidote naturel au stress......",
+        
+        integration: "Faisons encore quelques cycles... Respirez à votre rythme... Si vous vous sentez légèrement étourdi... c'est normal... Ralentissez simplement... ... Cette technique est toujours disponible... Dans un embouteillage... avant un examen... dans une situation stressante... Quatre respirations suffisent pour changer votre état......",
+        
+        closing: "Laissez maintenant votre respiration revenir à la normale... Prenez un moment pour observer les changements dans votre corps... dans votre esprit... ... Vous venez d'apprendre un outil puissant... Utilisez-le chaque fois que le stress apparaît... 4-7-8... Votre chemin vers la paix instantanée... Vous êtes maintenant équipé pour gérer le stress... avec chaque respiration..."
       }
     ],
 
@@ -774,6 +1382,22 @@ const meditationTemplates = {
         affirmations: "Répétez mentalement ces affirmations pour la concentration... 'Mon esprit est clair et vif'... ... 'Je suis complètement présent et conscient'... ... 'Ma concentration est forte et stable'... ... 'Je me concentre avec facilité et clarté'... ... Laissez ces mots s'enfoncer profondément dans votre conscience......",
         
         closing: "Alors que nous terminons cette méditation... Sentez la clarté améliorée dans votre esprit... Votre capacité améliorée à vous concentrer... ... Commencez à approfondir votre respiration... Bougez vos doigts et orteils... Et quand vous êtes prêt... ouvrez les yeux... ... Remarquez à quel point vous vous sentez alerte et concentré... Votre esprit est clair... vif et prêt... Portez cette attention focalisée dans votre prochaine activité... Vous êtes préparé à travailler avec précision et clarté......"
+      },
+      {
+        name: "Laser Focus - Concentration Intense",
+        intro: "Bienvenue dans cette méditation pour développer un focus laser... Cette pratique va affûter votre concentration comme on aiguise une lame... Installez-vous dans une position alerte et stable... Préparez-vous à entraîner votre mental comme un athlète entraîne son corps...",
+        
+        mentalPreparation: "Commençons par préparer votre mental... Imaginez votre esprit comme un faisceau lumineux... Actuellement ce faisceau est peut-être dispersé... étalé dans toutes les directions... ... Maintenant visualisez ce faisceau qui se concentre... qui devient plus étroit... plus précis... plus puissant... C'est votre attention qui se focalise......",
+        
+        breathingFocus: "Utilisons la respiration comme notre cible de concentration... Portez toute votre attention sur la sensation de l'air qui entre par vos narines... ... Quand votre mental vagabonde... et il le fera... ramenez-le fermement mais gentiment à cette sensation... C'est l'entraînement... c'est ainsi que se développe la concentration... ... Chaque retour à la respiration renforce votre muscle de l'attention......",
+        
+        singlePointed: "Maintenant affinons encore plus votre focus... Concentrez-vous sur un seul point... Peut-être la pointe de votre nez... ou l'espace entre vos sourcils... ... Toute votre conscience converge vers ce point unique... Comme un laser... précis... concentré... puissant... ... Si des pensées apparaissent... reconnaissez-les et redirigez immédiatement votre attention vers ce point......",
+        
+        mentalClarity: "Sentez la clarté qui émerge de cette concentration... Votre esprit devient comme un ciel sans nuages... transparent... limpide... éveillé... ... Cette clarté est votre état naturel quand l'attention n'est pas dispersée... C'est votre potentiel mental optimal... Mémorisez cette sensation......",
+        
+        integration: "Maintenant élargissez doucement votre focus... Gardez cette qualité de concentration mais incluez votre environnement... ... Vous pouvez maintenir cette attention concentrée tout en étant ouvert... C'est l'art de la concentration appliquée... concentré mais flexible......",
+        
+        closing: "Ouvrez maintenant les yeux avec cette nouvelle acuité mentale... Votre attention est affûtée... votre concentration renforcée... ... Testez cette nouvelle capacité... Regardez un objet et voyez comme vous pouvez le percevoir avec précision... ... Emportez ce focus laser dans vos activités... Votre mental est maintenant un outil de précision... Utilisez-le avec intention et maîtrise..."
       }
     ],
 
@@ -2319,6 +2943,350 @@ const meditationTemplates = {
       closing: "이 새벽 명상을 마무리하면서... 이 평온함과 의도를 마음에 새기세요... 천천히 손가락과 발가락을 움직여보세요... 몸을 부드럽게 깨우세요... ... 눈을 뜨고 새로운 하루를 맞이하세요... 마음은 평온하고... 정신은 명료하며... 몸은 활력이 넘칩니다... 이 새벽의 축복을 하루 종일 기억하세요... ... 아름다운 하루를 시작하세요... 매 순간을 선물로 받아들이며... 당신의 존재 자체가 세상에 빛을 가져다줍니다......"
     }
   ]
+  },
+
+  // Arabic meditation templates
+  ar: {
+    sleep: [
+      {
+        name: "تأمل للنوم الهادئ",
+        intro: "مرحباً بك في هذا التأمل المهدئ للنوم... اجعل نفسك مريحاً في سريرك... دع جسدك ينغمس في الفراش... أغمض عينيك برفق وابدأ في ملاحظة تنفسك... لا يوجد شيء عليك فعله الآن... سوى الاسترخاء والاستماع لصوتي...",
+        
+        breathing: "لنبدأ ببعض الأنفاس المهدئة... تنفس ببطء من أنفك... عد إلى خمسة... واحد... اثنان... ثلاثة... أربعة... خمسة... احبس أنفاسك برفق... واحد... اثنان... ثلاثة... أربعة... خمسة... والآن أخرج الهواء ببطء من فمك... واحد... اثنان... ثلاثة... أربعة... خمسة... دع تنفسك يعود إلى إيقاعه الطبيعي... تشعر بمزيد من الاسترخاء مع كل نفس......",
+        
+        bodyRelaxation: "الآن سنقوم بمسح لطيف للجسم لتحرير أي توتر... ابدأ بتوجيه انتباهك إلى قدميك... اشعر بهما يصبحان ثقيلتين ودافئتين... دع هذا الثقل يرتفع عبر كاحليك... ساقيك... ركبتيك... اشعر بساقيك تغوص أعمق في السرير... ... الآن وجه انتباهك إلى وركيك وأسفل ظهرك... دعهما يلينان ويسترخيان... اشعر بمعدتك ترتفع وتنخفض مع كل نفس... صدرك يتمدد برفق... ... اجلب وعيك إلى كتفيك... دعهما يسقطان بعيداً عن أذنيك... اشعر بوزن ذراعيك... ثقيلتان ومسترخيتان... يداك ترتاحان بسلام... ... لاحظ رقبتك... دعها تطول وتلين... فكك يسترخي... وجهك يصبح هادئاً... حتى العضلات الصغيرة حول عينيك تسترخي......",
+        
+        visualization: "تخيل نفسك في مكان هادئ... ربما أنت مستلق على سحابة ناعمة... تطفو برفق عبر سماء مليئة بالنجوم... أو ربما ترتاح في حديقة جميلة... محاط برائحة اللافندر العطرة... الهواء في درجة الحرارة المثالية... تشعر بالأمان والحماية الكاملة... ... مع كل نفس، تنجرف أعمق في الاسترخاء... عقلك يصبح صامتاً وهادئاً... مثل بحيرة هادئة تعكس القمر... أي فكرة تظهر تطفو ببساطة مثل الغيوم... لا تحتاج للتمسك بأي شيء......",
+        
+        affirmations: "بينما ترتاح هنا في سلام تام... اعلم أن... أنت في أمان... أنت دافئ... أنت محمي... أنت محبوب... ... جسدك يعرف كيف ينام... من الآمن أن تدع نفسك تذهب الآن... تستحق هذا الراحة... الغد سيعتني بنفسه... ... في هذه اللحظة... في هذا الوقت... كل شيء هو بالضبط كما يجب أن يكون......",
+        
+        closing: "استمر في الراحة في هذه الحالة الهادئة... جسدك ثقيل ومسترخي... عقلك هادئ وصامت... مع كل نفس، تغوص أعمق في نوم مريح... ... أتركك الآن لتنجرف إلى أحلام هادئة... نم جيداً... استرح عميقاً... واستيقظ منتعشاً عندما يحين الوقت... أحلام حلوة......"
+      }
+    ],
+
+    stress: [
+      {
+        name: "تخفيف التوتر بالوعي",
+        intro: "مرحباً بك في هذا التأمل لتخفيف التوتر... اجلس في وضع مريح... ظهرك مستقيم لكن غير متصلب... ضع قدميك مسطحتين على الأرض... اشعر بالأرض تحتك... ضع يديك برفق على فخذيك... وعندما تكون مستعداً... أغمض عينيك أو وجه نظرك برفق إلى الأسفل...",
+        
+        breathing: "لنبدأ بأخذ بعض الأنفاس العميقة والمطهرة... تنفس من أنفك... املأ رئتيك بالكامل... وأخرج الهواء من فمك... حرر أي توتر... ... مرة أخرى... تنفس بعمق... اشعر بصدرك ومعدتك يتمددان... وأخرج الهواء... دع التوتر والقلق يذهبان... مرة أخيرة... تنفس طاقة جديدة ومهدئة... وأخرج كل ما لا يخدمك بعد الآن......",
+        
+        mindfulness: "دع انتباهك يستقر في اللحظة الحالية... لاحظ الإحساس بتنفسك الذي يدخل ويخرج... الحركة اللطيفة لصعود وهبوط صدرك... ... عندما تظهر أفكار عن يومك... وستظهر... لاحظها ببساطة دون حكم... مثل غيوم تمر في السماء... دعها تنجرف... ... أعد انتباهك إلى تنفسك... هذا هو مرساتك... متاح دائماً... حاضر دائماً... ... لا يوجد شيء عليك حله الآن... لا مشاكل لتحلها... فقط هذا النفس... ثم التالي......",
+        
+        closing: "بينما نستعد لإنهاء هذا التأمل... اعلم أن هذا الشعور بالهدوء متاح لك دائماً... على بعد أنفاس قليلة فقط... ... ابدأ في تحريك أصابع يديك وقدميك... حرك كتفيك برفق... وعندما تكون مستعداً... افتح عينيك ببطء... ... خذ لحظة لتلاحظ كيف تشعر... احمل هذا السلام معك بينما تكمل يومك... تذكر... يمكنك دائماً العودة إلى هذا المركز الهادئ عندما تحتاجه... شكراً لك على أخذ هذا الوقت لنفسك......"
+      }
+    ],
+
+    focus: [
+      {
+        name: "التركيز بالتنفس",
+        intro: "مرحباً بك في هذا التأمل للتركيز والانتباه... اجلس براحة مع عمودك الفقري مستقيماً ومتنبهاً... ضع يديك على ركبتيك أو في حضنك... خذ لحظة لوضع نية للوضوح والتركيز... عندما تكون مستعداً... أغمض عينيك برفق...",
+        
+        breathing: "ابدأ بأخذ ثلاثة أنفاس عميقة ومنشطة... تنفس من أنفك... املأ رئتيك بالهواء النقي... وأخرج الهواء بالكامل من فمك... ... مرة أخرى... استنشق بعمق... تشعر بالتنبه والحيوية... أخرج الهواء بالكامل... حرر أي ضباب ذهني... مرة أخيرة... تنفس الوضوح... أخرج التشتت... ... الآن دع تنفسك يعود إلى الطبيعي... لكن احتفظ بانتباهك على كل نفس......",
+        
+        concentration: "سنستخدم الآن تنفسك كمرساة لانتباهك... ركز على الإحساس بالهواء الذي يدخل إلى أنفك... بارد عند الاستنشاق... دافئ عند الزفير... ... احتفظ بانتباهك تماماً عند طرف أنفك... حيث تشعر بالتنفس أولاً... ... عندما يتجول عقلك... وسيتجول... لاحظ ببساطة إلى أين ذهب... ثم برفق... دون حكم... أعد انتباهك إلى التنفس... هذه هي الممارسة... ملاحظة... العودة... مراراً وتكراراً......",
+        
+        affirmations: "كرر ذهنياً هذه التأكيدات للتركيز... 'عقلي واضح وحاد'... ... 'أنا حاضر ومدرك تماماً'... ... 'تركيزي قوي ومستقر'... ... 'أركز بسهولة ووضوح'... ... دع هذه الكلمات تغوص عميقاً في وعيك......",
+        
+        closing: "بينما ننهي هذا التأمل... اشعر بالوضوح المحسن في عقلك... قدرتك المحسنة على التركيز... ... ابدأ في تعميق تنفسك... حرك أصابع يديك وقدميك... وعندما تكون مستعداً... افتح عينيك... ... لاحظ كم تشعر بالتنبه والتركيز... عقلك واضح... حاد وجاهز... احمل هذا الانتباه المركز إلى نشاطك التالي... أنت مستعد للعمل بدقة ووضوح......"
+      }
+    ],
+
+    anxiety: [
+      {
+        name: "تهدئة القلق بالتأريض",
+        intro: "مرحباً بك في هذا التأمل لتخفيف القلق... اعثر على وضع مريح حيث تشعر بالدعم والأمان... يمكنك وضع يد على قلبك وأخرى على معدتك... هذا يساعدك على الشعور بالتأريض والاتصال مع نفسك... خذ لحظة للوصول هنا بالكامل...",
+        
+        grounding: "لنبدأ بالتأريض في اللحظة الحالية... اشعر بقدميك على الأرض... أو جسدك في الكرسي... لاحظ خمسة أشياء يمكنك أن تشعر بها الآن... درجة حرارة الهواء... ملمس ملابسك... وزن جسدك... ... هذا حقيقي... هذا الآن... أنت في أمان في هذه اللحظة......",
+        
+        breathingTechnique: "الآن سنستخدم نمط تنفس مهدئ... تنفس ببطء لأربع عدات... واحد... اثنان... ثلاثة... أربعة... احبس برفق لأربعة... واحد... اثنان... ثلاثة... أربعة... وأخرج الهواء ببطء لست... واحد... اثنان... ثلاثة... أربعة... خمسة... ستة... ... هذا الزفير الأطول ينشط استجابة الاسترخاء في جسدك... مرة أخرى... داخل لأربعة... احبس لأربعة... خارج لست... ... استمر في هذا الإيقاع المهدئ... تشعر بمزيد من الهدوء مع كل دورة......",
+        
+        affirmations: "لنقدم لأنفسنا بعض التأكيدات المهدئة... 'أنا في أمان في هذه اللحظة'... ... 'هذا الشعور سيمر'... ... 'لقد نجوت من القلق من قبل وسأنجو مرة أخرى'... ... 'أنا أقوى من قلقي'... ... 'السلام هو حالتي الطبيعية'... ... 'أختار الهدوء'......",
+        
+        closing: "بينما ننهي هذا التأمل... تذكر أن لديك هذه الأدوات متاحة دائماً... تنفسك... مكانك الآمن... قوتك الداخلية... ... ابدأ في تحريك جسدك برفق... ربما تمدد قليلاً... خذ نفساً عميقاً وافتح عينيك ببطء... ... لاحظ أي تغيير في ما تشعر به... حتى التغيير الصغير مهم... كن لطيفاً مع نفسك بينما تعود إلى يومك... أنت شجاع... أنت قادر... ولست وحدك......"
+      }
+    ],
+
+    energy: [
+      {
+        name: "طاقة الشمس الذهبية",
+        intro: "مرحباً بك في هذا التأمل المنشط... اجلس أو قف في وضع يشعر بالقوة والتنبه... تخيل حبلاً يسحبك إلى أعلى من قمة رأسك... اشعر بعمودك الفقري يطول... صدرك ينفتح... أنت على وشك إيقاظ حيويتك الطبيعية...",
+        
+        breathing: "لنبدأ ببعض الأنفاس المنشطة... خذ نفساً عميقاً من أنفك... املأ جسدك كله بالطاقة الجديدة... وأخرج الهواء بقوة من فمك بصوت 'ها'... حرر أي تعب... ... مرة أخرى... تنفس الحيوية والقوة الحيوية... وأخرج 'ها'... دع الكسل يذهب... مرة أخيرة... استنشق القوة والطاقة... أخرج 'ها'... تشعر بمزيد من اليقظة......",
+        
+        energyVisualization: "تخيل شمساً ذهبية مشرقة في وسط صدرك... هذا هو مصدر طاقتك الداخلية... مع كل نفس... تصبح هذه الشمس أكثر إشراقاً وأكبر... ... اشعر بأشعتها الدافئة تنتشر في جسدك كله... إلى أعلى عبر صدرك وكتفيك... إلى أسفل عبر ذراعيك إلى أطراف أصابعك... التي تنبض بالطاقة... ... الضوء الذهبي يتدفق إلى أعلى عبر حلقك ورأسك... عقلك يصبح واضحاً ومتنبهاً... إلى أسفل عبر معدتك ووركيك... عبر ساقيك... يربطك بالأرض بينما ينشطك... ... جسدك كله يشع بقوة حيوية نابضة......",
+        
+        affirmations: "لنفعل طاقتك بتأكيدات قوية... 'أنا مملوء بطاقة نابضة'... ... 'جسدي قوي وحي'... ... 'لدي كل الطاقة التي أحتاجها ليومي'... ... 'أنا متحفز وجاهز للعمل'... ... 'الطاقة تتدفق بحرية من خلالي'... ... اشعر بهذه الكلمات تشحن كل خلية في جسدك......",
+        
+        closing: "بينما ننهي هذا التأمل المنشط... اشعر بالحيوية تجري في عروقك... أنت مستيقظ... متنبه ومشحون بالكامل... ... ابدأ في تحريك جسدك كما يشعر جيداً... ربما مدد ذراعيك فوق رأسك... حرك رقبتك... اقفز برفق على أطراف أصابع قدميك... ... عندما تكون مستعداً... افتح عينيك على نطاق واسع... استقبل العالم بطاقة جديدة... أنت جاهز لاحتضان يومك بحماس وقوة... اذهب ودع نورك يضيء......"
+      }
+    ],
+
+    mindfulness: [
+      {
+        name: "وعي اللحظة الحالية",
+        intro: "مرحباً بك في هذا التأمل للوعي الكامل... اعثر على وضع مريح حيث يمكنك الجلوس بيقظة وسهولة... هذه الممارسة تتعلق بتنمية الوعي للحظة الحالية... لا يوجد مكان للذهاب إليه ولا شيء لتحقيقه... فقط كن هنا الآن...",
+        
+        breathing: "لنبدأ بترسيخ أنفسنا في التنفس... لاحظ إيقاع تنفسك الطبيعي... لا تغيره... راقب فقط... ... اشعر بالهواء يدخل عبر أنفك... التوقف الخفيف... والإطلاق اللطيف... ... تنفسك يتكشف دائماً في اللحظة الحالية... استخدمه كمرساتك إلى الهنا والآن... عندما يتجول عقلك... عد ببساطة إلى التنفس... دون حكم... مجرد عودة لطيفة......",
+        
+        bodyAwareness: "الآن وسع وعيك ليشمل جسدك... لاحظ كيف تجلس... اشعر بنقاط التلامس حيث يلتقي جسدك بالسطح... ... امسح جسدك بفضول لطيف... ما الأحاسيس الموجودة الآن؟... ربما دفء... برودة... توتر... استرخاء... ... لاحظ ببساطة ما هو هناك... دون محاولة تغيير أي شيء... جسدك هو بوابة إلى الحضور......",
+        
+        thoughtAwareness: "بينما نستمر... لاحظ أي أفكار تظهر... بدلاً من أن تنجر إلى القصة... انظر إن كان بإمكانك مراقبة الأفكار كغيوم تمر في سماء عقلك... ... بعض الأفكار خفيفة وضبابية... أخرى قد تكون غيوم عاصفة ثقيلة... كلها مرحب بها... كلها ستمر... ... أنت لست أفكارك... أنت المساحة الواعية التي تظهر وتختفي فيها الأفكار......",
+        
+        presentMoment: "في هذه اللحظة بالذات... في هذه اللحظة الدقيقة... كل شيء هو بالضبط كما هو... هناك سلام عميق في قبول ما هو موجود... دون مقاومة... ... استمع إلى الأصوات من حولك... لاحظ أنها تظهر جديدة في كل لحظة... ... اشعر بالحيوية في جسدك... طاقة كونك هنا... الآن... ... هذه اللحظة هي اللحظة الوحيدة الموجودة... وهي تتجدد باستمرار......",
+        
+        closing: "بينما نختتم هذه الممارسة... خذ لحظة لتقدر أنك أعطيت نفسك هدية الحضور... ... لاحظ كيف تشعر بعد قضاء وقت في الوعي اليقظ... ... عندما تكون مستعداً... افتح عينيك ببطء إذا كانتا مغمضتين... ... انظر إن كان بإمكانك حمل هذه النوعية من الحضور معك... في نشاطك التالي... وطوال يومك... اللحظة الحالية متاحة دائماً... تنتظر دائماً عودتك......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "ممارسة المحبة اللطيفة",
+        intro: "مرحباً بك في هذا التأمل للرحمة... استقر في وضع مريح وضع يداً على قلبك... سننمي اللطف المحب... أولاً لنفسك... ثم نمدده للآخرين... هذه ممارسة لفتح القلب...",
+        
+        selfCompassion: "ابدأ بجلب نفسك إلى الذهن... تخيل نفسك كما أنت الآن... انظر إلى نفسك بعيون لطيفة... كما ستنظر إلى صديق عزيز... ... قدم لنفسك بصمت هذه الكلمات من المحبة اللطيفة... 'عسى أن أكون سعيداً... عسى أن أكون بصحة جيدة... عسى أن أكون في سلام... عسى أن أعيش بسهولة...' ... اشعر بهذه الأمنيات في قلبك... لاحظ أي مقاومة... وكن لطيفاً مع ذلك أيضاً... تستحق الحب... خاصة من نفسك......",
+        
+        lovedOne: "الآن اجلب إلى الذهن شخصاً تحبه بسهولة... فرد من العائلة... صديق مقرب... حيوان أليف محبوب... انظر إلى وجهه... اشعر بمودتك الطبيعية له... ... مدد نفس الأمنيات المحبة... 'عسى أن تكون سعيداً... عسى أن تكون بصحة جيدة... عسى أن تكون في سلام... عسى أن تعيش بسهولة...' ... اشعر بالدفء في قلبك بينما ترسل له الحب... لاحظ كم هو جيد أن تتمنى الخير لشخص ما......",
+        
+        neutral: "الآن فكر في شخص محايد... ربما كاشير تراه بانتظام... جار بالكاد تعرفه... شخص ليس صديقاً ولا عدواً... ... مارس مد نفس اللطف... 'عسى أن تكون سعيداً... عسى أن تكون بصحة جيدة... عسى أن تكون في سلام... عسى أن تعيش بسهولة...' ... هذا الشخص يريد أن يكون سعيداً مثلك... يواجه الصراعات مثلك... انظر إن كان بإمكانك الاتصال بإنسانيتكما المشتركة......",
+        
+        difficult: "إذا كنت تشعر بالاستعداد... اجلب إلى الذهن شخصاً لديك صعوبات معه... ابدأ بشخص صعب قليلاً فقط... ليس الشخص الأصعب في حياتك... ... قد يبدو هذا صعباً... اذهب ببطء... 'عسى أن تكون سعيداً... عسى أن تكون بصحة جيدة... عسى أن تكون في سلام... عسى أن تعيش بسهولة...' ... تذكر... سعادتهم لا تأخذ شيئاً من سعادتك... الأشخاص المجروحون غالباً ما يجرحون الآخرين... هل يمكنك أن تجد رحمة لألمهم؟......",
+        
+        universal: "أخيراً... وسع وعيك ليشمل كل الكائنات في كل مكان... انظر إلى الأرض من الفضاء... كل المخلوقات... كل البشر... يكافحون ويبحثون عن السعادة... ... بقلب مفتوح... قدم هذا اللطف العالمي... 'عسى أن تكون كل الكائنات سعيدة... عسى أن تكون كل الكائنات بصحة جيدة... عسى أن تكون كل الكائنات في سلام... عسى أن تعيش كل الكائنات بسهولة...' ... اشعر بنفسك كجزء من هذه الشبكة الواسعة من الاتصال... تعطي وتتلقى الحب......",
+        
+        closing: "ضع يدك على قلبك مرة أخرى... اشعر بالدفء هناك... الحب الذي أنتجته... هذا اللطف يعيش فيك دائماً... ... تذكر... الرحمة الحقيقية تشملك... كن لطيفاً مع نفسك بينما تمر بيومك... ... عندما تلتقي بالآخرين... انظر إن كان بإمكانك تذكر هذا الاتصال القلبي... كل شخص يفعل أفضل ما يمكنه بما لديه... كل شخص يستحق الحب... بدءاً منك......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "ممارسة المشي الواعي",
+        intro: "مرحباً بك في هذا التأمل للمشي... يمكنك فعل هذه الممارسة في أي مكان... داخل البيت في مساحة هادئة... أو خارجاً في الطبيعة... ابدأ بالوقوف ساكناً... اشعر بقدميك على الأرض... سنحول المشي إلى تأمل...",
+        
+        preparation: "ابدأ بالوقوف مع قدميك منفصلتين بعرض الوركين... اشعر بالتلامس بين قدميك والأرض... لاحظ وضعيتك... عمودك الفقري مستقيم لكن غير متصلب... كتفاك مسترخيان... ذراعاك متدليان طبيعياً على جانبيك... ... خذ بعض الأنفاس العميقة... وصل بالكامل إلى جسدك... إلى هذه اللحظة... ضع نية للمشي بوعي... كل خطوة تأمل......",
+        
+        firstSteps: "ابدأ برفع قدمك اليمنى ببطء... لاحظ انتقال الوزن إلى قدمك اليسرى... اشعر بالرفع... الحركة... وضع قدمك... ... خذ كل خطوة بقصد... حوالي نصف سرعة مشيك العادية... لا يوجد وجهة... لا عجلة... فقط الفعل البسيط للمشي... ... لاحظ كيف يتوازن جسدك طبيعياً... ينسق... يتحرك عبر المساحة... تعجب من هذه المعجزة اليومية......",
+        
+        breathAndSteps: "الآن نسق تنفسك مع خطواتك... ربما خطوتان عند الاستنشاق... خطوتان عند الزفير... اعثر على إيقاع يبدو طبيعياً... ... إذا تجول عقلك إلى وجهتك أو قائمة مهامك... أعد الانتباه برفق إلى الإحساس الجسدي للمشي... إحساس قدميك تلمس الأرض... ترفع... تتحرك للأمام......",
+        
+        awareness: "وسع وعيك ليشمل بيئتك... إذا كنت بالخارج... لاحظ درجة حرارة الهواء... أي نسيم... أصوات الطبيعة... الطيور... أوراق تحتك... ... إذا كنت بالداخل... كن واعياً للمساحة حولك... الإضاءة... جودة الهواء... ... ابق متصلاً بإحساس المشي بينما تستوعب بيئتك... المشي كرقصة بين الوعي الداخلي والحضور الخارجي......",
+        
+        gratitude: "بينما تستمر في المشي... اجلب التقدير لهذا الجسد المذهل... ساقاك اللتان تحملانك... قدماك اللتان تدعمانك... توازنك الذي يبقيك مستقراً... ... اشعر بالامتنان لقدرتك على التحرك عبر العالم... ليس كل شخص لديه هذه الهدية... كل خطوة امتياز... ... لاحظ كيف يخلق تأمل المشي ملاذاً متحركاً... السلام في الحركة......",
+        
+        closing: "بينما ننهي ممارسة المشي هذه... عد إلى الوقوف... اشعر بقدميك بثبات على الأرض... ... خذ لحظة لتقدر هذه الممارسة البسيطة لكن العميقة... يمكنك جلب هذا الوعي إلى أي مشي... تحويل خطوات عادية إلى لحظات تأمل... ... احمل هذا الحضور الواعي معك... في نشاطك التالي... كل خطوة يمكن أن تكون عودة إلى اللحظة الحالية......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "ممارسة التنفس الكامل",
+        intro: "مرحباً بك في هذا التأمل للتنفس... اعثر على وضع مريح حيث يمكن أن يكون عمودك الفقري مستقيماً... ضع يداً على صدرك وأخرى على معدتك... سنستكشف التنفس الكامل والواعي...",
+        
+        naturalBreath: "ابدأ بمراقبة تنفسك الطبيعي... دون تغييره... فقط لاحظه... ... اشعر بالحركة تحت يديك... أي يد تتحرك أكثر؟... معظم الناس يتنفسون بشكل أساسي بالصدر... لكننا سنتعلم التنفس بالجسم كله......",
+        
+        deepBreathing: "الآن ابدأ بتعميق التنفس برفق... تنفس ببطء من أنفك... اسمح للهواء بملء معدتك أولاً... ... اشعر بيدك على المعدة ترتفع... حجابك الحاجز يتمدد... ... استمر في ملء صدرك... اشعر بيدك على الصدر ترتفع... أضلاعك تتمدد... ... اعمل وقفة لطيفة في قمة الاستنشاق... احتفظ بكل هذه الحيوية... ... الآن أخرج الهواء ببطء... اسمح للهواء بالخروج برفق من صدرك... ثم من معدتك... ... اشعر بجسدك يسترخي مع كل زفير......",
+        
+        breathCounting: "لنجد الآن إيقاعاً... استنشق لأربع عدات... واحد... اثنان... ثلاثة... أربعة... ... اعمل وقفة لطيفة لعدتين... واحد... اثنان... ... أخرج الهواء لست عدات... واحد... اثنان... ثلاثة... أربعة... خمسة... ستة... ... هذا الزفير الأطول ينشط استجابة الاسترخاء في جسدك... ... استمر في هذا الإيقاع... 4 عدات داخل... 2 وقفة... 6 عدات خارج... اعثر على إيقاعك المريح......",
+        
+        breathAwareness: "بينما تستمر في هذا التنفس الإيقاعي... لاحظ الأحاسيس الدقيقة... الهواء البارد يدخل... الهواء الدافئ يخرج... ... الوقفة الطبيعية بين الاستنشاق والزفير... السكون... السلام... ... اشعر بكيف يهدئ هذا التنفس الواعي جهازك العصبي... يهدئ عقلك... يسترخي جسدك... ... كل نفس هو هدية... فرصة للعودة إلى الحاضر......",
+        
+        affirmations: "مع كل استنشاق... تنفس هذه الصفات... 'أتنفس السلام'... ... 'أتنفس الوضوح'... ... 'أتنفس الحيوية'... ... مع كل زفير... اترك... 'أزفر التوتر'... ... 'أزفر القلق'... ... 'أزفر كل ما لا يخدمني بعد الآن'...",
+        
+        closing: "بينما ننهي ممارسة التنفس هذه... دع تنفسك يعود إلى الطبيعي... لكن احتفظ بهذا الوعي للنفس... ... لاحظ كيف تشعر... أكثر هدوءاً... أكثر تركيزاً... أكثر حيوية... ... تذكر... تنفسك معك دائماً... أداة ثابتة للسلام والحضور... ... كلما شعرت بالتوتر أو التشتت... يمكنك العودة إلى هذا التنفس الواعي... تنفسك هو بيتك......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "ممارسة الاستيقاظ الفجري",
+        intro: "مرحباً بك في هذا التأمل الصباحي... بينما تبدأ يومك... خذ هذا الوقت للاستيقاظ برفق... ليس فقط جسدك... لكن عقلك وقلبك أيضاً... كل صباح هو ولادة جديدة... فرصة للبدء من جديد...",
+        
+        awakening: "ابدأ بتمديد جسدك برفق... ارفع ذراعيك فوق رأسك... مدد نفسك مثل قط في الشمس... ... تثاءب إذا شعرت بالرغبة... دع جسدك يستيقظ طبيعياً... ... خذ بعض الأنفاس العميقة... اشعر بهواء الصباح النقي يملأ رئتيك... ... جسدك كان له الليل كله للراحة والإصلاح... الآن حان الوقت للاستيقاظ بقصد......",
+        
+        breathing: "لنؤسس إيقاع تنفس منشط... استنشق من أنفك لأربع عدات... تشعر بالتنبه والحيوية... ... أخرج الهواء من فمك لأربع عدات... اترك كل النعاس... ... مرة أخرى... استنشق الحيوية والطاقة... أخرج التعب والضباب... ... اشعر بجسدك يستيقظ مع كل نفس... عقلك يصبح أوضح... أكثر تركيزاً......",
+        
+        intention: "الآن لنضع نية لهذا اليوم... ماذا تريد أن تخلق اليوم؟... كيف تريد أن تشعر؟... ... ربما نيتك هي 'أريد أن أكون حاضراً'... أو 'أريد أن أكون لطيفاً'... أو 'أريد أن أكون شجاعاً'... ... اختر نية تتردد مع قلبك... اشعر بها تستقر في كيانك... ... هذه النية ستكون نجمك المرشد طوال اليوم......",
+        
+        gratitude: "لنأخذ لحظة للامتنان الصباحي... فكر في ثلاثة أشياء أنت ممتن لها... ... ربما لهذا اليوم الجديد... لصحتك... للأشخاص الذين تحبهم... للفرص التي لديك... ... اشعر بهذا الامتنان ينتشر في صدرك... يملؤك بالدفء... ... الامتنان مثل الشمس... يضيء كل ما يلمسه... ... دع هذا التقدير يملأ كل خلية في جسدك... يعدك لرؤية الجمال في اليوم الذي ينتظرك......",
+        
+        affirmations: "لنملأ عقلك بتأكيدات صباحية إيجابية... 'أرحب بهذا اليوم الجديد بفرح'... ... 'لدي كل ما أحتاجه في داخلي'... ... 'هذا اليوم مليء بالإمكانيات'... ... 'أنا مستعد لاحتضان ما يأتي'... ... 'أشع بالسلام والإيجابية'... ... اشعر بهذه الكلمات ترسخ عميقاً في وعيك......",
+        
+        closing: "بينما ننهي هذا التأمل الصباحي... خذ لحظة لتقدر هذه الهدية التي أعطيتها لنفسك... ... اشعر بالاستعداد والنشاط ليومك... متمركز في نيتك... مملوء بالامتنان... ... عندما تنهض... احمل هذه الطاقة الواعية معك... ... تذكر... كل صباح فرصة جديدة... صفحة فارغة... ماذا ستفعل بهذا اليوم الجميل؟... ... انهض... أشرق... ودع نورك يلمس العالم......"
+      }
+    ]
+  },
+
+  // Hindi meditation templates
+  hi: {
+    sleep: [
+      {
+        name: "शांत नींद के लिए ध्यान",
+        intro: "इस शांतिदायक नींद के ध्यान में आपका स्वागत है... अपने बिस्तर पर आराम से लेट जाएं... अपने शरीर को गद्दे में धंसने दें... धीरे से अपनी आंखें बंद करें और अपनी सांस को महसूस करना शुरू करें... अब आपको कुछ भी करने की जरूरत नहीं... बस आराम करें और मेरी आवाज सुनें...",
+        
+        breathing: "आइए कुछ शांतिदायक सांसों से शुरुआत करते हैं... धीरे से नाक से सांस लें... पांच तक गिनते हुए... एक... दो... तीन... चार... पांच... धीरे से सांस रोकें... एक... दो... तीन... चार... पांच... और अब धीरे से मुंह से सांस छोड़ें... एक... दो... तीन... चार... पांच... अपनी सांस को उसकी प्राकृतिक लय पर वापस आने दें... हर सांस के साथ आप अधिक आराम महसूस कर रहे हैं......",
+        
+        bodyRelaxation: "अब हम तनाव को मुक्त करने के लिए एक कोमल शरीर स्कैन करेंगे... अपना ध्यान अपने पैरों पर लगाएं... उन्हें भारी और गर्म होते हुए महसूस करें... इस भारीपन को अपनी एड़ियों... पिंडलियों... घुटनों से ऊपर जाने दें... अपने पैरों को बिस्तर में और गहरे धंसते हुए महसूस करें... ... अब अपना ध्यान अपने कूल्हों और कमर के निचले हिस्से पर ले जाएं... उन्हें नरम होकर आराम करने दें... अपने पेट को हर सांस के साथ ऊपर-नीचे होते हुए महसूस करें... आपकी छाती धीरे से फैल रही है... ... अपनी चेतना को अपने कंधों पर ले आएं... उन्हें कानों से दूर गिरने दें... अपनी बाहों का भार महसूस करें... भारी और आराम से... आपके हाथ शांति से आराम कर रहे हैं... ... अपनी गर्दन को महसूस करें... इसे लंबा और नरम होने दें... आपका जबड़ा शिथिल हो जाता है... आपका चेहरा शांत हो जाता है... आपकी आंखों के चारों ओर की छोटी मांसपेशियां भी छूट जाती हैं......",
+        
+        visualization: "अपने आप को एक शांत जगह पर कल्पना करें... शायद आप एक मुलायम बादल पर लेटे हुए हैं... तारों से भरे आसमान में धीरे से तैर रहे हैं... या शायद आप एक सुंदर बगीचे में आराम कर रहे हैं... लैवेंडर की मुलायम खुशबू से घिरे हुए... हवा एकदम सही तापमान पर है... आप पूर्णतः सुरक्षित और संरक्षित महसूस कर रहे हैं... ... हर सांस के साथ, आप आराम में और गहरे उतरते जा रहे हैं... आपका मन मौन और शांत हो रहा है... चांद को दर्शाती शांत झील की तरह... जो भी विचार आते हैं वे बादलों की तरह तैरते रहते हैं... आपको किसी चीज से चिपके रहने की जरूरत नहीं......",
+        
+        affirmations: "जब आप यहां पूर्ण शांति में आराम कर रहे हैं... जान लें कि... आप सुरक्षित हैं... आप गर्म हैं... आप संरक्षित हैं... आप प्रेम किए गए हैं... ... आपका शरीर जानता है कि कैसे सोना है... अब छोड़ देना सुरक्षित है... आप इस आराम के हकदार हैं... कल अपना ख्याल रखेगा... ... इस क्षण में... इस वर्तमान में... सब कुछ वैसा ही है जैसा होना चाहिए......",
+        
+        closing: "इस शांतिपूर्ण अवस्था में आराम करते रहें... आपका शरीर भारी और शिथिल है... आपका मन शांत और मौन है... हर सांस के साथ, आप आरामदायक नींद में और गहरे उतरते जा रहे हैं... ... मैं अब आपको शांतिपूर्ण सपनों में बहने के लिए छोड़ता हूं... अच्छी नींद लें... गहरा आराम करें... और जब समय हो तो तरोताजा होकर जागें... मीठे सपने......"
+      }
+    ],
+
+    stress: [
+      {
+        name: "तनाव मुक्ति के लिए सचेतता",
+        intro: "तनाव निवारण के इस ध्यान में आपका स्वागत है... आरामदायक बैठने की स्थिति खोजें... आपकी पीठ सीधी हो लेकिन कड़ी नहीं... अपने पैरों को जमीन पर सपाट रखें... अपने नीचे जमीन को महसूस करें... अपने हाथों को धीरे से अपनी जांघों पर रखें... और जब आप तैयार हों... अपनी आंखें बंद करें या धीरे से नीचे की ओर देखें...",
+        
+        breathing: "आइए कुछ गहरी शुद्धीकरण सांसों से शुरुआत करते हैं... नाक से सांस लें... अपने फेफड़ों को पूरी तरह भरते हुए... और मुंह से सांस छोड़ें... किसी भी तनाव को मुक्त करते हुए... ... फिर से... गहरी सांस लें... अपनी छाती और पेट को फैलते हुए महसूस करें... और सांस छोड़ें... तनाव और चिंता को जाने दें... एक बार और... ताजा शांतिदायक ऊर्जा में सांस लें... और वह सब कुछ छोड़ें जो अब आपकी सेवा नहीं करता......",
+        
+        bodyAwareness: "अब अपना ध्यान अपने शरीर पर ले आएं... ध्यान दें कि आप कहां तनाव रखे हुए हैं... शायद आपके कंधों में... जबड़े में... पेट में... ... कुछ भी बदलने की कोशिश के बिना... बस इन संवेदनाओं को महसूस करें... उन्हें दयालुता से स्वीकार करें... ... अब कल्पना करें कि आप इन तनावग्रस्त क्षेत्रों में सांस ले रहे हैं... हर सांस के साथ... तनाव में सांस और स्थान भेजते हुए... हर छोड़ने के साथ... कठोरता को नरम होते हुए महसूस करें... ... इस कोमल सांस को जारी रखें... अंदर... स्थान बनाते हुए... बाहर... तनाव छोड़ते हुए......",
+        
+        mindfulness: "अपने ध्यान को वर्तमान क्षण में टिकने दें... अपनी सांस के अंदर-बाहर आने की संवेदना को महसूस करें... अपनी छाती की कोमल उठक-बैठक... ... जब आपके दिन के बारे में विचार आएं... और वे आएंगे... उन्हें बिना जजमेंट के देखें... आसमान में बहते बादलों की तरह... उन्हें बहने दें... ... अपने ध्यान को अपनी सांस पर वापस ले आएं... यह आपका लंगर है... हमेशा उपलब्ध... हमेशा मौजूद... ... अभी आपको कुछ भी समझने की जरूरत नहीं... कोई समस्या हल करने की जरूरत नहीं... बस यह सांस... फिर अगली......",
+        
+        closing: "जैसे ही हम इस ध्यान को समाप्त करने की तैयारी करते हैं... जान लें कि शांति की यह भावना हमेशा आपके लिए उपलब्ध है... केवल कुछ सांसों की दूरी पर... ... अपनी उंगलियों और पैर की उंगलियों को हिलाना शुरू करें... धीरे से अपने कंधों को घुमाएं... और जब आप तैयार हों... धीरे से अपनी आंखें खोलें... ... एक पल लेकर देखें कि आप कैसा महसूस कर रहे हैं... इस शांति को अपने साथ ले जाएं जब आप अपना दिन जारी रखें... याद रखें... जब भी आपको जरूरत हो आप हमेशा इस शांत केंद्र पर वापस आ सकते हैं... अपने लिए यह समय निकालने के लिए धन्यवाद......"
+      }
+    ],
+
+    focus: [
+      {
+        name: "सांस के सहारे एकाग्रता",
+        intro: "एकाग्रता और फोकस के इस ध्यान में आपका स्वागत है... अपनी रीढ़ सीधी और सचेत रखकर आराम से बैठें... अपने हाथों को घुटनों पर या गोद में रखें... स्पष्टता और फोकस का इरादा बनाने के लिए एक पल लें... जब आप तैयार हों... धीरे से अपनी आंखें बंद करें...",
+        
+        breathing: "तीन गहरी ऊर्जादायक सांसों से शुरुआत करें... नाक से सांस लें... अपने फेफड़ों को ताजी हवा से भरते हुए... और मुंह से पूरी तरह सांस छोड़ें... ... फिर से... गहरी सांस लें... सचेत और जीवंत महसूस करते हुए... पूरी तरह सांस छोड़ें... किसी भी मानसिक धुंध को छोड़ते हुए... एक बार और... स्पष्टता में सांस लें... भटकाव को छोड़ें... ... अब अपनी सांस को सामान्य होने दें... लेकिन हर सांस पर अपना ध्यान रखें......",
+        
+        concentration: "अब हम आपकी सांस को आपके ध्यान के लंगर के रूप में उपयोग करेंगे... अपनी नाक में हवा के प्रवेश की संवेदना पर ध्यान दें... सांस लेते समय ठंडी... छोड़ते समय गर्म... ... अपना ध्यान नाक की नोक पर रखें... जहां आप पहली बार सांस महसूस करते हैं... ... जब आपका मन भटकता है... और वह भटकेगा... बस देखें कि वह कहां गया... फिर धीरे से... बिना जजमेंट के... अपना ध्यान सांस पर वापस ले आएं... यही अभ्यास है... देखना... वापस आना... बार-बार......",
+        
+        affirmations: "फोकस के लिए इन अभिपुष्टियों को मानसिक रूप से दोहराएं... 'मेरा मन स्पष्ट और तेज है'... ... 'मैं पूर्णतः उपस्थित और सचेत हूं'... ... 'मेरी एकाग्रता मजबूत और स्थिर है'... ... 'मैं आसानी और स्पष्टता से फोकस करता हूं'... ... इन शब्दों को अपनी चेतना में गहरे उतरने दें......",
+        
+        closing: "जैसे ही हम इस ध्यान को समाप्त करते हैं... अपने मन में बेहतर स्पष्टता महसूस करें... फोकस करने की अपनी बेहतर क्षमता... ... अपनी सांस को गहरा करना शुरू करें... अपनी उंगलियों और पैर की उंगलियों को हिलाएं... और जब आप तैयार हों... अपनी आंखें खोलें... ... देखें कि आप कितने सचेत और फोकस्ड महसूस कर रहे हैं... आपका मन स्पष्ट... तेज और तैयार है... इस केंद्रित ध्यान को अपनी अगली गतिविधि में ले जाएं... आप सटीकता और स्पष्टता के साथ काम करने के लिए तैयार हैं......"
+      }
+    ],
+
+    anxiety: [
+      {
+        name: "चिंता निवारण के लिए भूमिकरण",
+        intro: "चिंता निवारण के इस ध्यान में आपका स्वागत है... ऐसी आरामदायक स्थिति खोजें जहां आप समर्थित और सुरक्षित महसूस करें... आप एक हाथ अपने दिल पर और दूसरा अपने पेट पर रख सकते हैं... यह आपको भूमिकृत और अपने साथ जुड़ा हुआ महसूस करने में मदद करता है... पूरी तरह यहां पहुंचने के लिए एक पल लें...",
+        
+        grounding: "आइए वर्तमान क्षण में खुद को भूमिकृत करने से शुरुआत करते हैं... अपने पैरों को जमीन पर महसूस करें... या कुर्सी में अपने शरीर को... पांच चीजों पर ध्यान दें जिन्हें आप अभी महसूस कर सकते हैं... हवा का तापमान... अपने कपड़ों की बनावट... अपने शरीर का भार... ... यह वास्तविक है... यह अभी है... आप इस क्षण में सुरक्षित हैं......",
+        
+        breathingTechnique: "अब हम एक शांतिदायक सांस पैटर्न का उपयोग करेंगे... चार गिनती के लिए धीरे से सांस लें... एक... दो... तीन... चार... चार के लिए धीरे से रोकें... एक... दो... तीन... चार... और छह के लिए धीरे से सांस छोड़ें... एक... दो... तीन... चार... पांच... छह... ... यह लंबी सांस छोड़ना आपके शरीर की विश्राम प्रतिक्रिया को सक्रिय करता है... फिर से... चार के लिए अंदर... चार के लिए रोकें... छह के लिए बाहर... ... इस शांतिदायक लय को जारी रखें... हर चक्र के साथ अधिक शांत महसूस करते हुए......",
+        
+        affirmations: "आइए अपने आप को कुछ शांतिदायक अभिपुष्टियां दें... 'मैं इस क्षण में सुरक्षित हूं'... ... 'यह भावना बीत जाएगी'... ... 'मैंने पहले भी चिंता से निपटा है और फिर से निपटूंगा'... ... 'मैं अपनी चिंता से अधिक मजबूत हूं'... ... 'शांति मेरी प्राकृतिक अवस्था है'... ... 'मैं शांति चुनता हूं'......",
+        
+        closing: "जैसे ही हम इस ध्यान को समाप्त करते हैं... याद रखें कि आपके पास ये उपकरण हमेशा उपलब्ध हैं... आपकी सांस... आपकी सुरक्षित जगह... आपकी आंतरिक शक्ति... ... अपने शरीर को धीरे से हिलाना शुरू करें... शायद थोड़ा खिंचाव करें... एक गहरी सांस लें और धीरे से अपनी आंखें खोलें... ... आप जो महसूस कर रहे हैं उसमें किसी भी बदलाव को देखें... छोटा बदलाव भी महत्वपूर्ण है... अपने दिन में वापस जाते समय अपने साथ कोमल रहें... आप साहसी हैं... आप सक्षम हैं... और आप अकेले नहीं हैं......"
+      }
+    ],
+
+    energy: [
+      {
+        name: "स्वर्णिम सूर्य ऊर्जा",
+        intro: "इस ऊर्जादायक ध्यान में आपका स्वागत है... ऐसी स्थिति में बैठें या खड़े हों जो मजबूत और सचेत लगे... कल्पना करें कि एक रस्सी आपको आपके सिर के मुकुट से ऊपर खींच रही है... अपनी रीढ़ को लंबा होते हुए महसूस करें... अपनी छाती खुलते हुए... आप अपनी प्राकृतिक जीवन शक्ति जगाने वाले हैं...",
+        
+        breathing: "आइए कुछ ऊर्जादायक सांसों से शुरुआत करते हैं... नाक से गहरी सांस लें... अपने पूरे शरीर को ताजी ऊर्जा से भरते हुए... और 'हा' की आवाज के साथ मुंह से जोर से सांस छोड़ें... किसी भी थकान को मुक्त करते हुए... ... फिर से... जीवन शक्ति और प्राण शक्ति में सांस लें... और 'हा' छोड़ें... आलस्य को जाने देते हुए... एक बार और... शक्ति और ऊर्जा में सांस लें... 'हा' छोड़ें... अधिक जागृत महसूस करते हुए......",
+        
+        energyVisualization: "अपनी छाती के केंद्र में एक चमकदार स्वर्णिम सूर्य की कल्पना करें... यह आपका आंतरिक ऊर्जा स्रोत है... हर सांस के साथ... यह सूर्य अधिक चमकदार और बड़ा होता जाता है... ... इसकी गर्म किरणों को अपने पूरे शरीर में फैलते हुए महसूस करें... ऊपर की ओर आपकी छाती और कंधों से होकर... नीचे की ओर आपकी बाहों से होकर उंगलियों के सिरों तक... जो ऊर्जा से सिहर रहे हैं... ... स्वर्णिम प्रकाश ऊपर की ओर आपके गले और सिर से होकर बहता है... आपका मन स्पष्ट और सचेत हो जाता है... नीचे की ओर आपके पेट और कूल्हों से होकर... आपके पैरों से होकर... आपको धरती से जोड़ता हुआ जबकि ऊर्जा देता है... ... आपका पूरा शरीर जीवंत जीवन शक्ति से चमक रहा है......",
+        
+        affirmations: "आइए शक्तिशाली अभिपुष्टियों से अपनी ऊर्जा को सक्रिय करते हैं... 'मैं जीवंत ऊर्जा से भरा हूं'... ... 'मेरा शरीर मजबूत और जीवित है'... ... 'मेरे पास अपने दिन के लिए आवश्यक सभी ऊर्जा है'... ... 'मैं प्रेरित हूं और कार्य के लिए तैयार हूं'... ... 'ऊर्जा मेरे माध्यम से स्वतंत्र रूप से बहती है'... ... इन शब्दों को अपने शरीर की हर कोशिका को चार्ज करते हुए महसूस करें......",
+        
+        closing: "जैसे ही हम इस ऊर्जादायक ध्यान को समाप्त करते हैं... अपनी नसों में बहती जीवन शक्ति को महसूस करें... आप जागृत हैं... सचेत हैं और पूरी तरह चार्ज हैं... ... अपने शरीर को हिलाना शुरू करें जैसा अच्छा लगे... शायद अपनी बाहों को सिर के ऊपर तक फैलाएं... अपनी गर्दन घुमाएं... अपने पैर की उंगलियों पर धीरे से उछलें... ... जब आप तैयार हों... अपनी आंखें चौड़ी करके खोलें... ताजी ऊर्जा के साथ दुनिया को अपनाएं... आप उत्साह और शक्ति के साथ अपने दिन को अपनाने के लिए तैयार हैं... आगे बढ़ें और अपनी रोशनी चमकने दें......"
+      }
+    ],
+
+    mindfulness: [
+      {
+        name: "वर्तमान क्षण की जागरूकता",
+        intro: "इस सचेतता ध्यान में आपका स्वागत है... एक आरामदायक स्थिति खोजें जहां आप सतर्कता और आसानी के साथ बैठ सकें... यह अभ्यास वर्तमान क्षण की जागरूकता विकसित करने के बारे में है... कहीं जाने की जरूरत नहीं और कुछ पूरा करने की जरूरत नहीं... बस यहीं अभी रहना है...",
+        
+        breathing: "आइए अपने आप को सांस में स्थापित करने से शुरुआत करते हैं... अपनी प्राकृतिक सांस की लय को देखें... इसे बदलें नहीं... बस देखें... ... हवा को अपनी नाक से अंदर आते हुए महसूस करें... हल्का विराम... और कोमल मुक्ति... ... आपकी सांस हमेशा वर्तमान क्षण में प्रकट होती है... इसे यहां और अभी के लिए अपने लंगर के रूप में उपयोग करें... जब आपका मन भटकता है... बस सांस पर वापस आ जाएं... बिना जजमेंट के... केवल एक कोमल वापसी......",
+        
+        bodyAwareness: "अब अपनी जागरूकता को अपने शरीर को शामिल करने के लिए बढ़ाएं... देखें कि आप कैसे बैठे हैं... उन संपर्क बिंदुओं को महसूस करें जहां आपका शरीर सतह से मिलता है... ... कोमल जिज्ञासा के साथ अपने शरीर को स्कैन करें... अभी क्या संवेदनाएं मौजूद हैं?... शायद गर्मी... ठंडक... तनाव... आराम... ... बस देखें कि वहां क्या है... कुछ भी बदलने की कोशिश के बिना... आपका शरीर उपस्थिति का द्वार है......",
+        
+        thoughtAwareness: "जैसे ही हम आगे बढ़ते हैं... किसी भी विचार को देखें जो उत्पन्न होता है... कहानी में फंसने के बजाय... देखें कि क्या आप विचारों को अपने मन के आसमान में बहते बादलों की तरह देख सकते हैं... ... कुछ विचार हल्के और धुंधले हैं... अन्य भारी तूफानी बादल हो सकते हैं... सभी का स्वागत है... सभी बीत जाएंगे... ... आप अपने विचार नहीं हैं... आप वह चेतन स्थान हैं जिसमें विचार प्रकट होते और गायब हो जाते हैं......",
+        
+        presentMoment: "इसी क्षण में... इस सटीक पल में... सब कुछ वैसा ही है जैसा है... जो कुछ है उसे स्वीकार करने में गहरी शांति है... बिना प्रतिरोध के... ... अपने चारों ओर की आवाजों को सुनें... देखें कि वे हर क्षण ताजी आती हैं... ... अपने शरीर में जीवंतता महसूस करें... यहां होने की ऊर्जा... अभी... ... यह क्षण एकमात्र क्षण है जो कभी अस्तित्व में है... और यह लगातार नवीनीकृत होता रहता है......",
+        
+        closing: "जैसे ही हम इस अभ्यास को समाप्त करते हैं... एक पल लेकर सराहना करें कि आपने अपने आप को उपस्थिति का उपहार दिया है... ... देखें कि सचेत जागरूकता में समय बिताने के बाद आप कैसा महसूस करते हैं... ... जब आप तैयार हों... धीरे से अपनी आंखें खोलें यदि वे बंद थीं... ... देखें कि क्या आप इस उपस्थिति की गुणवत्ता को अपने साथ ले जा सकते हैं... अपनी अगली गतिविधि में... और अपने पूरे दिन भर... वर्तमान क्षण हमेशा उपलब्ध है... हमेशा आपकी वापसी का इंतजार कर रहा है......"
+      }
+    ],
+
+    compassion: [
+      {
+        name: "प्रेमपूर्ण दयालुता का अभ्यास",
+        intro: "इस करुणा ध्यान में आपका स्वागत है... खुले दिल के साथ आरामदायक स्थिति में बैठें... हम प्रेमपूर्ण दयालुता विकसित करेंगे... पहले अपने लिए... फिर दूसरों के लिए इसे बढ़ाते हुए... यह हृदय खोलने का अभ्यास है...",
+        
+        selfCompassion: "अपने आप को मन में लाने से शुरुआत करें... अपने आप की कल्पना करें जैसे आप अभी हैं... अपने आप को दयालु आंखों से देखें... जैसे आप एक प्रिय मित्र को देखेंगे... ... मौन रूप से अपने आप को प्रेमपूर्ण दयालुता के ये शब्द अर्पित करें... 'मैं खुश रहूं... मैं स्वस्थ रहूं... मैं शांति में रहूं... मैं आसानी से जीऊं...' ... अपने हृदय में इन इच्छाओं को महसूस करें... किसी भी प्रतिरोध को देखें... और उसके साथ भी कोमल रहें... आप प्रेम के हकदार हैं... विशेष रूप से अपने आप से......",
+        
+        lovedOne: "अब किसी ऐसे व्यक्ति को मन में लाएं जिससे आप आसानी से प्रेम करते हैं... परिवार का कोई सदस्य... एक करीबी दोस्त... एक प्रिय पालतू जानवर... उनका चेहरा देखें... उनके लिए अपने प्राकृतिक स्नेह को महसूस करें... ... समान प्रेमपूर्ण इच्छाएं फैलाएं... 'आप खुश रहें... आप स्वस्थ रहें... आप शांति में रहें... आप आसानी से जीएं...' ... अपने हृदय में गर्मी महसूस करें जब आप उन्हें प्रेम भेजते हैं... देखें कि किसी की भलाई चाहना कितना अच्छा लगता है......",
+        
+        neutral: "अब किसी तटस्थ व्यक्ति के बारे में सोचें... शायद कोई कैशियर जिसे आप नियमित रूप से देखते हैं... कोई पड़ोसी जिसे आप मुश्किल से जानते हैं... कोई व्यक्ति जो न मित्र है न शत्रु... ... समान दयालुता का विस्तार करने का अभ्यास करें... 'आप खुश रहें... आप स्वस्थ रहें... आप शांति में रहें... आप आसानी से जीएं...' ... यह व्यक्ति आपकी तरह खुश रहना चाहता है... आपकी तरह संघर्षों का सामना करता है... देखें कि क्या आप अपनी साझा मानवता से जुड़ सकते हैं......",
+        
+        difficult: "यदि आप तैयार महसूस करते हैं... किसी ऐसे व्यक्ति को मन में लाएं जिसके साथ आपकी कठिनाइयां हैं... किसी थोड़े से चुनौतीपूर्ण व्यक्ति से शुरुआत करें... अपने जीवन के सबसे कठिन व्यक्ति से नहीं... ... यह कठिन लग सकता है... धीरे चलें... 'आप खुश रहें... आप स्वस्थ रहें... आप शांति में रहें... आप आसानी से जीएं...' ... याद रखें... उनकी खुशी आपकी खुशी से कुछ नहीं छीनती... घायल लोग अक्सर दूसरों को घायल करते हैं... क्या आप उनके दर्द के लिए करुणा पा सकते हैं?......",
+        
+        universal: "अंत में... अपनी जागरूकता को हर जगह के सभी प्राणियों को शामिल करने के लिए बढ़ाएं... अंतरिक्ष से पृथ्वी को देखें... सभी जीव... सभी मनुष्य... संघर्ष कर रहे और खुशी की तलाश कर रहे... ... खुले हृदय के साथ... इस सार्वभौमिक दयालुता को अर्पित करें... 'सभी प्राणी खुश रहें... सभी प्राणी स्वस्थ रहें... सभी प्राणी शांति में रहें... सभी प्राणी आसानी से जीएं...' ... अपने आप को इस विशाल जुड़ाव के नेटवर्क का हिस्सा महसूस करें... प्रेम देते और प्राप्त करते हुए......",
+        
+        closing: "अपना हाथ फिर से अपने हृदय पर रखें... वहां की गर्मी महसूस करें... जो प्रेम आपने उत्पन्न किया है... यह दयालुता हमेशा आपमें जीवित रहती है... ... याद रखें... सच्ची करुणा में आप शामिल हैं... अपने दिन के दौरान अपने साथ कोमल रहें... ... जब आप दूसरों से मिलें... देखें कि क्या आप इस हृदय संबंध को याद रख सकते हैं... हर कोई अपने पास जो है उसके साथ अपना सर्वश्रेष्ठ कर रहा है... हर कोई प्रेम का हकदार है... आपसे शुरुआत करते हुए......"
+      }
+    ],
+
+    walking: [
+      {
+        name: "सचेत चलने का अभ्यास",
+        intro: "इस चलने के ध्यान में आपका स्वागत है... आप इस अभ्यास को कहीं भी कर सकते हैं... घर के अंदर एक शांत स्थान में... या बाहर प्रकृति में... स्थिर खड़े होने से शुरुआत करें... अपने पैरों को जमीन पर महसूस करें... हम चलने को ध्यान में बदल देंगे...",
+        
+        preparation: "कूल्हों की चौड़ाई के बराबर पैरों के साथ खड़े होने से शुरुआत करें... अपने पैरों और पृथ्वी के बीच संपर्क महसूस करें... अपने आसन को देखें... रीढ़ सीधी लेकिन कड़ी नहीं... कंधे आराम से... बाहें प्राकृतिक रूप से किनारों पर लटकी हुई... ... कुछ गहरी सांसें लें... अपने शरीर में... इस क्षण में पूरी तरह पहुंच जाएं... सचेतता के साथ चलने का इरादा रखें... हर कदम एक ध्यान......",
+        
+        firstSteps: "अपना दाहिना पैर धीरे से उठाना शुरू करें... अपने बाएं पैर पर भार के स्थानांतरण को देखें... उठाने... हिलने... अपने पैर को रखने को महसूस करें... ... हर कदम को जानबूझकर उठाएं... अपनी सामान्य चलने की गति का लगभग आधा... कोई गंतव्य नहीं... कोई जल्दी नहीं... केवल चलने का सरल कार्य... ... देखें कि आपका शरीर कैसे प्राकृतिक रूप से संतुलन बनाता है... समन्वय करता है... स्थान में घूमता है... इस रोजमर्रा के चमत्कार पर आश्चर्य करें......",
+        
+        breathAndSteps: "अब अपनी सांस को अपने कदमों के साथ समन्वित करें... शायद सांस लेते समय दो कदम... सांस छोड़ते समय दो कदम... एक लय खोजें जो प्राकृतिक लगे... ... यदि आपका मन आपके गंतव्य या कार्य सूची की ओर भटकता है... ध्यान को धीरे से चलने की भौतिक संवेदना पर वापस ले आएं... आपके पैरों का जमीन को छूने की भावना... उठना... आगे बढ़ना......",
+        
+        awareness: "अपनी जागरूकता को अपने वातावरण को शामिल करने के लिए बढ़ाएं... यदि आप बाहर हैं... हवा के तापमान को देखें... किसी भी हवा को... प्रकृति की आवाजों को... पक्षियों को... सरसराते पत्तों को... ... यदि आप अंदर हैं... अपने चारों ओर की जगह के प्रति सचेत रहें... रोशनी... हवा की गुणवत्ता... ... अपने वातावरण को आत्मसात करते हुए चलने की संवेदना से जुड़े रहें... आंतरिक जागरूकता और बाहरी उपस्थिति के बीच नृत्य की तरह चलना......",
+        
+        gratitude: "जैसे ही आप चलना जारी रखते हैं... इस अद्भुत शरीर के लिए प्रशंसा लाएं... आपके पैर जो आपको ले जाते हैं... आपके पैर जो आपका समर्थन करते हैं... आपका संतुलन जो आपको स्थिर रखता है... ... दुनिया में घूमने की अपनी क्षमता के लिए कृतज्ञता महसूस करें... हर किसी के पास यह उपहार नहीं है... हर कदम एक विशेषाधिकार है... ... देखें कि चलने का ध्यान कैसे गति में एक अभयारण्य बनाता है... गति में शांति......",
+        
+        closing: "जैसे ही हम इस चलने के अभ्यास को समाप्त करते हैं... खड़े होने की स्थिति में वापस आएं... अपने पैरों को जमीन पर मजबूती से महसूस करें... ... इस सरल लेकिन गहरे अभ्यास की सराहना करने के लिए एक पल लें... आप इस जागरूकता को किसी भी चलने में ला सकते हैं... सामान्य कदमों को ध्यान के क्षणों में बदल सकते हैं... ... इस सचेत उपस्थिति को अपने साथ ले जाएं... अपनी अगली गतिविधि में... हर कदम वर्तमान क्षण में वापसी हो सकता है......"
+      }
+    ],
+
+    breathing: [
+      {
+        name: "पूर्ण श्वास अभ्यास",
+        intro: "इस श्वास ध्यान में आपका स्वागत है... एक आरामदायक स्थिति खोजें जहां आपकी रीढ़ सीधी हो सके... एक हाथ अपनी छाती पर और दूसरा अपने पेट पर रखें... हम पूर्ण चेतन श्वास का अन्वेषण करेंगे...",
+        
+        naturalBreath: "अपनी प्राकृतिक सांस को देखने से शुरुआत करें... इसे बदले बिना... बस इसे देखें... ... अपने हाथों के नीचे हलचल महसूस करें... कौन सा हाथ अधिक हिलता है?... अधिकतर लोग मुख्यतः छाती से सांस लेते हैं... लेकिन हम पूरे शरीर से सांस लेना सीखेंगे......",
+        
+        deepBreathing: "अब धीरे से सांस को गहरा करना शुरू करें... नाक से धीरे सांस लें... हवा को पहले अपने पेट को भरने दें... ... अपने पेट पर रखे हाथ को ऊपर उठते हुए महसूस करें... अपना डायाफ्राम फैलते हुए... ... अपनी छाती को भरना जारी रखें... अपनी छाती पर रखे हाथ को ऊपर उठते हुए महसूस करें... पसलियां फैलती हुई... ... सांस लेने के शिखर पर एक कोमल विराम करें... इस सारी जीवन शक्ति को धारण करते हुए... ... अब धीरे से सांस छोड़ें... हवा को अपनी छाती से धीरे से निकलने दें... फिर अपने पेट से... ... हर सांस छोड़ने के साथ अपने शरीर को आराम करते हुए महसूस करें......",
+        
+        breathCounting: "अब एक लय खोजते हैं... चार गिनती के लिए सांस लें... एक... दो... तीन... चार... ... दो गिनती के लिए कोमल विराम... एक... दो... ... छह गिनती के लिए सांस छोड़ें... एक... दो... तीन... चार... पांच... छह... ... यह लंबी सांस छोड़ना आपके शरीर की विश्राम प्रतिक्रिया को सक्रिय करती है... ... इस लय को जारी रखें... 4 गिनती अंदर... 2 विराम... 6 गिनती बाहर... अपनी आरामदायक लय खोजें......",
+        
+        breathAwareness: "जैसे ही आप इस लयबद्ध सांस को जारी रखते हैं... सूक्ष्म संवेदनाओं को देखें... अंदर आती ठंडी हवा... बाहर जाती गर्म हवा... ... सांस लेने और छोड़ने के बीच प्राकृतिक विराम... स्थिरता... शांति... ... महसूस करें कि यह चेतन सांस कैसे आपके तंत्रिका तंत्र को शांत करती है... आपके मन को शांत करती है... आपके शरीर को आराम देती है... ... हर सांस एक उपहार है... वर्तमान में वापस आने का अवसर......",
+        
+        affirmations: "हर सांस लेने के साथ... इन गुणों में सांस लें... 'मैं शांति में सांस लेता हूं'... ... 'मैं स्पष्टता में सांस लेता हूं'... ... 'मैं जीवन शक्ति में सांस लेता हूं'... ... हर सांस छोड़ने के साथ... छोड़ दें... 'मैं तनाव छोड़ता हूं'... ... 'मैं चिंताएं छोड़ता हूं'... ... 'मैं वह सब कुछ छोड़ता हूं जो अब मेरी सेवा नहीं करता'...",
+        
+        closing: "जैसे ही हम इस श्वास अभ्यास को समाप्त करते हैं... अपनी सांस को सामान्य होने दें... लेकिन सांस की इस जागरूकता को रखें... ... देखें कि आप कैसा महसूस करते हैं... अधिक शांत... अधिक केंद्रित... अधिक जीवंत... ... याद रखें... आपकी सांस हमेशा आपके साथ है... शांति और उपस्थिति के लिए एक निरंतर उपकरण... ... जब भी आप तनावग्रस्त या विचलित महसूस करें... आप इस चेतन सांस पर वापस आ सकते हैं... आपकी सांस आपका घर है......"
+      }
+    ],
+
+    morning: [
+      {
+        name: "प्रभात जागरण अभ्यास",
+        intro: "इस प्रातःकालीन ध्यान में आपका स्वागत है... जैसे ही आप अपना दिन शुरू करते हैं... यह समय लें कि धीरे से जागें... केवल अपने शरीर को नहीं... बल्कि अपने मन और हृदय को भी... हर सुबह एक पुनर्जन्म है... नए सिरे से शुरुआत करने का मौका...",
+        
+        awakening: "अपने शरीर को धीरे से खींचने से शुरुआत करें... अपनी बाहों को सिर के ऊपर उठाएं... धूप में बिल्ली की तरह खिंचाव करें... ... यदि मन करे तो जम्हाई लें... अपने शरीर को प्राकृतिक रूप से जागने दें... ... कुछ गहरी सांसें लें... सुबह की ताजी हवा को अपने फेफड़ों में भरते हुए महसूस करें... ... आपके शरीर के पास पूरी रात आराम करने और मरम्मत करने का समय था... अब इरादे के साथ जागने का समय है......",
+        
+        breathing: "आइए एक ऊर्जादायक सांस की लय स्थापित करते हैं... नाक से चार गिनती के लिए सांस लें... सचेत और जीवंत महसूस करते हुए... ... मुंह से चार गिनती के लिए सांस छोड़ें... सारी नींद को छोड़ते हुए... ... फिर से... जीवन शक्ति और ऊर्जा में सांस लें... थकान और धुंध को छोड़ें... ... हर सांस के साथ अपने शरीर को जागते हुए महसूस करें... आपका मन अधिक स्पष्ट होता जा रहा है... अधिक केंद्रित......",
+        
+        intention: "अब इस दिन के लिए एक इरादा रखते हैं... आज आप क्या बनाना चाहते हैं?... आप कैसा महसूस करना चाहते हैं?... ... शायद आपका इरादा है 'मैं उपस्थित रहना चाहता हूं'... या 'मैं दयालु रहना चाहता हूं'... या 'मैं साहसी रहना चाहता हूं'... ... एक इरादा चुनें जो आपके हृदय के साथ गूंजता हो... इसे अपने अस्तित्व में बसते हुए महसूस करें... ... यह इरादा पूरे दिन आपका मार्गदर्शक तारा होगा......",
+        
+        gratitude: "आइए सुबह की कृतज्ञता के लिए एक पल लेते हैं... तीन चीजों के बारे में सोचें जिनके लिए आप आभारी हैं... ... शायद इस नए दिन के लिए... अपने स्वास्थ्य के लिए... उन लोगों के लिए जिन्हें आप प्यार करते हैं... उन अवसरों के लिए जो आपके पास हैं... ... इस कृतज्ञता को अपनी छाती में फैलते हुए महसूस करें... आपको गर्मजोशी से भरते हुए... ... कृतज्ञता सूर्य की तरह है... यह जिस चीज को छूती है उसे रोशन करती है... ... इस प्रशंसा को अपने शरीर की हर कोशिका को भरने दें... आपको आने वाले दिन में सुंदरता देखने के लिए तैयार करते हुए......",
+        
+        affirmations: "आइए अपने मन को सकारात्मक सुबह की पुष्टियों से भरते हैं... 'मैं इस नए दिन का खुशी से स्वागत करता हूं'... ... 'मेरे पास वह सब कुछ है जिसकी मुझे जरूरत है'... ... 'यह दिन संभावनाओं से भरा है'... ... 'मैं जो कुछ भी आता है उसे अपनाने के लिए तैयार हूं'... ... 'मैं शांति और सकारात्मकता बिखेरता हूं'... ... इन शब्दों को अपनी चेतना में गहरे जड़ जमाते हुए महसूस करें......",
+        
+        closing: "जैसे ही हम इस प्रातःकालीन ध्यान को समाप्त करते हैं... इस उपहार की सराहना करने के लिए एक पल लें जो आपने अपने आप को दिया है... ... अपने दिन के लिए तैयार और ऊर्जावान महसूस करें... अपने इरादे में केंद्रित... कृतज्ञता से भरे... ... जब आप उठें... इस चेतन ऊर्जा को अपने साथ ले जाएं... ... याद रखें... हर सुबह एक नया मौका है... एक खाली पन्ना... आप इस सुंदर दिन का क्या करेंगे?... ... उठिए... चमकिए... और अपनी रोशनी को दुनिया को छूने दें......"
+      }
+    ]
   }
 };
 

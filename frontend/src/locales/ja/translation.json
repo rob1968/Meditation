@@ -72,5 +72,11 @@
   "calm": "穏やか",
   "professional": "プロフェッショナル",
   "female": "女性",
-  "male": "男性"
+  "male": "男性",
+  "back": "戻る",
+  "save": "保存",
+  "regenerateText": "テキストを再生成",
+  "textModified": "テキストが変更されました",
+  "savingDraft": "下書きを保存中...",
+  "draftSaved": "下書きが保存されました"
 }

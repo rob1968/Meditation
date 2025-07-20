@@ -83,5 +83,11 @@
   "middle-aged": "D'âge moyen",
   "female": "Féminin",
   "male": "Masculin",
-  "neutral": "Neutre"
+  "neutral": "Neutre",
+  "back": "Retour",
+  "save": "Enregistrer",
+  "regenerateText": "Régénérer le Texte",
+  "textModified": "Le texte a été modifié",
+  "savingDraft": "Enregistrement du brouillon...",
+  "draftSaved": "Brouillon enregistré"
 }

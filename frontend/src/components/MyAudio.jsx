@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from '../config/api';
+import ShareMeditationDialog from './ShareMeditationDialog';
 
 const MyAudio = ({ user, isGenerating }) => {
   const [meditations, setMeditations] = useState([]);
@@ -10,6 +11,8 @@ const MyAudio = ({ user, isGenerating }) => {
   const [playingMeditationId, setPlayingMeditationId] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(null);
   const [showImageOptions, setShowImageOptions] = useState(null);
+  const [showShareDialog, setShowShareDialog] = useState(null);
+  const [isSharing, setIsSharing] = useState(false);
   const { t } = useTranslation();
   const prevIsGenerating = useRef(isGenerating);
   const fileInputRef = useRef(null);
@@ -82,6 +85,7 @@ const MyAudio = ({ user, isGenerating }) => {
     try {
       const formData = new FormData();
       formData.append('image', file);
+      formData.append('userId', user.id);
       
       const response = await axios.post(
         getFullUrl(API_ENDPOINTS.UPLOAD_IMAGE(meditationId)),
@@ -150,12 +154,97 @@ const MyAudio = ({ user, isGenerating }) => {
 
   const deleteCustomImage = async (meditationId) => {
     try {
-      await axios.delete(getFullUrl(API_ENDPOINTS.DELETE_IMAGE(meditationId)));
+      await axios.delete(getFullUrl(API_ENDPOINTS.DELETE_IMAGE(meditationId)), {
+        params: { userId: user.id }
+      });
       await fetchUserMeditations();
       setShowImageOptions(null);
     } catch (error) {
       console.error('Error deleting custom image:', error);
       setError('Failed to delete image. Please try again.');
+    }
+  };
+
+  const shareMeditation = async (meditationId, shareData) => {
+    setIsSharing(true);
+    try {
+      const meditation = meditations.find(m => m.id === meditationId);
+      if (!meditation) {
+        throw new Error('Meditation not found');
+      }
+
+      // Create FormData for sharing
+      const formData = new FormData();
+      formData.append('title', shareData.title);
+      formData.append('description', shareData.description);
+      formData.append('text', meditation.text);
+      formData.append('meditationType', meditation.meditationType);
+      formData.append('language', meditation.language);
+      formData.append('duration', meditation.audioFiles[0]?.duration || 300);
+      formData.append('userId', user.id);
+      formData.append('originalMeditationId', meditationId);
+
+      // Copy audio file to shared location
+      const audioFile = meditation.audioFiles[0];
+      if (audioFile) {
+        try {
+          // First try to fetch the audio file
+          const audioUrl = getFullUrl(API_ENDPOINTS.MEDITATION_AUDIO(audioFile.filename));
+          console.log('Fetching audio from:', audioUrl);
+          
+          const audioResponse = await fetch(audioUrl);
+          if (!audioResponse.ok) {
+            throw new Error(`Failed to fetch audio: ${audioResponse.status}`);
+          }
+          
+          const audioBlob = await audioResponse.blob();
+          const audioFileToUpload = new File([audioBlob], audioFile.filename, { type: 'audio/mpeg' });
+          formData.append('audio', audioFileToUpload);
+        } catch (audioError) {
+          console.error('Error fetching audio file:', audioError);
+          // Try alternative path
+          const altAudioUrl = `${window.location.origin}/assets/meditations/${audioFile.filename}`;
+          console.log('Trying alternative audio URL:', altAudioUrl);
+          const audioResponse = await fetch(altAudioUrl);
+          const audioBlob = await audioResponse.blob();
+          const audioFileToUpload = new File([audioBlob], audioFile.filename, { type: 'audio/mpeg' });
+          formData.append('audio', audioFileToUpload);
+        }
+      }
+
+      // Copy custom image if exists
+      if (meditation.customImage && meditation.customImage.filename) {
+        const imageResponse = await fetch(getFullUrl(API_ENDPOINTS.CUSTOM_IMAGE(meditation.customImage.filename)));
+        const imageBlob = await imageResponse.blob();
+        formData.append('image', imageBlob, meditation.customImage.filename);
+      }
+
+      const response = await axios.post(getFullUrl('/api/community/share'), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.success) {
+        // Update meditation to mark as shared
+        await axios.patch(getFullUrl(`/api/user-meditations/${user.id}/${meditationId}/share`), {
+          sharedMeditationId: response.data.meditation._id,
+          isShared: true
+        });
+        
+        // Refresh meditations
+        await fetchUserMeditations();
+        setShowShareDialog(null);
+        setError('');
+        
+        // Show success message
+        alert('Meditation shared successfully! It will appear in the community after admin approval.');
+      }
+    } catch (error) {
+      console.error('Error sharing meditation:', error);
+      setError('Failed to share meditation. Please try again.');
+    } finally {
+      setIsSharing(false);
     }
   };
 
@@ -236,7 +325,7 @@ const MyAudio = ({ user, isGenerating }) => {
       ) : meditations.length > 0 && (
         <div className="meditations-list">
           {meditations.map((meditation) => (
-            <div key={meditation._id} className="meditation-card">
+            <div key={meditation.id} className="meditation-card">
               <div className="meditation-thumbnail">
                 <img 
                   src={getImageUrl(meditation)}
@@ -248,10 +337,10 @@ const MyAudio = ({ user, isGenerating }) => {
                 <div className="image-overlay">
                   <button 
                     className="image-edit-button"
-                    onClick={() => setShowImageOptions(meditation._id)}
-                    disabled={uploadingImage === meditation._id}
+                    onClick={() => setShowImageOptions(meditation.id)}
+                    disabled={uploadingImage === meditation.id}
                   >
-                    {uploadingImage === meditation._id ? '⏳' : '📸'}
+                    {uploadingImage === meditation.id ? '⏳' : '📸'}
                   </button>
                 </div>
               </div>
@@ -270,16 +359,16 @@ const MyAudio = ({ user, isGenerating }) => {
                   <span className="meditation-duration">
                     ⏰ {meditation.audioFiles && meditation.audioFiles.length > 0 && meditation.audioFiles[0].duration 
                         ? formatAudioDuration(meditation.audioFiles[0].duration) 
-                        : formatDuration(meditation.duration)}
+                        : t('unknown', 'Unknown')}
                   </span>
                   <span className="meditation-language">
-                    🗣️ {meditation.originalLanguage}
+                    🗣️ {meditation.language}
                   </span>
                 </div>
 
                 <div className="meditation-text">
-                  {meditation.originalText.substring(0, 150)}
-                  {meditation.originalText.length > 150 && '...'}
+                  {meditation.text.substring(0, 150)}
+                  {meditation.text.length > 150 && '...'}
                 </div>
               </div>
 
@@ -288,14 +377,14 @@ const MyAudio = ({ user, isGenerating }) => {
                   className="play-button"
                   onClick={() => {
                     if (meditation.audioFiles && meditation.audioFiles.length > 0) {
-                      const audio = document.querySelector(`#audio-${meditation._id}`);
+                      const audio = document.querySelector(`#audio-${meditation.id}`);
                       if (audio) {
                         if (audio.paused) {
                           // Pause all other audios first
                           document.querySelectorAll('audio').forEach(a => a.pause());
                           audio.play()
                             .then(() => {
-                              setPlayingMeditationId(meditation._id);
+                              setPlayingMeditationId(meditation.id);
                             })
                             .catch(err => {
                               console.error('Error playing audio:', err);
@@ -309,8 +398,20 @@ const MyAudio = ({ user, isGenerating }) => {
                   }}
                   disabled={!meditation.audioFiles || meditation.audioFiles.length === 0}
                 >
-                  <span className="play-icon">{playingMeditationId === meditation._id ? '⏸️' : '▶️'}</span>
+                  <span className="play-icon">{playingMeditationId === meditation.id ? '⏸️' : '▶️'}</span>
                 </button>
+                
+                {meditation.audioFiles && meditation.audioFiles.length > 0 && (
+                  <button 
+                    className="share-button"
+                    onClick={() => setShowShareDialog(meditation.id)}
+                    title={t('shareMeditation', 'Share Meditation')}
+                  >
+                    <span className="share-icon">
+                      {meditation.isShared ? '🌟' : '📤'}
+                    </span>
+                  </button>
+                )}
               </div>
 
               {meditation.audioFiles && meditation.audioFiles.length > 0 && (
@@ -318,11 +419,11 @@ const MyAudio = ({ user, isGenerating }) => {
                   {meditation.audioFiles.map((audioFile, index) => (
                     <audio 
                       key={index} 
-                      id={index === 0 ? `audio-${meditation._id}` : `audio-${meditation._id}-${index}`}
+                      id={index === 0 ? `audio-${meditation.id}` : `audio-${meditation.id}-${index}`}
                       preload="none"
                       onEnded={() => setPlayingMeditationId(null)}
                       onPause={() => {
-                        if (playingMeditationId === meditation._id) {
+                        if (playingMeditationId === meditation.id) {
                           setPlayingMeditationId(null);
                         }
                       }}
@@ -362,7 +463,7 @@ const MyAudio = ({ user, isGenerating }) => {
               >
                 📷 {t('takePhoto', 'Take Photo')}
               </button>
-              {meditations.find(m => m._id === showImageOptions)?.customImage && (
+              {meditations.find(m => m.id === showImageOptions)?.customImage && (
                 <button 
                   className="image-option-btn delete-btn"
                   onClick={() => deleteCustomImage(showImageOptions)}
@@ -424,6 +525,17 @@ const MyAudio = ({ user, isGenerating }) => {
 
       {/* Hidden canvas for camera capture */}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+      {/* Share Dialog */}
+      {showShareDialog && (
+        <ShareMeditationDialog
+          meditation={meditations.find(m => m.id === showShareDialog)}
+          onShare={shareMeditation}
+          onClose={() => setShowShareDialog(null)}
+          isSharing={isSharing}
+          t={t}
+        />
+      )}
     </div>
   );
 };

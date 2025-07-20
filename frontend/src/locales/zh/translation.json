@@ -72,5 +72,11 @@
   "calm": "平静",
   "professional": "专业",
   "female": "女性",
-  "male": "男性"
+  "male": "男性",
+  "back": "返回",
+  "save": "保存",
+  "regenerateText": "重新生成文本",
+  "textModified": "文本已被修改",
+  "savingDraft": "正在保存草稿...",
+  "draftSaved": "草稿已保存"
 }

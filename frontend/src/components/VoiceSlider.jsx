@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
 
-const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect }) => {
+const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, currentMeditationType }) => {
   const { t, i18n } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -146,8 +146,13 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect }) => {
     try {
       setIsGeneratingPreview(true);
       
+      // Determine which endpoint to use based on voice provider
+      const endpoint = voiceProvider === 'google' 
+        ? API_ENDPOINTS.GOOGLE_VOICE_PREVIEW 
+        : API_ENDPOINTS.VOICE_PREVIEW;
+      
       const response = await axios.post(
-        getFullUrl(API_ENDPOINTS.VOICE_PREVIEW),
+        getFullUrl(endpoint),
         {
           voiceId,
           language
@@ -277,30 +282,36 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect }) => {
           
           <div className="voice-info">
             <div className="voice-header">
-              <div className="voice-name">{currentVoice.name}</div>
+              <div className="voice-name">
+                {voiceProvider === 'google' && currentVoice.friendlyName 
+                  ? currentVoice.friendlyName 
+                  : currentVoice.name
+                }
+              </div>
               <div className="voice-gender">
                 {getGenderIcon(currentVoice.gender)} {t(currentVoice.gender, currentVoice.gender)}
               </div>
             </div>
             
-            <div className="voice-characteristics">
-              {currentVoice.characteristics.map((characteristic, index) => (
-                <span 
-                  key={index} 
-                  className="characteristic-badge"
-                  style={{ backgroundColor: getCharacteristicColor(characteristic) }}
-                >
-                  {t(characteristic, characteristic)}
-                </span>
-              ))}
-            </div>
+            {voiceProvider === 'elevenlabs' && (
+              <div className="voice-characteristics">
+                {currentVoice.characteristics.map((characteristic, index) => (
+                  <span 
+                    key={index} 
+                    className="characteristic-badge"
+                    style={{ backgroundColor: getCharacteristicColor(characteristic) }}
+                  >
+                    {t(characteristic, characteristic)}
+                  </span>
+                ))}
+              </div>
+            )}
             
             {currentVoice.age && (
               <div className="voice-age">
                 {t('age', 'Age')}: {t(currentVoice.age, currentVoice.age)}
               </div>
             )}
-            
             
             <div className="voice-preview">
               <button 

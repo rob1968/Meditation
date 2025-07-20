@@ -179,7 +179,7 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
   return (
     <div className="background-slider" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="background-slider-header">
-        <h2 className="section-title">🎵 {t('backgroundLabel', 'Background Sound')}</h2>
+        <h2 className="section-title">🎵 {t('backgroundMusicLabel', 'Background Music')}</h2>
         <div className="background-counter">
           {currentIndex + 1} {t('of', 'of')} {backgroundOptions.length}
         </div>

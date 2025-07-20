@@ -83,5 +83,11 @@
   "middle-aged": "Mediana edad",
   "female": "Femenino",
   "male": "Masculino",
-  "neutral": "Neutral"
+  "neutral": "Neutral",
+  "back": "Atrás",
+  "save": "Guardar",
+  "regenerateText": "Regenerar Texto",
+  "textModified": "El texto ha sido modificado",
+  "savingDraft": "Guardando borrador...",
+  "draftSaved": "Borrador guardado"
 }

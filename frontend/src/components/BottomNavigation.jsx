@@ -7,8 +7,14 @@ const BottomNavigation = ({ activeTab, onTabChange, user, onLogout }) => {
   const tabs = [
     { id: 'create', icon: '🧘', label: t('create', 'Create') },
     { id: 'myAudio', icon: '📱', label: t('myMeditation', 'My Meditations') },
+    { id: 'community', icon: '🌟', label: t('community', 'Community') },
     { id: 'profile', icon: '👤', label: t('profile', 'Profile') }
   ];
+
+  // Add admin tab for user 'rob'
+  if (user && user.username === 'rob') {
+    tabs.push({ id: 'admin', icon: '🛡️', label: t('admin', 'Admin') });
+  }
 
   return (
     <div className="bottom-navigation">

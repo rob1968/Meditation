@@ -9,6 +9,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const meditationRoute = require('./routes/meditation');
 const authRoute = require('./routes/auth');
+const googleVoicesRoute = require('./routes/googleVoices');
+const googleVoicePreviewRoute = require('./routes/googleVoicePreview');
+const googleTTSInfoRoute = require('./routes/googleTTSInfo');
+const userMeditationsRoute = require('./routes/userMeditations');
+const communityRoute = require('./routes/community');
 const app = express();
 
 // Create a write stream (in append mode) for logging
@@ -24,11 +29,19 @@ app.use(express.json());
 app.use('/assets/meditations', express.static(path.join(__dirname, '../assets/meditations')));
 // Serve static files from assets/images
 app.use('/assets/images', express.static(path.join(__dirname, '../assets/images')));
+// Serve static files for shared audio and images
+app.use('/assets/audio/shared', express.static(path.join(__dirname, '../assets/audio/shared')));
+app.use('/assets/images/shared', express.static(path.join(__dirname, '../assets/images/shared')));
 app.use('/api/meditation', meditationRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/user-meditations', userMeditationsRoute);
+app.use('/api/community', communityRoute);
 
 // Add a route for fetching voices
 app.use('/api/voices', meditationRoute);
+app.use('/api/google-voices', googleVoicesRoute);
+app.use('/api/google-voice-preview', googleVoicePreviewRoute);
+app.use('/api/google-tts-info', googleTTSInfoRoute);
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,

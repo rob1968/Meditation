@@ -25,16 +25,17 @@ export const API_ENDPOINTS = {
   // Auth endpoints
   REGISTER: '/api/auth/register',
   LOGIN: '/api/auth/login',
-  USER_MEDITATIONS: (userId) => `/api/auth/user/${userId}/meditations`,
+  USER_MEDITATIONS: (userId) => `/api/user-meditations/list/${userId}`,
   USER_STATS: (userId) => `/api/auth/user/${userId}/stats`,
-  UPLOAD_IMAGE: (meditationId) => `/api/auth/meditation/${meditationId}/upload-image`,
-  DELETE_IMAGE: (meditationId) => `/api/auth/meditation/${meditationId}/custom-image`,
+  UPLOAD_IMAGE: (meditationId) => `/api/user-meditations/meditation/${meditationId}/upload-image`,
+  DELETE_IMAGE: (meditationId) => `/api/user-meditations/meditation/${meditationId}/custom-image`,
   
   // Meditation endpoints
   GENERATE_TEXT: '/api/meditation/generate-text',
   GENERATE_MEDITATION: '/api/meditation',
   GET_VOICES: '/api/meditation/voices',
   VOICE_PREVIEW: '/api/meditation/voice-preview',
+  GOOGLE_VOICE_PREVIEW: '/api/google-voice-preview',
   
   // Asset endpoints
   MEDITATION_AUDIO: (filename) => `/assets/meditations/${filename}`,

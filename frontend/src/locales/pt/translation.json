@@ -72,5 +72,11 @@
   "calm": "Calmo",
   "professional": "Profissional",
   "female": "Feminino",
-  "male": "Masculino"
+  "male": "Masculino",
+  "back": "Voltar",
+  "save": "Salvar",
+  "regenerateText": "Regenerar Texto",
+  "textModified": "O texto foi modificado",
+  "savingDraft": "Salvando rascunho...",
+  "draftSaved": "Rascunho salvo"
 }

@@ -11,24 +11,47 @@ const crypto = require('crypto'); // For generating file hashes
 const Meditation = require('../models/Meditation');
 const translationService = require('../services/translationService');
 const Anthropic = require('@anthropic-ai/sdk');
-// Function to add SSML pauses to text for Eleven Labs
+const { generateGoogleTTS } = require('../services/googleTTSService');
+// Function to add pauses to text for Eleven Labs (using dashes instead of SSML)
 const addSSMLPauses = (text) => {
-  // Replace extra long pauses (10+ dots) with 3 second pause (maximum allowed)
-  let processedText = text.replace(/\.{10,}/g, ' <break time="3s" /> ');
-  // Replace medium-long pauses (6-9 dots) with 1.5 second pause (between breath phases)
-  processedText = processedText.replace(/\.{6,9}/g, ' <break time="1.5s" /> ');
-  // Replace short pauses (3 dots exactly) with 3 second pause (between counting)
-  processedText = processedText.replace(/\.{3}(?!\.)/g, ' <break time="3s" /> ');
-  // Replace medium pauses (4-5 dots) with 1 second pause (general pauses)
-  processedText = processedText.replace(/\.{4,5}(?!\.)/g, ' <break time="1s" /> ');
-  // Add pause after paragraphs (double newline)
-  processedText = processedText.replace(/\n\n/g, '\n\n<break time="2s" /> ');
-  // Add pause after single newline (line breaks)
-  processedText = processedText.replace(/\n/g, '\n<break time="2s" /> ');
-  // Add extra pause after each sentence that ends with a period
-  processedText = processedText.replace(/\. (?=[A-Z])/g, '. <break time="2s" /> ');
-  // Add pause after commas for natural flow
-  processedText = processedText.replace(/, /g, ', <break time="0.3s" /> ');
+  let processedText = text;
+  
+  // Process special pause commands first (e.g., [PAUSE:30], [SILENCE:60], [BREATHE:5])
+  processedText = processedText.replace(/\[PAUSE:(\d+)\]/g, (match, seconds) => {
+    // Convert seconds to dashes (approximately 1 dash per second)
+    const dashCount = Math.min(parseInt(seconds), 20); // Limit to 20 dashes for readability
+    return ' ' + '— '.repeat(dashCount);
+  });
+  
+  processedText = processedText.replace(/\[SILENCE:(\d+)\]/g, (match, seconds) => {
+    // Convert seconds to dashes (approximately 1 dash per second)
+    const dashCount = Math.min(parseInt(seconds), 20); // Limit to 20 dashes for readability
+    return ' ' + '— '.repeat(dashCount);
+  });
+  
+  processedText = processedText.replace(/\[BREATHE:(\d+)\]/g, (match, count) => {
+    // Each breath cycle is approximately 4 seconds (2s in, 2s out)
+    const totalSeconds = parseInt(count) * 4;
+    const dashCount = Math.min(totalSeconds, 20); // Limit to 20 dashes for readability
+    return ' ' + '— '.repeat(dashCount);
+  });
+  
+  // Process dot-based pauses from longest to shortest
+  // Extra long pause: 15 dots → 20 dashes
+  processedText = processedText.replace(/\.{15}/g, ' — — — — — — — — — — — — — — — — — — — — ');
+  
+  // Very long pause: 12 dots → 15 dashes
+  processedText = processedText.replace(/\.{12}/g, ' — — — — — — — — — — — — — — — ');
+  
+  // Long pause: 9 dots → 10 dashes
+  processedText = processedText.replace(/\.{9}/g, ' — — — — — — — — — — ');
+  
+  // Medium pause: 6 dots → 5 dashes
+  processedText = processedText.replace(/\.{6}/g, ' — — — — — ');
+  
+  // Short pause: 3 dots → 2 dashes
+  processedText = processedText.replace(/\.{3}/g, ' — — ');
+  
   return processedText;
 };
 
@@ -74,7 +97,7 @@ const getAudioDuration = async (filePath) => {
 };
 
 router.post('/', async (req, res) => {
-  const { text, voiceId, background, language, audioLanguage, meditationType, userId } = req.body;
+  const { text, voiceId, background, language, audioLanguage, meditationType, userId, useBackgroundMusic, voiceProvider = 'elevenlabs' } = req.body;
   const apiKey = process.env.ELEVEN_API_KEY;
 
   let speechPath;
@@ -161,37 +184,80 @@ router.post('/', async (req, res) => {
       console.log('No translation needed - same language');
     }
 
-    // Add pauses to the translated text
-    const processedText = addSSMLPauses(translatedText);
-    
-    const response = await axios.post(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
-      {
-        text: processedText,
-        model_id: speechLanguage === 'en' ? "eleven_monolingual_v1" : "eleven_multilingual_v2",
-        voice_settings: { 
-          stability: 0.85,
-          similarity_boost: 0.75,
-          style: 0,
-          use_speaker_boost: true
-        }
-      },
-      {
-        headers: {
-          "xi-api-key": apiKey,
-          "Content-Type": "application/json"
-        },
-        responseType: "arraybuffer"
-      }
-    );
-
+    // Use Google TTS instead of Eleven Labs
+    let audioContent;
     tempDir = path.join(__dirname, '../../temp');
     await fsPromises.mkdir(tempDir, { recursive: true }); // Create temp directory if it doesn't exist
 
     speechPath = path.join(tempDir, `temp_speech_${Date.now()}.mp3`);
-    const backgroundPath = path.join(__dirname, `../../assets/${background}.mp3`);
-    if (!fs.existsSync(backgroundPath)) {
-      throw new Error(`Background audio file not found: ${backgroundPath}`);
+    
+    if (voiceProvider === 'google') {
+      try {
+        // Generate audio using Google TTS
+        audioContent = await generateGoogleTTS(translatedText, speechLanguage, voiceId);
+        console.log('Google TTS generation successful');
+      } catch (googleError) {
+        console.error('Google TTS failed, falling back to Eleven Labs:', googleError);
+        
+        // Fallback to Eleven Labs if Google TTS fails
+        const processedText = addSSMLPauses(translatedText);
+        const response = await axios.post(
+          `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+          {
+            text: processedText,
+            model_id: speechLanguage === 'en' ? "eleven_monolingual_v1" : "eleven_multilingual_v2",
+            voice_settings: { 
+              stability: 0.85,
+              similarity_boost: 0.75,
+              style: 0,
+              use_speaker_boost: true,
+              speed: 0.7
+            }
+          },
+          {
+            headers: {
+              "xi-api-key": apiKey,
+              "Content-Type": "application/json"
+            },
+            responseType: "arraybuffer"
+          }
+        );
+        audioContent = response.data;
+      }
+    } else {
+      // Use Eleven Labs
+      const processedText = addSSMLPauses(translatedText);
+      const response = await axios.post(
+        `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+        {
+          text: processedText,
+          model_id: speechLanguage === 'en' ? "eleven_monolingual_v1" : "eleven_multilingual_v2",
+          voice_settings: { 
+            stability: 0.85,
+            similarity_boost: 0.75,
+            style: 0,
+            use_speaker_boost: true,
+            speed: 0.7
+          }
+        },
+        {
+          headers: {
+            "xi-api-key": apiKey,
+            "Content-Type": "application/json"
+          },
+          responseType: "arraybuffer"
+        }
+      );
+      audioContent = response.data;
+    }
+    
+    // Only check for background path if background music is enabled
+    let backgroundPath;
+    if (useBackgroundMusic) {
+      backgroundPath = path.join(__dirname, `../../assets/${background}.mp3`);
+      if (!fs.existsSync(backgroundPath)) {
+        throw new Error(`Background audio file not found: ${backgroundPath}`);
+      }
     }
     // Create unique filename based on language, timestamp and a hash of the text
     const timestamp = Date.now();
@@ -207,9 +273,9 @@ router.post('/', async (req, res) => {
     const publicDir = path.dirname(publicPath);
     await fsPromises.mkdir(publicDir, { recursive: true });
 
-    console.log(`Response data length: ${response.data.length} bytes`);
+    console.log(`Audio content length: ${audioContent.length} bytes`);
 
-    await fsPromises.writeFile(speechPath, Buffer.from(response.data));
+    await fsPromises.writeFile(speechPath, Buffer.from(audioContent));
     console.log(`Temporary speech file written to: ${speechPath}`);
 
     // Verify if the file exists after writing
@@ -223,49 +289,55 @@ router.post('/', async (req, res) => {
     const introSeconds = 5; // reduced intro time
     const outroSeconds = 10; // reduced outro time
     
-    console.log(`Processing audio without fixed duration - will use speech length`);
-    console.log(`Intro: ${introSeconds}s, Speech: dynamic length, Outro: ${outroSeconds}s`);
+    if (useBackgroundMusic) {
+      console.log(`Processing audio with background music - Intro: ${introSeconds}s, Speech: dynamic length, Outro: ${outroSeconds}s`);
+      
+      const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
+      
+      const ffmpegArgs = [
+        '-y', // Automatically overwrite output files without asking
+        '-i', speechPath,
+        '-i', backgroundPath,
+        '-filter_complex', 
+        // Add intro delay to speech and pad with outro (no tempo change)
+        `[0:a]adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
+        // Create intro: first 5 seconds at higher volume with fade-in
+        `[1:a]atrim=0:${introSeconds},volume=0.25,afade=t=in:d=3[intro];` +
+        // Create background music (looped and volume adjusted for during speech)
+        `[1:a]aloop=loop=10:size=2e+09,volume=0.05[bg_looped];` +
+        // Pad intro to exactly 5 seconds
+        `[intro]apad=whole_dur=${introSeconds}[intro_padded];` +
+        // Concatenate intro with background music
+        `[intro_padded][bg_looped]concat=n=2:v=0:a=1[bg_full];` +
+        // Mix speech with background, use speech duration as master
+        `[speech_delayed][bg_full]amix=inputs=2:duration=first:weights=1 0.8`,
+        '-c:a', 'libmp3lame',
+        '-q:a', '4',
+        outputPath
+      ];
+      
+      const ffmpeg = spawn(ffmpegPath, ffmpegArgs);
 
-    const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
-    const ffmpeg = spawn(ffmpegPath, [
-      '-y', // Automatically overwrite output files without asking
-      '-i', speechPath,
-      '-i', backgroundPath,
-      '-filter_complex', 
-      // Slow down speech for meditative pace (reduced to 0.6 for very slow, meditative tempo)
-      '[0:a]atempo=0.6[speech_slow];' +
-      // Add intro delay to speech and pad with outro
-      `[speech_slow]adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
-      // Create intro: first 5 seconds at higher volume with fade-in
-      `[1:a]atrim=0:${introSeconds},volume=0.25,afade=t=in:d=3[intro];` +
-      // Create background music (looped and volume adjusted for during speech)
-      `[1:a]aloop=loop=10:size=2e+09,volume=0.05[bg_looped];` +
-      // Pad intro to exactly 5 seconds
-      `[intro]apad=whole_dur=${introSeconds}[intro_padded];` +
-      // Concatenate intro with background music
-      `[intro_padded][bg_looped]concat=n=2:v=0:a=1[bg_full];` +
-      // Mix speech with background, use speech duration as master
-      `[speech_delayed][bg_full]amix=inputs=2:duration=first:weights=1 0.8`,
-      '-c:a', 'libmp3lame',
-      '-q:a', '4',
-      outputPath
-    ]);
-
-    ffmpeg.stderr.on('data', (data) => {
-      console.error(`FFmpeg stderr: ${data}`);
-    });
-
-    await new Promise((resolve, reject) => {
-      ffmpeg.on('close', (code) => {
-        if (code === 0) {
-          console.log('FFmpeg processing completed successfully.');
-          resolve();
-        } else {
-          console.error(`FFmpeg exited with code ${code}`);
-          reject(new Error('Audio processing failed'));
-        }
+      ffmpeg.stderr.on('data', (data) => {
+        console.error(`FFmpeg stderr: ${data}`);
       });
-    });
+
+      await new Promise((resolve, reject) => {
+        ffmpeg.on('close', (code) => {
+          if (code === 0) {
+            console.log('FFmpeg processing completed successfully.');
+            resolve();
+          } else {
+            console.error(`FFmpeg exited with code ${code}`);
+            reject(new Error('Audio processing failed'));
+          }
+        });
+      });
+    } else {
+      // Voice only - no background music, no processing needed
+      console.log('Voice only mode - copying original TTS file directly');
+      await fsPromises.copyFile(speechPath, outputPath);
+    }
 
     // Copy to public folder for download
     await fsPromises.copyFile(outputPath, publicPath);
@@ -295,6 +367,40 @@ router.post('/', async (req, res) => {
       console.log(`Meditation record updated with audio file: ${filename}`);
     } catch (saveError) {
       console.log('Could not save to database, using mock:', saveError.message);
+    }
+
+    // Also save to user meditations system if userId is provided
+    if (userId) {
+      try {
+        const userMeditationsDir = path.join(__dirname, '..', 'user-meditations', userId);
+        await fsPromises.mkdir(userMeditationsDir, { recursive: true });
+        
+        const userMeditationId = crypto.randomBytes(16).toString('hex');
+        const userMeditation = {
+          id: userMeditationId,
+          userId: userId,
+          meditationType: meditationType || 'sleep',
+          language: speechLanguage,
+          text: translatedText,
+          audioFiles: [{
+            filename: filename,
+            voiceId: voiceId,
+            background: background,
+            duration: audioDuration,
+            language: speechLanguage
+          }],
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        
+        const userFilename = `${meditationType || 'sleep'}_${speechLanguage}_${userMeditationId}.json`;
+        const userFilepath = path.join(userMeditationsDir, userFilename);
+        await fsPromises.writeFile(userFilepath, JSON.stringify(userMeditation, null, 2), 'utf8');
+        
+        console.log(`User meditation saved: ${userFilename}`);
+      } catch (userSaveError) {
+        console.log('Could not save to user meditations:', userSaveError.message);
+      }
     }
 
     res.download(publicPath, filename, async (err) => {
@@ -1850,6 +1956,108 @@ router.get('/saved', async (req, res) => {
   } catch (error) {
     console.error('Error reading saved meditations:', error);
     res.status(500).json({ error: 'Failed to read saved meditations' });
+  }
+});
+
+// Save draft endpoint
+router.post('/draft/save', async (req, res) => {
+  try {
+    const { meditationId, text, language, meditationType, duration } = req.body;
+    
+    let meditation;
+    
+    if (meditationId) {
+      // Update existing meditation
+      meditation = await Meditation.findById(meditationId);
+      if (!meditation) {
+        return res.status(404).json({ error: 'Meditation not found' });
+      }
+      
+      // Save current version to history before updating
+      if (meditation.editedText && meditation.editedText !== text) {
+        meditation.textHistory.push({
+          text: meditation.editedText,
+          version: meditation.textHistory.length + 1,
+          editedBy: req.user ? req.user._id : null
+        });
+      }
+      
+      meditation.editedText = text;
+      meditation.isDraft = true;
+      meditation.draftSavedAt = new Date();
+    } else {
+      // Create new draft meditation
+      const textHash = crypto.createHash('md5').update(text + language).digest('hex');
+      
+      meditation = new Meditation({
+        originalText: text,
+        editedText: text,
+        originalLanguage: language,
+        meditationType: meditationType || 'mindfulness',
+        duration: duration || 10,
+        textHash: textHash,
+        isDraft: true,
+        draftSavedAt: new Date(),
+        user: req.user ? req.user._id : null
+      });
+    }
+    
+    await meditation.save();
+    
+    res.json({
+      success: true,
+      meditationId: meditation._id,
+      message: 'Draft saved successfully'
+    });
+  } catch (error) {
+    console.error('Error saving draft:', error);
+    res.status(500).json({ error: 'Failed to save draft' });
+  }
+});
+
+// Load draft endpoint
+router.get('/draft/:id', async (req, res) => {
+  try {
+    const meditation = await Meditation.findById(req.params.id);
+    
+    if (!meditation) {
+      return res.status(404).json({ error: 'Draft not found' });
+    }
+    
+    res.json({
+      meditationId: meditation._id,
+      originalText: meditation.originalText,
+      editedText: meditation.editedText,
+      isDraft: meditation.isDraft,
+      draftSavedAt: meditation.draftSavedAt,
+      textHistory: meditation.textHistory,
+      language: meditation.originalLanguage,
+      meditationType: meditation.meditationType,
+      duration: meditation.duration
+    });
+  } catch (error) {
+    console.error('Error loading draft:', error);
+    res.status(500).json({ error: 'Failed to load draft' });
+  }
+});
+
+// Get user's drafts
+router.get('/drafts', async (req, res) => {
+  try {
+    const query = { isDraft: true };
+    if (req.user) {
+      query.user = req.user._id;
+    }
+    
+    const drafts = await Meditation.find(query)
+      .sort({ draftSavedAt: -1 })
+      .limit(10)
+      .select('meditationType duration originalLanguage draftSavedAt editedText');
+    
+    res.json(drafts);
+  } catch (error) {
+    console.error('Error getting drafts:', error);
+    res.status(500).json({ error: 'Failed to get drafts' });
   }
 });
 

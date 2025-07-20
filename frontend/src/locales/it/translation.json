@@ -91,5 +91,11 @@
   "middle-aged": "Mezza età",
   "female": "Femminile",
   "male": "Maschile",
-  "neutral": "Neutrale"
+  "neutral": "Neutrale",
+  "back": "Indietro",
+  "save": "Salva",
+  "regenerateText": "Rigenera Testo",
+  "textModified": "Il testo è stato modificato",
+  "savingDraft": "Salvataggio bozza...",
+  "draftSaved": "Bozza salvata"
 }

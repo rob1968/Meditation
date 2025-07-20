@@ -89,5 +89,11 @@
   "rainDesc": "مطر لطيف للاسترخاء الهادئ",
   "oceanDesc": "أمواج مهدئة للتركيز العميق والهدوء",
   "forestDesc": "أصوات الغابة الطبيعية للاستقرار والطاقة",
-  "recommendedFor": "موصى به لـ"
+  "recommendedFor": "موصى به لـ",
+  "back": "رجوع",
+  "save": "حفظ",
+  "regenerateText": "إعادة إنشاء النص",
+  "textModified": "تم تعديل النص",
+  "savingDraft": "جاري حفظ المسودة...",
+  "draftSaved": "تم حفظ المسودة"
 }

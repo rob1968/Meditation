@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
+import TTSTierInfo from './TTSTierInfo';
 
 const Profile = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
@@ -126,6 +127,9 @@ const Profile = ({ user, onLogout }) => {
           )}
         </>
       ) : null}
+
+      {/* TTS Tier Information - Only for user 'rob' */}
+      {user.username === 'rob' && <TTSTierInfo />}
 
       <div className="profile-actions">
         <button 
