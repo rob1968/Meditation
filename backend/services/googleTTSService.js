@@ -121,7 +121,7 @@ const convertToSSML = (text) => {
   return `<speak>${ssmlText}</speak>`;
 };
 
-const generateGoogleTTS = async (text, language = 'en', voiceId = null, isPreview = false, usePremium = false) => {
+const generateGoogleTTS = async (text, language = 'en', voiceId = null, isPreview = false, usePremium = false, customTempo = null) => {
   try {
     let voice;
     
@@ -151,10 +151,11 @@ const generateGoogleTTS = async (text, language = 'en', voiceId = null, isPrevie
     
     const processedText = supportsSSML ? convertToSSML(text) : convertToPlainText(text);
     
-    // Vary audio settings based on voice characteristics for more distinction
+    // Intelligent tempo distribution for TTS providers
     let pitch = -2.0;
     let speakingRate = 0.75;
     
+    // Don't apply custom tempo - will be handled by FFmpeg for consistency
     if (voiceId) {
       // Extract voice letter (e.g., Wavenet-A, Wavenet-B, etc.)
       const voiceLetter = voiceId.split('-').pop();
@@ -204,11 +205,11 @@ const generateGoogleTTS = async (text, language = 'en', voiceId = null, isPrevie
         default:
           // Keep defaults
       }
-      
-      // For previews, use normal speed to better hear differences
-      if (isPreview) {
-        speakingRate = Math.min(1.0, speakingRate + 0.15);
-      }
+    }
+    
+    // For previews, use normal speed to better hear differences
+    if (isPreview) {
+      speakingRate = Math.min(1.0, speakingRate + 0.15);
     }
     
     // Construct the request
@@ -226,6 +227,8 @@ const generateGoogleTTS = async (text, language = 'en', voiceId = null, isPrevie
     if (supportsCustomPitch) {
       audioConfig.pitch = pitch;
     }
+    
+    console.log(`🔧 GOOGLE TTS CONFIG: speakingRate = ${audioConfig.speakingRate} (tempo will be applied via FFmpeg), pitch = ${audioConfig.pitch || 'not supported'}`);
     
     const request = {
       input: supportsSSML ? { ssml: processedText } : { text: processedText },

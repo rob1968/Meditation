@@ -12,6 +12,7 @@ import AdminDashboard from './components/AdminDashboard';
 import VoiceSlider from './components/VoiceSlider';
 import MeditationTypeSlider from './components/MeditationTypeSlider';
 import BackgroundSlider from './components/BackgroundSlider';
+import TempoSlider from './components/TempoSlider';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from './config/api';
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
   const [voices, setVoices] = useState([]);
   const [voiceProvider, setVoiceProvider] = useState('google'); // 'google' or 'elevenlabs'
   const [googleVoices, setGoogleVoices] = useState({});
+  const [speechTempo, setSpeechTempo] = useState(0.75); // Default meditation tempo
   const [audioUrl, setAudioUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isGeneratingText, setIsGeneratingText] = useState(false);
@@ -42,6 +44,9 @@ const App = () => {
   // User authentication state
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('create');
+  
+  // Credits state
+  const [userCredits, setUserCredits] = useState(null);
   
   // Draft and text editing state
   const [originalGeneratedText, setOriginalGeneratedText] = useState('');
@@ -214,10 +219,11 @@ const App = () => {
     }
   }, []);
   
-  // Load user meditations when user changes
+  // Load user meditations and credits when user changes
   useEffect(() => {
     if (user?.id) {
       loadUserMeditations();
+      fetchUserCredits();
     }
   }, [user]);
 
@@ -229,8 +235,20 @@ const App = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setUserCredits(null);
     setActiveTab('create');
     // Note: We keep the language preference even after logout
+  };
+
+  const fetchUserCredits = async () => {
+    if (!user?.id) return;
+    
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/credits`));
+      setUserCredits(response.data);
+    } catch (error) {
+      console.error('Error fetching user credits:', error);
+    }
   };
 
   const handleLanguageChange = (languageCode) => {
@@ -254,7 +272,8 @@ const App = () => {
         meditationType,
         userId: user?.id,
         useBackgroundMusic,
-        voiceProvider
+        voiceProvider,
+        speechTempo
       }, { responseType: 'blob' });
 
       const url = window.URL.createObjectURL(new Blob([res.data]));
@@ -264,6 +283,11 @@ const App = () => {
         url: url,
         label: audioLanguages.find(lang => lang.value === i18n.language)?.label || i18n.language
       }]);
+      
+      // Refresh credits after successful generation
+      if (user?.id) {
+        fetchUserCredits();
+      }
       
       // Clear the form after successful generation
       setText("");
@@ -286,6 +310,12 @@ const App = () => {
   };
 
   const handleTextApproved = () => {
+    // Check credits before generating audio
+    if (user && userCredits && userCredits.credits < 1) {
+      setError('Insufficient credits. You need 1 credit to generate audio.');
+      return;
+    }
+    
     setShowTextPreview(false);
     generateAudio();
   };
@@ -417,7 +447,7 @@ const App = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'myAudio':
-        return <MyAudio user={user} isGenerating={isLoading} />;
+        return <MyAudio user={user} userCredits={userCredits} isGenerating={isLoading} onCreditsUpdate={fetchUserCredits} />;
       case 'community':
         return <CommunityHub user={user} />;
       case 'admin':
@@ -522,12 +552,29 @@ const App = () => {
         currentMeditationType={meditationType}
       />
 
+      <TempoSlider 
+        speechTempo={speechTempo}
+        onTempoChange={setSpeechTempo}
+      />
+
+      {/* Credits Display */}
+      {user && userCredits && (
+        <div className="credits-info">
+          <span className="credits-icon">💎</span>
+          <span className="credits-text">
+            {userCredits.credits} {t('credits', 'credits')}
+          </span>
+          {userCredits.credits < 3 && (
+            <span className="credits-warning">⚠️</span>
+          )}
+        </div>
+      )}
 
       {!showTextPreview && (
         <button 
           className="generate-btn"
           onClick={handleGenerateClick}
-          disabled={isGeneratingText || isLoading}
+          disabled={isGeneratingText || isLoading || (user && userCredits && userCredits.credits < 1)}
         >
           {isGeneratingText ? (
             <div className="loading-spinner">

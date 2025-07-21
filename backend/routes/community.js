@@ -201,6 +201,26 @@ router.post('/share', upload.fields([
       });
     }
 
+    // Check if user has enough credits (1 credit per share)
+    if (req.body.userId) {
+      const user = await User.findById(req.body.userId);
+      if (!user) {
+        return res.status(404).json({ 
+          success: false, 
+          error: 'User not found' 
+        });
+      }
+      
+      if (!user.hasEnoughCredits(1)) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Insufficient credits. You need 1 credit to share a meditation.',
+          currentCredits: user.credits,
+          required: 1
+        });
+      }
+    }
+
     // Check if audio file was uploaded
     if (!req.files || !req.files.audio || req.files.audio.length === 0) {
       console.log('No audio file in request. Files:', req.files);
@@ -259,6 +279,20 @@ router.post('/share', upload.fields([
     });
 
     await sharedMeditation.save();
+
+    // Deduct credits after successful sharing
+    if (req.body.userId) {
+      try {
+        const user = await User.findById(req.body.userId);
+        if (user) {
+          await user.spendCredits(1, 'sharing', `Shared meditation: ${title}`, sharedMeditation._id.toString());
+          console.log(`Deducted 1 credit from user ${req.body.userId} for sharing meditation. Remaining credits: ${user.credits}`);
+        }
+      } catch (creditError) {
+        console.error('Error deducting credits for sharing:', creditError);
+        // Don't fail the request if credit deduction fails, just log it
+      }
+    }
 
     res.json({
       success: true,

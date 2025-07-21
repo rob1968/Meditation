@@ -9,6 +9,7 @@ const { spawn } = require('child_process');
 const os = require('os'); // Import os module for temporary directory
 const crypto = require('crypto'); // For generating file hashes
 const Meditation = require('../models/Meditation');
+const User = require('../models/User');
 const translationService = require('../services/translationService');
 const Anthropic = require('@anthropic-ai/sdk');
 const { generateGoogleTTS } = require('../services/googleTTSService');
@@ -97,14 +98,33 @@ const getAudioDuration = async (filePath) => {
 };
 
 router.post('/', async (req, res) => {
-  const { text, voiceId, background, language, audioLanguage, meditationType, userId, useBackgroundMusic, voiceProvider = 'elevenlabs' } = req.body;
+  const { text, voiceId, background, language, audioLanguage, meditationType, userId, useBackgroundMusic, voiceProvider = 'elevenlabs', speechTempo = 0.75 } = req.body;
   const apiKey = process.env.ELEVEN_API_KEY;
+  
+  // Debug log to verify tempo slider value
+  console.log(`🎵 TEMPO CONTROL: speechTempo received = ${speechTempo} (type: ${typeof speechTempo}), voiceProvider = ${voiceProvider}`);
 
   let speechPath;
   let outputPath;
   let tempDir;
 
   try {
+    // Check if user has enough credits (1 credit per generation)
+    if (userId) {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      
+      if (!user.hasEnoughCredits(1)) {
+        return res.status(400).json({ 
+          error: 'Insufficient credits. You need 1 credit to generate audio.',
+          currentCredits: user.credits,
+          required: 1
+        });
+      }
+    }
+
     if (!apiKey) {
       throw new Error('Eleven Labs API key is not set in .env file');
     }
@@ -193,9 +213,10 @@ router.post('/', async (req, res) => {
     
     if (voiceProvider === 'google') {
       try {
-        // Generate audio using Google TTS
-        audioContent = await generateGoogleTTS(translatedText, speechLanguage, voiceId);
-        console.log('Google TTS generation successful');
+        // Generate audio using Google TTS with custom tempo
+        console.log(`🎤 GOOGLE TTS: Calling generateGoogleTTS with speechTempo = ${speechTempo}`);
+        audioContent = await generateGoogleTTS(translatedText, speechLanguage, voiceId, false, false, speechTempo);
+        console.log('✅ Google TTS generation successful with tempo:', speechTempo);
       } catch (googleError) {
         console.error('Google TTS failed, falling back to Eleven Labs:', googleError);
         
@@ -211,7 +232,7 @@ router.post('/', async (req, res) => {
               similarity_boost: 0.75,
               style: 0,
               use_speaker_boost: true,
-              speed: 0.7
+              speed: 1.0 // Fixed at 1.0, tempo will be applied via FFmpeg
             }
           },
           {
@@ -237,7 +258,7 @@ router.post('/', async (req, res) => {
             similarity_boost: 0.75,
             style: 0,
             use_speaker_boost: true,
-            speed: 0.7
+            speed: 1.0 // Fixed at 1.0, tempo will be applied via FFmpeg
           }
         },
         {
@@ -294,13 +315,19 @@ router.post('/', async (req, res) => {
       
       const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
       
+      // Apply tempo via FFmpeg for both providers for consistency
+      const shouldApplyTempo = speechTempo !== 1.0;
+      const tempoFilter = shouldApplyTempo ? `atempo=${speechTempo},` : '';
+      
+      console.log(`Using voice provider: ${voiceProvider}, speechTempo: ${speechTempo}, applying FFmpeg tempo: ${shouldApplyTempo}`);
+      
       const ffmpegArgs = [
         '-y', // Automatically overwrite output files without asking
         '-i', speechPath,
         '-i', backgroundPath,
         '-filter_complex', 
-        // Add intro delay to speech and pad with outro (no tempo change)
-        `[0:a]adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
+        // Apply tempo slowdown if Google TTS, then add intro delay to speech and pad with outro
+        `[0:a]${tempoFilter}adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
         // Create intro: first 5 seconds at higher volume with fade-in
         `[1:a]atrim=0:${introSeconds},volume=0.25,afade=t=in:d=3[intro];` +
         // Create background music (looped and volume adjusted for during speech)
@@ -334,9 +361,46 @@ router.post('/', async (req, res) => {
         });
       });
     } else {
-      // Voice only - no background music, no processing needed
-      console.log('Voice only mode - copying original TTS file directly');
-      await fsPromises.copyFile(speechPath, outputPath);
+      // Voice only - no background music
+      // Apply tempo via FFmpeg for both providers for consistency
+      const shouldApplyTempo = speechTempo !== 1.0;
+      
+      if (shouldApplyTempo) {
+        console.log(`Voice only mode with ${voiceProvider} - applying ${speechTempo}x tempo adjustment via FFmpeg`);
+        
+        const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
+        
+        const ffmpegArgs = [
+          '-y', // Automatically overwrite output files without asking
+          '-i', speechPath,
+          '-filter:a', `atempo=${speechTempo}`, // Apply user-selected tempo adjustment
+          '-c:a', 'libmp3lame',
+          '-q:a', '4',
+          outputPath
+        ];
+        
+        const ffmpeg = spawn(ffmpegPath, ffmpegArgs);
+
+        ffmpeg.stderr.on('data', (data) => {
+          console.error(`FFmpeg stderr: ${data}`);
+        });
+
+        await new Promise((resolve, reject) => {
+          ffmpeg.on('close', (code) => {
+            if (code === 0) {
+              console.log('FFmpeg tempo processing completed successfully.');
+              resolve();
+            } else {
+              console.error(`FFmpeg exited with code ${code}`);
+              reject(new Error('Audio tempo processing failed'));
+            }
+          });
+        });
+      } else {
+        // Both providers at 1.0x - copy original TTS file directly (no tempo adjustment needed)
+        console.log(`Voice only mode with ${voiceProvider} - copying original TTS file directly (1.0x tempo)`);
+        await fsPromises.copyFile(speechPath, outputPath);
+      }
     }
 
     // Copy to public folder for download
@@ -400,6 +464,20 @@ router.post('/', async (req, res) => {
         console.log(`User meditation saved: ${userFilename}`);
       } catch (userSaveError) {
         console.log('Could not save to user meditations:', userSaveError.message);
+      }
+    }
+
+    // Deduct credits after successful audio generation
+    if (userId) {
+      try {
+        const user = await User.findById(userId);
+        if (user) {
+          await user.spendCredits(1, 'generation', `Audio generation: ${meditationType || 'sleep'} meditation in ${speechLanguage}`, filename);
+          console.log(`Deducted 1 credit from user ${userId}. Remaining credits: ${user.credits}`);
+        }
+      } catch (creditError) {
+        console.error('Error deducting credits:', creditError);
+        // Don't fail the request if credit deduction fails, just log it
       }
     }
 

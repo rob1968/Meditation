@@ -6,13 +6,17 @@ import TTSTierInfo from './TTSTierInfo';
 
 const Profile = ({ user, onLogout }) => {
   const [stats, setStats] = useState(null);
+  const [credits, setCredits] = useState(null);
+  const [creditHistory, setCreditHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showCreditHistory, setShowCreditHistory] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (user) {
       fetchUserStats();
+      fetchUserCredits();
     }
   }, [user]);
 
@@ -26,6 +30,24 @@ const Profile = ({ user, onLogout }) => {
       setError('Failed to load statistics');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchUserCredits = async () => {
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/credits`));
+      setCredits(response.data);
+    } catch (error) {
+      console.error('Error fetching user credits:', error);
+    }
+  };
+
+  const fetchCreditHistory = async () => {
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/credit-history`));
+      setCreditHistory(response.data.transactions);
+    } catch (error) {
+      console.error('Error fetching credit history:', error);
     }
   };
 
@@ -68,6 +90,91 @@ const Profile = ({ user, onLogout }) => {
         <div className="error-message">{error}</div>
       ) : stats ? (
         <>
+          {/* Credits Section */}
+          {credits && (
+            <div className="credits-section">
+              <div className="credits-header">
+                <h3>💎 {t('credits', 'Credits')}</h3>
+                <button 
+                  className="credits-purchase-btn"
+                  onClick={() => alert('Payment system coming soon!')}
+                >
+                  {t('buyCredits', 'Buy Credits')}
+                </button>
+              </div>
+              
+              <div className="credits-display">
+                <div className="credits-main">
+                  <div className="credits-balance">
+                    <span className="credits-amount">{credits.credits}</span>
+                    <span className="credits-label">{t('availableCredits', 'Available Credits')}</span>
+                  </div>
+                  
+                  {credits.credits < 3 && (
+                    <div className="credits-warning">
+                      ⚠️ {t('lowCreditsWarning', 'Low credits! Consider purchasing more.')}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="credits-stats">
+                  <div className="credit-stat">
+                    <span className="stat-label">{t('totalEarned', 'Total Earned')}</span>
+                    <span className="stat-value">{credits.totalCreditsEarned}</span>
+                  </div>
+                  <div className="credit-stat">
+                    <span className="stat-label">{t('totalSpent', 'Total Spent')}</span>
+                    <span className="stat-value">{credits.totalCreditsSpent}</span>
+                  </div>
+                </div>
+                
+                <button 
+                  className="credit-history-btn"
+                  onClick={() => {
+                    setShowCreditHistory(!showCreditHistory);
+                    if (!showCreditHistory && creditHistory.length === 0) {
+                      fetchCreditHistory();
+                    }
+                  }}
+                >
+                  {showCreditHistory ? '📤 ' + t('hideHistory', 'Hide History') : '📋 ' + t('viewHistory', 'View History')}
+                </button>
+                
+                {showCreditHistory && (
+                  <div className="credit-history">
+                    <h4>{t('creditHistory', 'Credit History')}</h4>
+                    {creditHistory.length === 0 ? (
+                      <p>{t('noTransactions', 'No transactions yet.')}</p>
+                    ) : (
+                      <div className="credit-transactions">
+                        {creditHistory.map((transaction, index) => (
+                          <div key={index} className="credit-transaction">
+                            <div className="transaction-info">
+                              <span className="transaction-type">
+                                {transaction.type === 'initial' && '🎁'}
+                                {transaction.type === 'generation' && '🎵'}
+                                {transaction.type === 'sharing' && '🌟'}
+                                {transaction.type === 'purchase' && '💳'}
+                                {transaction.type === 'bonus' && '🎉'}
+                                {transaction.description}
+                              </span>
+                              <span className="transaction-date">
+                                {formatDate(transaction.createdAt)}
+                              </span>
+                            </div>
+                            <span className={`transaction-amount ${transaction.amount > 0 ? 'positive' : 'negative'}`}>
+                              {transaction.amount > 0 ? '+' : ''}{transaction.amount}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="profile-stats">
             <div className="stat-card">
               <div className="stat-icon">🧘</div>

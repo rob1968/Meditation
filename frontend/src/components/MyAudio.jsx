@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from '../config/api';
 import ShareMeditationDialog from './ShareMeditationDialog';
 
-const MyAudio = ({ user, isGenerating }) => {
+const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
   const [meditations, setMeditations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -166,6 +166,12 @@ const MyAudio = ({ user, isGenerating }) => {
   };
 
   const shareMeditation = async (meditationId, shareData) => {
+    // Check credits before sharing
+    if (userCredits && userCredits.credits < 1) {
+      setError('Insufficient credits. You need 1 credit to share a meditation.');
+      return;
+    }
+    
     setIsSharing(true);
     try {
       const meditation = meditations.find(m => m.id === meditationId);
@@ -232,8 +238,11 @@ const MyAudio = ({ user, isGenerating }) => {
           isShared: true
         });
         
-        // Refresh meditations
+        // Refresh meditations and credits
         await fetchUserMeditations();
+        if (onCreditsUpdate) {
+          onCreditsUpdate();
+        }
         setShowShareDialog(null);
         setError('');
         
@@ -404,8 +413,15 @@ const MyAudio = ({ user, isGenerating }) => {
                 {meditation.audioFiles && meditation.audioFiles.length > 0 && (
                   <button 
                     className="share-button"
-                    onClick={() => setShowShareDialog(meditation.id)}
+                    onClick={() => {
+                      if (userCredits && userCredits.credits < 1) {
+                        setError('Insufficient credits. You need 1 credit to share a meditation.');
+                        return;
+                      }
+                      setShowShareDialog(meditation.id);
+                    }}
                     title={t('shareMeditation', 'Share Meditation')}
+                    disabled={userCredits && userCredits.credits < 1}
                   >
                     <span className="share-icon">
                       {meditation.isShared ? '🌟' : '📤'}

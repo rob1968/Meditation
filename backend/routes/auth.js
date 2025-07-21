@@ -104,11 +104,15 @@ router.post('/register', async (req, res) => {
     
     await user.save();
     
+    // Initialize credits for new user
+    await user.initializeCredits();
+    
     res.status(201).json({
       message: 'User registered successfully',
       user: {
         id: user._id,
         username: user.username,
+        credits: user.credits,
         createdAt: user.createdAt
       }
     });
@@ -142,6 +146,7 @@ router.post('/login', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
+        credits: user.credits,
         lastLogin: user.lastLogin
       }
     });
@@ -377,6 +382,123 @@ router.post('/update-audio-durations', async (req, res) => {
   } catch (error) {
     console.error('Error updating audio durations:', error);
     res.status(500).json({ error: 'Failed to update audio durations' });
+  }
+});
+
+// Credit Management Routes
+
+// Get user credits and stats
+router.get('/user/:id/credits', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json({
+      credits: user.credits,
+      totalCreditsEarned: user.totalCreditsEarned,
+      totalCreditsSpent: user.totalCreditsSpent
+    });
+  } catch (error) {
+    console.error('Error fetching user credits:', error);
+    res.status(500).json({ error: 'Failed to fetch credits' });
+  }
+});
+
+// Get credit transaction history
+router.get('/user/:id/credit-history', async (req, res) => {
+  try {
+    const { limit = 20, offset = 0 } = req.query;
+    const user = await User.findById(req.params.id);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Sort transactions by newest first and apply pagination
+    const transactions = user.creditTransactions
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .slice(parseInt(offset), parseInt(offset) + parseInt(limit));
+    
+    res.json({
+      transactions,
+      total: user.creditTransactions.length
+    });
+  } catch (error) {
+    console.error('Error fetching credit history:', error);
+    res.status(500).json({ error: 'Failed to fetch credit history' });
+  }
+});
+
+// Spend credits (internal route for meditation generation/sharing)
+router.post('/user/:id/credits/spend', async (req, res) => {
+  try {
+    const { amount, type, description, relatedId } = req.body;
+    const user = await User.findById(req.params.id);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    if (!user.hasEnoughCredits(amount)) {
+      return res.status(400).json({ 
+        error: 'Insufficient credits',
+        currentCredits: user.credits,
+        required: amount
+      });
+    }
+    
+    await user.spendCredits(amount, type, description, relatedId);
+    
+    res.json({
+      success: true,
+      creditsRemaining: user.credits,
+      transaction: {
+        type,
+        amount: -amount,
+        description,
+        relatedId
+      }
+    });
+  } catch (error) {
+    console.error('Error spending credits:', error);
+    if (error.message === 'Insufficient credits') {
+      return res.status(400).json({ error: error.message });
+    }
+    res.status(500).json({ error: 'Failed to spend credits' });
+  }
+});
+
+// Add credits (for future payment integration)
+router.post('/user/:id/credits/add', async (req, res) => {
+  try {
+    const { amount, type = 'purchase', description, relatedId } = req.body;
+    const user = await User.findById(req.params.id);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    if (amount <= 0) {
+      return res.status(400).json({ error: 'Amount must be positive' });
+    }
+    
+    await user.addCredits(amount, type, description, relatedId);
+    
+    res.json({
+      success: true,
+      creditsTotal: user.credits,
+      transaction: {
+        type,
+        amount,
+        description,
+        relatedId
+      }
+    });
+  } catch (error) {
+    console.error('Error adding credits:', error);
+    res.status(500).json({ error: 'Failed to add credits' });
   }
 });
 

@@ -29,16 +29,6 @@ const BottomNavigation = ({ activeTab, onTabChange, user, onLogout }) => {
         </button>
       ))}
       
-      {user && (
-        <div className="nav-user">
-          <div className="user-info">
-            <span className="username">{user.username}</span>
-            <button onClick={onLogout} className="logout-button">
-              {t('logout', 'Logout')}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
