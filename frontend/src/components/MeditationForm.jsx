@@ -6,7 +6,7 @@ import BackgroundSlider from './BackgroundSlider';
 import VoiceSlider from './VoiceSlider';
 import styles from './MeditationForm.module.css';
 
-const MeditationForm = ({ text, setText, background, setBackground, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType, duration, handleDurationChange }) => {
+const MeditationForm = ({ text, setText, background, setBackground, voiceId, setVoiceId, voices, generate, isLoading, meditationType, selectMeditationType, duration, handleDurationChange, onGenerateTextPreview, isGeneratingText, showTextPreview, userCredits }) => {
   const { t } = useTranslation();
   
   return (
@@ -22,6 +22,30 @@ const MeditationForm = ({ text, setText, background, setBackground, voiceId, set
           selectedType={meditationType}
           onTypeSelect={selectMeditationType}
         />
+        
+        {!showTextPreview && (
+          <div className={styles.previewContainer}>
+            <Button
+              type="button"
+              onClick={onGenerateTextPreview}
+              disabled={isGeneratingText || isLoading || (userCredits && userCredits.credits < 1)}
+              variant="outline"
+              size="medium"
+              className={styles.previewButton}
+            >
+              {isGeneratingText ? (
+                <>
+                  <LoadingSpinner size="small" />
+                  {t('generating', 'Generating...')}
+                </>
+              ) : (
+                <>
+                  👁️ {t('previewText', 'Preview Text')}
+                </>
+              )}
+            </Button>
+          </div>
+        )}
         
         <FormField label={`${t('duration')}: ${duration} ${t('minutes')}`}>
           <div className={styles.durationContainer}>

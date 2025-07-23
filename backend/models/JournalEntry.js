@@ -100,17 +100,8 @@ const JournalEntrySchema = new mongoose.Schema({
     default: Date.now
   },
   
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
 });
 
-// Update the updatedAt field before saving
-JournalEntrySchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  next();
-});
 
 // Update like count when likes array changes
 JournalEntrySchema.methods.updateLikeCount = function() {

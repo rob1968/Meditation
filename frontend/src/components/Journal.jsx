@@ -625,7 +625,29 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('nl-NL', {
+    // Get current language from i18n
+    const currentLanguage = i18n.language || 'nl';
+    
+    // Map language codes to locales
+    const localeMap = {
+      'nl': 'nl-NL',
+      'en': 'en-US',
+      'de': 'de-DE',
+      'fr': 'fr-FR',
+      'es': 'es-ES',
+      'it': 'it-IT',
+      'pt': 'pt-PT',
+      'ru': 'ru-RU',
+      'ja': 'ja-JP',
+      'ko': 'ko-KR',
+      'zh': 'zh-CN',
+      'ar': 'ar-SA',
+      'hi': 'hi-IN'
+    };
+    
+    const locale = localeMap[currentLanguage] || 'nl-NL';
+    
+    return new Date(dateString).toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -1198,10 +1220,6 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                 <div className="entry-info">
                   <h3 className="entry-title">{entry.title}</h3>
                   <div className="entry-meta">
-                    <span className="entry-date">
-                      <span className="meta-icon">📅</span> 
-                      {formatDate(entry.date)}
-                    </span>
                     {entry.audioFile && (
                       <span className="entry-duration">
                         <span className="meta-icon">🎵</span> 

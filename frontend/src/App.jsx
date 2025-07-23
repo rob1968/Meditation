@@ -193,13 +193,16 @@ const App = () => {
     }
   };
 
-  // Clear text when meditation type changes
+  // Auto-generate text when meditation type changes
   useEffect(() => {
-    setText('');
-    setGeneratedText('');
-    setShowTextPreview(false);
-    setOriginalGeneratedText('');
-    setIsTextModified(false);
+    if (meditationType) {
+      setText('');
+      setGeneratedText('');
+      setOriginalGeneratedText('');
+      setIsTextModified(false);
+      // Auto-generate preview text
+      generateTextPreview();
+    }
   }, [meditationType, i18n.language]);
   
   // Track text modifications
@@ -493,6 +496,253 @@ const App = () => {
         onTypeSelect={selectMeditationType}
       />
 
+
+      {(
+        <div className="text-preview-section" style={{ 
+          marginTop: '20px', 
+          marginBottom: '20px',
+          padding: '20px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: '15px',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            marginBottom: '15px'
+          }}>
+            <h3 style={{ 
+              color: '#fff',
+              fontSize: '18px',
+              fontWeight: '600',
+              margin: 0
+            }}>
+              ✨ {t('textLabel', 'Meditation Text')}
+            </h3>
+            
+            {userMeditations.length > 0 && (
+              <button
+                onClick={() => setShowSavedMeditations(!showSavedMeditations)}
+                style={{
+                  background: 'rgba(103, 126, 234, 0.8)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '6px 12px',
+                  borderRadius: '15px',
+                  fontSize: '11px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                📚 {showSavedMeditations ? t('hideSaved', 'Hide Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
+              </button>
+            )}
+          </div>
+
+          {showSavedMeditations && userMeditations.length > 0 && (
+            <div style={{ 
+              background: 'rgba(0, 0, 0, 0.5)',
+              borderRadius: '10px',
+              padding: '15px',
+              marginBottom: '15px',
+              maxHeight: '200px',
+              overflowY: 'auto',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}>
+              <h4 style={{ 
+                color: '#fff', 
+                fontSize: '14px', 
+                marginBottom: '10px',
+                fontWeight: '500'
+              }}>
+                {t('savedMeditations', 'Saved Meditations')}
+              </h4>
+              
+              {userMeditations.filter(m => 
+                m.meditationType === meditationType && 
+                m.language === i18n.language
+              ).length === 0 ? (
+                <p style={{ 
+                  textAlign: 'center', 
+                  color: '#a0aec0',
+                  fontSize: '12px',
+                  fontStyle: 'italic'
+                }}>
+                  {t('noSavedMeditations', 'No saved meditations for this type and language')}
+                </p>
+              ) : (
+                userMeditations
+                  .filter(m => m.meditationType === meditationType && m.language === i18n.language)
+                  .slice(0, 5) // Show max 5 recent meditations
+                  .map((meditation, index) => (
+                    <div 
+                      key={index} 
+                      onClick={() => {
+                        setText(meditation.text);
+                        setOriginalGeneratedText(meditation.text);
+                        setIsTextModified(false);
+                        setShowSavedMeditations(false);
+                      }}
+                      style={{
+                        padding: '10px',
+                        margin: '5px 0',
+                        borderRadius: '8px',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        cursor: 'pointer',
+                        transition: 'background 0.2s ease',
+                        border: '1px solid rgba(255, 255, 255, 0.05)'
+                      }}
+                      onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
+                      onMouseLeave={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
+                    >
+                      <div style={{ 
+                        color: '#fff',
+                        fontSize: '12px',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        marginBottom: '4px'
+                      }}>
+                        {meditation.text.substring(0, 80)}...
+                      </div>
+                      <div style={{ 
+                        fontSize: '10px', 
+                        color: '#a0aec0'
+                      }}>
+                        {t('savedOn', 'Saved on')}: {new Date(meditation.updatedAt || meditation.createdAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                  ))
+              )}
+            </div>
+          )}
+          <div style={{
+            background: 'rgba(0, 0, 0, 0.3)',
+            padding: '15px',
+            borderRadius: '10px',
+            marginBottom: '15px'
+          }}>
+            <textarea
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+                setIsTextModified(e.target.value !== originalGeneratedText);
+              }}
+              placeholder={t('textPlaceholder', 'Enter your meditation text here...')}
+              rows={6}
+              style={{
+                width: '100%',
+                background: 'transparent',
+                border: 'none',
+                color: '#fff',
+                fontSize: '14px',
+                lineHeight: '1.6',
+                resize: 'vertical',
+                outline: 'none'
+              }}
+            />
+          </div>
+          {isTextModified && (
+            <div style={{ 
+              textAlign: 'center', 
+              marginBottom: '15px',
+              padding: '8px 12px',
+              background: 'rgba(255, 193, 7, 0.2)',
+              borderRadius: '8px',
+              border: '1px solid rgba(255, 193, 7, 0.4)'
+            }}>
+              <span style={{ 
+                color: '#ffc107', 
+                fontSize: '12px',
+                fontWeight: '500'
+              }}>
+                ⚠️ {t('textModified', 'Text has been modified')}
+              </span>
+            </div>
+          )}
+          
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button
+              onClick={regenerateText}
+              disabled={isGeneratingText}
+              style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              🔄 {t('regenerate', 'Regenerate')}
+            </button>
+            
+            {isTextModified && (
+              <button
+                onClick={saveDraft}
+                disabled={isSavingDraft || !text.trim()}
+                style={{
+                  background: 'linear-gradient(135deg, #4299e1 0%, #3182ce 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '20px',
+                  fontSize: '12px',
+                  cursor: isSavingDraft ? 'not-allowed' : 'pointer',
+                  opacity: isSavingDraft ? 0.6 : 1
+                }}
+              >
+                {isSavingDraft ? (
+                  <>
+                    <div className="loading-spinner" style={{ display: 'inline-block', width: '12px', height: '12px', marginRight: '5px' }}>
+                      <div className="spinner"></div>
+                    </div>
+                    {t('saving', 'Saving...')}
+                  </>
+                ) : (
+                  <>
+                    💾 {t('saveDraft', 'Save Draft')}
+                  </>
+                )}
+              </button>
+            )}
+            
+            <button
+              onClick={handleTextApproved}
+              disabled={!text.trim() || isLoading}
+              style={{
+                background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              ✓ {t('useText', 'Use This Text')}
+            </button>
+          </div>
+          
+          {draftSaveMessage && (
+            <div style={{ 
+              textAlign: 'center', 
+              marginTop: '10px',
+              fontSize: '12px',
+              color: draftSaveMessage.includes('Error') ? '#f56565' : '#48bb78',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              background: draftSaveMessage.includes('Error') ? 'rgba(245, 101, 101, 0.1)' : 'rgba(72, 187, 120, 0.1)'
+            }}>
+              {draftSaveMessage}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="background-music-toggle">
         <label className="checkbox-container">
           <input
@@ -529,173 +779,7 @@ const App = () => {
 
 
 
-      {!showTextPreview && (
-        <button 
-          className="generate-btn"
-          onClick={handleGenerateClick}
-          disabled={isGeneratingText || isLoading || (user && userCredits && userCredits.credits < 1)}
-        >
-          {isGeneratingText ? (
-            <div className="loading-spinner">
-              <div className="spinner"></div>
-              {t('generating', 'Generating...')}
-            </div>
-          ) : (
-            t('previewText', 'Preview Text')
-          )}
-        </button>
-      )}
 
-      {showTextPreview && (
-        <>
-          <div className="section">
-            <h2 className="section-title">
-              ✨ {t('textLabel')}
-              {userMeditations.length > 0 && (
-                <button 
-                  className="saved-meditations-btn"
-                  onClick={() => setShowSavedMeditations(!showSavedMeditations)}
-                  style={{ 
-                    marginLeft: '15px', 
-                    fontSize: '14px',
-                    padding: '4px 12px',
-                    background: '#667eea',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {showSavedMeditations ? t('hidesSaved', 'Hide Saved') : t('viewSaved', 'View Saved')} ({userMeditations.length})
-                </button>
-              )}
-            </h2>
-            {showSavedMeditations ? (
-              <div className="saved-meditations-list" style={{
-                background: '#f7fafc',
-                borderRadius: '12px',
-                padding: '20px',
-                maxHeight: '400px',
-                overflow: 'auto'
-              }}>
-                {userMeditations.filter(m => 
-                  m.meditationType === meditationType && 
-                  m.language === i18n.language
-                ).length === 0 ? (
-                  <p style={{ textAlign: 'center', color: '#718096' }}>
-                    {t('noSavedMeditations', 'No saved meditations for this type and language')}
-                  </p>
-                ) : (
-                  userMeditations
-                    .filter(m => m.meditationType === meditationType && m.language === i18n.language)
-                    .map(meditation => (
-                      <div key={meditation.id} style={{
-                        background: 'white',
-                        borderRadius: '8px',
-                        padding: '15px',
-                        marginBottom: '10px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        border: '1px solid #e2e8f0'
-                      }}>
-                        <div onClick={() => loadSavedMeditation(meditation)} style={{ flex: 1 }}>
-                          <p style={{ fontWeight: '600', marginBottom: '5px' }}>
-                            {meditation.text.substring(0, 100)}...
-                          </p>
-                          <p style={{ fontSize: '12px', color: '#718096' }}>
-                            {t('savedOn', 'Saved on')}: {new Date(meditation.updatedAt).toLocaleDateString()}
-                          </p>
-                        </div>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (window.confirm(t('confirmDelete', 'Are you sure you want to delete this meditation?'))) {
-                              deleteSavedMeditation(meditation.id);
-                            }
-                          }}
-                          style={{
-                            background: '#ef4444',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '6px',
-                            padding: '6px 12px',
-                            cursor: 'pointer',
-                            fontSize: '12px'
-                          }}
-                        >
-                          {t('delete', 'Delete')}
-                        </button>
-                      </div>
-                    ))
-                )}
-              </div>
-            ) : (
-            <div className="text-area-container">
-              {isGeneratingText ? (
-                <div className="text-area-loading">
-                  <div className="loading-spinner">
-                    <div className="spinner"></div>
-                    {t('generating', 'Generating meditation text...')}
-                  </div>
-                </div>
-              ) : (
-                <textarea 
-                  className="text-area"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder={t('textPlaceholder') || 'Meditation text will be generated when you click Generate...'}
-                />
-              )}
-            </div>
-            )}
-          </div>
-          
-          <div className="text-preview-section">
-            {isTextModified && <div className="text-modified-indicator">{t('textModified')}</div>}
-            {draftSaveMessage && <div className="draft-save-message">{draftSaveMessage}</div>}
-            <div className="preview-buttons">
-              <button 
-                className="approve-btn"
-                onClick={handleTextApproved}
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="loading-spinner">
-                    <div className="spinner"></div>
-                    {t('generating')}
-                  </div>
-                ) : (
-                  t('generateAudio', 'Generate Audio')
-                )}
-              </button>
-              <button 
-                className="regenerate-btn"
-                onClick={regenerateText}
-                disabled={isGeneratingText}
-              >
-                {t('regenerateText', 'Regenerate Text')}
-              </button>
-              {isTextModified && (
-                <button 
-                  className="save-btn"
-                  onClick={saveDraft}
-                  disabled={isSavingDraft}
-                >
-                  {isSavingDraft ? t('savingDraft') : t('save')}
-                </button>
-              )}
-              <button 
-                className="back-btn"
-                onClick={() => setShowTextPreview(false)}
-              >
-                {t('back', 'Back')}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
 
 
       {error && (
