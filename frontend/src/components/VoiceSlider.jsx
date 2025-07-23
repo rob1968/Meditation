@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
 
-const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, currentMeditationType }) => {
+const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, currentMeditationType, speechTempo, onTempoChange, isGeneratingAudio, genderFilter, onGenderFilterChange }) => {
   const { t, i18n } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -18,13 +18,47 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
   const [swipeDirection, setSwipeDirection] = useState(null);
   const cardRef = useRef(null);
 
-  // Find the index of the selected voice
+  // Tempo values and functions
+  const tempoValues = [0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.05, 1.10];
+  
+  const getTempoDescription = (value) => {
+    if (value <= 0.80) return t('verySlowTempo', 'Zeer langzaam');
+    if (value <= 0.90) return t('slowTempo', 'Langzaam');
+    if (value <= 1.00) return t('normalTempo', 'Normaal');
+    return t('fastTempo', 'Sneller');
+  };
+
+  const getTempoEmoji = (value) => {
+    if (value <= 0.80) return '🐌';
+    if (value <= 0.90) return '🚶';
+    if (value <= 1.00) return '⚡';
+    return '🏃';
+  };
+
+  const handleSliderChange = (e) => {
+    const index = parseInt(e.target.value);
+    const value = tempoValues[index];
+    onTempoChange(value);
+  };
+
+  const currentTempoIndex = tempoValues.findIndex(val => val === speechTempo);
+
+  // Filter voices based on gender filter
+  const filteredVoices = voices.filter(voice => 
+    genderFilter === 'all' || voice.gender === genderFilter
+  );
+
+  // Find the index of the selected voice in filtered voices
   useEffect(() => {
-    const selectedIndex = voices.findIndex(voice => voice.voice_id === selectedVoiceId);
+    const selectedIndex = filteredVoices.findIndex(voice => voice.voice_id === selectedVoiceId);
     if (selectedIndex !== -1) {
       setCurrentIndex(selectedIndex);
+    } else if (filteredVoices.length > 0) {
+      // If current voice is not in filtered list, select first available voice
+      setCurrentIndex(0);
+      onVoiceSelect(filteredVoices[0].voice_id);
     }
-  }, [selectedVoiceId, voices]);
+  }, [selectedVoiceId, filteredVoices, onVoiceSelect]);
 
   // Cleanup cached audio URLs when component unmounts
   useEffect(() => {
@@ -35,23 +69,39 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
     };
   }, [previewCache]);
 
-  const currentVoice = voices[currentIndex];
+  const currentVoice = filteredVoices[currentIndex];
 
   const goToPrevious = () => {
     if (isTransitioning) return;
+    
+    // Stop any playing audio when navigating
+    if (audioRef) {
+      audioRef.pause();
+      setAudioRef(null);
+      setIsPlaying(false);
+    }
+    
     setIsTransitioning(true);
-    const newIndex = currentIndex > 0 ? currentIndex - 1 : voices.length - 1;
+    const newIndex = currentIndex > 0 ? currentIndex - 1 : filteredVoices.length - 1;
     setCurrentIndex(newIndex);
-    onVoiceSelect(voices[newIndex].voice_id);
+    onVoiceSelect(filteredVoices[newIndex].voice_id);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const goToNext = () => {
     if (isTransitioning) return;
+    
+    // Stop any playing audio when navigating
+    if (audioRef) {
+      audioRef.pause();
+      setAudioRef(null);
+      setIsPlaying(false);
+    }
+    
     setIsTransitioning(true);
-    const newIndex = currentIndex < voices.length - 1 ? currentIndex + 1 : 0;
+    const newIndex = currentIndex < filteredVoices.length - 1 ? currentIndex + 1 : 0;
     setCurrentIndex(newIndex);
-    onVoiceSelect(voices[newIndex].voice_id);
+    onVoiceSelect(filteredVoices[newIndex].voice_id);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
@@ -136,7 +186,7 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
   // These are now handled by useEffect with proper event listeners
 
   const generatePreview = async (voiceId, language) => {
-    const cacheKey = `${voiceId}-${language}`;
+    const cacheKey = `${voiceId}-${language}-${speechTempo}`;
     
     // Check cache first
     if (previewCache.has(cacheKey)) {
@@ -155,7 +205,8 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
         getFullUrl(endpoint),
         {
           voiceId,
-          language
+          language,
+          speechTempo
         },
         {
           responseType: 'blob'
@@ -263,7 +314,31 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
       <div className="voice-slider-header">
         <h2 className="section-title">🎤 {t('voiceLabel', 'Voice')}</h2>
         <div className="voice-counter">
-          {currentIndex + 1} {t('of', 'of')} {voices.length}
+          {currentIndex + 1} {t('of', 'of')} {filteredVoices.length}
+        </div>
+      </div>
+
+      {/* Gender Filter */}
+      <div className="voice-gender-filter">
+        <div className="gender-filter-options-compact">
+          <button 
+            className={`gender-filter-btn-compact ${genderFilter === 'all' ? 'active' : ''}`}
+            onClick={() => onGenderFilterChange('all')}
+          >
+            {t('all', 'All')}
+          </button>
+          <button 
+            className={`gender-filter-btn-compact ${genderFilter === 'male' ? 'active' : ''}`}
+            onClick={() => onGenderFilterChange('male')}
+          >
+            👨 {t('men', 'Men')}
+          </button>
+          <button 
+            className={`gender-filter-btn-compact ${genderFilter === 'female' ? 'active' : ''}`}
+            onClick={() => onGenderFilterChange('female')}
+          >
+            👩 {t('women', 'Women')}
+          </button>
         </div>
       </div>
 
@@ -281,50 +356,29 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
           </button>
           
           <div className="voice-info">
-            <div className="voice-header">
-              <div className="voice-name">
+            {/* Simplified Voice Header */}
+            <div className="voice-header-simplified">
+              <div className="voice-name-centered">
+                <span className="voice-gender-inline">
+                  {getGenderIcon(currentVoice.gender)}
+                </span>
                 {voiceProvider === 'google' && currentVoice.friendlyName 
                   ? currentVoice.friendlyName 
                   : currentVoice.name
                 }
               </div>
-              <div className="voice-gender">
-                {getGenderIcon(currentVoice.gender)} {t(currentVoice.gender, currentVoice.gender)}
+              
+              {/* Play Button Below Name */}
+              <div className="voice-preview-centered">
+                <button 
+                  className="preview-button-centered"
+                  onClick={isPlaying ? stopPreview : playPreview}
+                  disabled={isGeneratingPreview}
+                  aria-label={isGeneratingPreview ? 'Generating...' : (isPlaying ? 'Stop Preview' : 'Play Preview')}
+                >
+                  {isGeneratingPreview ? '⏳' : (isPlaying ? '⏸️' : '▶️')}
+                </button>
               </div>
-            </div>
-            
-            {voiceProvider === 'elevenlabs' && (
-              <div className="voice-characteristics">
-                {currentVoice.characteristics.map((characteristic, index) => (
-                  <span 
-                    key={index} 
-                    className="characteristic-badge"
-                    style={{ backgroundColor: getCharacteristicColor(characteristic) }}
-                  >
-                    {t(characteristic, characteristic)}
-                  </span>
-                ))}
-              </div>
-            )}
-            
-            {currentVoice.age && (
-              <div className="voice-age">
-                {t('age', 'Age')}: {t(currentVoice.age, currentVoice.age)}
-              </div>
-            )}
-            
-            <div className="voice-preview">
-              <button 
-                className="preview-button"
-                onClick={isPlaying ? stopPreview : playPreview}
-                disabled={isGeneratingPreview}
-              >
-                {isGeneratingPreview ? '⏳' : (isPlaying ? '⏸️' : '▶️')} 
-                {isGeneratingPreview 
-                  ? t('generating', 'Generating...') 
-                  : t(isPlaying ? 'stopPreview' : 'playPreview', isPlaying ? 'Stop Preview' : 'Play Preview')
-                }
-              </button>
             </div>
           </div>
           
@@ -335,6 +389,23 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
           >
             ▶
           </button>
+        </div>
+      </div>
+
+      {/* Tempo Filter - Moved after voice card */}
+      <div className="voice-tempo-filter">
+        <div className="tempo-filter-label">{t('voiceSpeed', 'Voice speed')}</div>
+        <div className="tempo-filter-options">
+          {tempoValues.map((tempo) => (
+            <button
+              key={tempo}
+              className={`tempo-filter-btn ${speechTempo === tempo ? 'active' : ''}`}
+              onClick={() => onTempoChange(tempo)}
+              disabled={isGeneratingAudio || isPlaying || isGeneratingPreview}
+            >
+              {tempo}x
+            </button>
+          ))}
         </div>
       </div>
       

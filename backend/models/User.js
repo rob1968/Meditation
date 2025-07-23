@@ -31,6 +31,24 @@ const UserSchema = new mongoose.Schema({
     default: 0
   },
   
+  // ElevenLabs usage tracking
+  elevenlabsCharactersUsed: {
+    type: Number,
+    default: 0
+  },
+  elevenlabsCharactersThisMonth: {
+    type: Number,
+    default: 0
+  },
+  elevenlabsCosts: {
+    type: Number,
+    default: 0
+  },
+  lastElevenlabsReset: {
+    type: Date,
+    default: Date.now
+  },
+  
   // Credit transaction history
   creditTransactions: [{
     type: {
@@ -53,6 +71,24 @@ const UserSchema = new mongoose.Schema({
     relatedId: {
       type: String, // Can store meditation ID or transaction ID
       required: false
+    }
+  }],
+  
+  // Custom voices for voice cloning
+  customVoices: [{
+    voiceId: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 50
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
     }
   }],
   
@@ -114,6 +150,31 @@ UserSchema.methods.initializeCredits = function() {
     });
   }
   return this.save();
+};
+
+// Custom voice management methods
+UserSchema.methods.addCustomVoice = function(voiceId, name) {
+  // Check if voice already exists
+  const existingVoice = this.customVoices.find(voice => voice.voiceId === voiceId);
+  if (existingVoice) {
+    throw new Error('Voice already exists');
+  }
+  
+  this.customVoices.push({
+    voiceId: voiceId,
+    name: name.trim()
+  });
+  
+  return this.save();
+};
+
+UserSchema.methods.removeCustomVoice = function(voiceId) {
+  this.customVoices = this.customVoices.filter(voice => voice.voiceId !== voiceId);
+  return this.save();
+};
+
+UserSchema.methods.getCustomVoices = function() {
+  return this.customVoices.sort((a, b) => b.createdAt - a.createdAt);
 };
 
 // Create index for better performance

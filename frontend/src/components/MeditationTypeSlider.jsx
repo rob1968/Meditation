@@ -23,7 +23,7 @@ const MeditationTypeSlider = ({ selectedType, onTypeSelect }) => {
     { 
       type: 'stress', 
       icon: '😌', 
-      label: t('stressMeditation'),
+      label: t('reliefMeditation', 'Relief'),
       description: t('stressMeditationDesc', 'Release tension and find calm in stressful moments'),
       color: '#10b981'
     },
@@ -217,10 +217,6 @@ const MeditationTypeSlider = ({ selectedType, onTypeSelect }) => {
             
             <div className="meditation-type-description">
               {currentType.description}
-            </div>
-            
-            <div className="meditation-type-badge" style={{ backgroundColor: currentType.color }}>
-              {t(currentType.type, currentType.type)}
             </div>
           </div>
           

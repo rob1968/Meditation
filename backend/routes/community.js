@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const SharedMeditation = require('../models/SharedMeditation');
 const User = require('../models/User');
+const Notification = require('../models/Notification');
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -547,6 +548,18 @@ router.patch('/admin/meditation/:id/approve', async (req, res) => {
     meditation.moderationNotes = moderationNotes || 'Approved by admin';
     await meditation.save();
 
+    // Create notification for the user
+    const notification = new Notification({
+      userId: meditation.author.userId,
+      meditationId: meditation._id,
+      type: 'approved',
+      title: '✅ Meditation Approved!',
+      message: `Your meditation "${meditation.title}" has been approved and is now live in the community.`,
+      moderationNotes: moderationNotes || 'Approved by admin'
+    });
+    
+    await notification.save();
+
     res.json({
       success: true,
       meditation
@@ -576,6 +589,18 @@ router.patch('/admin/meditation/:id/reject', async (req, res) => {
     meditation.status = 'rejected';
     meditation.moderationNotes = moderationNotes;
     await meditation.save();
+
+    // Create notification for the user
+    const notification = new Notification({
+      userId: meditation.author.userId,
+      meditationId: meditation._id,
+      type: 'rejected',
+      title: '❌ Meditation Rejected',
+      message: `Your meditation "${meditation.title}" was not approved for the community.`,
+      moderationNotes: moderationNotes
+    });
+    
+    await notification.save();
 
     res.json({
       success: true,

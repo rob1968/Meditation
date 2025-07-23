@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.56.0",
+    "@google-cloud/speech": "^6.7.1",
     "@google-cloud/text-to-speech": "^6.2.0",
     "axios": "^1.6.0",
     "cors": "^2.8.5",

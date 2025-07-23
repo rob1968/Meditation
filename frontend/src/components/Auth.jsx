@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
+import PageHeader from './PageHeader';
 
 const Auth = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -32,7 +33,7 @@ const Auth = ({ onLogin }) => {
       if (error.response?.data?.error) {
         setError(error.response.data.error);
       } else {
-        setError(isLogin ? 'Login failed' : 'Registration failed');
+        setError(isLogin ? t('loginFailed', 'Login failed') : t('registrationFailed', 'Registration failed'));
       }
     } finally {
       setIsLoading(false);
@@ -41,6 +42,9 @@ const Auth = ({ onLogin }) => {
 
   return (
     <div className="auth-container">
+      <div className="auth-language-header">
+        <PageHeader />
+      </div>
       <div className="auth-card">
         <div className="auth-header">
           <h2>{isLogin ? t('login', 'Login') : t('register', 'Register')}</h2>

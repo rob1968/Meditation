@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 
 const ShareMeditationDialog = ({ meditation, onShare, onClose, isSharing, t }) => {
-  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   if (!meditation) return null;
 
+  const countWords = (text) => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+  };
+
+  const handleDescriptionChange = (e) => {
+    const text = e.target.value;
+    const wordCount = countWords(text);
+    if (wordCount <= 25) {
+      setDescription(text);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() && description.trim()) {
-      onShare(meditation.id, { title: title.trim(), description: description.trim() });
+    if (description.trim() && countWords(description) <= 25) {
+      onShare(meditation.id, { description: description.trim() });
     }
   };
 
@@ -57,31 +68,15 @@ const ShareMeditationDialog = ({ meditation, onShare, onClose, isSharing, t }) =
 
           <form onSubmit={handleSubmit} className="share-form">
             <div className="form-group">
-              <label htmlFor="share-title">
-                {t('title', 'Title')} *
-              </label>
-              <input
-                id="share-title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder={t('enterTitle', 'Enter a catchy title for your meditation...')}
-                maxLength={100}
-                required
-              />
-            </div>
-
-            <div className="form-group">
               <label htmlFor="share-description">
-                {t('description', 'Description')} *
+                {t('description', 'Description')} * ({25 - countWords(description)} {t('wordsRemaining', 'words remaining')})
               </label>
               <textarea
                 id="share-description"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder={t('enterDescription', 'Describe what makes this meditation special...')}
-                maxLength={500}
-                rows={4}
+                onChange={handleDescriptionChange}
+                placeholder={t('enterDescription', 'Describe what makes this meditation special... (max 25 words)')}
+                rows={3}
                 required
               />
             </div>
@@ -102,7 +97,7 @@ const ShareMeditationDialog = ({ meditation, onShare, onClose, isSharing, t }) =
               <button 
                 type="submit" 
                 className="share-submit-btn"
-                disabled={isSharing || !title.trim() || !description.trim()}
+                disabled={isSharing || !description.trim() || countWords(description) === 0 || countWords(description) > 25}
               >
                 {isSharing ? (
                   <>

@@ -36,7 +36,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       setRejectedMeditations(meditations.filter(m => m.status === 'rejected'));
     } catch (error) {
       console.error('Error fetching meditations for moderation:', error);
-      setError('Failed to load meditations: ' + (error.response?.data?.error || error.message));
+      setError(t('failedToLoadMeditations', 'Failed to load meditations') + ': ' + (error.response?.data?.error || error.message));
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +60,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       }
     } catch (error) {
       console.error('Error approving meditation:', error);
-      setError('Failed to approve meditation');
+      setError(t('failedToApproveMeditation', 'Failed to approve meditation'));
     } finally {
       setIsProcessing(false);
     }
@@ -68,7 +68,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
   const handleReject = async (meditationId) => {
     if (!moderationNote.trim()) {
-      setError('Please provide a reason for rejection');
+      setError(t('provideRejectionReason', 'Please provide a reason for rejection'));
       return;
     }
 
@@ -89,7 +89,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       }
     } catch (error) {
       console.error('Error rejecting meditation:', error);
-      setError('Failed to reject meditation');
+      setError(t('failedToRejectMeditation', 'Failed to reject meditation'));
     } finally {
       setIsProcessing(false);
     }
@@ -100,7 +100,7 @@ const AdminDashboard = ({ user, onLogout }) => {
   };
 
   const formatDuration = (seconds) => {
-    if (!seconds) return 'Unknown';
+    if (!seconds) return t('unknown', 'Unknown');
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -141,6 +141,33 @@ const AdminDashboard = ({ user, onLogout }) => {
     );
   }
 
+  const getImageUrl = (meditation) => {
+    // Handle different image formats for shared meditations
+    if (meditation.customImage) {
+      if (typeof meditation.customImage === 'string') {
+        return `${API_BASE_URL}/assets/images/shared/${meditation.customImage}`;
+      } else if (meditation.customImage.filename) {
+        return `${API_BASE_URL}/assets/images/shared/${meditation.customImage.filename}`;
+      }
+    }
+    
+    // Default meditation type images (direct from assets/images)
+    const defaultImages = {
+      sleep: `${API_BASE_URL}/assets/images/sleep.jpg`,
+      stress: `${API_BASE_URL}/assets/images/stress.jpg`,
+      focus: `${API_BASE_URL}/assets/images/focus.jpg`,
+      anxiety: `${API_BASE_URL}/assets/images/anxiety.jpg`,
+      energy: `${API_BASE_URL}/assets/images/energy.jpg`,
+      mindfulness: `${API_BASE_URL}/assets/images/mindfulness.jpg`,
+      compassion: `${API_BASE_URL}/assets/images/compassion.jpg`,
+      walking: `${API_BASE_URL}/assets/images/walking.jpg`,
+      breathing: `${API_BASE_URL}/assets/images/breathing.jpg`,
+      morning: `${API_BASE_URL}/assets/images/morning.jpg`
+    };
+    
+    return defaultImages[meditation.meditationType] || defaultImages.sleep;
+  };
+
   const renderMeditationList = (meditations) => {
     if (meditations.length === 0) {
       return (
@@ -154,60 +181,76 @@ const AdminDashboard = ({ user, onLogout }) => {
       <div className="meditation-list">
         {meditations.map(meditation => (
           <div key={meditation._id} className="admin-meditation-card">
-            <div className="meditation-header">
-              <h4>{meditation.title}</h4>
-              <div className="meditation-badges">
-                <span className="type-badge">
-                  {meditationTypeLabels[meditation.meditationType]}
-                </span>
-                <span className="language-badge">{meditation.language}</span>
-              </div>
-            </div>
-            
-            <p className="meditation-description">{meditation.description}</p>
-            
-            <div className="meditation-meta">
-              <span>👤 {meditation.author.username}</span>
-              <span>📅 {formatDate(meditation.createdAt)}</span>
-              <span>⏱️ {formatDuration(meditation.duration)}</span>
+            <div className="admin-meditation-thumbnail">
+              <img 
+                src={getImageUrl(meditation)}
+                alt={meditation.title}
+                onError={(e) => {
+                  console.log('Image load error for:', getImageUrl(meditation));
+                  e.target.style.display = 'none';
+                }}
+                onLoad={() => {
+                  console.log('Image loaded successfully:', getImageUrl(meditation));
+                }}
+              />
             </div>
 
-            {meditation.moderationNotes && (
-              <div className="moderation-notes">
-                <strong>Notes:</strong> {meditation.moderationNotes}
+            <div className="admin-meditation-content">
+              <div className="meditation-header">
+                <h4>{meditation.title}</h4>
+                <div className="meditation-badges">
+                  <span className="type-badge">
+                    {meditationTypeLabels[meditation.meditationType]}
+                  </span>
+                  <span className="language-badge">{meditation.language}</span>
+                </div>
               </div>
-            )}
-
-            <div className="admin-actions">
-              <button 
-                className="view-btn"
-                onClick={() => setSelectedMeditation(meditation)}
-              >
-                👁️ View Details
-              </button>
               
-              {meditation.status === 'pending' && (
-                <>
-                  <button 
-                    className="approve-btn"
-                    onClick={() => {
-                      setSelectedMeditation(meditation);
-                      setModerationNote('');
-                    }}
-                  >
-                    ✅ Approve
-                  </button>
-                  <button 
-                    className="reject-btn"
-                    onClick={() => {
-                      setSelectedMeditation(meditation);
-                      setModerationNote('');
-                    }}
-                  >
-                    ❌ Reject
-                  </button>
-                </>
+              <p className="meditation-description">{meditation.description}</p>
+              
+              <div className="meditation-meta">
+                <span>👤 {meditation.author.username}</span>
+                <span>📅 {formatDate(meditation.createdAt)}</span>
+                <span>⏱️ {formatDuration(meditation.duration)}</span>
+              </div>
+
+              {meditation.moderationNotes && (
+                <div className="moderation-notes">
+                  <strong>Notes:</strong> {meditation.moderationNotes}
+                </div>
               )}
+
+              <div className="admin-actions">
+                <button 
+                  className="view-btn"
+                  onClick={() => setSelectedMeditation(meditation)}
+                >
+                  👁️ View Details
+                </button>
+                
+                {meditation.status === 'pending' && (
+                  <>
+                    <button 
+                      className="approve-btn"
+                      onClick={() => {
+                        setSelectedMeditation(meditation);
+                        setModerationNote('');
+                      }}
+                    >
+                      ✅ Approve
+                    </button>
+                    <button 
+                      className="reject-btn"
+                      onClick={() => {
+                        setSelectedMeditation(meditation);
+                        setModerationNote('');
+                      }}
+                    >
+                      ❌ Reject
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         ))}

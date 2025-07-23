@@ -8,6 +8,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 const os = require('os'); // Import os module for temporary directory
 const crypto = require('crypto'); // For generating file hashes
+const { trackElevenlabsUsage } = require('../utils/elevenlabsTracking');
 const Meditation = require('../models/Meditation');
 const User = require('../models/User');
 const translationService = require('../services/translationService');
@@ -103,6 +104,22 @@ router.post('/', async (req, res) => {
   
   // Debug log to verify tempo slider value
   console.log(`🎵 TEMPO CONTROL: speechTempo received = ${speechTempo} (type: ${typeof speechTempo}), voiceProvider = ${voiceProvider}`);
+
+  // Map speechTempo (0.75-1.10) to ElevenLabs speed range (0.7-1.2)
+  const mapToElevenLabsSpeed = (tempo) => {
+    // Clamp input to our expected range
+    const clampedTempo = Math.max(0.75, Math.min(1.10, tempo));
+    
+    // Map from our range (0.75-1.10) to ElevenLabs range (0.7-1.2)
+    // Linear interpolation: newValue = oldMin + (oldValue - oldMin) * (newMax - newMin) / (oldMax - oldMin)
+    const mappedSpeed = 0.7 + (clampedTempo - 0.75) * (1.2 - 0.7) / (1.10 - 0.75);
+    
+    // Clamp to ElevenLabs range and round to 2 decimal places
+    return Math.round(Math.max(0.7, Math.min(1.2, mappedSpeed)) * 100) / 100;
+  };
+
+  const elevenLabsSpeed = mapToElevenLabsSpeed(speechTempo);
+  console.log(`🎵 SPEED MAPPING: speechTempo ${speechTempo} -> ElevenLabs speed ${elevenLabsSpeed}`);
 
   let speechPath;
   let outputPath;
@@ -222,6 +239,12 @@ router.post('/', async (req, res) => {
         
         // Fallback to Eleven Labs if Google TTS fails
         const processedText = addSSMLPauses(translatedText);
+        
+        // Track ElevenLabs usage
+        if (userId) {
+          trackElevenlabsUsage(userId, processedText, false);
+        }
+        
         const response = await axios.post(
           `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
           {
@@ -232,7 +255,7 @@ router.post('/', async (req, res) => {
               similarity_boost: 0.75,
               style: 0,
               use_speaker_boost: true,
-              speed: 1.0 // Fixed at 1.0, tempo will be applied via FFmpeg
+              speed: elevenLabsSpeed // Use native ElevenLabs speed control
             }
           },
           {
@@ -248,6 +271,12 @@ router.post('/', async (req, res) => {
     } else {
       // Use Eleven Labs
       const processedText = addSSMLPauses(translatedText);
+      
+      // Track ElevenLabs usage
+      if (userId) {
+        trackElevenlabsUsage(userId, processedText, false);
+      }
+      
       const response = await axios.post(
         `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
         {
@@ -258,7 +287,7 @@ router.post('/', async (req, res) => {
             similarity_boost: 0.75,
             style: 0,
             use_speaker_boost: true,
-            speed: 1.0 // Fixed at 1.0, tempo will be applied via FFmpeg
+            speed: elevenLabsSpeed // Use native ElevenLabs speed control
           }
         },
         {
@@ -315,11 +344,11 @@ router.post('/', async (req, res) => {
       
       const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
       
-      // Apply tempo via FFmpeg for both providers for consistency
-      const shouldApplyTempo = speechTempo !== 1.0;
+      // Apply tempo via FFmpeg only for non-ElevenLabs providers (ElevenLabs uses native speed control)
+      const shouldApplyTempo = voiceProvider !== 'elevenlabs' && speechTempo !== 1.0;
       const tempoFilter = shouldApplyTempo ? `atempo=${speechTempo},` : '';
       
-      console.log(`Using voice provider: ${voiceProvider}, speechTempo: ${speechTempo}, applying FFmpeg tempo: ${shouldApplyTempo}`);
+      console.log(`Using voice provider: ${voiceProvider}, speechTempo: ${speechTempo}, applying FFmpeg tempo: ${shouldApplyTempo} (ElevenLabs uses native speed)`);
       
       const ffmpegArgs = [
         '-y', // Automatically overwrite output files without asking
@@ -362,8 +391,8 @@ router.post('/', async (req, res) => {
       });
     } else {
       // Voice only - no background music
-      // Apply tempo via FFmpeg for both providers for consistency
-      const shouldApplyTempo = speechTempo !== 1.0;
+      // Apply tempo via FFmpeg only for non-ElevenLabs providers (ElevenLabs uses native speed control)
+      const shouldApplyTempo = voiceProvider !== 'elevenlabs' && speechTempo !== 1.0;
       
       if (shouldApplyTempo) {
         console.log(`Voice only mode with ${voiceProvider} - applying ${speechTempo}x tempo adjustment via FFmpeg`);
@@ -398,7 +427,7 @@ router.post('/', async (req, res) => {
         });
       } else {
         // Both providers at 1.0x - copy original TTS file directly (no tempo adjustment needed)
-        console.log(`Voice only mode with ${voiceProvider} - copying original TTS file directly (1.0x tempo)`);
+        console.log(`Voice only mode with ${voiceProvider} - copying original TTS file directly (ElevenLabs native speed: ${elevenLabsSpeed})`);
         await fsPromises.copyFile(speechPath, outputPath);
       }
     }
@@ -1902,7 +1931,7 @@ router.get('/voices', async (req, res) => {
 
 // Route to generate voice preview in specified language
 router.post('/voice-preview', async (req, res) => {
-  const { voiceId, language } = req.body;
+  const { voiceId, language, speechTempo = 0.75 } = req.body;
   const apiKey = process.env.ELEVEN_API_KEY;
   
   try {
@@ -1934,6 +1963,20 @@ router.post('/voice-preview', async (req, res) => {
     // Get the preview text for the requested language, fallback to English
     const previewText = previewTexts[language] || previewTexts['en'];
 
+    // Map speechTempo (0.75-1.10) to ElevenLabs speed range (0.7-1.2)
+    const mapToElevenLabsSpeed = (tempo) => {
+      const clampedTempo = Math.max(0.75, Math.min(1.10, tempo));
+      const mappedSpeed = 0.7 + (clampedTempo - 0.75) * (1.2 - 0.7) / (1.10 - 0.75);
+      return Math.round(Math.max(0.7, Math.min(1.2, mappedSpeed)) * 100) / 100;
+    };
+
+    const elevenLabsSpeed = mapToElevenLabsSpeed(speechTempo);
+    console.log(`🎵 PREVIEW SPEED: speechTempo ${speechTempo} -> ElevenLabs speed ${elevenLabsSpeed}`);
+
+    // Track ElevenLabs usage for preview (note: this is a preview, not full generation)
+    // Note: We don't have userId in preview requests, so we can't track per user
+    console.log(`🎵 ElevenLabs preview character count: ${previewText.length}`);
+    
     // Generate the audio using Eleven Labs TTS API
     const response = await axios.post(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
@@ -1944,7 +1987,8 @@ router.post('/voice-preview', async (req, res) => {
           stability: 0.7,
           similarity_boost: 0.8,
           style: 0.2,
-          use_speaker_boost: true
+          use_speaker_boost: true,
+          speed: elevenLabsSpeed
         }
       },
       {

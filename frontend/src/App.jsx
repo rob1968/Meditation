@@ -9,10 +9,13 @@ import MyAudio from './components/MyAudio';
 import Profile from './components/Profile';
 import CommunityHub from './components/CommunityHub';
 import AdminDashboard from './components/AdminDashboard';
+import Inbox from './components/Inbox';
+import Journal from './components/Journal';
+import JournalHub from './components/JournalHub';
+import PageHeader from './components/PageHeader';
 import VoiceSlider from './components/VoiceSlider';
 import MeditationTypeSlider from './components/MeditationTypeSlider';
 import BackgroundSlider from './components/BackgroundSlider';
-import TempoSlider from './components/TempoSlider';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from './config/api';
 
 const App = () => {
@@ -22,9 +25,8 @@ const App = () => {
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
   const [useBackgroundMusic, setUseBackgroundMusic] = useState(false);
   const [voices, setVoices] = useState([]);
-  const [voiceProvider, setVoiceProvider] = useState('google'); // 'google' or 'elevenlabs'
-  const [googleVoices, setGoogleVoices] = useState({});
-  const [speechTempo, setSpeechTempo] = useState(0.75); // Default meditation tempo
+  const [speechTempo, setSpeechTempo] = useState(1.00); // Default meditation tempo
+  const [genderFilter, setGenderFilter] = useState('all'); // Gender filter state
   const [audioUrl, setAudioUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isGeneratingText, setIsGeneratingText] = useState(false);
@@ -44,9 +46,11 @@ const App = () => {
   // User authentication state
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('create');
+  const [unreadCount, setUnreadCount] = useState(0);
   
   // Credits state
   const [userCredits, setUserCredits] = useState(null);
+  const [elevenlabsCredits, setElevenlabsCredits] = useState(null);
   
   // Draft and text editing state
   const [originalGeneratedText, setOriginalGeneratedText] = useState('');
@@ -219,12 +223,40 @@ const App = () => {
     }
   }, []);
   
+  // Fetch unread notifications count
+  const fetchUnreadCount = async () => {
+    if (!user?.id) return;
+    
+    try {
+      const response = await axios.get(
+        getFullUrl(`/api/notifications/user/${user.id}`),
+        { params: { unreadOnly: true } }
+      );
+      setUnreadCount(response.data.unreadCount);
+    } catch (error) {
+      console.error('Error fetching unread count:', error);
+    }
+  };
+
   // Load user meditations and credits when user changes
   useEffect(() => {
     if (user?.id) {
       loadUserMeditations();
       fetchUserCredits();
+      fetchElevenlabsCredits();
+      fetchUnreadCount();
     }
+  }, [user]);
+
+  // Refresh unread count periodically
+  useEffect(() => {
+    if (!user?.id) return;
+    
+    const interval = setInterval(() => {
+      fetchUnreadCount();
+    }, 30000); // Refresh every 30 seconds
+    
+    return () => clearInterval(interval);
   }, [user]);
 
   const handleLogin = (userData) => {
@@ -251,6 +283,17 @@ const App = () => {
     }
   };
 
+  const fetchElevenlabsCredits = async () => {
+    if (!user?.id) return;
+    
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/elevenlabs-stats`));
+      setElevenlabsCredits(response.data);
+    } catch (error) {
+      console.error('Error fetching ElevenLabs credits:', error);
+    }
+  };
+
   const handleLanguageChange = (languageCode) => {
     i18n.changeLanguage(languageCode);
     localStorage.setItem('selectedLanguage', languageCode);
@@ -272,7 +315,6 @@ const App = () => {
         meditationType,
         userId: user?.id,
         useBackgroundMusic,
-        voiceProvider,
         speechTempo
       }, { responseType: 'blob' });
 
@@ -287,6 +329,7 @@ const App = () => {
       // Refresh credits after successful generation
       if (user?.id) {
         fetchUserCredits();
+        fetchElevenlabsCredits();
       }
       
       // Clear the form after successful generation
@@ -312,7 +355,7 @@ const App = () => {
   const handleTextApproved = () => {
     // Check credits before generating audio
     if (user && userCredits && userCredits.credits < 1) {
-      setError('Insufficient credits. You need 1 credit to generate audio.');
+      setError(t('insufficientCredits', 'Insufficient credits. You need 1 credit to generate audio.'));
       return;
     }
     
@@ -329,70 +372,17 @@ const App = () => {
     }
   };
 
-  const fetchGoogleVoices = async () => {
-    try {
-      const res = await axios.get(getFullUrl('/api/google-voices'));
-      // Handle new API structure with voices and metadata
-      const voicesData = res.data.voices || res.data;
-      setGoogleVoices(voicesData);
-      
-      // Log voice counts for debugging
-      if (res.data.metadata) {
-        console.log('Voice Summary:', res.data.metadata);
-      }
-      
-      // Set default Google voice based on current language
-      const langVoices = voicesData[mapLanguageToGoogle(i18n.language)] || [];
-      if (langVoices.length > 0 && voiceProvider === 'google') {
-        // Prefer Chirp3-HD voices, then Neural2, then others
-        const chirp3Voice = langVoices.find(v => v.type === 'Chirp3-HD' && v.gender === 'FEMALE');
-        const neural2Voice = langVoices.find(v => v.type === 'Neural2' && v.gender === 'FEMALE');
-        const femaleVoice = langVoices.find(v => v.gender === 'FEMALE');
-        const selectedVoice = chirp3Voice || neural2Voice || femaleVoice || langVoices[0];
-        setVoiceId(selectedVoice.id);
-      }
-    } catch (error) {
-      console.error("Error fetching Google voices:", error);
-    }
-  };
-
-  // Map our language codes to Google language codes
-  const mapLanguageToGoogle = (lang) => {
-    const mapping = {
-      'en': 'en-US',
-      'es': 'es-ES',
-      'fr': 'fr-FR',
-      'de': 'de-DE',
-      'nl': 'nl-NL',
-      'zh': 'cmn-CN',
-      'hi': 'hi-IN',
-      'ar': 'ar-XA',
-      'pt': 'pt-BR',
-      'ru': 'ru-RU',
-      'ja': 'ja-JP',
-      'ko': 'ko-KR',
-      'it': 'it-IT'
-    };
-    return mapping[lang] || 'en-US';
-  };
 
   useEffect(() => {
     fetchVoices();
-    fetchGoogleVoices();
   }, []);
 
-  // Update voice selection when language or provider changes
+  // Update voice selection when language changes
   useEffect(() => {
-    if (voiceProvider === 'google' && googleVoices) {
-      const langVoices = googleVoices[mapLanguageToGoogle(i18n.language)] || [];
-      if (langVoices.length > 0) {
-        const femaleVoice = langVoices.find(v => v.gender === 'FEMALE') || langVoices[0];
-        setVoiceId(femaleVoice.id);
-      }
-    } else if (voiceProvider === 'elevenlabs' && voices.length > 0) {
+    if (voices.length > 0) {
       setVoiceId(voices[0].voice_id);
     }
-  }, [i18n.language, voiceProvider, googleVoices, voices]);
+  }, [voices]);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -438,6 +428,32 @@ const App = () => {
     { value: 'it', label: 'Italiano' },
   ];
 
+  // Create animated stars background
+  const createStars = () => {
+    const starsContainer = document.getElementById('stars');
+    if (!starsContainer || starsContainer.children.length > 0) return; // Prevent duplicates
+    
+    const numberOfStars = 100;
+
+    for (let i = 0; i < numberOfStars; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      
+      starsContainer.appendChild(star);
+    }
+  };
+
+  // Initialize stars on component mount - MUST be before any conditional returns
+  useEffect(() => {
+    createStars();
+  }, []);
 
   // Show auth screen if no user is logged in
   if (!user) {
@@ -448,41 +464,29 @@ const App = () => {
     switch (activeTab) {
       case 'myAudio':
         return <MyAudio user={user} userCredits={userCredits} isGenerating={isLoading} onCreditsUpdate={fetchUserCredits} />;
+      case 'journal':
+        return <Journal user={user} userCredits={userCredits} onCreditsUpdate={fetchUserCredits} />;
       case 'community':
         return <CommunityHub user={user} />;
+      case 'journalHub':
+        return <JournalHub user={user} />;
       case 'admin':
         return <AdminDashboard user={user} onLogout={handleLogout} />;
+      case 'inbox':
+        return <Inbox user={user} onUnreadCountChange={setUnreadCount} />;
       case 'profile':
-        return <Profile user={user} onLogout={handleLogout} />;
+        return <Profile user={user} onLogout={handleLogout} onBackToCreate={() => setActiveTab('create')} />;
       default:
         return (
           <div className="create-content">
-            <div className="header">
-              <div className="language-selector">
-                <div className="custom-select">
-                  <div className="select-button language-btn" onClick={() => setLanguageOpen(!languageOpen)}>
-                    <span>{uiLanguages.find(lang => lang.value === i18n.language)?.label || 'Language'}</span>
-                    <span>▼</span>
-                  </div>
-                  {languageOpen && (
-                    <div className="select-options open">
-                      {uiLanguages.map(language => (
-                        <div 
-                          key={language.value}
-                          className="select-option" 
-                          onClick={() => {
-                            handleLanguageChange(language.value);
-                            setLanguageOpen(false);
-                          }}
-                        >
-                          {language.label}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+            <div className="create-language-header">
+              <PageHeader 
+                user={user}
+                onProfileClick={() => setActiveTab('profile')}
+              />
             </div>
+
+            <div className="main-title">{t('createMeditation', 'Create Your Meditation')}</div>
 
       <MeditationTypeSlider 
         selectedType={meditationType}
@@ -497,7 +501,7 @@ const App = () => {
             onChange={(e) => setUseBackgroundMusic(e.target.checked)}
             className="checkbox-input"
           />
-          <span className="checkbox-label">🎵 {t('useBackgroundMusic')}</span>
+          <span className="checkbox-label">{t('backgroundMusicLabel', 'Background Music')}</span>
         </label>
       </div>
 
@@ -509,66 +513,21 @@ const App = () => {
         />
       )}
 
-      <div className="voice-provider-toggle">
-        <label className="toggle-container">
-          <span className="toggle-label">{t('voiceProvider', 'Voice Provider')}</span>
-          <div className="toggle-buttons">
-            <button 
-              className={`toggle-btn ${voiceProvider === 'google' ? 'active' : ''}`}
-              onClick={() => setVoiceProvider('google')}
-            >
-              Google WaveNet
-            </button>
-            <button 
-              className={`toggle-btn ${voiceProvider === 'elevenlabs' ? 'active' : ''}`}
-              onClick={() => setVoiceProvider('elevenlabs')}
-            >
-              Eleven Labs
-            </button>
-          </div>
-        </label>
-      </div>
 
       <VoiceSlider 
-        voices={voiceProvider === 'google' 
-          ? (googleVoices[mapLanguageToGoogle(i18n.language)] || []).map(v => ({
-              voice_id: v.id,
-              name: v.name,
-              friendlyName: v.friendlyName,
-              description: v.description,
-              gender: v.gender.toLowerCase(),
-              characteristics: v.characteristics || [v.type.toLowerCase()],
-              personality: v.personality,
-              personalityEmoji: v.personalityEmoji,
-              meditationTypes: v.meditationTypes,
-              type: v.type,
-              preview_url: null
-            }))
-          : voices
-        }
+        voices={voices}
         selectedVoiceId={voiceId}
         onVoiceSelect={setVoiceId}
-        voiceProvider={voiceProvider}
+        voiceProvider="elevenlabs"
         currentMeditationType={meditationType}
-      />
-
-      <TempoSlider 
         speechTempo={speechTempo}
         onTempoChange={setSpeechTempo}
+        isGeneratingAudio={isLoading}
+        genderFilter={genderFilter}
+        onGenderFilterChange={setGenderFilter}
       />
 
-      {/* Credits Display */}
-      {user && userCredits && (
-        <div className="credits-info">
-          <span className="credits-icon">💎</span>
-          <span className="credits-text">
-            {userCredits.credits} {t('credits', 'credits')}
-          </span>
-          {userCredits.credits < 3 && (
-            <span className="credits-warning">⚠️</span>
-          )}
-        </div>
-      )}
+
 
       {!showTextPreview && (
         <button 
@@ -751,6 +710,7 @@ const App = () => {
 
   return (
     <div className="app-container">
+      <div className="stars" id="stars"></div>
       <div className="main-content">
         {renderContent()}
       </div>
@@ -759,6 +719,7 @@ const App = () => {
         onTabChange={setActiveTab}
         user={user}
         onLogout={handleLogout}
+        unreadCount={unreadCount}
       />
     </div>
   );

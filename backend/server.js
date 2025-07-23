@@ -14,6 +14,8 @@ const googleVoicePreviewRoute = require('./routes/googleVoicePreview');
 const googleTTSInfoRoute = require('./routes/googleTTSInfo');
 const userMeditationsRoute = require('./routes/userMeditations');
 const communityRoute = require('./routes/community');
+const notificationsRoute = require('./routes/notifications');
+const journalRoute = require('./routes/journal');
 const app = express();
 
 // Create a write stream (in append mode) for logging
@@ -25,6 +27,8 @@ app.use(morgan('combined', { stream: accessLogStream }));
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from assets directory
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 // Serve static files from assets/meditations
 app.use('/assets/meditations', express.static(path.join(__dirname, '../assets/meditations')));
 // Serve static files from assets/images
@@ -32,10 +36,14 @@ app.use('/assets/images', express.static(path.join(__dirname, '../assets/images'
 // Serve static files for shared audio and images
 app.use('/assets/audio/shared', express.static(path.join(__dirname, '../assets/audio/shared')));
 app.use('/assets/images/shared', express.static(path.join(__dirname, '../assets/images/shared')));
+// Serve static files for journal audio
+app.use('/assets/audio/journals', express.static(path.join(__dirname, '../assets/audio/journals')));
 app.use('/api/meditation', meditationRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/user-meditations', userMeditationsRoute);
 app.use('/api/community', communityRoute);
+app.use('/api/notifications', notificationsRoute);
+app.use('/api/journal', journalRoute);
 
 // Add a route for fetching voices
 app.use('/api/voices', meditationRoute);

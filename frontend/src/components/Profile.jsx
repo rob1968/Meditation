@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
-import TTSTierInfo from './TTSTierInfo';
 
-const Profile = ({ user, onLogout }) => {
+const Profile = ({ user, onLogout, onBackToCreate }) => {
   const [stats, setStats] = useState(null);
   const [credits, setCredits] = useState(null);
   const [creditHistory, setCreditHistory] = useState([]);
+  const [elevenlabsStats, setElevenlabsStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [showCreditHistory, setShowCreditHistory] = useState(false);
@@ -17,6 +17,10 @@ const Profile = ({ user, onLogout }) => {
     if (user) {
       fetchUserStats();
       fetchUserCredits();
+      // Only fetch ElevenLabs stats for user 'rob'
+      if (user.username === 'rob') {
+        fetchElevenlabsStats();
+      }
     }
   }, [user]);
 
@@ -27,7 +31,7 @@ const Profile = ({ user, onLogout }) => {
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching user stats:', error);
-      setError('Failed to load statistics');
+      setError(t('failedToLoadStats', 'Failed to load statistics'));
     } finally {
       setIsLoading(false);
     }
@@ -39,6 +43,15 @@ const Profile = ({ user, onLogout }) => {
       setCredits(response.data);
     } catch (error) {
       console.error('Error fetching user credits:', error);
+    }
+  };
+
+  const fetchElevenlabsStats = async () => {
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/elevenlabs-stats`));
+      setElevenlabsStats(response.data);
+    } catch (error) {
+      console.error('Error fetching ElevenLabs stats:', error);
     }
   };
 
@@ -76,6 +89,13 @@ const Profile = ({ user, onLogout }) => {
   return (
     <div className="profile-container">
       <div className="profile-header">
+        <button 
+          className="back-to-create-btn" 
+          onClick={onBackToCreate}
+          title={t('backToCreate', 'Back to Create')}
+        >
+          ← {t('backToCreate', 'Back')}
+        </button>
         <div className="profile-avatar">👤</div>
         <h2>{user.username}</h2>
         <p>{t('memberSince', 'Member since')} {formatDate(user.createdAt)}</p>
@@ -97,7 +117,7 @@ const Profile = ({ user, onLogout }) => {
                 <h3>💎 {t('credits', 'Credits')}</h3>
                 <button 
                   className="credits-purchase-btn"
-                  onClick={() => alert('Payment system coming soon!')}
+                  onClick={() => alert(t('paymentComingSoon', 'Payment system coming soon!'))}
                 >
                   {t('buyCredits', 'Buy Credits')}
                 </button>
@@ -235,8 +255,32 @@ const Profile = ({ user, onLogout }) => {
         </>
       ) : null}
 
-      {/* TTS Tier Information - Only for user 'rob' */}
-      {user.username === 'rob' && <TTSTierInfo />}
+
+      {/* ElevenLabs Credits Display - Only for user 'rob' */}
+      {user.username === 'rob' && elevenlabsStats && (
+        <div className="elevenlabs-credits-display">
+          <h3 style={{ color: 'var(--text-primary)', marginBottom: 'var(--space-lg)' }}>
+            🔊 ElevenLabs Credits
+          </h3>
+          <div className="credits-info">
+            <span className="credits-icon">🔊</span>
+            <div className="credits-text">
+              <div className="credits-remaining">
+                {elevenlabsStats.currentTier?.limit ? 
+                  (elevenlabsStats.currentTier.limit - elevenlabsStats.charactersUsedThisMonth).toLocaleString() :
+                  '∞'
+                } tekens over
+              </div>
+              <div className="credits-tier">{elevenlabsStats.currentTier?.name || 'Free'} tier</div>
+            </div>
+          </div>
+          {elevenlabsStats.lastReset && (
+            <div style={{ fontSize: '14px', color: 'var(--text-secondary)', textAlign: 'center', marginTop: 'var(--space-sm)' }}>
+              Monthly stats reset on: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="profile-actions">
         <button 

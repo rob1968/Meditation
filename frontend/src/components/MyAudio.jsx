@@ -13,6 +13,8 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
   const [showImageOptions, setShowImageOptions] = useState(null);
   const [showShareDialog, setShowShareDialog] = useState(null);
   const [isSharing, setIsSharing] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('all');
   const { t } = useTranslation();
   const prevIsGenerating = useRef(isGenerating);
   const fileInputRef = useRef(null);
@@ -50,7 +52,7 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
       setMeditations(response.data.meditations);
     } catch (error) {
       console.error('Error fetching meditations:', error);
-      setError('Failed to load your meditations');
+      setError(t('failedToLoadMeditations', 'Failed to load your meditations'));
     } finally {
       setIsLoading(false);
     }
@@ -79,6 +81,28 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
     }
   };
 
+  // Get unique meditation types from user's meditations
+  const availableTypes = [...new Set(meditations.map(m => m.meditationType))];
+
+  // Filter meditations based on search term and type filter
+  const filteredMeditations = meditations.filter(meditation => {
+    const matchesType = filterType === 'all' || meditation.meditationType === filterType;
+    
+    if (!searchTerm) return matchesType;
+    
+    const searchLower = searchTerm.toLowerCase();
+    const typeLabel = meditationTypeLabels[meditation.meditationType] || meditation.meditationType;
+    
+    const matchesSearch = (
+      typeLabel.toLowerCase().includes(searchLower) ||
+      meditation.language.toLowerCase().includes(searchLower) ||
+      meditation.text.toLowerCase().includes(searchLower) ||
+      formatDate(meditation.createdAt).toLowerCase().includes(searchLower)
+    );
+    
+    return matchesType && matchesSearch;
+  });
+
   const handleImageUpload = async (meditationId, file) => {
     setUploadingImage(meditationId);
     
@@ -103,7 +127,7 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
       
     } catch (error) {
       console.error('Error uploading image:', error);
-      setError('Failed to upload image. Please try again.');
+      setError(t('failedUploadImage', 'Failed to upload image. Please try again.'));
     } finally {
       setUploadingImage(null);
     }
@@ -118,13 +142,33 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
 
   const startCamera = async (meditationId) => {
     try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setError(t('cameraNotSupported', 'Camera is not supported in this browser. Please use Chrome, Firefox, or Safari.'));
+        return;
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
-      videoRef.current.play();
-      setShowImageOptions(meditationId + '_camera');
+      
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+        setShowImageOptions(meditationId + '_camera');
+        setError('');
+      }
     } catch (error) {
-      console.error('Error accessing camera:', error);
-      setError('Could not access camera. Please check permissions.');
+      let errorMessage = '';
+      
+      if (error.name === 'NotAllowedError') {
+        errorMessage = t('cameraPermissionDenied', 'Camera permission denied. Please allow camera access in your browser.');
+      } else if (error.name === 'NotFoundError') {
+        errorMessage = t('noCameraFound', 'No camera found. Please ensure your device has a camera connected.');
+      } else if (error.name === 'NotReadableError') {
+        errorMessage = t('cameraInUse', 'Camera is being used by another application. Please close other apps using the camera.');
+      } else {
+        errorMessage = `Camera error: ${error.message}`;
+      }
+      
+      setError(errorMessage);
     }
   };
 
@@ -161,14 +205,14 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
       setShowImageOptions(null);
     } catch (error) {
       console.error('Error deleting custom image:', error);
-      setError('Failed to delete image. Please try again.');
+      setError(t('failedDeleteImage', 'Failed to delete image. Please try again.'));
     }
   };
 
   const shareMeditation = async (meditationId, shareData) => {
     // Check credits before sharing
     if (userCredits && userCredits.credits < 1) {
-      setError('Insufficient credits. You need 1 credit to share a meditation.');
+      setError(t('insufficientCreditsShare', 'Insufficient credits. You need 1 credit to share a meditation.'));
       return;
     }
     
@@ -247,11 +291,11 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
         setError('');
         
         // Show success message
-        alert('Meditation shared successfully! It will appear in the community after admin approval.');
+        alert(t('meditationSharedSuccess', 'Meditation shared successfully! It will appear in the community after admin approval.'));
       }
     } catch (error) {
       console.error('Error sharing meditation:', error);
-      setError('Failed to share meditation. Please try again.');
+      setError(t('failedShareMeditation', 'Failed to share meditation. Please try again.'));
     } finally {
       setIsSharing(false);
     }
@@ -301,20 +345,86 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
     );
   }
 
-  if (error) {
-    return (
-      <div className="my-audio-container">
-        <div className="error-message">{error}</div>
-      </div>
-    );
-  }
+  // Don't replace entire component with error, just show it alongside content
 
   return (
     <div className="my-audio-container">
       <div className="my-audio-header">
         <h2>{t('myMeditation', 'My Meditations')}</h2>
-        <p>{t('myMeditationSubtitle', 'Your meditation history')}</p>
       </div>
+        
+      <div className="search-section">
+        <div className="search-bar">
+          <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              placeholder={t('searchMeditations', 'Search your meditations...')}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            {searchTerm && (
+              <button 
+                className="clear-search"
+                onClick={() => setSearchTerm('')}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          {availableTypes.length > 0 && (
+            <div className="filter-pills">
+              <button 
+                className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
+                onClick={() => setFilterType('all')}
+              >
+                {t('allTypes', 'All')} ({meditations.length})
+              </button>
+              {availableTypes.map(type => {
+                const count = meditations.filter(m => m.meditationType === type).length;
+                return (
+                  <button 
+                    key={type}
+                    className={`filter-pill ${filterType === type ? 'active' : ''}`}
+                    onClick={() => setFilterType(type)}
+                  >
+                    {meditationTypeLabels[type] || type} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+      {error && (
+        <div className="error-banner" style={{ 
+          background: 'rgba(239, 68, 68, 0.1)', 
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          borderRadius: '8px',
+          padding: '12px 16px',
+          margin: '16px 0',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <span style={{ fontSize: '16px' }}>⚠️</span>
+          <span style={{ flex: 1 }}>{error}</span>
+          <button 
+            onClick={() => setError('')}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              padding: '4px',
+              fontSize: '16px'
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {isGenerating && (
         <div className="generation-status">
@@ -325,15 +435,42 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
         </div>
       )}
 
-      {meditations.length === 0 && !isGenerating ? (
+      {filteredMeditations.length === 0 && !isGenerating ? (
         <div className="empty-state">
           <div className="empty-icon">🎵</div>
-          <h3>{t('noMeditations', 'No meditations yet')}</h3>
-          <p>{t('createFirst', 'Create your first meditation to see it here')}</p>
+          {searchTerm ? (
+            <>
+              <h3>{t('noSearchResults', 'No meditations found')}</h3>
+              <p>{t('tryDifferentSearch', 'Try searching with different keywords')}</p>
+              <button 
+                className="clear-search-btn"
+                onClick={() => {
+                  setSearchTerm('');
+                  setFilterType('all');
+                }}
+                style={{
+                  background: 'var(--glass-light)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '8px',
+                  color: 'var(--text-primary)',
+                  padding: '8px 16px',
+                  cursor: 'pointer',
+                  marginTop: '16px'
+                }}
+              >
+                {t('clearFilters', 'Clear filters')}
+              </button>
+            </>
+          ) : (
+            <>
+              <h3>{t('noMeditations', 'No meditations yet')}</h3>
+              <p>{t('createFirst', 'Create your first meditation to see it here')}</p>
+            </>
+          )}
         </div>
-      ) : meditations.length > 0 && (
+      ) : filteredMeditations.length > 0 && (
         <div className="meditations-list">
-          {meditations.map((meditation) => (
+          {filteredMeditations.map((meditation) => (
             <div key={meditation.id} className="meditation-card">
               <div className="meditation-thumbnail">
                 <img 
@@ -343,14 +480,39 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
                     e.target.style.display = 'none';
                   }}
                 />
-                <div className="image-overlay">
+                <div className="thumbnail-controls">
                   <button 
-                    className="image-edit-button"
-                    onClick={() => setShowImageOptions(meditation.id)}
-                    disabled={uploadingImage === meditation.id}
+                    className="thumbnail-play-button"
+                    onClick={() => {
+                      if (meditation.audioFiles && meditation.audioFiles.length > 0) {
+                        const audio = document.querySelector(`#audio-${meditation.id}`);
+                        if (audio) {
+                          if (audio.paused) {
+                            // Pause all other audios first
+                            document.querySelectorAll('audio').forEach(a => a.pause());
+                            audio.play()
+                              .then(() => {
+                                setPlayingMeditationId(meditation.id);
+                              })
+                              .catch(err => {
+                                console.error('Error playing audio:', err);
+                              });
+                          } else {
+                            audio.pause();
+                            setPlayingMeditationId(null);
+                          }
+                        }
+                      }
+                    }}
+                    disabled={!meditation.audioFiles || meditation.audioFiles.length === 0}
                   >
-                    {uploadingImage === meditation.id ? '⏳' : '📸'}
+                    {playingMeditationId === meditation.id ? '⏸' : '▶'}
                   </button>
+                  <span className="thumbnail-duration">
+                    {meditation.audioFiles && meditation.audioFiles.length > 0 && meditation.audioFiles[0].duration 
+                      ? formatAudioDuration(meditation.audioFiles[0].duration) 
+                      : '0:00'}
+                  </span>
                 </div>
               </div>
 
@@ -359,63 +521,22 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
                   <div className="meditation-type">
                     {meditationTypeLabels[meditation.meditationType] || meditation.meditationType}
                   </div>
-                  <div className="meditation-date">
-                    {formatDate(meditation.createdAt)}
-                  </div>
                 </div>
                 
                 <div className="meditation-info">
-                  <span className="meditation-duration">
-                    ⏰ {meditation.audioFiles && meditation.audioFiles.length > 0 && meditation.audioFiles[0].duration 
-                        ? formatAudioDuration(meditation.audioFiles[0].duration) 
-                        : t('unknown', 'Unknown')}
-                  </span>
                   <span className="meditation-language">
                     🗣️ {meditation.language}
                   </span>
                 </div>
-
-                <div className="meditation-text">
-                  {meditation.text.substring(0, 150)}
-                  {meditation.text.length > 150 && '...'}
-                </div>
               </div>
 
               <div className="meditation-controls">
-                <button 
-                  className="play-button"
-                  onClick={() => {
-                    if (meditation.audioFiles && meditation.audioFiles.length > 0) {
-                      const audio = document.querySelector(`#audio-${meditation.id}`);
-                      if (audio) {
-                        if (audio.paused) {
-                          // Pause all other audios first
-                          document.querySelectorAll('audio').forEach(a => a.pause());
-                          audio.play()
-                            .then(() => {
-                              setPlayingMeditationId(meditation.id);
-                            })
-                            .catch(err => {
-                              console.error('Error playing audio:', err);
-                            });
-                        } else {
-                          audio.pause();
-                          setPlayingMeditationId(null);
-                        }
-                      }
-                    }
-                  }}
-                  disabled={!meditation.audioFiles || meditation.audioFiles.length === 0}
-                >
-                  <span className="play-icon">{playingMeditationId === meditation.id ? '⏸️' : '▶️'}</span>
-                </button>
-                
                 {meditation.audioFiles && meditation.audioFiles.length > 0 && (
                   <button 
                     className="share-button"
                     onClick={() => {
                       if (userCredits && userCredits.credits < 1) {
-                        setError('Insufficient credits. You need 1 credit to share a meditation.');
+                        setError(t('insufficientCreditsShare', 'Insufficient credits. You need 1 credit to share a meditation.'));
                         return;
                       }
                       setShowShareDialog(meditation.id);
@@ -429,6 +550,7 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
                   </button>
                 )}
               </div>
+
 
               {meditation.audioFiles && meditation.audioFiles.length > 0 && (
                 <div className="audio-files-hidden">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS, API_BASE_URL } from '../config/api';
+import JournalHub from './JournalHub';
 
 const CommunityHub = ({ user }) => {
   const [sharedMeditations, setSharedMeditations] = useState([]);
@@ -9,10 +10,10 @@ const CommunityHub = ({ user }) => {
   const [error, setError] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [filterLanguage, setFilterLanguage] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedMeditation, setSelectedMeditation] = useState(null);
   const [playingMeditationId, setPlayingMeditationId] = useState(null);
   const [likedMeditations, setLikedMeditations] = useState(new Set());
+  const [activeSubTab, setActiveSubTab] = useState('meditations'); // 'meditations' or 'journals'
   const { t } = useTranslation();
 
   const meditationTypes = ['sleep', 'stress', 'focus', 'anxiety', 'energy', 'mindfulness', 'compassion', 'walking', 'breathing', 'morning'];
@@ -79,12 +80,8 @@ const CommunityHub = ({ user }) => {
   const filteredMeditations = sharedMeditations.filter(meditation => {
     const matchesType = filterType === 'all' || meditation.meditationType === filterType;
     const matchesLanguage = filterLanguage === 'all' || meditation.language === filterLanguage;
-    const matchesSearch = searchTerm === '' || 
-      meditation.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      meditation.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      meditation.author.toLowerCase().includes(searchTerm.toLowerCase());
     
-    return matchesType && matchesLanguage && matchesSearch;
+    return matchesType && matchesLanguage;
   });
 
   const formatDate = (dateString) => {
@@ -107,10 +104,30 @@ const CommunityHub = ({ user }) => {
   };
 
   const getImageUrl = (meditation) => {
+    // Handle different image formats for shared meditations
     if (meditation.customImage) {
-      return getAssetUrl(`/images/shared/${meditation.customImage}`);
+      if (typeof meditation.customImage === 'string') {
+        return `${API_BASE_URL}/assets/images/shared/${meditation.customImage}`;
+      } else if (meditation.customImage.filename) {
+        return `${API_BASE_URL}/assets/images/shared/${meditation.customImage.filename}`;
+      }
     }
-    return getAssetUrl(`/images/defaults/${meditation.meditationType}.jpg`);
+    
+    // Default meditation type images
+    const defaultImages = {
+      sleep: `${API_BASE_URL}/assets/images/sleep.jpg`,
+      stress: `${API_BASE_URL}/assets/images/stress.jpg`,
+      focus: `${API_BASE_URL}/assets/images/focus.jpg`,
+      anxiety: `${API_BASE_URL}/assets/images/anxiety.jpg`,
+      energy: `${API_BASE_URL}/assets/images/energy.jpg`,
+      mindfulness: `${API_BASE_URL}/assets/images/mindfulness.jpg`,
+      compassion: `${API_BASE_URL}/assets/images/compassion.jpg`,
+      walking: `${API_BASE_URL}/assets/images/walking.jpg`,
+      breathing: `${API_BASE_URL}/assets/images/breathing.jpg`,
+      morning: `${API_BASE_URL}/assets/images/morning.jpg`
+    };
+    
+    return defaultImages[meditation.meditationType] || defaultImages.sleep;
   };
 
   const handlePlayMeditation = (meditation) => {
@@ -123,7 +140,23 @@ const CommunityHub = ({ user }) => {
     if (audio) {
       console.log('Playing audio:', meditation.audioFile.filename);
       if (audio.paused) {
-        document.querySelectorAll('audio').forEach(a => a.pause());
+        document.querySelectorAll('audio').forEach(a => {
+          if (a.playTimeout) {
+            clearTimeout(a.playTimeout);
+            a.playTimeout = null;
+          }
+          a.pause();
+        });
+        
+        // Set up 20-second timeout
+        const playTimeout = setTimeout(() => {
+          audio.pause();
+          setPlayingMeditationId(null);
+        }, 20000); // 20 seconds
+        
+        // Store timeout ID on audio element for cleanup
+        audio.playTimeout = playTimeout;
+        
         audio.play()
           .then(() => {
             setPlayingMeditationId(meditation._id);
@@ -131,9 +164,15 @@ const CommunityHub = ({ user }) => {
           .catch(err => {
             console.error('Error playing audio:', err);
             console.error('Audio source:', audio.src);
+            clearTimeout(playTimeout);
           });
       } else {
         audio.pause();
+        // Clear timeout if audio is manually paused
+        if (audio.playTimeout) {
+          clearTimeout(audio.playTimeout);
+          audio.playTimeout = null;
+        }
         setPlayingMeditationId(null);
       }
     } else {
@@ -193,148 +232,193 @@ const CommunityHub = ({ user }) => {
   }
 
   return (
-    <div className="community-hub-container">
-      <div className="community-header">
-        <h2>🌟 {t('communityHub', 'Community Hub')}</h2>
-        <p>{t('communitySubtitle', 'Discover and share meditation experiences with others')}</p>
-      </div>
-
-      <div className="community-filters">
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder={t('searchMeditations', 'Search meditations...')}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-        </div>
-
-        <div className="filter-row">
-          <select 
-            value={filterType} 
-            onChange={(e) => setFilterType(e.target.value)}
-            className="filter-select"
-          >
-            <option value="all">{t('allTypes', 'All Types')}</option>
-            {meditationTypes.map(type => (
-              <option key={type} value={type}>
-                {meditationTypeLabels[type] || type}
-              </option>
-            ))}
-          </select>
-
-          <select 
-            value={filterLanguage} 
-            onChange={(e) => setFilterLanguage(e.target.value)}
-            className="filter-select"
-          >
-            <option value="all">{t('allLanguages', 'All Languages')}</option>
-            {languages.map(lang => (
-              <option key={lang} value={lang}>
-                {languageLabels[lang] || lang}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {filteredMeditations.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">🌟</div>
-          <h3>{t('noSharedMeditations', 'No shared meditations found')}</h3>
-          <p>{t('beFirstToShare', 'Be the first to share your meditation with the community!')}</p>
-        </div>
-      ) : (
-        <div className="shared-meditations-grid">
-          {filteredMeditations.map((meditation) => (
-            <div key={meditation.id} className="shared-meditation-card">
-              <div className="meditation-thumbnail">
-                <img 
-                  src={getImageUrl(meditation)}
-                  alt={meditation.title}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-                <div className="play-overlay">
-                  <button 
-                    className="play-button-large"
-                    onClick={() => handlePlayMeditation(meditation)}
-                    disabled={!meditation.audioFile}
-                  >
-                    <span className="play-icon-large">
-                      {playingMeditationId === meditation._id ? '⏸️' : '▶️'}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
-              <div className="meditation-content">
-                <div className="meditation-meta">
-                  <span className="meditation-type-badge">
-                    {meditationTypeLabels[meditation.meditationType] || meditation.meditationType}
-                  </span>
-                  <span className="meditation-language-badge">
-                    {languageLabels[meditation.language] || meditation.language}
-                  </span>
-                </div>
-
-                <h3 className="meditation-title">{meditation.title}</h3>
-                <p className="meditation-description">{meditation.description}</p>
-
-                <div className="meditation-stats">
-                  <span className="stat">
-                    ⏰ {formatDuration(meditation.duration)}
-                  </span>
-                  <span className="stat">
-                    ❤️ {meditation.likeCount || 0}
-                  </span>
-                  <span className="stat">
-                    👥 {meditation.downloadCount || 0}
-                  </span>
-                </div>
-
-                <div className="meditation-footer">
-                  <div className="author-info">
-                    <span className="author-name">👤 {meditation.author.username || meditation.author}</span>
-                    <span className="share-date">{formatDate(meditation.createdAt)}</span>
-                  </div>
-                  
-                  <div className="meditation-actions">
-                    <button 
-                      className={`action-btn like-btn ${likedMeditations.has(meditation._id) ? 'liked' : ''}`}
-                      onClick={() => handleLikeMeditation(meditation._id)}
-                      disabled={!user}
-                    >
-                      {likedMeditations.has(meditation._id) ? '❤️' : '🤍'} {t('like', 'Like')}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {meditation.audioFile && (
-                <audio 
-                  id={`shared-audio-${meditation._id}`}
-                  preload="none"
-                  onEnded={() => setPlayingMeditationId(null)}
-                  onPause={() => {
-                    if (playingMeditationId === meditation._id) {
-                      setPlayingMeditationId(null);
-                    }
-                  }}
-                >
-                  <source 
-                    src={`${API_BASE_URL}/assets/audio/shared/${meditation.audioFile.filename}`} 
-                    type="audio/mpeg" 
-                  />
-                </audio>
-              )}
+    <div className="community-hub-spotify">
+      {/* Header */}
+      <div className="spotify-header">
+        <div className="spotify-header-content">
+          <div className="spotify-title-section">
+            <div className="spotify-icon">🎵</div>
+            <div className="spotify-title-text">
+              <h1 className="spotify-main-title">{t('communityHub', 'Community Hub')}</h1>
+              <p className="spotify-subtitle">{t('communitySubtitle', 'Discover and share meditation experiences with others')}</p>
             </div>
-          ))}
+          </div>
         </div>
-      )}
+      </div>
 
+      {/* Sub-tabs for meditations and journals */}
+      <div className="community-subtabs">
+        <button 
+          className={`subtab-btn ${activeSubTab === 'meditations' ? 'active' : ''}`}
+          onClick={() => setActiveSubTab('meditations')}
+        >
+          🧘 {t('meditations', 'Meditaties')}
+        </button>
+        <button 
+          className={`subtab-btn ${activeSubTab === 'journals' ? 'active' : ''}`}
+          onClick={() => setActiveSubTab('journals')}
+        >
+          📔 {t('voiceJournals', 'Stem Dagboeken')}
+        </button>
+      </div>
+
+      {/* Render content based on active sub-tab */}
+      {activeSubTab === 'meditations' ? (
+        <>
+          {/* Spotify-style Search and Filters */}
+          <div className="spotify-controls">
+            <div className="spotify-filter-pills">
+              <div className="filter-pill-group">
+                <button 
+                  className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
+                  onClick={() => setFilterType('all')}
+                >
+                  {t('allTypes', 'All')}
+                </button>
+                {meditationTypes.slice(0, 5).map(type => (
+                  <button 
+                    key={type}
+                    className={`filter-pill ${filterType === type ? 'active' : ''}`}
+                    onClick={() => setFilterType(type)}
+                  >
+                    {meditationTypeLabels[type] || type}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {filteredMeditations.length === 0 ? (
+            <div className="spotify-empty-state">
+              <div className="empty-state-content">
+                <div className="empty-icon-large">🎧</div>
+                <h2 className="empty-title">{t('noSharedMeditations', 'No meditations found')}</h2>
+                <p className="empty-description">{t('beFirstToShare', 'Be the first to share your meditation with the community!')}</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* My Meditation Style Header */}
+              <div className="community-header">
+                <h2>🌟 Recently Shared</h2>
+                <p>{filteredMeditations.length} meditation{filteredMeditations.length !== 1 ? 's' : ''} available</p>
+              </div>
+
+              {/* My Meditation Style List */}
+              <div className="community-meditations-list">
+                {filteredMeditations.map((meditation, index) => (
+                  <div 
+                    key={meditation._id} 
+                    className={`meditation-card community-card ${playingMeditationId === meditation._id ? 'playing' : ''}`}
+                  >
+                    <div className="meditation-thumbnail">
+                      <img 
+                        src={getImageUrl(meditation)}
+                        alt={`${meditationTypeLabels[meditation.meditationType] || meditation.meditationType} meditation`}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                      <div className="thumbnail-controls">
+                        <button 
+                          className="thumbnail-play-button"
+                          onClick={() => handlePlayMeditation(meditation)}
+                          disabled={!meditation.audioFile}
+                        >
+                          {playingMeditationId === meditation._id ? '⏸' : '▶'}
+                        </button>
+                        <span className="thumbnail-duration">
+                          {meditation.duration ? formatDuration(meditation.duration) : '0:00'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="meditation-details">
+                      <div className="meditation-header">
+                        <div className="meditation-type">
+                          {meditationTypeLabels[meditation.meditationType] || meditation.meditationType}
+                        </div>
+                        <div className="meditation-date">
+                          {formatDate(meditation.createdAt)}
+                        </div>
+                      </div>
+                      
+                      <div className="meditation-info">
+                        <span className="meditation-duration">
+                          ⏰ {formatDuration(meditation.duration)}
+                        </span>
+                        <span className="meditation-language">
+                          🗣️ {languageLabels[meditation.language] || meditation.language}
+                        </span>
+                        <span className="meditation-author">
+                          👤 {meditation.author.username || meditation.author}
+                        </span>
+                      </div>
+
+                      <div className="meditation-text">
+                        {meditation.description && (
+                          <span className="meditation-description">
+                            {meditation.description.substring(0, 100)}
+                            {meditation.description.length > 100 && '...'}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="meditation-controls">
+                      <button 
+                        className="like-button"
+                        onClick={() => handleLikeMeditation(meditation._id)}
+                        disabled={!user}
+                        title={t('likeMeditation', 'Like Meditation')}
+                      >
+                        <span className="like-icon">
+                          {likedMeditations.has(meditation._id) ? '💚' : '🤍'}
+                        </span>
+                        <span className="like-count">{meditation.likeCount || 0}</span>
+                      </button>
+                    </div>
+
+                    {meditation.audioFile && (
+                      <div className="community-audio-hidden">
+                        <audio 
+                          id={`shared-audio-${meditation._id}`}
+                          preload="none"
+                          onEnded={(e) => {
+                            // Clear timeout when audio ends naturally
+                            if (e.target.playTimeout) {
+                              clearTimeout(e.target.playTimeout);
+                              e.target.playTimeout = null;
+                            }
+                            setPlayingMeditationId(null);
+                          }}
+                          onPause={(e) => {
+                            if (playingMeditationId === meditation._id) {
+                              // Clear timeout when audio is paused
+                              if (e.target.playTimeout) {
+                                clearTimeout(e.target.playTimeout);
+                                e.target.playTimeout = null;
+                              }
+                              setPlayingMeditationId(null);
+                            }
+                          }}
+                        >
+                          <source 
+                            src={`${API_BASE_URL}/assets/audio/shared/${meditation.audioFile.filename}`} 
+                            type="audio/mpeg" 
+                          />
+                        </audio>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <JournalHub user={user} />
+      )}
     </div>
   );
 };

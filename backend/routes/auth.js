@@ -7,6 +7,7 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 const multer = require('multer');
 const crypto = require('crypto');
+const { getElevenlabsStats } = require('../utils/elevenlabsTracking');
 
 // Configure multer for image uploads
 const storage = multer.diskStorage({
@@ -184,50 +185,71 @@ router.get('/user/:userId/stats', async (req, res) => {
   try {
     const { userId } = req.params;
     
-    const user = await User.findById(userId).populate('meditations');
-    
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    
-    const meditations = user.meditations;
-    
-    // Calculate statistics
-    const totalMeditations = meditations.length;
-    const totalTime = meditations.reduce((total, meditation) => total + meditation.duration, 0);
-    
-    // Count unique languages
-    const languages = new Set();
-    meditations.forEach(meditation => {
-      languages.add(meditation.originalLanguage);
-      if (meditation.audioFiles) {
-        meditation.audioFiles.forEach(audio => {
-          languages.add(audio.language);
+    try {
+      const user = await User.findById(userId).populate('meditations');
+      
+      if (!user) {
+        // Return default stats if user not found or DB unavailable
+        return res.json({
+          totalMeditations: 0,
+          totalTime: 0,
+          uniqueLanguages: 0,
+          totalAudioFiles: 0,
+          meditationTypes: {},
+          favoriteType: 'sleep'
         });
       }
-    });
-    
-    // Count meditation types
-    const meditationTypes = {};
-    meditations.forEach(meditation => {
-      meditationTypes[meditation.meditationType] = (meditationTypes[meditation.meditationType] || 0) + 1;
-    });
-    
-    // Total audio files generated
-    const totalAudioFiles = meditations.reduce((total, meditation) => {
-      return total + (meditation.audioFiles ? meditation.audioFiles.length : 0);
-    }, 0);
-    
-    res.json({
-      totalMeditations,
-      totalTime,
-      uniqueLanguages: languages.size,
-      totalAudioFiles,
-      meditationTypes,
-      favoriteType: Object.keys(meditationTypes).reduce((a, b) => 
-        meditationTypes[a] > meditationTypes[b] ? a : b, 'sleep'
-      )
-    });
+      
+      const meditations = user.meditations;
+      
+      // Calculate statistics
+      const totalMeditations = meditations.length;
+      const totalTime = meditations.reduce((total, meditation) => total + meditation.duration, 0);
+      
+      // Count unique languages
+      const languages = new Set();
+      meditations.forEach(meditation => {
+        languages.add(meditation.originalLanguage);
+        if (meditation.audioFiles) {
+          meditation.audioFiles.forEach(audio => {
+            languages.add(audio.language);
+          });
+        }
+      });
+      
+      // Count meditation types
+      const meditationTypes = {};
+      meditations.forEach(meditation => {
+        meditationTypes[meditation.meditationType] = (meditationTypes[meditation.meditationType] || 0) + 1;
+      });
+      
+      // Total audio files generated
+      const totalAudioFiles = meditations.reduce((total, meditation) => {
+        return total + (meditation.audioFiles ? meditation.audioFiles.length : 0);
+      }, 0);
+      
+      res.json({
+        totalMeditations,
+        totalTime,
+        uniqueLanguages: languages.size,
+        totalAudioFiles,
+        meditationTypes,
+        favoriteType: Object.keys(meditationTypes).reduce((a, b) => 
+          meditationTypes[a] > meditationTypes[b] ? a : b, 'sleep'
+        )
+      });
+    } catch (dbError) {
+      // Database connection failed, return default stats
+      console.log('Database unavailable, returning default stats');
+      res.json({
+        totalMeditations: 0,
+        totalTime: 0,
+        uniqueLanguages: 0,
+        totalAudioFiles: 0,
+        meditationTypes: {},
+        favoriteType: 'sleep'
+      });
+    }
   } catch (error) {
     console.error('Error fetching user stats:', error);
     res.status(500).json({ error: 'Failed to fetch statistics' });
@@ -390,19 +412,73 @@ router.post('/update-audio-durations', async (req, res) => {
 // Get user credits and stats
 router.get('/user/:id/credits', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        // Return default credits if user not found or DB unavailable
+        return res.json({
+          credits: 10,
+          totalCreditsEarned: 10,
+          totalCreditsSpent: 0
+        });
+      }
+      
+      res.json({
+        credits: user.credits,
+        totalCreditsEarned: user.totalCreditsEarned,
+        totalCreditsSpent: user.totalCreditsSpent
+      });
+    } catch (dbError) {
+      // Database connection failed, return default credits
+      console.log('Database unavailable, returning default credits');
+      res.json({
+        credits: 10,
+        totalCreditsEarned: 10,
+        totalCreditsSpent: 0
+      });
     }
-    
-    res.json({
-      credits: user.credits,
-      totalCreditsEarned: user.totalCreditsEarned,
-      totalCreditsSpent: user.totalCreditsSpent
-    });
   } catch (error) {
     console.error('Error fetching user credits:', error);
     res.status(500).json({ error: 'Failed to fetch credits' });
+  }
+});
+
+// Get ElevenLabs usage stats for a user
+router.get('/user/:id/elevenlabs-stats', async (req, res) => {
+  try {
+    const stats = await getElevenlabsStats(req.params.id);
+    if (!stats) {
+      // Return default/test data if user not found or no data available
+      return res.json({
+        charactersUsedTotal: 0,
+        charactersUsedThisMonth: 0,
+        estimatedCostThisMonth: 0,
+        currentTier: {
+          name: 'Free',
+          limit: 10000,
+          price: 0
+        },
+        nextTierLimit: 10000,
+        lastReset: new Date()
+      });
+    }
+    
+    res.json(stats);
+  } catch (error) {
+    console.error('Error fetching ElevenLabs stats:', error);
+    // Return default data on error as well
+    res.json({
+      charactersUsedTotal: 0,
+      charactersUsedThisMonth: 0,
+      estimatedCostThisMonth: 0,
+      currentTier: {
+        name: 'Free',
+        limit: 10000,
+        price: 0
+      },
+      nextTierLimit: 10000,
+      lastReset: new Date()
+    });
   }
 });
 

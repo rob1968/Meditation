@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getAssetUrl } from '../config/api';
 
 const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationType }) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioRef, setAudioRef] = useState(null);
   
   // Touch/swipe state
   const [touchStart, setTouchStart] = useState(null);
@@ -12,70 +15,50 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
   const [swipeDirection, setSwipeDirection] = useState(null);
   const cardRef = useRef(null);
 
-  const getBackgroundOptionsForType = (type) => {
-    const allOptions = [
-      { 
-        value: 'rain', 
-        icon: '🌧️', 
-        label: t('rain', 'Rain'),
-        description: t('rainDesc', 'Gentle rainfall for peaceful relaxation'),
-        types: ['sleep', 'stress', 'anxiety'],
-        color: '#6366f1'
-      },
-      { 
-        value: 'ocean', 
-        icon: '🌊', 
-        label: t('ocean', 'Ocean'),
-        description: t('oceanDesc', 'Calming waves for deep focus and tranquility'),
-        types: ['sleep', 'focus', 'anxiety'],
-        color: '#06b6d4'
-      },
-      { 
-        value: 'forest', 
-        icon: '🌲', 
-        label: t('forest', 'Forest'),
-        description: t('forestDesc', 'Natural woodland sounds for grounding and energy'),
-        types: ['stress', 'focus', 'energy'],
-        color: '#10b981'
-      },
-      { 
-        value: 'birds', 
-        icon: '🐦', 
-        label: t('birds', 'Birds'),
-        description: t('birdsDesc', 'Cheerful birdsong for energy and focus'),
-        types: ['energy', 'focus'],
-        color: '#f59e0b'
-      },
-      { 
-        value: 'wind', 
-        icon: '💨', 
-        label: t('wind', 'Wind'),
-        description: t('windDesc', 'Gentle breeze for stress relief and calm'),
-        types: ['stress', 'anxiety'],
-        color: '#8b5cf6'
-      },
-      { 
-        value: 'stream', 
-        icon: '🏞️', 
-        label: t('stream', 'Stream'),
-        description: t('streamDesc', 'Flowing water for stress relief and focus'),
-        types: ['stress', 'focus'],
-        color: '#14b8a6'
-      }
-    ];
-    
-    // Filter options for current meditation type, or show all if no match
-    const filteredOptions = allOptions.filter(option => 
-      option.types.includes(type) || 
-      ['rain', 'ocean', 'forest'].includes(option.value) // Keep original options
-    );
-    
-    return filteredOptions.length > 0 ? filteredOptions : allOptions.filter(option => 
-      ['rain', 'ocean', 'forest'].includes(option.value)
-    );
-  };
-
-  const backgroundOptions = getBackgroundOptionsForType(meditationType);
+  const backgroundOptions = [
+    { 
+      value: 'rain', 
+      icon: '🌧️', 
+      label: t('rain', 'Rain'),
+      description: t('rainDesc', 'Gentle rainfall for peaceful relaxation'),
+      color: '#6366f1'
+    },
+    { 
+      value: 'ocean', 
+      icon: '🌊', 
+      label: t('ocean', 'Ocean'),
+      description: t('oceanDesc', 'Calming waves for deep focus and tranquility'),
+      color: '#06b6d4'
+    },
+    { 
+      value: 'forest', 
+      icon: '🌲', 
+      label: t('forest', 'Forest'),
+      description: t('forestDesc', 'Natural woodland sounds for grounding and energy'),
+      color: '#10b981'
+    },
+    { 
+      value: 'birds', 
+      icon: '🐦', 
+      label: t('birds', 'Birds'),
+      description: t('birdsDesc', 'Cheerful birdsong for energy and focus'),
+      color: '#f59e0b'
+    },
+    { 
+      value: 'wind', 
+      icon: '💨', 
+      label: t('wind', 'Wind'),
+      description: t('windDesc', 'Gentle breeze for stress relief and calm'),
+      color: '#8b5cf6'
+    },
+    { 
+      value: 'stream', 
+      icon: '🏞️', 
+      label: t('stream', 'Stream'),
+      description: t('streamDesc', 'Flowing water for stress relief and focus'),
+      color: '#14b8a6'
+    }
+  ];
 
   // Find the index of the selected background
   useEffect(() => {
@@ -174,12 +157,52 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
     }
   };
 
+  const playBackgroundSound = () => {
+    if (audioRef) {
+      audioRef.pause();
+      setAudioRef(null);
+      setIsPlaying(false);
+    }
+    
+    // Create path to background sound file
+    const audioPath = getAssetUrl(`/assets/${currentBackground.value}.mp3`);
+    const audio = new Audio(audioPath);
+    
+    audio.play();
+    setAudioRef(audio);
+    setIsPlaying(true);
+    
+    audio.onended = () => {
+      setIsPlaying(false);
+      setAudioRef(null);
+    };
+    
+    audio.onerror = () => {
+      setIsPlaying(false);
+      setAudioRef(null);
+      console.error('Error playing background sound');
+    };
+  };
+
+  const stopBackgroundSound = () => {
+    if (audioRef) {
+      audioRef.pause();
+      setAudioRef(null);
+      setIsPlaying(false);
+    }
+  };
+
+  // Stop audio when switching backgrounds
+  useEffect(() => {
+    stopBackgroundSound();
+  }, [currentIndex]);
+
   if (!currentBackground) return null;
 
   return (
     <div className="background-slider" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="background-slider-header">
-        <h2 className="section-title">🎵 {t('backgroundMusicLabel', 'Background Music')}</h2>
+        <h2 className="section-title">🎵</h2>
         <div className="background-counter">
           {currentIndex + 1} {t('of', 'of')} {backgroundOptions.length}
         </div>
@@ -211,15 +234,16 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
               {currentBackground.description}
             </div>
             
-            <div className="background-badge" style={{ backgroundColor: currentBackground.color }}>
-              {t(currentBackground.value, currentBackground.value)}
+            {/* Play Button */}
+            <div className="background-preview">
+              <button 
+                className="background-play-button"
+                onClick={isPlaying ? stopBackgroundSound : playBackgroundSound}
+                aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
+              >
+                {isPlaying ? '⏸️' : '▶️'}
+              </button>
             </div>
-            
-            {currentBackground.types.includes(meditationType) && (
-              <div className="background-recommendation">
-                ✨ {t('recommendedFor', 'Recommended for')} {t(meditationType + 'Meditation', meditationType)}
-              </div>
-            )}
           </div>
           
           <button 
