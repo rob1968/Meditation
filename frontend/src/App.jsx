@@ -40,6 +40,8 @@ const App = () => {
   // Use UI language only for audio generation
   const [generatedText, setGeneratedText] = useState('');
   const [showTextPreview, setShowTextPreview] = useState(false);
+  const [showVoiceSelector, setShowVoiceSelector] = useState(false);
+  const [showBackgroundOptions, setShowBackgroundOptions] = useState(false);
   const [audioFiles, setAudioFiles] = useState([]);
   const [generationProgress, setGenerationProgress] = useState([]);
   
@@ -200,6 +202,8 @@ const App = () => {
       setGeneratedText('');
       setOriginalGeneratedText('');
       setIsTextModified(false);
+      setShowVoiceSelector(false); // Hide voice selector on type/language change
+      setShowBackgroundOptions(false); // Hide background options on type/language change
       // Auto-generate preview text
       generateTextPreview();
     }
@@ -339,6 +343,8 @@ const App = () => {
       setText("");
       setGeneratedText("");
       setShowTextPreview(false);
+      setShowVoiceSelector(false); // Hide voice selector after generation
+      setShowBackgroundOptions(false); // Hide background options after generation
       setMeditationType("sleep");
       setBackground("ocean");
       setAudioUrl(""); // Clear audio URL as it's no longer needed on create page
@@ -356,15 +362,17 @@ const App = () => {
   };
 
   const handleTextApproved = () => {
-    // Check credits before generating audio
+    // Check credits before showing voice selector
     if (user && userCredits && userCredits.credits < 1) {
       setError(t('insufficientCredits', 'Insufficient credits. You need 1 credit to generate audio.'));
       return;
     }
     
-    setShowTextPreview(false);
-    generateAudio();
+    // Show voice selector instead of immediately generating audio
+    setShowVoiceSelector(true);
+    setShowBackgroundOptions(false); // Reset background options
   };
+
 
   const fetchVoices = async () => {
     try {
@@ -497,7 +505,7 @@ const App = () => {
       />
 
 
-      {(
+      {!showVoiceSelector && (
         <div className="text-preview-section" style={{ 
           marginTop: '20px', 
           marginBottom: '20px',
@@ -743,44 +751,116 @@ const App = () => {
         </div>
       )}
 
-      <div className="background-music-toggle">
-        <label className="checkbox-container">
-          <input
-            type="checkbox"
-            checked={useBackgroundMusic}
-            onChange={(e) => setUseBackgroundMusic(e.target.checked)}
-            className="checkbox-input"
+      {showVoiceSelector && !useBackgroundMusic && (
+        <div className="voice-selector-section" style={{ 
+          marginTop: '20px', 
+          marginBottom: '20px',
+          padding: '20px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: '15px',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}>
+          <h3 style={{ 
+            color: '#fff',
+            marginBottom: '15px',
+            fontSize: '18px',
+            fontWeight: '600'
+          }}>
+            🎙️ {t('selectVoice', 'Select Voice')}
+          </h3>
+          
+          <VoiceSlider 
+            voices={voices}
+            selectedVoiceId={voiceId}
+            onVoiceSelect={setVoiceId}
+            voiceProvider="elevenlabs"
+            currentMeditationType={meditationType}
+            speechTempo={speechTempo}
+            onTempoChange={setSpeechTempo}
+            isGeneratingAudio={isLoading}
+            genderFilter={genderFilter}
+            onGenderFilterChange={setGenderFilter}
           />
-          <span className="checkbox-label">{t('backgroundMusicLabel', 'Background Music')}</span>
-        </label>
-      </div>
-
-      {useBackgroundMusic && (
-        <BackgroundSlider 
-          selectedBackground={background}
-          onBackgroundSelect={setBackground}
-          meditationType={meditationType}
-        />
+          
+        </div>
       )}
 
+      {showVoiceSelector && (
+        <div className="background-toggle-section" style={{ 
+          marginTop: '15px', 
+          textAlign: 'center'
+        }}>
+          <div className="background-music-toggle">
+            <label className="checkbox-container">
+              <input
+                type="checkbox"
+                checked={useBackgroundMusic}
+                onChange={(e) => setUseBackgroundMusic(e.target.checked)}
+                className="checkbox-input"
+              />
+              <span className="checkbox-label">{t('backgroundMusicLabel', 'Add Background Music')}</span>
+            </label>
+          </div>
+        </div>
+      )}
 
-      <VoiceSlider 
-        voices={voices}
-        selectedVoiceId={voiceId}
-        onVoiceSelect={setVoiceId}
-        voiceProvider="elevenlabs"
-        currentMeditationType={meditationType}
-        speechTempo={speechTempo}
-        onTempoChange={setSpeechTempo}
-        isGeneratingAudio={isLoading}
-        genderFilter={genderFilter}
-        onGenderFilterChange={setGenderFilter}
-      />
+      {showVoiceSelector && useBackgroundMusic && (
+        <div className="background-slider-section" style={{ 
+          marginTop: '15px', 
+          marginBottom: '20px',
+          padding: '15px',
+          background: 'rgba(255, 255, 255, 0.05)',
+          borderRadius: '10px',
+          border: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          <BackgroundSlider 
+            selectedBackground={background}
+            onBackgroundSelect={setBackground}
+            meditationType={meditationType}
+          />
+        </div>
+      )}
 
-
-
-
-
+      {showVoiceSelector && (
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginTop: '20px' 
+        }}>
+          <button
+            onClick={generateAudio}
+            disabled={isLoading || !text.trim() || !voiceId}
+            style={{
+              background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
+              color: 'white',
+              border: 'none',
+              padding: '12px 30px',
+              borderRadius: '25px',
+              fontSize: '16px',
+              fontWeight: '600',
+              cursor: (isLoading || !text.trim() || !voiceId) ? 'not-allowed' : 'pointer',
+              opacity: (isLoading || !text.trim() || !voiceId) ? 0.6 : 1,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px'
+            }}
+          >
+            {isLoading ? (
+              <>
+                <div className="loading-spinner">
+                  <div className="spinner"></div>
+                </div>
+                {t('generating', 'Generating...')}
+              </>
+            ) : (
+              <>
+                🎵 {t('generateAudio', 'Generate Audio')}
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {error && (
         <div className="error-message">
