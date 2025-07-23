@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAssetUrl } from '../config/api';
 
-const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationType }) => {
+const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationType, customBackground, customBackgroundFile, savedCustomBackgrounds }) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -15,7 +15,7 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
   const [swipeDirection, setSwipeDirection] = useState(null);
   const cardRef = useRef(null);
 
-  const backgroundOptions = [
+  const defaultBackgroundOptions = [
     { 
       value: 'rain', 
       icon: '🌧️', 
@@ -60,6 +60,34 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
     }
   ];
 
+  // Create saved backgrounds options
+  const savedBackgroundOptions = (savedCustomBackgrounds || []).map(bg => ({
+    value: `saved-${bg.id}`,
+    icon: '🎵',
+    label: bg.customName,
+    description: t('savedBackgroundDesc', 'Your saved custom background'),
+    color: '#ec4899',
+    savedBackground: bg
+  }));
+
+  // Add current custom background if available
+  const currentCustomOptions = customBackground 
+    ? [{
+        value: 'custom',
+        icon: '🎵',
+        label: customBackground.name || t('customBackground', 'Custom Background'),
+        description: t('customBackgroundDesc', 'Your uploaded custom background music'),
+        color: '#ec4899'
+      }]
+    : [];
+
+  // Combine all background options: current custom + saved + defaults
+  const backgroundOptions = [
+    ...currentCustomOptions,
+    ...savedBackgroundOptions,
+    ...defaultBackgroundOptions
+  ];
+
   // Find the index of the selected background
   useEffect(() => {
     const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
@@ -75,7 +103,7 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
     setIsTransitioning(true);
     const newIndex = currentIndex > 0 ? currentIndex - 1 : backgroundOptions.length - 1;
     setCurrentIndex(newIndex);
-    onBackgroundSelect(backgroundOptions[newIndex].value);
+    handleBackgroundSelection(backgroundOptions[newIndex]);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
@@ -84,8 +112,21 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
     setIsTransitioning(true);
     const newIndex = currentIndex < backgroundOptions.length - 1 ? currentIndex + 1 : 0;
     setCurrentIndex(newIndex);
-    onBackgroundSelect(backgroundOptions[newIndex].value);
+    handleBackgroundSelection(backgroundOptions[newIndex]);
     setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const handleBackgroundSelection = (backgroundOption) => {
+    // If it's a saved background, we need to notify the parent with the background data
+    if (backgroundOption.value.startsWith('saved-')) {
+      // Call parent callback with saved background info
+      if (onBackgroundSelect) {
+        onBackgroundSelect(backgroundOption.value, backgroundOption.savedBackground);
+      }
+    } else {
+      // Regular background selection
+      onBackgroundSelect(backgroundOption.value);
+    }
   };
 
   // Add proper touch event listeners with { passive: false }
@@ -164,24 +205,82 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
       setIsPlaying(false);
     }
     
-    // Create path to background sound file
-    const audioPath = getAssetUrl(`/assets/${currentBackground.value}.mp3`);
-    const audio = new Audio(audioPath);
+    let audio;
+    
+    // Handle custom and saved background files
+    if (currentBackground.value === 'custom' && customBackgroundFile) {
+      // Check if this is a saved background or uploaded file
+      if (customBackgroundFile.savedBackground) {
+        // This is a saved background - fetch from server
+        const savedBg = customBackgroundFile.savedBackground;
+        const audioUrl = `/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`;
+        audio = new Audio(audioUrl);
+        
+        audio.onended = () => {
+          setIsPlaying(false);
+          setAudioRef(null);
+        };
+        
+        audio.onerror = () => {
+          setIsPlaying(false);
+          setAudioRef(null);
+          console.error('Error playing saved background sound');
+        };
+      } else {
+        // This is a newly uploaded file
+        const fileUrl = URL.createObjectURL(customBackgroundFile);
+        audio = new Audio(fileUrl);
+        
+        // Clean up the object URL when audio ends or errors
+        const cleanup = () => {
+          URL.revokeObjectURL(fileUrl);
+          setIsPlaying(false);
+          setAudioRef(null);
+        };
+        
+        audio.onended = cleanup;
+        audio.onerror = cleanup;
+      }
+    } else if (currentBackground.value.startsWith('saved-') && currentBackground.savedBackground) {
+      // This is a saved background from the slider
+      const savedBg = currentBackground.savedBackground;
+      const audioUrl = `/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`;
+      audio = new Audio(audioUrl);
+      
+      audio.onended = () => {
+        setIsPlaying(false);
+        setAudioRef(null);
+      };
+      
+      audio.onerror = () => {
+        setIsPlaying(false);
+        setAudioRef(null);
+        console.error('Error playing saved background sound');
+      };
+    } else if (!currentBackground.value.startsWith('saved-') && currentBackground.value !== 'custom') {
+      // Create path to background sound file
+      const audioPath = getAssetUrl(`/assets/${currentBackground.value}.mp3`);
+      audio = new Audio(audioPath);
+      
+      audio.onended = () => {
+        setIsPlaying(false);
+        setAudioRef(null);
+      };
+      
+      audio.onerror = () => {
+        setIsPlaying(false);
+        setAudioRef(null);
+        console.error('Error playing background sound');
+      };
+    } else {
+      // Custom background selected but no file available
+      console.log('Custom background selected but no file available for preview');
+      return;
+    }
     
     audio.play();
     setAudioRef(audio);
     setIsPlaying(true);
-    
-    audio.onended = () => {
-      setIsPlaying(false);
-      setAudioRef(null);
-    };
-    
-    audio.onerror = () => {
-      setIsPlaying(false);
-      setAudioRef(null);
-      console.error('Error playing background sound');
-    };
   };
 
   const stopBackgroundSound = () => {
@@ -240,6 +339,8 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
                 className="background-play-button"
                 onClick={isPlaying ? stopBackgroundSound : playBackgroundSound}
                 aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
+                disabled={currentBackground.value === 'custom' && !customBackgroundFile}
+                style={currentBackground.value === 'custom' && !customBackgroundFile ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
               >
                 {isPlaying ? '⏸️' : '▶️'}
               </button>
