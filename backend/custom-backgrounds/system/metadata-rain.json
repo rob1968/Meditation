@@ -1,0 +1,13 @@
+{
+  "id": "rain-system",
+  "filename": "rain.mp3",
+  "originalName": "rain.mp3",
+  "customName": "Rain",
+  "customDescription": "Gentle rainfall for peaceful relaxation",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "🌧️",
+  "color": "#6366f1"
+}

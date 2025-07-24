@@ -1,0 +1,13 @@
+{
+  "id": "forest-system",
+  "filename": "forest.mp3",
+  "originalName": "forest.mp3",
+  "customName": "Forest",
+  "customDescription": "Natural forest sounds with birds and rustling leaves",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "🌲",
+  "color": "#16a34a"
+}

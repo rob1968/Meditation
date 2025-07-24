@@ -23,11 +23,13 @@ const App = () => {
   const [meditationType, setMeditationType] = useState("sleep");
   const [background, setBackground] = useState("ocean");
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
-  const [useBackgroundMusic, setUseBackgroundMusic] = useState(false);
+  const [useBackgroundMusic, setUseBackgroundMusic] = useState(true);
   const [customBackgroundFile, setCustomBackgroundFile] = useState(null);
   const [customBackgroundName, setCustomBackgroundName] = useState('');
+  const [customBackgroundDescription, setCustomBackgroundDescription] = useState('');
   const [showNameInput, setShowNameInput] = useState(false);
   const [savedCustomBackgrounds, setSavedCustomBackgrounds] = useState([]);
+  const [backgroundsLoading, setBackgroundsLoading] = useState(true);
   const [showSavedBackgrounds, setShowSavedBackgrounds] = useState(false);
   const [voices, setVoices] = useState([]);
   const [speechTempo, setSpeechTempo] = useState(1.00); // Default meditation tempo
@@ -211,6 +213,7 @@ const App = () => {
       setShowBackgroundOptions(false); // Hide background options on type/language change
       setCustomBackgroundFile(null); // Clear custom background file
       setCustomBackgroundName(''); // Clear custom background name
+      setCustomBackgroundDescription(''); // Clear custom background description
       setShowNameInput(false); // Hide name input
       // Auto-generate preview text
       generateTextPreview();
@@ -383,6 +386,7 @@ const App = () => {
       setShowBackgroundOptions(false); // Hide background options after generation
       setCustomBackgroundFile(null); // Clear custom background file after generation
       setCustomBackgroundName(''); // Clear custom background name after generation
+      setCustomBackgroundDescription(''); // Clear custom background description after generation
       setShowNameInput(false); // Hide name input after generation
       setMeditationType("sleep");
       setBackground("ocean");
@@ -444,6 +448,8 @@ const App = () => {
         event.target.value = ''; // Clear the input
       }
     }
+    // Reset file input value to allow re-selecting the same file
+    event.target.value = '';
   };
 
   const handleCustomBackgroundNameSubmit = async () => {
@@ -454,6 +460,7 @@ const App = () => {
         formData.append('customBackground', customBackgroundFile);
         formData.append('userId', user.id);
         formData.append('customName', customBackgroundName);
+        formData.append('customDescription', customBackgroundDescription);
 
         console.log('Frontend: Uploading background with name:', customBackgroundName);
         
@@ -493,18 +500,83 @@ const App = () => {
   const handleRemoveCustomBackground = () => {
     setCustomBackgroundFile(null);
     setCustomBackgroundName('');
+    setCustomBackgroundDescription('');
     setShowNameInput(false);
     setBackground('ocean'); // Reset to default
   };
 
+  const handleBackgroundUploadFromSlider = async ({ file, name, description }) => {
+    if (!user?.id) {
+      throw new Error(t('loginRequired', 'Please login to upload custom backgrounds'));
+    }
+
+    try {
+      // Upload and save the background
+      const formData = new FormData();
+      formData.append('customBackground', file);
+      formData.append('userId', user.id);
+      formData.append('customName', name);
+      formData.append('customDescription', description);
+
+      console.log('Frontend: Uploading background with name:', name);
+      
+      const response = await axios.post(getFullUrl('/api/meditation/custom-background/upload'), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success) {
+        console.log('Upload response.data:', response.data);
+        
+        // Clear the temporary custom background state since it's now saved
+        setCustomBackgroundFile(null);
+        setCustomBackgroundName('');
+        setCustomBackgroundDescription('');
+        setShowNameInput(false);
+        
+        // Refresh the list of saved backgrounds first
+        await fetchSavedCustomBackgrounds();
+        
+        // Then set the background to the new saved background ID (longer delay for state stability)
+        setTimeout(() => {
+          setBackground(`saved-${response.data.backgroundId}`);
+        }, 500);
+        
+        console.log('Background uploaded successfully:', response.data);
+      }
+    } catch (error) {
+      console.error('Error uploading custom background:', error);
+      throw error;
+    }
+  };
+
   const fetchSavedCustomBackgrounds = async () => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      console.log('fetchSavedCustomBackgrounds: No user ID');
+      setBackgroundsLoading(false);
+      return;
+    }
+    
+    console.log('fetchSavedCustomBackgrounds: Fetching for user', user.id);
+    setBackgroundsLoading(true);
     
     try {
-      const response = await axios.get(getFullUrl(`/api/meditation/custom-backgrounds/${user.id}`));
+      const url = getFullUrl(`/api/meditation/custom-backgrounds/${user.id}`);
+      console.log('fetchSavedCustomBackgrounds: URL:', url);
+      
+      const response = await axios.get(url);
+      console.log('fetchSavedCustomBackgrounds: Response:', response.data);
+      
       setSavedCustomBackgrounds(response.data.backgrounds || []);
+      console.log('fetchSavedCustomBackgrounds: Set backgrounds count:', response.data.backgrounds?.length || 0);
     } catch (error) {
       console.error('Error fetching saved custom backgrounds:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      // Set empty array on error to prevent infinite loading
+      setSavedCustomBackgrounds([]);
+    } finally {
+      setBackgroundsLoading(false);
     }
   };
 
@@ -535,18 +607,30 @@ const App = () => {
   };
 
   const handleBackgroundSelection = (backgroundValue, savedBackgroundData) => {
+    console.log('App handleBackgroundSelection:', backgroundValue, savedBackgroundData?.customName);
+    
     if (backgroundValue.startsWith('saved-') && savedBackgroundData) {
-      // Handle saved background selection
+      // Handle saved background selection - use the specific backgroundValue, not 'custom'
+      setBackground(backgroundValue); // This is crucial - use the specific saved ID
+      setCustomBackgroundName(savedBackgroundData.customName);
+      setCustomBackgroundFile({
+        name: savedBackgroundData.filename,
+        savedBackground: savedBackgroundData
+      });
+      console.log('Selected saved background:', backgroundValue, savedBackgroundData);
+    } else if (backgroundValue === 'custom' && savedBackgroundData) {
+      // Handle current upload session
       setBackground('custom');
       setCustomBackgroundName(savedBackgroundData.customName);
       setCustomBackgroundFile({
         name: savedBackgroundData.filename,
         savedBackground: savedBackgroundData
       });
-      console.log('Selected saved background:', savedBackgroundData);
     } else {
-      // Handle regular background selection
+      // Handle regular background selection (system backgrounds)
       setBackground(backgroundValue);
+      setCustomBackgroundFile(null);
+      setCustomBackgroundName('');
     }
   };
 
@@ -995,159 +1079,9 @@ const App = () => {
             } : null}
             customBackgroundFile={customBackgroundFile}
             savedCustomBackgrounds={savedCustomBackgrounds}
+            backgroundsLoading={backgroundsLoading}
+            onCustomBackgroundUpload={handleBackgroundUploadFromSlider}
           />
-          
-          <div style={{ 
-            marginTop: '15px', 
-            padding: '15px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            borderRadius: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
-          }}>
-            <div style={{ 
-              color: '#fff', 
-              fontSize: '14px', 
-              marginBottom: '10px',
-              fontWeight: '500'
-            }}>
-              📎 {t('customBackground', 'Or upload your own MP3')}
-            </div>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <input
-                type="file"
-                accept=".mp3,.m4a,.aac,.amr,.3ga,.aiff,.caf,audio/mpeg,audio/mp4,audio/m4a,audio/x-m4a,audio/aac,audio/amr,audio/3gpp,audio/aiff,audio/x-aiff,audio/x-caf"
-                onChange={handleCustomBackgroundUpload}
-                style={{ display: 'none' }}
-                id="custom-background-upload"
-              />
-              <label
-                htmlFor="custom-background-upload"
-                style={{
-                  background: 'linear-gradient(135deg, #4299e1 0%, #3182ce 100%)',
-                  color: 'white',
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  border: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px'
-                }}
-              >
-                📁 {t('chooseFile', 'Choose Audio File')}
-              </label>
-              
-              
-              {customBackgroundFile && !showNameInput && !customBackgroundName && (
-                <div style={{ 
-                  color: '#ffc107', 
-                  fontSize: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px'
-                }}>
-                  📁 {customBackgroundFile.name}
-                </div>
-              )}
-
-              {customBackgroundFile && customBackgroundName && !showNameInput && (
-                <div style={{ 
-                  color: '#48bb78', 
-                  fontSize: '12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px'
-                }}>
-                  ✓ {customBackgroundName}
-                  <button
-                    onClick={handleRemoveCustomBackground}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      color: '#f56565',
-                      cursor: 'pointer',
-                      fontSize: '14px',
-                      marginLeft: '5px'
-                    }}
-                  >
-                    ✕
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {showNameInput && customBackgroundFile && (
-              <div style={{ 
-                marginTop: '15px',
-                padding: '10px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }}>
-                <div style={{ 
-                  color: '#fff', 
-                  fontSize: '12px', 
-                  marginBottom: '8px',
-                  fontWeight: '500'
-                }}>
-                  🏷️ {t('nameYourBackground', 'Name your background music')}
-                </div>
-                
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <input
-                    type="text"
-                    value={customBackgroundName}
-                    onChange={(e) => setCustomBackgroundName(e.target.value)}
-                    placeholder={t('enterBackgroundName', 'Enter a name...')}
-                    onKeyPress={(e) => e.key === 'Enter' && handleCustomBackgroundNameSubmit()}
-                    style={{
-                      flex: 1,
-                      padding: '6px 10px',
-                      borderRadius: '15px',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      background: 'rgba(255, 255, 255, 0.1)',
-                      color: '#fff',
-                      fontSize: '12px',
-                      outline: 'none'
-                    }}
-                  />
-                  <button
-                    onClick={handleCustomBackgroundNameSubmit}
-                    disabled={!customBackgroundName.trim()}
-                    style={{
-                      background: customBackgroundName.trim() ? 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)' : 'rgba(255, 255, 255, 0.2)',
-                      color: 'white',
-                      border: 'none',
-                      padding: '6px 12px',
-                      borderRadius: '15px',
-                      fontSize: '11px',
-                      cursor: customBackgroundName.trim() ? 'pointer' : 'not-allowed',
-                      opacity: customBackgroundName.trim() ? 1 : 0.6
-                    }}
-                  >
-                    ✓
-                  </button>
-                  <button
-                    onClick={handleRemoveCustomBackground}
-                    style={{
-                      background: 'linear-gradient(135deg, #f56565 0%, #e53e3e 100%)',
-                      color: 'white',
-                      border: 'none',
-                      padding: '6px 12px',
-                      borderRadius: '15px',
-                      fontSize: '11px',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-            )}
-            
-          </div>
         </div>
       )}
 

@@ -1,0 +1,13 @@
+{
+  "id": "birds-system",
+  "filename": "birds.mp3",
+  "originalName": "birds.mp3",
+  "customName": "Birds",
+  "customDescription": "Chirping birds in a peaceful natural setting",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "🐦",
+  "color": "#eab308"
+}

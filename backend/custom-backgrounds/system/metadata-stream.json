@@ -1,0 +1,13 @@
+{
+  "id": "stream-system",
+  "filename": "stream.mp3",
+  "originalName": "stream.mp3",
+  "customName": "Stream",
+  "customDescription": "Flowing water stream for tranquil meditation",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "🏞️",
+  "color": "#0891b2"
+}

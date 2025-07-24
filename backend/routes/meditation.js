@@ -19,6 +19,60 @@ const { generateGoogleTTS } = require('../services/googleTTSService');
 // Directory for custom background uploads
 const CUSTOM_BACKGROUNDS_DIR = path.join(__dirname, '..', 'custom-backgrounds');
 
+// Helper function to get all backgrounds for a user (system + custom)
+async function getAllBackgroundsForUser(userId) {
+  const backgrounds = [];
+  
+  // First, load system backgrounds (always available)
+  const systemDir = path.join(CUSTOM_BACKGROUNDS_DIR, 'system');
+  if (fs.existsSync(systemDir)) {
+    const systemFiles = await fsPromises.readdir(systemDir);
+    
+    for (const file of systemFiles) {
+      if (file.endsWith('.json') && file.startsWith('metadata-')) {
+        try {
+          const metadataPath = path.join(systemDir, file);
+          const metadata = JSON.parse(await fsPromises.readFile(metadataPath, 'utf8'));
+          
+          // Check if system audio file exists in assets directory
+          const assetsDir = path.join(__dirname, '..', '..', 'assets');
+          const audioPath = path.join(assetsDir, metadata.filename);
+          if (fs.existsSync(audioPath)) {
+            backgrounds.push(metadata);
+          }
+        } catch (error) {
+          console.error(`Error reading system metadata file ${file}:`, error);
+        }
+      }
+    }
+  }
+  
+  // Then, load user custom backgrounds
+  const userDir = path.join(CUSTOM_BACKGROUNDS_DIR, userId);
+  if (fs.existsSync(userDir)) {
+    const files = await fsPromises.readdir(userDir);
+
+    for (const file of files) {
+      if (file.endsWith('.json') && file.startsWith('metadata-')) {
+        try {
+          const metadataPath = path.join(userDir, file);
+          const metadata = JSON.parse(await fsPromises.readFile(metadataPath, 'utf8'));
+          
+          // Check if audio file still exists in user directory
+          const audioPath = path.join(userDir, metadata.filename);
+          if (fs.existsSync(audioPath)) {
+            backgrounds.push(metadata);
+          }
+        } catch (error) {
+          console.error(`Error reading user metadata file ${file}:`, error);
+        }
+      }
+    }
+  }
+  
+  return backgrounds;
+}
+
 // Configure multer for custom background uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -55,7 +109,7 @@ const storage = multer.diskStorage({
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024 // 10MB limit for custom background files
+    fileSize: 50 * 1024 * 1024 // 50MB limit for custom background files
   },
   fileFilter: (req, file, cb) => {
     const supportedTypes = [
@@ -203,11 +257,16 @@ router.post('/', upload.single('customBackground'), async (req, res) => {
   try {
     // Check if user has enough credits (1 credit per generation)
     if (userId) {
+      console.log(`🔍 Looking up user with ID: ${userId}`);
       const user = await User.findById(userId);
+      console.log(`👤 User found:`, user ? 'YES' : 'NO');
+      
       if (!user) {
+        console.log(`❌ User not found in database: ${userId}`);
         return res.status(404).json({ error: 'User not found' });
       }
       
+      console.log(`💰 User credits: ${user.credits}`);
       if (!user.hasEnoughCredits(1)) {
         return res.status(400).json({ 
           error: 'Insufficient credits. You need 1 credit to generate audio.',
@@ -2408,31 +2467,54 @@ router.post('/custom-background/save', async (req, res) => {
 router.get('/custom-backgrounds/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const userDir = path.join(CUSTOM_BACKGROUNDS_DIR, userId);
-    
-    if (!fs.existsSync(userDir)) {
-      return res.json({ backgrounds: [] });
-    }
-
-    const files = await fsPromises.readdir(userDir);
     const backgrounds = [];
-
-    for (const file of files) {
-      if (file.endsWith('.json') && file.startsWith('metadata-')) {
-        try {
-          const metadataPath = path.join(userDir, file);
-          const metadata = JSON.parse(await fsPromises.readFile(metadataPath, 'utf8'));
-          
-          // Check if audio file still exists
-          const audioPath = path.join(userDir, metadata.filename);
-          if (fs.existsSync(audioPath)) {
-            backgrounds.push(metadata);
-          } else {
-            // Clean up orphaned metadata
-            await fsPromises.unlink(metadataPath);
+    
+    // First, load system backgrounds (always available)
+    const systemDir = path.join(CUSTOM_BACKGROUNDS_DIR, 'system');
+    if (fs.existsSync(systemDir)) {
+      const systemFiles = await fsPromises.readdir(systemDir);
+      
+      for (const file of systemFiles) {
+        if (file.endsWith('.json') && file.startsWith('metadata-')) {
+          try {
+            const metadataPath = path.join(systemDir, file);
+            const metadata = JSON.parse(await fsPromises.readFile(metadataPath, 'utf8'));
+            
+            // Check if system audio file exists in assets directory (system files stay in assets)
+            const assetsDir = path.join(__dirname, '..', '..', 'assets');
+            const audioPath = path.join(assetsDir, metadata.filename);
+            if (fs.existsSync(audioPath)) {
+              backgrounds.push(metadata);
+            }
+          } catch (error) {
+            console.error(`Error reading system metadata file ${file}:`, error);
           }
-        } catch (error) {
-          console.error(`Error reading metadata file ${file}:`, error);
+        }
+      }
+    }
+    
+    // Then, load user custom backgrounds
+    const userDir = path.join(CUSTOM_BACKGROUNDS_DIR, userId);
+    if (fs.existsSync(userDir)) {
+      const files = await fsPromises.readdir(userDir);
+
+      for (const file of files) {
+        if (file.endsWith('.json') && file.startsWith('metadata-')) {
+          try {
+            const metadataPath = path.join(userDir, file);
+            const metadata = JSON.parse(await fsPromises.readFile(metadataPath, 'utf8'));
+            
+            // Check if audio file still exists in user directory
+            const audioPath = path.join(userDir, metadata.filename);
+            if (fs.existsSync(audioPath)) {
+              backgrounds.push(metadata);
+            } else {
+              // Clean up orphaned metadata
+              await fsPromises.unlink(metadataPath);
+            }
+          } catch (error) {
+            console.error(`Error reading metadata file ${file}:`, error);
+          }
         }
       }
     }
@@ -2498,7 +2580,7 @@ router.delete('/custom-background/:userId/:backgroundId', async (req, res) => {
 // Upload and save custom background immediately
 router.post('/custom-background/upload', upload.single('customBackground'), async (req, res) => {
   try {
-    const { userId, customName } = req.body;
+    const { userId, customName, customDescription } = req.body;
     
     if (!req.file || !userId || !customName) {
       return res.status(400).json({ error: 'Missing required fields: file, userId, or customName' });
@@ -2508,17 +2590,53 @@ router.post('/custom-background/upload', upload.single('customBackground'), asyn
     console.log('req.file:', req.file);
     console.log('userId:', userId);
     console.log('customName:', customName);
+    console.log('customDescription:', customDescription);
 
-    // Create user directory
+    // Check for duplicate names across all backgrounds (system + user)
+    const allBackgrounds = await getAllBackgroundsForUser(userId);
+    const nameExists = allBackgrounds.some(bg => 
+      bg.customName.toLowerCase() === customName.toLowerCase()
+    );
+    
+    if (nameExists) {
+      // Clean up temp file
+      if (req.file && fs.existsSync(req.file.path)) {
+        await fsPromises.unlink(req.file.path);
+      }
+      return res.status(400).json({ 
+        error: 'A background with this name already exists. Please choose a different name.' 
+      });
+    }
+
+    // Check for duplicate filenames (original name)
+    const originalNameExists = allBackgrounds.some(bg => 
+      bg.originalName && bg.originalName.toLowerCase() === req.file.originalname.toLowerCase()
+    );
+    
+    if (originalNameExists) {
+      // Clean up temp file
+      if (req.file && fs.existsSync(req.file.path)) {
+        await fsPromises.unlink(req.file.path);
+      }
+      return res.status(400).json({ 
+        error: 'A file with this name has already been uploaded. Please rename your file.' 
+      });
+    }
+
+    // Create user directory in custom-backgrounds (same structure as system)
     const userDir = path.join(CUSTOM_BACKGROUNDS_DIR, userId);
     if (!fs.existsSync(userDir)) {
       await fsPromises.mkdir(userDir, { recursive: true });
       console.log(`Created user directory: ${userDir}`);
     }
 
-    // Move file from temp to user directory
+    // Create a unique filename with timestamp to avoid conflicts
+    const fileExtension = path.extname(req.file.originalname);
+    const uniqueFilename = `custom-${Date.now()}${fileExtension}`;
+    
+    // Move file from temp to user directory (same structure as system)
     const tempFilePath = req.file.path;
-    const finalFilePath = path.join(userDir, req.file.filename);
+    const finalFilePath = path.join(userDir, uniqueFilename);
     
     await fsPromises.rename(tempFilePath, finalFilePath);
     console.log(`Moved file from ${tempFilePath} to ${finalFilePath}`);
@@ -2526,15 +2644,16 @@ router.post('/custom-background/upload', upload.single('customBackground'), asyn
     // Create metadata
     const metadata = {
       id: crypto.randomBytes(16).toString('hex'),
-      filename: req.file.filename,
+      filename: uniqueFilename, // Use the new unique filename
       originalName: req.file.originalname,
       customName: customName,
+      customDescription: customDescription || '', // Add description field
       userId: userId,
       createdAt: new Date().toISOString(),
       fileSize: req.file.size
     };
     
-    // Save metadata
+    // Save metadata in same directory as audio file
     const safeJsonFilename = `metadata-${metadata.id}.json`;
     const metadataFile = path.join(userDir, safeJsonFilename);
     

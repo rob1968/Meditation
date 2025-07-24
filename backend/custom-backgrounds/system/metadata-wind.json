@@ -1,0 +1,13 @@
+{
+  "id": "wind-system",
+  "filename": "wind.mp3",
+  "originalName": "wind.mp3",
+  "customName": "Wind",
+  "customDescription": "Gentle wind sounds for calming meditation",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "💨",
+  "color": "#06b6d4"
+}

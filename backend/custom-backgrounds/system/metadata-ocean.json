@@ -1,0 +1,13 @@
+{
+  "id": "ocean-system",
+  "filename": "ocean.mp3",
+  "originalName": "ocean.mp3",
+  "customName": "Ocean",
+  "customDescription": "Peaceful ocean waves for deep relaxation",
+  "userId": "system",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "fileSize": 0,
+  "isSystemBackground": true,
+  "icon": "🌊",
+  "color": "#0ea5e9"
+}

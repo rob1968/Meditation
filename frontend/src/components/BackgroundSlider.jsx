@@ -1,8 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAssetUrl } from '../config/api';
 
-const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationType, customBackground, customBackgroundFile, savedCustomBackgrounds }) => {
+const BackgroundSlider = ({ 
+  selectedBackground, 
+  onBackgroundSelect, 
+  meditationType, 
+  customBackground, 
+  customBackgroundFile, 
+  savedCustomBackgrounds,
+  backgroundsLoading,
+  onCustomBackgroundUpload
+}) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -14,119 +23,288 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState(null);
   const cardRef = useRef(null);
+  const fileInputRef = useRef(null);
+  
+  // Upload modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadName, setUploadName] = useState('');
+  const [uploadDescription, setUploadDescription] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
-  const defaultBackgroundOptions = [
-    { 
-      value: 'rain', 
-      icon: '🌧️', 
-      label: t('rain', 'Rain'),
-      description: t('rainDesc', 'Gentle rainfall for peaceful relaxation'),
-      color: '#6366f1'
-    },
-    { 
-      value: 'ocean', 
-      icon: '🌊', 
-      label: t('ocean', 'Ocean'),
-      description: t('oceanDesc', 'Calming waves for deep focus and tranquility'),
-      color: '#06b6d4'
-    },
-    { 
-      value: 'forest', 
-      icon: '🌲', 
-      label: t('forest', 'Forest'),
-      description: t('forestDesc', 'Natural woodland sounds for grounding and energy'),
-      color: '#10b981'
-    },
-    { 
-      value: 'birds', 
-      icon: '🐦', 
-      label: t('birds', 'Birds'),
-      description: t('birdsDesc', 'Cheerful birdsong for energy and focus'),
-      color: '#f59e0b'
-    },
-    { 
-      value: 'wind', 
-      icon: '💨', 
-      label: t('wind', 'Wind'),
-      description: t('windDesc', 'Gentle breeze for stress relief and calm'),
-      color: '#8b5cf6'
-    },
-    { 
-      value: 'stream', 
-      icon: '🏞️', 
-      label: t('stream', 'Stream'),
-      description: t('streamDesc', 'Flowing water for stress relief and focus'),
-      color: '#14b8a6'
-    }
-  ];
+  // Remove upload card from slider options
 
-  // Create saved backgrounds options
-  const savedBackgroundOptions = (savedCustomBackgrounds || []).map(bg => ({
-    value: `saved-${bg.id}`,
-    icon: '🎵',
-    label: bg.customName,
-    description: t('savedBackgroundDesc', 'Your saved custom background'),
-    color: '#ec4899',
-    savedBackground: bg
-  }));
+  // Remove hardcoded defaults - all backgrounds now come from savedCustomBackgrounds
 
-  // Add current custom background if available
-  const currentCustomOptions = customBackground 
-    ? [{
+  // Create all background options from metadata (both system and custom)
+  const allBackgroundOptions = useMemo(() => 
+    (savedCustomBackgrounds || []).map(bg => {
+      if (bg.isSystemBackground) {
+        // For system backgrounds, use translation keys
+        const backgroundKey = bg.filename.replace('.mp3', '');
+        return {
+          value: backgroundKey,
+          icon: bg.icon || '🎵',
+          label: t(backgroundKey, bg.customName), // Use translation key, fallback to metadata name
+          description: t(`${backgroundKey}Desc`, bg.customDescription), // Use translation key, fallback to metadata desc
+          color: bg.color || '#ec4899',
+          savedBackground: bg,
+          isSystemBackground: true
+        };
+      } else {
+        // For custom backgrounds, use metadata values
+        return {
+          value: `saved-${bg.id}`,
+          icon: bg.icon || '🎵',
+          label: bg.customName,
+          description: bg.customDescription || t('savedBackgroundDesc', 'Background music'),
+          color: bg.color || '#ec4899',
+          savedBackground: bg,
+          isSystemBackground: false
+        };
+      }
+    }), [savedCustomBackgrounds, t]);
+
+  // Add current custom background if available (only if it's not already saved)
+  const currentCustomOptions = useMemo(() => {
+    // Only add current custom background if it's not a saved background
+    if (customBackground && customBackgroundFile && !customBackgroundFile.savedBackground) {
+      return [{
         value: 'custom',
         icon: '🎵',
         label: customBackground.name || t('customBackground', 'Custom Background'),
         description: t('customBackgroundDesc', 'Your uploaded custom background music'),
         color: '#ec4899'
-      }]
-    : [];
+      }];
+    }
+    return [];
+  }, [customBackground, customBackgroundFile, t]);
 
-  // Combine all background options: current custom + saved + defaults
-  const backgroundOptions = [
-    ...currentCustomOptions,
-    ...savedBackgroundOptions,
-    ...defaultBackgroundOptions
-  ];
+  // Combine all background options: current custom + all metadata-based backgrounds
+  const backgroundOptions = useMemo(() => {
+    const options = [
+      ...currentCustomOptions,
+      ...allBackgroundOptions
+    ];
+    
+    // Remove duplicates based on value (shouldn't happen but safety check)
+    const uniqueOptions = options.filter((option, index, self) => 
+      self.findIndex(o => o.value === option.value) === index
+    );
+    
+    console.log('Background options created:', {
+      total: options.length,
+      unique: uniqueOptions.length,
+      currentCustom: currentCustomOptions.length,
+      allBackground: allBackgroundOptions.length,
+      duplicates: options.length - uniqueOptions.length
+    });
+    
+    return uniqueOptions;
+  }, [currentCustomOptions, allBackgroundOptions]);
 
-  // Find the index of the selected background
+  // Ensure index is within bounds
+  const safeIndex = Math.max(0, Math.min(currentIndex, backgroundOptions.length - 1));
+  const currentBackground = backgroundOptions[safeIndex];
+  
+  // Auto-correct currentIndex if it's out of bounds
   useEffect(() => {
+    if (backgroundOptions.length > 0 && (currentIndex >= backgroundOptions.length || currentIndex < 0)) {
+      setCurrentIndex(0);
+    }
+  }, [backgroundOptions.length, currentIndex]);
+
+  // Track if we're manually swiping to prevent conflicts
+  const [isManualSwipe, setIsManualSwipe] = useState(false);
+
+  // Find the index of the selected background - but only if not manually swiping
+  useEffect(() => {
+    if (backgroundOptions.length === 0 || isManualSwipe) return;
+    
     const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
-    if (selectedIndex !== -1) {
+    
+    if (selectedIndex !== -1 && selectedIndex !== currentIndex) {
+      console.log('Auto-setting index based on selectedBackground:', selectedBackground, 'to index:', selectedIndex);
       setCurrentIndex(selectedIndex);
     }
-  }, [selectedBackground, backgroundOptions]);
+  }, [selectedBackground, backgroundOptions, isManualSwipe, currentIndex]);
 
-  const currentBackground = backgroundOptions[currentIndex];
+  // Special handling for uploads - force index update when new saved backgrounds are added
+  useEffect(() => {
+    if (selectedBackground && selectedBackground.startsWith('saved-') && backgroundOptions.length > 0 && !isManualSwipe) {
+      const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
+      if (selectedIndex !== -1 && selectedIndex !== currentIndex) {
+        console.log('Upload-specific index update:', selectedBackground, 'to index:', selectedIndex);
+        setCurrentIndex(selectedIndex);
+      }
+    }
+  }, [savedCustomBackgrounds]);
 
   const goToPrevious = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || backgroundOptions.length === 0) return;
+    
+    setIsManualSwipe(true);
     setIsTransitioning(true);
     const newIndex = currentIndex > 0 ? currentIndex - 1 : backgroundOptions.length - 1;
-    setCurrentIndex(newIndex);
-    handleBackgroundSelection(backgroundOptions[newIndex]);
-    setTimeout(() => setIsTransitioning(false), 300);
+    
+    console.log('goToPrevious - currentIndex:', currentIndex, 'newIndex:', newIndex, 'option:', backgroundOptions[newIndex]?.label, 'value:', backgroundOptions[newIndex]?.value);
+    
+    if (backgroundOptions[newIndex]) {
+      setCurrentIndex(newIndex);
+      handleBackgroundSelection(backgroundOptions[newIndex]);
+    }
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setIsManualSwipe(false);
+    }, 300);
   };
 
   const goToNext = () => {
-    if (isTransitioning) return;
+    if (isTransitioning || backgroundOptions.length === 0) return;
+    
+    console.log('goToNext - currentIndex:', currentIndex, 'backgroundOptions.length:', backgroundOptions.length);
+    
+    setIsManualSwipe(true);
     setIsTransitioning(true);
     const newIndex = currentIndex < backgroundOptions.length - 1 ? currentIndex + 1 : 0;
-    setCurrentIndex(newIndex);
-    handleBackgroundSelection(backgroundOptions[newIndex]);
-    setTimeout(() => setIsTransitioning(false), 300);
+    
+    console.log('goToNext - newIndex:', newIndex, 'option:', backgroundOptions[newIndex]?.label);
+    
+    if (backgroundOptions[newIndex]) {
+      setCurrentIndex(newIndex);
+      handleBackgroundSelection(backgroundOptions[newIndex]);
+    }
+    
+    setTimeout(() => {
+      setIsTransitioning(false);
+      setIsManualSwipe(false);
+    }, 300);
   };
 
-  const handleBackgroundSelection = (backgroundOption) => {
-    // If it's a saved background, we need to notify the parent with the background data
-    if (backgroundOption.value.startsWith('saved-')) {
-      // Call parent callback with saved background info
+  const handleBackgroundSelection = useCallback((backgroundOption) => {
+    console.log('BackgroundSlider handleBackgroundSelection called with:', {
+      label: backgroundOption.label, 
+      value: backgroundOption.value,
+      isSystem: backgroundOption.savedBackground?.isSystemBackground,
+      hasMetadata: !!backgroundOption.savedBackground
+    });
+    
+    // All backgrounds now have savedBackground metadata
+    if (backgroundOption.savedBackground) {
+      // Call parent callback with background metadata
       if (onBackgroundSelect) {
         onBackgroundSelect(backgroundOption.value, backgroundOption.savedBackground);
       }
     } else {
-      // Regular background selection
+      // Fallback for any remaining legacy backgrounds
+      console.log('Warning: Background without metadata:', backgroundOption);
       onBackgroundSelect(backgroundOption.value);
     }
+  }, [onBackgroundSelect]);
+
+  const handleFileSelect = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Check file size (50MB limit)
+      const maxSize = 50 * 1024 * 1024; // 50MB in bytes
+      if (file.size > maxSize) {
+        setUploadError(t('fileTooLarge', 'File is too large. Maximum size is 50MB.'));
+        event.target.value = '';
+        // Clear error after 5 seconds
+        setTimeout(() => setUploadError(''), 5000);
+        return;
+      }
+      
+      // Validate file type
+      const validTypes = ['audio/mpeg', 'audio/mp3', 'audio/mp4', 'audio/m4a', 'audio/aac', 'audio/amr', 'audio/aiff', 'audio/x-aiff'];
+      const fileExtension = file.name.split('.').pop().toLowerCase();
+      const isValidExtension = ['mp3', 'm4a', 'aac', 'amr', 'aiff'].includes(fileExtension);
+      const isValidType = validTypes.includes(file.type) || isValidExtension;
+      
+      if (isValidType) {
+        setSelectedFile(file);
+        setShowUploadModal(true);
+        setUploadError('');
+      } else {
+        setUploadError(t('invalidFileType', 'Please select a valid audio file (MP3, M4A, AAC, AMR, AIFF).'));
+        // Clear error after 5 seconds
+        setTimeout(() => setUploadError(''), 5000);
+      }
+    }
+    // Reset file input value to allow re-selecting the same file
+    event.target.value = '';
+  };
+
+  const handleUploadSubmit = async () => {
+    if (!uploadName.trim() || !selectedFile) {
+      setUploadError(t('nameRequired', 'Please enter a name for your background music.'));
+      return;
+    }
+
+    // Check if name already exists in current backgrounds
+    const nameExists = allBackgroundOptions.some(bg => 
+      bg.label.toLowerCase() === uploadName.trim().toLowerCase()
+    );
+    
+    if (nameExists) {
+      setUploadError(t('nameAlreadyExists', 'A background with this name already exists. Please choose a different name.'));
+      return;
+    }
+
+    // Check if filename already exists
+    const filenameExists = allBackgroundOptions.some(bg => 
+      bg.savedBackground?.originalName?.toLowerCase() === selectedFile.name.toLowerCase()
+    );
+    
+    if (filenameExists) {
+      setUploadError(t('filenameAlreadyExists', 'A file with this name has already been uploaded. Please rename your file.'));
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError('');
+
+    try {
+      // Call parent's upload handler
+      if (onCustomBackgroundUpload) {
+        await onCustomBackgroundUpload({
+          file: selectedFile,
+          name: uploadName.trim(),
+          description: uploadDescription.trim()
+        });
+        
+        // Close modal and reset state
+        setShowUploadModal(false);
+        setSelectedFile(null);
+        setUploadName('');
+        setUploadDescription('');
+      }
+    } catch (error) {
+      console.error('Error uploading background:', error);
+      
+      // Show specific error message from server if available
+      let errorMessage = t('uploadFailed', 'Failed to upload background. Please try again.');
+      
+      if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setUploadError(errorMessage);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleCancelUpload = () => {
+    setShowUploadModal(false);
+    setSelectedFile(null);
+    setUploadName('');
+    setUploadDescription('');
+    setUploadError('');
   };
 
   // Add proper touch event listeners with { passive: false }
@@ -188,7 +366,7 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
       card.removeEventListener('touchmove', handleTouchMove);
       card.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [touchStart, touchEnd, goToNext, goToPrevious]);
+  }, [touchStart, touchEnd]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'ArrowLeft') {
@@ -206,32 +384,20 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
     }
     
     let audio;
+    let audioUrl;
     
-    // Handle custom and saved background files
+    // Simplified audio handling - all backgrounds now use the same assets route
     if (currentBackground.value === 'custom' && customBackgroundFile) {
-      // Check if this is a saved background or uploaded file
+      // Handle current custom background from upload
       if (customBackgroundFile.savedBackground) {
-        // This is a saved background - fetch from server
+        // This is a saved custom background
         const savedBg = customBackgroundFile.savedBackground;
-        const audioUrl = `/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`;
-        audio = new Audio(audioUrl);
-        
-        audio.onended = () => {
-          setIsPlaying(false);
-          setAudioRef(null);
-        };
-        
-        audio.onerror = () => {
-          setIsPlaying(false);
-          setAudioRef(null);
-          console.error('Error playing saved background sound');
-        };
+        audioUrl = getAssetUrl(`/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`);
       } else {
-        // This is a newly uploaded file
+        // This is a newly uploaded file (not yet saved)
         const fileUrl = URL.createObjectURL(customBackgroundFile);
         audio = new Audio(fileUrl);
         
-        // Clean up the object URL when audio ends or errors
         const cleanup = () => {
           URL.revokeObjectURL(fileUrl);
           setIsPlaying(false);
@@ -240,43 +406,43 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
         
         audio.onended = cleanup;
         audio.onerror = cleanup;
+        audio.play();
+        setAudioRef(audio);
+        setIsPlaying(true);
+        return;
       }
-    } else if (currentBackground.value.startsWith('saved-') && currentBackground.savedBackground) {
-      // This is a saved background from the slider
-      const savedBg = currentBackground.savedBackground;
-      const audioUrl = `/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`;
-      audio = new Audio(audioUrl);
-      
-      audio.onended = () => {
-        setIsPlaying(false);
-        setAudioRef(null);
-      };
-      
-      audio.onerror = () => {
-        setIsPlaying(false);
-        setAudioRef(null);
-        console.error('Error playing saved background sound');
-      };
-    } else if (!currentBackground.value.startsWith('saved-') && currentBackground.value !== 'custom') {
-      // Create path to background sound file
-      const audioPath = getAssetUrl(`/assets/${currentBackground.value}.mp3`);
-      audio = new Audio(audioPath);
-      
-      audio.onended = () => {
-        setIsPlaying(false);
-        setAudioRef(null);
-      };
-      
-      audio.onerror = () => {
-        setIsPlaying(false);
-        setAudioRef(null);
-        console.error('Error playing background sound');
-      };
+    } else if (currentBackground.savedBackground) {
+      // Check if it's a system or custom background
+      if (currentBackground.savedBackground.isSystemBackground) {
+        // System backgrounds are in /assets/
+        audioUrl = getAssetUrl(`/assets/${currentBackground.savedBackground.filename}`);
+      } else {
+        // Custom backgrounds are in /custom-background-file/{userId}/{filename}
+        const savedBg = currentBackground.savedBackground;
+        audioUrl = getAssetUrl(`/api/meditation/custom-background-file/${savedBg.userId}/${savedBg.filename}`);
+      }
     } else {
-      // Custom background selected but no file available
-      console.log('Custom background selected but no file available for preview');
+      // Fallback for any backgrounds without metadata
+      console.log('Background without metadata:', currentBackground);
       return;
     }
+    
+    // Create and configure audio element
+    console.log('Playing background:', currentBackground.label, 'from URL:', audioUrl);
+    audio = new Audio(audioUrl);
+    
+    audio.onended = () => {
+      setIsPlaying(false);
+      setAudioRef(null);
+    };
+    
+    audio.onerror = (error) => {
+      setIsPlaying(false);
+      setAudioRef(null);
+      console.error('Error playing background sound:', error);
+      console.error('Failed audio URL:', audioUrl);
+      console.error('Background object:', currentBackground);
+    };
     
     audio.play();
     setAudioRef(audio);
@@ -295,15 +461,54 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
   useEffect(() => {
     stopBackgroundSound();
   }, [currentIndex]);
+  
+  // Remove handleCardClick as it's no longer needed
+  
 
-  if (!currentBackground) return null;
+  // Debug logging
+  console.log('BackgroundSlider Debug:', {
+    savedCustomBackgrounds: savedCustomBackgrounds?.length || 0,
+    allBackgroundOptions: allBackgroundOptions?.length || 0,
+    currentCustomOptions: currentCustomOptions?.length || 0,
+    backgroundOptions: backgroundOptions?.length || 0,
+    currentBackground: currentBackground?.label || 'none',
+    currentIndex: currentIndex,
+    selectedBackground: selectedBackground,
+    customBackground: customBackground?.name || 'none',
+    customBackgroundFile: customBackgroundFile?.name || 'none',
+    isCustomFileSaved: !!customBackgroundFile?.savedBackground
+  });
+
+  if (backgroundsLoading || (!currentBackground || backgroundOptions.length === 0)) {
+    return (
+      <div className="background-slider">
+        <div className="background-slider-header">
+          <h2 className="section-title">🎵</h2>
+          <div className="background-counter">
+            {backgroundsLoading ? 'Loading...' : `0 of 0`}
+          </div>
+        </div>
+        <div className="background-card" style={{ padding: '40px', textAlign: 'center' }}>
+          <div style={{ color: 'var(--text-secondary)' }}>
+            {backgroundsLoading ? 'Loading backgrounds...' : 'No backgrounds available'}
+            <br />
+            <small>
+              savedCustomBackgrounds: {savedCustomBackgrounds?.length || 0} | 
+              backgroundOptions: {backgroundOptions?.length || 0} |
+              loading: {backgroundsLoading ? 'true' : 'false'}
+            </small>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="background-slider" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="background-slider-header">
         <h2 className="section-title">🎵</h2>
         <div className="background-counter">
-          {currentIndex + 1} {t('of', 'of')} {backgroundOptions.length}
+          {safeIndex + 1} {t('of', 'of')} {backgroundOptions.length}
         </div>
       </div>
 
@@ -337,7 +542,10 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
             <div className="background-preview">
               <button 
                 className="background-play-button"
-                onClick={isPlaying ? stopBackgroundSound : playBackgroundSound}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  isPlaying ? stopBackgroundSound() : playBackgroundSound();
+                }}
                 aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
                 disabled={currentBackground.value === 'custom' && !customBackgroundFile}
                 style={currentBackground.value === 'custom' && !customBackgroundFile ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
@@ -355,6 +563,104 @@ const BackgroundSlider = ({ selectedBackground, onBackgroundSelect, meditationTy
             ▶
           </button>
         </div>
+      </div>
+      
+      {/* Error display outside modal */}
+      {uploadError && !showUploadModal && (
+        <div className="upload-error-display">
+          {uploadError}
+        </div>
+      )}
+      
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="audio/*,.mp3,.m4a,.aac,.amr,.aiff"
+        onChange={handleFileSelect}
+        style={{ display: 'none' }}
+      />
+      
+      {/* Upload Modal */}
+      {showUploadModal && (
+        <div className="upload-modal-overlay" onClick={handleCancelUpload}>
+          <div className="upload-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>{t('uploadBackgroundMusic', 'Upload Background Music')}</h3>
+            
+            <div className="upload-file-info">
+              <span className="file-icon">🎵</span>
+              <span className="file-name">{selectedFile?.name}</span>
+            </div>
+            
+            <div className="upload-form">
+              <div className="form-group">
+                <label htmlFor="upload-name">{t('name', 'Name')} *</label>
+                <input
+                  id="upload-name"
+                  type="text"
+                  value={uploadName}
+                  onChange={(e) => setUploadName(e.target.value)}
+                  placeholder={t('namePlaceholder', 'Enter a name for your background music')}
+                  className="upload-input"
+                  autoFocus
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="upload-description">{t('description', 'Description')}</label>
+                <textarea
+                  id="upload-description"
+                  value={uploadDescription}
+                  onChange={(e) => setUploadDescription(e.target.value)}
+                  placeholder={t('descriptionPlaceholder', 'Add a description (optional)')}
+                  className="upload-textarea"
+                  rows="3"
+                />
+              </div>
+              
+              {uploadError && (
+                <div className="upload-error">
+                  {uploadError}
+                </div>
+              )}
+              
+              <div className="upload-actions">
+                <button
+                  className="upload-cancel-btn"
+                  onClick={handleCancelUpload}
+                  disabled={isUploading}
+                >
+                  {t('cancel', 'Cancel')}
+                </button>
+                <button
+                  className="upload-submit-btn"
+                  onClick={handleUploadSubmit}
+                  disabled={isUploading || !uploadName.trim()}
+                >
+                  {isUploading ? (
+                    <>
+                      <span className="upload-spinner"></span>
+                      {t('uploading', 'Uploading...')}
+                    </>
+                  ) : (
+                    t('upload', 'Upload')
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Upload Section - Below Slider */}
+      <div className="upload-section">
+        <button 
+          className="upload-trigger-button"
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <span className="upload-icon">📤</span>
+          <span className="upload-text">{t('selectAudioFile', 'Select Audio File')}</span>
+        </button>
       </div>
     </div>
   );
