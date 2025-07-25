@@ -181,10 +181,33 @@ const addSSMLPauses = (text) => {
   return processedText;
 };
 
+// Function to get FFmpeg and FFprobe paths based on environment
+const getFFmpegPaths = () => {
+  // Check if custom path is provided via environment variable
+  if (process.env.FFMPEG_PATH) {
+    const ffmpegPath = process.env.FFMPEG_PATH;
+    const ffprobePath = process.env.FFPROBE_PATH || path.join(path.dirname(ffmpegPath), process.platform === 'win32' ? 'ffprobe.exe' : 'ffprobe');
+    return { ffmpegPath, ffprobePath };
+  }
+  
+  // Default paths based on platform
+  if (process.platform === 'win32') {
+    // Windows default (current setup)
+    const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe';
+    const ffprobePath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffprobe.exe';
+    return { ffmpegPath, ffprobePath };
+  } else {
+    // Linux/Ubuntu default (system installed)
+    const ffmpegPath = 'ffmpeg';
+    const ffprobePath = 'ffprobe';
+    return { ffmpegPath, ffprobePath };
+  }
+};
+
 // Function to extract audio duration using ffprobe
 const getAudioDuration = async (filePath) => {
   return new Promise((resolve, reject) => {
-    const ffprobePath = path.join(path.dirname(process.env.FFMPEG_PATH || 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'), 'ffprobe.exe');
+    const { ffprobePath } = getFFmpegPaths();
     
     const ffprobe = spawn(ffprobePath, [
       '-v', 'quiet',
@@ -229,7 +252,7 @@ router.post('/', upload.single('customBackground'), async (req, res) => {
   console.log('=====================================');
   
   const { text, voiceId, background, language, audioLanguage, meditationType, userId, useBackgroundMusic, voiceProvider = 'elevenlabs', speechTempo = 0.75, saveBackground, customName, savedBackgroundId, savedBackgroundUserId, savedBackgroundFilename } = req.body;
-  const apiKey = process.env.ELEVEN_API_KEY;
+  const apiKey = process.env.ELEVEN_LABS_API_KEY;
   
   // Debug log to verify tempo slider value
   console.log(`🎵 TEMPO CONTROL: speechTempo received = ${speechTempo} (type: ${typeof speechTempo}), voiceProvider = ${voiceProvider}`);
@@ -506,7 +529,7 @@ router.post('/', upload.single('customBackground'), async (req, res) => {
     if (useBackgroundMusic) {
       console.log(`Processing audio with background music - Intro: ${introSeconds}s, Speech: dynamic length, Outro: ${outroSeconds}s`);
       
-      const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
+      const { ffmpegPath } = getFFmpegPaths();
       
       // Apply tempo via FFmpeg only for non-ElevenLabs providers (ElevenLabs uses native speed control)
       const shouldApplyTempo = voiceProvider !== 'elevenlabs' && speechTempo !== 1.0;
@@ -520,17 +543,19 @@ router.post('/', upload.single('customBackground'), async (req, res) => {
         '-i', backgroundPath,
         '-filter_complex', 
         // Apply tempo slowdown if Google TTS, then add intro delay to speech and pad with outro
-        `[0:a]${tempoFilter}adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=10[speech_delayed];` +
-        // Create intro: first 5 seconds at higher volume with fade-in
+        `[0:a]${tempoFilter}adelay=${introSeconds * 1000}|${introSeconds * 1000},apad=pad_dur=15[speech_delayed];` +
+        // Create intro: first 5 seconds at higher volume with 3s fade-in
         `[1:a]atrim=0:${introSeconds},volume=0.25,afade=t=in:d=3[intro];` +
-        // Create background music (looped and volume adjusted for during speech)
-        `[1:a]aloop=loop=10:size=2e+09,volume=0.05[bg_looped];` +
+        // Create background during speech: fade-out when speech starts (3s fade from intro)
+        `[1:a]aloop=loop=10:size=2e+09,volume=0.05,afade=t=out:st=${introSeconds - 1}:d=4[bg_speech];` +
+        // Create outro background: 15 seconds of background music with 5s fade-out at end
+        `[1:a]atrim=0:15,volume=0.15,afade=t=in:d=2,afade=t=out:st=10:d=5[outro_bg];` +
         // Pad intro to exactly 5 seconds
         `[intro]apad=whole_dur=${introSeconds}[intro_padded];` +
-        // Concatenate intro with background music
-        `[intro_padded][bg_looped]concat=n=2:v=0:a=1[bg_full];` +
-        // Mix speech with background, use speech duration as master
-        `[speech_delayed][bg_full]amix=inputs=2:duration=first:weights=1 0.8`,
+        // Mix speech with fading background during speech
+        `[speech_delayed][bg_speech]amix=inputs=2:duration=first:weights=1 0.6[speech_mix];` +
+        // Add intro at the beginning and outro at the end
+        `[intro_padded][speech_mix][outro_bg]concat=n=3:v=0:a=1`,
         '-c:a', 'libmp3lame',
         '-q:a', '4',
         outputPath
@@ -561,7 +586,7 @@ router.post('/', upload.single('customBackground'), async (req, res) => {
       if (shouldApplyTempo) {
         console.log(`Voice only mode with ${voiceProvider} - applying ${speechTempo}x tempo adjustment via FFmpeg`);
         
-        const ffmpegPath = 'C:\\ffmpeg\\ffmpeg-7.1.1-essentials_build\\bin\\ffmpeg.exe'; // User-provided FFmpeg path
+        const { ffmpegPath } = getFFmpegPaths();
         
         const ffmpegArgs = [
           '-y', // Automatically overwrite output files without asking
@@ -1957,7 +1982,7 @@ ${prompt}`
 });
 
 router.get('/voices', async (req, res) => {
-  const apiKey = process.env.ELEVEN_API_KEY;
+  const apiKey = process.env.ELEVEN_LABS_API_KEY;
 
   try {
     if (!apiKey) {
@@ -2158,7 +2183,7 @@ router.get('/voices', async (req, res) => {
 // Route to generate voice preview in specified language
 router.post('/voice-preview', async (req, res) => {
   const { voiceId, language, speechTempo = 0.75 } = req.body;
-  const apiKey = process.env.ELEVEN_API_KEY;
+  const apiKey = process.env.ELEVEN_LABS_API_KEY;
   
   try {
     if (!apiKey) {

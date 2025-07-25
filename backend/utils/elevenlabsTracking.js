@@ -75,7 +75,7 @@ async function fetchRealElevenlabsData() {
     const axios = require('axios');
     const response = await axios.get('https://api.elevenlabs.io/v1/user/subscription', {
       headers: {
-        'xi-api-key': process.env.ELEVEN_API_KEY
+        'xi-api-key': process.env.ELEVEN_LABS_API_KEY
       }
     });
     
