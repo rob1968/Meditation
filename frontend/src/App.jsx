@@ -23,7 +23,7 @@ const App = () => {
   const [meditationType, setMeditationType] = useState("sleep");
   const [background, setBackground] = useState("ocean");
   const [voiceId, setVoiceId] = useState("EXAVITQu4vr4xnSDxMaL");
-  const [useBackgroundMusic, setUseBackgroundMusic] = useState(true);
+  const [useBackgroundMusic, setUseBackgroundMusic] = useState(false);
   const [customBackgroundFile, setCustomBackgroundFile] = useState(null);
   const [customBackgroundName, setCustomBackgroundName] = useState('');
   const [customBackgroundDescription, setCustomBackgroundDescription] = useState('');
@@ -71,6 +71,11 @@ const App = () => {
   // User saved meditations
   const [userMeditations, setUserMeditations] = useState([]);
   const [showSavedMeditations, setShowSavedMeditations] = useState(false);
+  
+  // Saved texts integration in main textbox
+  const [savedTexts, setSavedTexts] = useState([]);
+  const [currentSavedIndex, setCurrentSavedIndex] = useState(0);
+  const [showingSavedTexts, setShowingSavedTexts] = useState(false);
 
 
   const generateAIMeditationText = async (type, currentLanguage) => {
@@ -114,6 +119,10 @@ const App = () => {
 
   const selectMeditationType = (type) => {
     setMeditationType(type);
+    // Reset saved texts mode when changing meditation type
+    setShowingSavedTexts(false);
+    setSavedTexts([]);
+    setCurrentSavedIndex(0);
   };
   
   const saveDraft = async () => {
@@ -126,7 +135,8 @@ const App = () => {
         meditationId: currentMeditationId,
         text: text,
         language: i18n.language,
-        meditationType: meditationType
+        meditationType: meditationType,
+        isModified: isTextModified // Send whether this is user-modified text
       });
       
       if (response.data.success) {
@@ -152,8 +162,115 @@ const App = () => {
   };
   
   const regenerateText = async () => {
+    setShowingSavedTexts(false); // Switch back to generated text mode
     setShowTextPreview(true);
     await generateTextPreview();
+  };
+  
+  const clearText = () => {
+    setText("");
+    setGeneratedText("");
+    setOriginalGeneratedText("");
+    setIsTextModified(false);
+  };
+  
+  // Auto-load appropriate text: saved texts first, then sample texts as fallback
+  const autoLoadAppropriateText = async (savedMeditations = userMeditations) => {
+    if (!user?.id) {
+      // No user logged in, generate sample text
+      await generateTextPreview();
+      return;
+    }
+    
+    // Check if there are saved texts for current type and language
+    const filteredSavedTexts = savedMeditations
+      .filter(m => m.meditationType === meditationType && m.language === i18n.language)
+      .sort((a, b) => {
+        const aIsModified = a.isModified || (a.updatedAt && a.createdAt && a.updatedAt !== a.createdAt);
+        const bIsModified = b.isModified || (b.updatedAt && b.createdAt && b.updatedAt !== b.createdAt);
+        if (aIsModified !== bIsModified) {
+          return bIsModified - aIsModified;
+        }
+        const aDate = new Date(a.updatedAt || a.createdAt);
+        const bDate = new Date(b.updatedAt || b.createdAt);
+        return bDate - aDate;
+      });
+    
+    if (filteredSavedTexts.length > 0) {
+      // Found saved texts - load them automatically
+      setSavedTexts(filteredSavedTexts);
+      setCurrentSavedIndex(0);
+      setShowingSavedTexts(true);
+      setShowSavedMeditations(false);
+      
+      // Load first saved text
+      const firstSavedText = filteredSavedTexts[0];
+      setText(firstSavedText.text);
+      setGeneratedText(firstSavedText.text);
+      setOriginalGeneratedText(firstSavedText.text);
+      setIsTextModified(false);
+      setCurrentMeditationId(firstSavedText.id);
+      setShowTextPreview(true);
+    } else {
+      // No saved texts found - fallback to sample text
+      setShowingSavedTexts(false);
+      await generateTextPreview();
+    }
+  };
+  
+  // Load saved texts into main textbox
+  const loadSavedTextsIntoTextbox = () => {
+    const filteredSavedTexts = userMeditations
+      .filter(m => m.meditationType === meditationType && m.language === i18n.language)
+      .sort((a, b) => {
+        // Same sorting logic as before
+        const aIsModified = a.isModified || (a.updatedAt && a.createdAt && a.updatedAt !== a.createdAt);
+        const bIsModified = b.isModified || (b.updatedAt && b.createdAt && b.updatedAt !== b.createdAt);
+        if (aIsModified !== bIsModified) {
+          return bIsModified - aIsModified;
+        }
+        const aDate = new Date(a.updatedAt || a.createdAt);
+        const bDate = new Date(b.updatedAt || b.createdAt);
+        return bDate - aDate;
+      });
+    
+    if (filteredSavedTexts.length === 0) return;
+    
+    setSavedTexts(filteredSavedTexts);
+    setCurrentSavedIndex(0);
+    setShowingSavedTexts(true);
+    setShowSavedMeditations(false);
+    
+    // Load first saved text
+    const firstSavedText = filteredSavedTexts[0];
+    setText(firstSavedText.text);
+    setGeneratedText(firstSavedText.text);
+    setOriginalGeneratedText(firstSavedText.text);
+    setIsTextModified(false);
+    setCurrentMeditationId(firstSavedText.id);
+    setShowTextPreview(true);
+  };
+  
+  // Navigate through saved texts
+  const navigateSavedText = (direction) => {
+    if (!showingSavedTexts || savedTexts.length === 0) return;
+    
+    let newIndex = currentSavedIndex;
+    if (direction === 'next' && newIndex < savedTexts.length - 1) {
+      newIndex++;
+    } else if (direction === 'prev' && newIndex > 0) {
+      newIndex--;
+    }
+    
+    if (newIndex !== currentSavedIndex) {
+      setCurrentSavedIndex(newIndex);
+      const selectedText = savedTexts[newIndex];
+      setText(selectedText.text);
+      setGeneratedText(selectedText.text);
+      setOriginalGeneratedText(selectedText.text);
+      setIsTextModified(false);
+      setCurrentMeditationId(selectedText.id);
+    }
   };
   
   // Load user's saved meditations
@@ -164,7 +281,13 @@ const App = () => {
       const response = await axios.get(
         getFullUrl(`/api/user-meditations/list/${user.id}`)
       );
-      setUserMeditations(response.data.meditations || []);
+      const meditations = response.data.meditations || [];
+      setUserMeditations(meditations);
+      
+      // Auto-load appropriate text after loading meditations
+      if (meditationType && !text.trim()) {
+        await autoLoadAppropriateText(meditations);
+      }
     } catch (error) {
       console.error('Error loading user meditations:', error);
     }
@@ -202,7 +325,7 @@ const App = () => {
     }
   };
 
-  // Auto-generate text when meditation type changes
+  // Auto-load appropriate text when meditation type changes
   useEffect(() => {
     if (meditationType) {
       setText('');
@@ -215,10 +338,20 @@ const App = () => {
       setCustomBackgroundName(''); // Clear custom background name
       setCustomBackgroundDescription(''); // Clear custom background description
       setShowNameInput(false); // Hide name input
-      // Auto-generate preview text
-      generateTextPreview();
+      // Auto-load appropriate text (saved first, then sample)
+      autoLoadAppropriateText();
     }
   }, [meditationType, i18n.language]);
+  
+  // Auto-load appropriate text when user meditations change
+  useEffect(() => {
+    if (userMeditations.length > 0 && meditationType && user?.id) {
+      // Only auto-load if we're not already showing saved texts and no text is currently loaded
+      if (!showingSavedTexts && !text.trim()) {
+        autoLoadAppropriateText();
+      }
+    }
+  }, [userMeditations]);
   
   // Track text modifications
   useEffect(() => {
@@ -378,19 +511,38 @@ const App = () => {
         }
       }
       
-      // Clear the form after successful generation
+      // Reset all values on create page after successful generation
       setText("");
       setGeneratedText("");
+      setOriginalGeneratedText("");
+      setIsTextModified(false);
+      setCurrentMeditationId(null);
+      setDraftSaveMessage('');
+      
+      // Reset UI states
       setShowTextPreview(false);
-      setShowVoiceSelector(false); // Hide voice selector after generation
-      setShowBackgroundOptions(false); // Hide background options after generation
-      setCustomBackgroundFile(null); // Clear custom background file after generation
-      setCustomBackgroundName(''); // Clear custom background name after generation
-      setCustomBackgroundDescription(''); // Clear custom background description after generation
-      setShowNameInput(false); // Hide name input after generation
+      setShowVoiceSelector(false);
+      setShowBackgroundOptions(false);
+      setShowNameInput(false);
+      setShowSavedMeditations(false);
+      setLanguageOpen(false);
+      
+      // Reset meditation settings to defaults
       setMeditationType("sleep");
       setBackground("ocean");
-      setAudioUrl(""); // Clear audio URL as it's no longer needed on create page
+      setVoiceId(voices.length > 0 ? voices[0].voice_id : "EXAVITQu4vr4xnSDxMaL");
+      setUseBackgroundMusic(false);
+      setSpeechTempo(1.00);
+      setGenderFilter('all');
+      
+      // Clear custom background data
+      setCustomBackgroundFile(null);
+      setCustomBackgroundName('');
+      setCustomBackgroundDescription('');
+      
+      // Clear other states
+      setAudioUrl("");
+      setError("");
     } catch (error) {
       console.error("Error generating meditation:", error);
       setError(t('errorGenerating') || "Failed to generate meditation. Please try again.");
@@ -791,102 +943,51 @@ const App = () => {
               ✨ {t('textLabel', 'Meditation Text')}
             </h3>
             
-            {userMeditations.length > 0 && (
-              <button
-                onClick={() => setShowSavedMeditations(!showSavedMeditations)}
-                style={{
-                  background: 'rgba(103, 126, 234, 0.8)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '6px 12px',
-                  borderRadius: '15px',
-                  fontSize: '11px',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                📚 {showSavedMeditations ? t('hideSaved', 'Hide Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
-              </button>
-            )}
-          </div>
-
-          {showSavedMeditations && userMeditations.length > 0 && (
-            <div style={{ 
-              background: 'rgba(0, 0, 0, 0.5)',
-              borderRadius: '10px',
-              padding: '15px',
-              marginBottom: '15px',
-              maxHeight: '200px',
-              overflowY: 'auto',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
-            }}>
-              <h4 style={{ 
-                color: '#fff', 
-                fontSize: '14px', 
-                marginBottom: '10px',
-                fontWeight: '500'
-              }}>
-                {t('savedMeditations', 'Saved Meditations')}
-              </h4>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              {text.trim() && (
+                <button
+                  onClick={clearText}
+                  style={{
+                    background: 'rgba(245, 101, 101, 0.8)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '4px 8px',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    minWidth: '28px',
+                    height: '28px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.2s ease'
+                  }}
+                  title="Clear text"
+                >
+                  🗑️
+                </button>
+              )}
               
-              {userMeditations.filter(m => 
-                m.meditationType === meditationType && 
-                m.language === i18n.language
-              ).length === 0 ? (
-                <p style={{ 
-                  textAlign: 'center', 
-                  color: '#a0aec0',
-                  fontSize: '12px',
-                  fontStyle: 'italic'
-                }}>
-                  {t('noSavedMeditations', 'No saved meditations for this type and language')}
-                </p>
-              ) : (
-                userMeditations
-                  .filter(m => m.meditationType === meditationType && m.language === i18n.language)
-                  .slice(0, 5) // Show max 5 recent meditations
-                  .map((meditation, index) => (
-                    <div 
-                      key={index} 
-                      onClick={() => {
-                        setText(meditation.text);
-                        setOriginalGeneratedText(meditation.text);
-                        setIsTextModified(false);
-                        setShowSavedMeditations(false);
-                      }}
-                      style={{
-                        padding: '10px',
-                        margin: '5px 0',
-                        borderRadius: '8px',
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        cursor: 'pointer',
-                        transition: 'background 0.2s ease',
-                        border: '1px solid rgba(255, 255, 255, 0.05)'
-                      }}
-                      onMouseEnter={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.2)'}
-                      onMouseLeave={(e) => e.target.style.background = 'rgba(255, 255, 255, 0.1)'}
-                    >
-                      <div style={{ 
-                        color: '#fff',
-                        fontSize: '12px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        marginBottom: '4px'
-                      }}>
-                        {meditation.text.substring(0, 80)}...
-                      </div>
-                      <div style={{ 
-                        fontSize: '10px', 
-                        color: '#a0aec0'
-                      }}>
-                        {t('savedOn', 'Saved on')}: {new Date(meditation.updatedAt || meditation.createdAt).toLocaleDateString()}
-                      </div>
-                    </div>
-                  ))
+              {userMeditations.length > 0 && (
+                <button
+                  onClick={loadSavedTextsIntoTextbox}
+                  style={{
+                    background: showingSavedTexts ? 'rgba(72, 187, 120, 0.8)' : 'rgba(103, 126, 234, 0.8)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '6px 12px',
+                    borderRadius: '15px',
+                    fontSize: '11px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  📚 {showingSavedTexts ? t('showingSaved', 'Showing Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
+                </button>
               )}
             </div>
-          )}
+          </div>
+
           <div style={{
             background: 'rgba(0, 0, 0, 0.3)',
             padding: '15px',
@@ -912,6 +1013,55 @@ const App = () => {
                 outline: 'none'
               }}
             />
+            
+            {/* Navigation for saved texts */}
+            {showingSavedTexts && savedTexts.length > 1 && (
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: '8px',
+                padding: '0 5px'
+              }}>
+                <button
+                  onClick={() => navigateSavedText('prev')}
+                  disabled={currentSavedIndex === 0}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: currentSavedIndex === 0 ? '#666' : '#fff',
+                    fontSize: '18px',
+                    cursor: currentSavedIndex === 0 ? 'not-allowed' : 'pointer',
+                    padding: '4px 8px'
+                  }}
+                >
+                  ◀️
+                </button>
+                
+                <span style={{ 
+                  color: '#fff', 
+                  fontSize: '12px',
+                  fontWeight: '500'
+                }}>
+                  {currentSavedIndex + 1} van {savedTexts.length} opgeslagen teksten
+                </span>
+                
+                <button
+                  onClick={() => navigateSavedText('next')}
+                  disabled={currentSavedIndex === savedTexts.length - 1}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: currentSavedIndex === savedTexts.length - 1 ? '#666' : '#fff',
+                    fontSize: '18px',
+                    cursor: currentSavedIndex === savedTexts.length - 1 ? 'not-allowed' : 'pointer',
+                    padding: '4px 8px'
+                  }}
+                >
+                  ▶️
+                </button>
+              </div>
+            )}
           </div>
           {isTextModified && (
             <div style={{ 
@@ -933,22 +1083,6 @@ const App = () => {
           )}
           
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              onClick={regenerateText}
-              disabled={isGeneratingText}
-              style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                cursor: 'pointer'
-              }}
-            >
-              🔄 {t('regenerate', 'Regenerate')}
-            </button>
-            
             {isTextModified && (
               <button
                 onClick={saveDraft}
@@ -978,6 +1112,22 @@ const App = () => {
                 )}
               </button>
             )}
+            
+            <button
+              onClick={regenerateText}
+              disabled={isGeneratingText}
+              style={{
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '12px',
+                cursor: 'pointer'
+              }}
+            >
+              🔄 {t('regenerate', 'Regenerate')}
+            </button>
             
             <button
               onClick={handleTextApproved}
