@@ -191,5 +191,11 @@
   "selectAudioFile": "选择音频文件",
   "useText": "使用此文本",
   "dagboek": "日记",
-  "regenerate": "重新生成"
+  "regenerate": "重新生成",
+  "fallbackMeditationText": "深呼吸并放松。专注于你的呼吸，释放所有紧张感。你处于平静中，一切尽在掌控。",
+  "verySlowTempo": "非常慢",
+  "slowTempo": "慢",
+  "normalTempo": "正常",
+  "fastTempo": "更快",
+  "saveText": "保存文本"
 }

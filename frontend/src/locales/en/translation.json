@@ -344,5 +344,11 @@
   "upload": "Upload",
   "selectAudioFile": "Select Audio File",
   "useText": "Use This Text",
-  "regenerate": "Regenerate"
+  "regenerate": "Regenerate",
+  "fallbackMeditationText": "Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.",
+  "verySlowTempo": "Very Slow",
+  "slowTempo": "Slow",
+  "normalTempo": "Normal",
+  "fastTempo": "Faster",
+  "saveText": "Save Text"
 }

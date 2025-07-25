@@ -211,5 +211,11 @@
   "selectAudioFile": "اختر ملف صوتي",
   "useText": "استخدم هذا النص",
   "dagboek": "يوميات",
-  "regenerate": "إعادة إنشاء"
+  "regenerate": "إعادة إنشاء",
+  "fallbackMeditationText": "خذ نفساً عميقاً واسترخ. ركز على تنفسك ودع كل التوتر يذهب. أنت في سلام وتتحكم في الأمور.",
+  "verySlowTempo": "بطيء جداً",
+  "slowTempo": "بطيء",
+  "normalTempo": "عادي",
+  "fastTempo": "أسرع",
+  "saveText": "احفظ النص"
 }

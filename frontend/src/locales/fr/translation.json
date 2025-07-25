@@ -250,5 +250,11 @@
   "upload": "Télécharger",
   "selectAudioFile": "Sélectionner Fichier Audio",
   "useText": "Utiliser Ce Texte",
-  "regenerate": "Régénérer"
+  "regenerate": "Régénérer",
+  "fallbackMeditationText": "Respirez profondément et détendez-vous. Concentrez-vous sur votre respiration et relâchez toute tension. Vous êtes en paix et avez le contrôle.",
+  "verySlowTempo": "Très Lent",
+  "slowTempo": "Lent",
+  "normalTempo": "Normal",
+  "fastTempo": "Plus Rapide",
+  "saveText": "Enregistrer Texte"
 }

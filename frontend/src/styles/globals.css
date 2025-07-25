@@ -1,6 +1,25 @@
 /* Slaap Lekker - Dark Theme Meditation App */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+/* Global Mobile-Friendly Touch Feedback */
+/* Apply to all interactive elements for consistent mobile experience */
+@media (max-width: 768px) {
+  button:not(:disabled):active,
+  .clickable:active,
+  [role="button"]:active,
+  .interactive:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease !important;
+  }
+}
+
+/* Disable hover effects on touch devices */
+@media (hover: none) {
+  *:hover {
+    transform: none !important;
+  }
+}
+
 /* Dark Theme Color Palette */
 :root {
   /* Night Sky Colors */
@@ -415,9 +434,18 @@ body {
   transform: scale(1.05);
 }
 
-.meditation-type:hover {
-  background: var(--glass-medium);
-  transform: translateY(-2px);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .meditation-type:hover {
+    background: var(--glass-medium);
+    transform: translateY(-2px);
+  }
+}
+
+/* Touch-friendly feedback */
+.meditation-type:active {
+  background: var(--glass-high);
+  transform: scale(0.98);
 }
 
 /* Background Slider */
@@ -552,14 +580,20 @@ body {
   box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
 }
 
-.background-play-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .background-play-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+  }
 }
 
+/* Touch-friendly feedback */
 .background-play-button:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.5);
 }
+
 
 /* Upload Card Styles */
 .background-card.upload-card {
@@ -798,14 +832,20 @@ body {
   box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
 }
 
-.upload-trigger-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .upload-trigger-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+  }
 }
 
+/* Touch-friendly feedback */
 .upload-trigger-button:active {
-  transform: translateY(0);
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);
 }
+
 
 .upload-icon {
   font-size: 20px;
@@ -1371,9 +1411,18 @@ body {
   backdrop-filter: blur(10px);
 }
 
-.nav-button:hover {
-  background: var(--glass-medium);
-  transform: scale(1.05);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .nav-button:hover {
+    background: var(--glass-medium);
+    transform: scale(1.05);
+  }
+}
+
+/* Touch-friendly feedback */
+.nav-button:active {
+  background: var(--glass-high);
+  transform: scale(0.95);
 }
 
 .voice-info {
@@ -1426,9 +1475,18 @@ body {
   min-height: 44px;
 }
 
-.preview-button:hover {
-  background: var(--glass-medium);
-  transform: translateY(-2px);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .preview-button:hover {
+    background: var(--glass-medium);
+    transform: translateY(-2px);
+  }
+}
+
+/* Touch-friendly feedback */
+.preview-button:active {
+  background: var(--glass-high);
+  transform: scale(0.98);
 }
 
 .preview-button:disabled {
@@ -3528,9 +3586,18 @@ body {
   gap: var(--space-xs);
 }
 
-.generate-btn:hover, .approve-btn:hover, .regenerate-btn:hover, .save-btn:hover, .back-btn:hover {
-  background: var(--glass-medium);
-  transform: translateY(-2px);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .generate-btn:hover, .approve-btn:hover, .regenerate-btn:hover, .save-btn:hover, .back-btn:hover {
+    background: var(--glass-medium);
+    transform: translateY(-2px);
+  }
+}
+
+/* Touch-friendly feedback */
+.generate-btn:active, .approve-btn:active, .regenerate-btn:active, .save-btn:active, .back-btn:active {
+  background: var(--glass-high);
+  transform: scale(0.98);
 }
 
 .generate-btn:disabled, .approve-btn:disabled {
@@ -3721,9 +3788,18 @@ body {
   background: var(--gradient-card-1);
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Touch-friendly feedback */
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 }
 
 .card.meditation-1 {
@@ -5034,19 +5110,25 @@ body {
   transition: left 0.5s;
 }
 
-.auth-button:hover::before {
-  left: 100%;
+/* Hover only for devices that support it */
+@media (hover: hover) {
+  .auth-button:hover::before {
+    left: 100%;
+  }
+
+  .auth-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+    background-position: 100% 0;
+  }
 }
 
-.auth-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
-  background-position: 100% 0;
-}
-
+/* Touch-friendly feedback */
 .auth-button:active {
-  transform: translateY(-1px);
+  transform: scale(0.98);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
 }
+
 
 .auth-button:disabled {
   opacity: 0.6;

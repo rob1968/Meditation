@@ -242,5 +242,11 @@
   "upload": "Subir",
   "selectAudioFile": "Seleccionar Archivo de Audio",
   "useText": "Usar Este Texto",
-  "regenerate": "Regenerar"
+  "regenerate": "Regenerar",
+  "fallbackMeditationText": "Respira profundamente y relájate. Concéntrate en tu respiración y libera toda tensión. Estás en paz y tienes el control.",
+  "verySlowTempo": "Muy Lento",
+  "slowTempo": "Lento",
+  "normalTempo": "Normal",
+  "fastTempo": "Más Rápido",
+  "saveText": "Guardar Texto"
 }

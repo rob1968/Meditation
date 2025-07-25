@@ -240,5 +240,11 @@
   "upload": "Carregar",
   "selectAudioFile": "Selecionar Arquivo de Áudio",
   "useText": "Usar Este Texto",
-  "regenerate": "Regenerar"
+  "regenerate": "Regenerar",
+  "fallbackMeditationText": "Respire profundamente e relaxe. Concentre-se na sua respiração e solte toda tensão. Você está em paz e no controle.",
+  "verySlowTempo": "Muito Lento",
+  "slowTempo": "Lento",
+  "normalTempo": "Normal",
+  "fastTempo": "Mais Rápido",
+  "saveText": "Salvar Texto"
 }

@@ -84,7 +84,7 @@ const App = () => {
     } catch (error) {
       console.error('Error calling meditation text API:', error);
       // Fallback to a simple default text if API is completely unavailable
-      return `Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.`;
+      return t('fallbackMeditationText', 'Take a deep breath and relax. Focus on your breathing and let go of any tension. You are at peace and in control.');
     }
   };
 
@@ -973,7 +973,7 @@ const App = () => {
                   </>
                 ) : (
                   <>
-                    💾 {t('saveDraft', 'Save Draft')}
+                    💾 {t('saveText', 'Save Text')}
                   </>
                 )}
               </button>
