@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAssetUrl } from '../config/api';
 
-const BackgroundSlider = ({ 
+const BackgroundSlider = forwardRef(({ 
   selectedBackground, 
   onBackgroundSelect, 
   meditationType, 
@@ -10,10 +10,13 @@ const BackgroundSlider = ({
   customBackgroundFile, 
   savedCustomBackgrounds,
   backgroundsLoading,
-  onCustomBackgroundUpload
-}) => {
+  onCustomBackgroundUpload,
+  showUploadFirst = true, // New prop to show upload card first by default
+  onStopAllAudio
+}, ref) => {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioRef, setAudioRef] = useState(null);
   
@@ -32,6 +35,7 @@ const BackgroundSlider = ({
   const [uploadDescription, setUploadDescription] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
+  const [pendingNavigateToUpload, setPendingNavigateToUpload] = useState(null);
 
   // Remove upload card from slider options
 
@@ -81,9 +85,19 @@ const BackgroundSlider = ({
     return [];
   }, [customBackground, customBackgroundFile, t]);
 
-  // Combine all background options: current custom + all metadata-based backgrounds
+  // Create upload card as first option
+  const uploadCard = {
+    value: 'upload',
+    icon: '📁',
+    label: t('selectAudioFile', 'Select Audio File'),
+    description: t('uploadBackgroundMusic', 'Upload your own background music'),
+    color: '#3b82f6'
+  };
+
+  // Combine all background options: upload card first, then current custom + all metadata-based backgrounds
   const backgroundOptions = useMemo(() => {
     const options = [
+      uploadCard,
       ...currentCustomOptions,
       ...allBackgroundOptions
     ];
@@ -98,11 +112,13 @@ const BackgroundSlider = ({
       unique: uniqueOptions.length,
       currentCustom: currentCustomOptions.length,
       allBackground: allBackgroundOptions.length,
-      duplicates: options.length - uniqueOptions.length
+      duplicates: options.length - uniqueOptions.length,
+      firstOption: uniqueOptions[0]?.value,
+      uploadCard: uploadCard.value
     });
     
     return uniqueOptions;
-  }, [currentCustomOptions, allBackgroundOptions]);
+  }, [uploadCard, currentCustomOptions, allBackgroundOptions]);
 
   // Ensure index is within bounds
   const safeIndex = Math.max(0, Math.min(currentIndex, backgroundOptions.length - 1));
@@ -117,21 +133,49 @@ const BackgroundSlider = ({
 
   // Track if we're manually swiping to prevent conflicts
   const [isManualSwipe, setIsManualSwipe] = useState(false);
+  
+  // Expose stopBackgroundSound function to parent via ref
+  useImperativeHandle(ref, () => ({
+    stopBackgroundSound
+  }));
 
-  // Find the index of the selected background - but only if not manually swiping
+  // Handle initial load and background selection
   useEffect(() => {
-    if (backgroundOptions.length === 0 || isManualSwipe) return;
+    if (backgroundOptions.length === 0) return;
     
-    const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
-    
-    if (selectedIndex !== -1 && selectedIndex !== currentIndex) {
-      console.log('Auto-setting index based on selectedBackground:', selectedBackground, 'to index:', selectedIndex);
-      setCurrentIndex(selectedIndex);
+    // Always start with upload card on first load if showUploadFirst is true
+    if (!isInitialized && showUploadFirst) {
+      console.log('Initial load: setting to upload card (index 0)', backgroundOptions[0]);
+      setCurrentIndex(0);
+      setIsInitialized(true);
+      return;
     }
-  }, [selectedBackground, backgroundOptions, isManualSwipe, currentIndex]);
+    
+    // Mark as initialized
+    if (!isInitialized) {
+      setIsInitialized(true);
+      return;
+    }
+    
+    // Skip auto-navigation if user is manually swiping or if we want to show upload first
+    if (isManualSwipe || (showUploadFirst && currentIndex === 0)) return;
+    
+    // For subsequent updates, only navigate to selected background if it's not upload
+    if (selectedBackground && selectedBackground !== 'upload') {
+      const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
+      
+      if (selectedIndex !== -1 && selectedIndex !== currentIndex) {
+        console.log('Auto-setting index based on selectedBackground:', selectedBackground, 'to index:', selectedIndex);
+        setCurrentIndex(selectedIndex);
+      }
+    }
+  }, [backgroundOptions, selectedBackground, isManualSwipe, isInitialized, showUploadFirst, currentIndex]);
 
   // Special handling for uploads - force index update when new saved backgrounds are added
   useEffect(() => {
+    // Don't auto-navigate if we want to show upload first and are on index 0
+    if (showUploadFirst && currentIndex === 0) return;
+    
     if (selectedBackground && selectedBackground.startsWith('saved-') && backgroundOptions.length > 0 && !isManualSwipe) {
       const selectedIndex = backgroundOptions.findIndex(bg => bg.value === selectedBackground);
       if (selectedIndex !== -1 && selectedIndex !== currentIndex) {
@@ -139,7 +183,27 @@ const BackgroundSlider = ({
         setCurrentIndex(selectedIndex);
       }
     }
-  }, [savedCustomBackgrounds]);
+  }, [savedCustomBackgrounds, showUploadFirst, currentIndex]);
+
+  // Handle navigation to newly uploaded background
+  useEffect(() => {
+    if (pendingNavigateToUpload && backgroundOptions.length > 0) {
+      // Find the newly uploaded background in the list
+      const newBackgroundIndex = backgroundOptions.findIndex(bg => 
+        bg.label === pendingNavigateToUpload || 
+        (bg.savedBackground && bg.savedBackground.customName === pendingNavigateToUpload)
+      );
+      
+      if (newBackgroundIndex !== -1) {
+        console.log('Navigating to newly uploaded background at index:', newBackgroundIndex);
+        setCurrentIndex(newBackgroundIndex);
+        setIsManualSwipe(true);
+        setPendingNavigateToUpload(null);
+        // Reset manual swipe flag after a short delay
+        setTimeout(() => setIsManualSwipe(false), 500);
+      }
+    }
+  }, [backgroundOptions, pendingNavigateToUpload]);
 
   const goToPrevious = () => {
     if (isTransitioning || backgroundOptions.length === 0) return;
@@ -184,6 +248,11 @@ const BackgroundSlider = ({
   };
 
   const handleBackgroundSelection = useCallback((backgroundOption) => {
+    // Don't select the upload card as a background
+    if (backgroundOption.value === 'upload') {
+      return;
+    }
+    
     console.log('BackgroundSlider handleBackgroundSelection called with:', {
       label: backgroundOption.label, 
       value: backgroundOption.value,
@@ -238,6 +307,9 @@ const BackgroundSlider = ({
   };
 
   const handleUploadSubmit = async () => {
+    // Stop any playing background audio during upload
+    stopBackgroundSound();
+    
     if (!uploadName.trim() || !selectedFile) {
       setUploadError(t('nameRequired', 'Please enter a name for your background music.'));
       return;
@@ -269,17 +341,23 @@ const BackgroundSlider = ({
     try {
       // Call parent's upload handler
       if (onCustomBackgroundUpload) {
-        await onCustomBackgroundUpload({
+        const uploadResult = await onCustomBackgroundUpload({
           file: selectedFile,
           name: uploadName.trim(),
           description: uploadDescription.trim()
         });
+        
+        // Store the upload name for navigation after backgroundOptions are updated
+        const uploadedName = uploadName.trim();
         
         // Close modal and reset state
         setShowUploadModal(false);
         setSelectedFile(null);
         setUploadName('');
         setUploadDescription('');
+        
+        // Set pending navigation to the uploaded background
+        setPendingNavigateToUpload(uploadedName);
       }
     } catch (error) {
       console.error('Error uploading background:', error);
@@ -300,6 +378,8 @@ const BackgroundSlider = ({
   };
 
   const handleCancelUpload = () => {
+    // Stop any playing background audio when canceling upload
+    stopBackgroundSound();
     setShowUploadModal(false);
     setSelectedFile(null);
     setUploadName('');
@@ -377,6 +457,11 @@ const BackgroundSlider = ({
   };
 
   const playBackgroundSound = () => {
+    // Don't play sound for upload card
+    if (currentBackground.value === 'upload') {
+      return;
+    }
+    
     if (audioRef) {
       audioRef.pause();
       setAudioRef(null);
@@ -450,10 +535,16 @@ const BackgroundSlider = ({
   };
 
   const stopBackgroundSound = () => {
+    console.log('BackgroundSlider stopBackgroundSound called');
+    console.log('audioRef:', audioRef);
+    console.log('isPlaying:', isPlaying);
     if (audioRef) {
+      console.log('Pausing audio');
       audioRef.pause();
       setAudioRef(null);
       setIsPlaying(false);
+    } else {
+      console.log('No audioRef to stop');
     }
   };
 
@@ -461,6 +552,13 @@ const BackgroundSlider = ({
   useEffect(() => {
     stopBackgroundSound();
   }, [currentIndex]);
+  
+  // Cleanup audio on component unmount
+  useEffect(() => {
+    return () => {
+      stopBackgroundSound();
+    };
+  }, []);
   
   // Remove handleCardClick as it's no longer needed
   
@@ -472,25 +570,48 @@ const BackgroundSlider = ({
     currentCustomOptions: currentCustomOptions?.length || 0,
     backgroundOptions: backgroundOptions?.length || 0,
     currentBackground: currentBackground?.label || 'none',
+    currentBackgroundValue: currentBackground?.value || 'none',
     currentIndex: currentIndex,
     selectedBackground: selectedBackground,
     customBackground: customBackground?.name || 'none',
     customBackgroundFile: customBackgroundFile?.name || 'none',
-    isCustomFileSaved: !!customBackgroundFile?.savedBackground
+    isCustomFileSaved: !!customBackgroundFile?.savedBackground,
+    isInitialized: isInitialized,
+    showUploadFirst: showUploadFirst
   });
 
-  if (backgroundsLoading || (!currentBackground || backgroundOptions.length === 0)) {
+  if (backgroundsLoading && (!savedCustomBackgrounds || savedCustomBackgrounds.length === 0)) {
     return (
       <div className="background-slider">
         <div className="background-slider-header">
           <h2 className="section-title">🎵</h2>
-          <div className="background-counter">
-            {backgroundsLoading ? 'Loading...' : `0 of 0`}
-          </div>
+          <div className="background-counter">Loading...</div>
         </div>
         <div className="background-card" style={{ padding: '40px', textAlign: 'center' }}>
           <div style={{ color: 'var(--text-secondary)' }}>
-            {backgroundsLoading ? 'Loading backgrounds...' : 'No backgrounds available'}
+            Loading backgrounds...
+            <br />
+            <small>
+              savedCustomBackgrounds: {savedCustomBackgrounds?.length || 0} | 
+              backgroundOptions: {backgroundOptions?.length || 0} |
+              loading: {backgroundsLoading ? 'true' : 'false'}
+            </small>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentBackground || backgroundOptions.length === 0) {
+    return (
+      <div className="background-slider">
+        <div className="background-slider-header">
+          <h2 className="section-title">🎵</h2>
+          <div className="background-counter">0 of 0</div>
+        </div>
+        <div className="background-card" style={{ padding: '40px', textAlign: 'center' }}>
+          <div style={{ color: 'var(--text-secondary)' }}>
+            No backgrounds available
             <br />
             <small>
               savedCustomBackgrounds: {savedCustomBackgrounds?.length || 0} | 
@@ -504,7 +625,16 @@ const BackgroundSlider = ({
   }
 
   return (
-    <div className="background-slider" onKeyDown={handleKeyDown} tabIndex="0">
+    <>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
+      <div className="background-slider" onKeyDown={handleKeyDown} tabIndex="0">
       <div className="background-slider-header">
         <h2 className="section-title">🎵</h2>
         <div className="background-counter">
@@ -538,20 +668,42 @@ const BackgroundSlider = ({
               {currentBackground.description}
             </div>
             
-            {/* Play Button */}
+            {/* Upload Button for upload card, Play Button for others */}
             <div className="background-preview">
-              <button 
-                className="background-play-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  isPlaying ? stopBackgroundSound() : playBackgroundSound();
-                }}
-                aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
-                disabled={currentBackground.value === 'custom' && !customBackgroundFile}
-                style={currentBackground.value === 'custom' && !customBackgroundFile ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-              >
-                {isPlaying ? '⏸️' : '▶️'}
-              </button>
+              {currentBackground.value === 'upload' ? (
+                <button 
+                  className="background-upload-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    fileInputRef.current?.click();
+                  }}
+                  style={{
+                    background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '8px 16px',
+                    borderRadius: '20px',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    fontWeight: '600'
+                  }}
+                >
+                  ⬆️ {t('upload', 'Upload')}
+                </button>
+              ) : (
+                <button 
+                  className="background-play-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    isPlaying ? stopBackgroundSound() : playBackgroundSound();
+                  }}
+                  aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
+                  disabled={currentBackground.value === 'custom' && !customBackgroundFile}
+                  style={currentBackground.value === 'custom' && !customBackgroundFile ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
+                >
+                  {isPlaying ? '⏸️' : '▶️'}
+                </button>
+              )}
             </div>
           </div>
           
@@ -583,67 +735,294 @@ const BackgroundSlider = ({
       
       {/* Upload Modal */}
       {showUploadModal && (
-        <div className="upload-modal-overlay" onClick={handleCancelUpload}>
-          <div className="upload-modal" onClick={(e) => e.stopPropagation()}>
-            <h3>{t('uploadBackgroundMusic', 'Upload Background Music')}</h3>
-            
-            <div className="upload-file-info">
-              <span className="file-icon">🎵</span>
-              <span className="file-name">{selectedFile?.name}</span>
+        <div 
+          className="upload-modal-overlay" 
+          onClick={handleCancelUpload}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(20px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10000,
+            padding: '20px'
+          }}
+        >
+          <div 
+            className="upload-modal" 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'var(--glass-dark)',
+              backdropFilter: 'blur(20px)',
+              padding: '32px',
+              borderRadius: '20px',
+              maxWidth: '480px',
+              width: '100%',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.5)',
+              position: 'relative'
+            }}
+          >
+            {/* Header */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              marginBottom: '28px',
+              gap: '16px'
+            }}>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '12px',
+                background: 'var(--glass-light)',
+                backdropFilter: 'blur(15px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '20px'
+              }}>
+                🎵
+              </div>
+              <div>
+                <h3 style={{ 
+                  margin: '0', 
+                  color: 'var(--text-primary)',
+                  fontSize: '20px',
+                  fontWeight: '600',
+                  letterSpacing: '-0.025em'
+                }}>
+                  {t('uploadBackgroundMusic', 'Upload Background Music')}
+                </h3>
+                <p style={{
+                  margin: '4px 0 0 0',
+                  color: 'var(--text-secondary)',
+                  fontSize: '14px'
+                }}>
+                  Voeg je eigen achtergrondmuziek toe
+                </p>
+              </div>
             </div>
             
-            <div className="upload-form">
-              <div className="form-group">
-                <label htmlFor="upload-name">{t('name', 'Name')} *</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-lg)' }}>
+              <div>
+                <label 
+                  htmlFor="upload-name"
+                  style={{ 
+                    display: 'block',
+                    marginBottom: 'var(--space-sm)', 
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
+                    fontSize: '14px'
+                  }}
+                >
+                  {t('name', 'Name')} *
+                </label>
                 <input
                   id="upload-name"
                   type="text"
                   value={uploadName}
                   onChange={(e) => setUploadName(e.target.value)}
                   placeholder={t('namePlaceholder', 'Enter a name for your background music')}
-                  className="upload-input"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: 'var(--glass-light)',
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                    fontSize: '14px',
+                    color: 'var(--text-primary)',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    boxSizing: 'border-box',
+                    fontFamily: 'var(--font-primary)',
+                    minHeight: '44px'
+                  }}
                   autoFocus
+                  onFocus={(e) => {
+                    e.target.style.background = 'var(--glass-medium)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.background = 'var(--glass-light)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
                 />
               </div>
               
-              <div className="form-group">
-                <label htmlFor="upload-description">{t('description', 'Description')}</label>
+              <div>
+                <label 
+                  htmlFor="upload-description"
+                  style={{ 
+                    display: 'block',
+                    marginBottom: 'var(--space-sm)', 
+                    fontWeight: '600',
+                    color: 'var(--text-primary)',
+                    fontSize: '14px'
+                  }}
+                >
+                  {t('description', 'Description')}
+                  <span style={{ color: 'var(--text-tertiary)', fontSize: '13px', fontWeight: '400', marginLeft: '4px' }}>
+                    (optioneel)
+                  </span>
+                </label>
                 <textarea
                   id="upload-description"
                   value={uploadDescription}
                   onChange={(e) => setUploadDescription(e.target.value)}
                   placeholder={t('descriptionPlaceholder', 'Add a description (optional)')}
-                  className="upload-textarea"
                   rows="3"
+                  style={{
+                    width: '100%',
+                    padding: '12px 16px',
+                    background: 'var(--glass-light)',
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                    fontSize: '14px',
+                    color: 'var(--text-primary)',
+                    outline: 'none',
+                    transition: 'all 0.3s ease',
+                    resize: 'vertical',
+                    fontFamily: 'var(--font-primary)',
+                    boxSizing: 'border-box',
+                    minHeight: '100px'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.background = 'var(--glass-medium)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.background = 'var(--glass-light)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = 'none';
+                  }}
                 />
               </div>
               
               {uploadError && (
-                <div className="upload-error">
-                  {uploadError}
+                <div style={{
+                  padding: 'var(--space-md)',
+                  background: 'rgba(220, 38, 38, 0.1)',
+                  backdropFilter: 'blur(15px)',
+                  border: '1px solid rgba(220, 38, 38, 0.3)',
+                  borderRadius: '16px',
+                  color: '#ff6b6b',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}>
+                  ⚠️ {uploadError}
                 </div>
               )}
               
-              <div className="upload-actions">
+              <div style={{ 
+                display: 'flex', 
+                gap: 'var(--space-md)', 
+                marginTop: 'var(--space-xl)'
+              }}>
                 <button
-                  className="upload-cancel-btn"
                   onClick={handleCancelUpload}
                   disabled={isUploading}
+                  style={{
+                    flex: '1',
+                    background: 'var(--glass-light)',
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                    color: 'var(--text-secondary)',
+                    padding: '12px 20px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: isUploading ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    minHeight: '44px',
+                    opacity: isUploading ? 0.6 : 1
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isUploading) {
+                      e.target.style.background = 'var(--glass-medium)';
+                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isUploading) {
+                      e.target.style.background = 'var(--glass-light)';
+                      e.target.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }
+                  }}
                 >
                   {t('cancel', 'Cancel')}
                 </button>
                 <button
-                  className="upload-submit-btn"
                   onClick={handleUploadSubmit}
                   disabled={isUploading || !uploadName.trim()}
+                  style={{
+                    flex: '2',
+                    background: isUploading || !uploadName.trim() 
+                      ? 'var(--glass-light)' 
+                      : 'var(--gradient-card-2)',
+                    backdropFilter: 'blur(15px)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                    color: 'var(--text-primary)',
+                    padding: '12px 20px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    cursor: isUploading || !uploadName.trim() ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 'var(--space-xs)',
+                    minHeight: '44px',
+                    opacity: isUploading || !uploadName.trim() ? 0.6 : 1
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isUploading && uploadName.trim()) {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isUploading && uploadName.trim()) {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }
+                  }}
                 >
                   {isUploading ? (
                     <>
-                      <span className="upload-spinner"></span>
+                      <div style={{
+                        width: '16px',
+                        height: '16px',
+                        border: '2px solid transparent',
+                        borderTop: '2px solid var(--text-primary)',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                      }}></div>
                       {t('uploading', 'Uploading...')}
                     </>
                   ) : (
-                    t('upload', 'Upload')
+                    <>
+                      ⬆️ {t('upload', 'Upload')}
+                    </>
                   )}
                 </button>
               </div>
@@ -651,19 +1030,9 @@ const BackgroundSlider = ({
           </div>
         </div>
       )}
-      
-      {/* Upload Section - Below Slider */}
-      <div className="upload-section">
-        <button 
-          className="upload-trigger-button"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <span className="upload-icon">📤</span>
-          <span className="upload-text">{t('selectAudioFile', 'Select Audio File')}</span>
-        </button>
       </div>
-    </div>
+    </>
   );
-};
+});
 
 export default BackgroundSlider;

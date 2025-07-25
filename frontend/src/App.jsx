@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import './i18n';
@@ -76,7 +76,50 @@ const App = () => {
   const [savedTexts, setSavedTexts] = useState([]);
   const [currentSavedIndex, setCurrentSavedIndex] = useState(0);
   const [showingSavedTexts, setShowingSavedTexts] = useState(false);
+  
+  // Background audio cleanup ref
+  const backgroundSliderRef = useRef(null);
 
+  // Global function to stop all background audio
+  const stopAllBackgroundAudio = () => {
+    console.log('stopAllBackgroundAudio called');
+    
+    // Method 1: Try using the ref if available
+    if (backgroundSliderRef.current && backgroundSliderRef.current.stopBackgroundSound) {
+      console.log('Calling stopBackgroundSound via ref');
+      backgroundSliderRef.current.stopBackgroundSound();
+    } else {
+      console.log('backgroundSliderRef not available, trying alternative method');
+    }
+    
+    // Method 2: Force stop all audio elements (backup method)
+    try {
+      const audioElements = document.querySelectorAll('audio');
+      audioElements.forEach(audio => {
+        if (!audio.paused) {
+          console.log('Force stopping audio element:', audio);
+          audio.pause();
+        }
+      });
+    } catch (error) {
+      console.error('Error stopping audio elements:', error);
+    }
+  };
+
+  // Tab change handler that stops background audio
+  const handleTabChange = (newTab) => {
+    stopAllBackgroundAudio();
+    setActiveTab(newTab);
+  };
+
+  // Background music toggle handler that stops audio first
+  const handleBackgroundMusicToggle = (checked) => {
+    if (!checked) {
+      // If turning off background music, stop any playing audio
+      stopAllBackgroundAudio();
+    }
+    setUseBackgroundMusic(checked);
+  };
 
   const generateAIMeditationText = async (type, currentLanguage) => {
     try {
@@ -413,14 +456,14 @@ const App = () => {
 
   const handleLogin = (userData) => {
     setUser(userData);
-    setActiveTab('create');
+    handleTabChange('create');
   };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
     setUserCredits(null);
-    setActiveTab('create');
+    handleTabChange('create');
     // Note: We keep the language preference even after logout
   };
 
@@ -452,10 +495,11 @@ const App = () => {
   };
 
   const generateAudio = async () => {
+    stopAllBackgroundAudio(); // Stop any playing background audio
     setIsLoading(true);
     setError("");
     setAudioFiles([]);
-    setActiveTab('myAudio'); // Switch to My Audio tab when generation starts
+    handleTabChange('myAudio'); // Switch to My Audio tab when generation starts
     
     try {
       // Prepare form data for file upload if custom background is used
@@ -531,7 +575,7 @@ const App = () => {
       setMeditationType("sleep");
       setBackground("ocean");
       setVoiceId(voices.length > 0 ? voices[0].voice_id : "EXAVITQu4vr4xnSDxMaL");
-      setUseBackgroundMusic(false);
+      handleBackgroundMusicToggle(false);
       setSpeechTempo(1.00);
       setGenderFilter('all');
       
@@ -899,7 +943,7 @@ const App = () => {
       case 'inbox':
         return <Inbox user={user} onUnreadCountChange={setUnreadCount} />;
       case 'profile':
-        return <Profile user={user} onLogout={handleLogout} onBackToCreate={() => setActiveTab('create')} />;
+        return <Profile user={user} onLogout={handleLogout} onBackToCreate={() => handleTabChange('create')} />;
       default:
         return (
           <div className="create-content">
@@ -1207,7 +1251,7 @@ const App = () => {
               <input
                 type="checkbox"
                 checked={useBackgroundMusic}
-                onChange={(e) => setUseBackgroundMusic(e.target.checked)}
+                onChange={(e) => handleBackgroundMusicToggle(e.target.checked)}
                 className="checkbox-input"
               />
               <span className="checkbox-label">{t('backgroundMusicLabel', 'Add Background Music')}</span>
@@ -1219,6 +1263,7 @@ const App = () => {
       {showVoiceSelector && useBackgroundMusic && (
         <div style={{ marginTop: '10px', marginBottom: '15px' }}>
           <BackgroundSlider 
+            ref={backgroundSliderRef}
             selectedBackground={background}
             onBackgroundSelect={handleBackgroundSelection}
             meditationType={meditationType}
@@ -1231,6 +1276,8 @@ const App = () => {
             savedCustomBackgrounds={savedCustomBackgrounds}
             backgroundsLoading={backgroundsLoading}
             onCustomBackgroundUpload={handleBackgroundUploadFromSlider}
+            showUploadFirst={true}
+            onStopAllAudio={stopAllBackgroundAudio}
           />
         </div>
       )}
@@ -1293,7 +1340,7 @@ const App = () => {
       </div>
       <BottomNavigation 
         activeTab={activeTab} 
-        onTabChange={setActiveTab}
+        onTabChange={handleTabChange}
         user={user}
         onLogout={handleLogout}
         unreadCount={unreadCount}
