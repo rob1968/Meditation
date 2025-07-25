@@ -1161,16 +1161,28 @@ const App = () => {
               onClick={regenerateText}
               disabled={isGeneratingText}
               style={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: isGeneratingText 
+                  ? 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)' 
+                  : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 color: 'white',
                 border: 'none',
                 padding: '8px 16px',
                 borderRadius: '20px',
                 fontSize: '12px',
-                cursor: 'pointer'
+                cursor: isGeneratingText ? 'not-allowed' : 'pointer',
+                opacity: isGeneratingText ? 0.6 : 1,
+                transition: 'all 0.3s ease'
               }}
             >
-              🔄 {t('regenerate', 'Regenerate')}
+              {isGeneratingText ? (
+                <>
+                  ⏳ {t('generating', 'Generating...')}
+                </>
+              ) : (
+                <>
+                  🔄 {t('regenerate', 'Sample text')}
+                </>
+              )}
             </button>
             
             <button
