@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import './i18n';
 import './styles/globals.css';
+import './styles/wizard.css';
 import Auth from './components/Auth';
 import BottomNavigation from './components/BottomNavigation';
 import MyAudio from './components/MyAudio';
@@ -16,6 +17,8 @@ import PageHeader from './components/PageHeader';
 import VoiceSlider from './components/VoiceSlider';
 import MeditationTypeSlider from './components/MeditationTypeSlider';
 import BackgroundSlider from './components/BackgroundSlider';
+import WizardContainer from './components/WizardContainer';
+import ReviewStep from './components/ReviewStep';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from './config/api';
 
 const App = () => {
@@ -68,6 +71,18 @@ const App = () => {
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [draftSaveMessage, setDraftSaveMessage] = useState('');
   
+  // Wizard state management
+  const [currentStep, setCurrentStep] = useState(1);
+  const [wizardData, setWizardData] = useState({
+    meditationType: 'sleep',
+    text: '',
+    voiceId: 'EXAVITQu4vr4xnSDxMaL',
+    background: 'ocean',
+    useBackgroundMusic: true,
+    speechTempo: 1.00,
+    genderFilter: 'all'
+  });
+  
   // User saved meditations
   const [userMeditations, setUserMeditations] = useState([]);
   const [showSavedMeditations, setShowSavedMeditations] = useState(false);
@@ -79,6 +94,35 @@ const App = () => {
   
   // Background audio cleanup ref
   const backgroundSliderRef = useRef(null);
+
+  // Auto-load appropriate text when wizard meditation type changes
+  useEffect(() => {
+    if (user && wizardData.meditationType && userMeditations.length > 0) {
+      const filteredSavedTexts = userMeditations
+        .filter(m => m.meditationType === wizardData.meditationType && m.language === i18n.language)
+        .sort((a, b) => {
+          const aIsModified = a.isModified || (a.updatedAt && a.createdAt && a.updatedAt !== a.createdAt);
+          const bIsModified = b.isModified || (b.updatedAt && b.createdAt && b.updatedAt !== b.createdAt);
+          if (aIsModified !== bIsModified) {
+            return bIsModified - aIsModified;
+          }
+          const aDate = new Date(a.updatedAt || a.createdAt);
+          const bDate = new Date(b.updatedAt || b.createdAt);
+          return bDate - aDate;
+        });
+      
+      if (filteredSavedTexts.length > 0) {
+        const firstSavedText = filteredSavedTexts[0];
+        updateWizardData('text', firstSavedText.text);
+      } else {
+        // Clear text if no saved texts for this type
+        updateWizardData('text', '');
+      }
+    } else if (!user) {
+      // Clear text for non-logged in users
+      updateWizardData('text', '');
+    }
+  }, [wizardData.meditationType, userMeditations, user, i18n.language]);
 
   // Global function to stop all background audio
   const stopAllBackgroundAudio = () => {
@@ -268,6 +312,228 @@ const App = () => {
       setShowTextPreview(false);
       setShowingSavedTexts(false);
     }
+  };
+
+  // Wizard navigation functions
+  const nextStep = () => {
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  const goToStep = (step) => {
+    if (step >= 1 && step <= 5) {
+      setCurrentStep(step);
+    }
+  };
+
+  const updateWizardData = (key, value) => {
+    setWizardData(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const isStepValid = (step) => {
+    switch (step) {
+      case 1:
+        return wizardData.meditationType !== '';
+      case 2:
+        return wizardData.text.trim() !== '';
+      case 3:
+        return wizardData.voiceId !== '';
+      case 4:
+        return !wizardData.useBackgroundMusic || wizardData.background !== '';
+      case 5:
+        return true; // Review step is always valid
+      default:
+        return false;
+    }
+  };
+
+  // Render wizard step content
+  const renderWizardStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <MeditationTypeSlider 
+            selectedType={wizardData.meditationType}
+            onTypeSelect={(type) => updateWizardData('meditationType', type)}
+          />
+        );
+      
+      case 2:
+        return (
+          <div className="text-step">
+            <div className="text-input-section">
+              <textarea
+                value={wizardData.text}
+                onChange={(e) => updateWizardData('text', e.target.value)}
+                placeholder={t('textPlaceholder', 'Type hier je meditatie tekst in om een audio van te maken')}
+                className="meditation-text-input"
+                rows={10}
+              />
+            </div>
+            
+            <div className="text-actions">
+              <button
+                onClick={async () => {
+                  console.log('Starting wizard text generation...');
+                  setIsGeneratingText(true);
+                  setError('');
+                  try {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    const generated = await generateAIMeditationText(wizardData.meditationType, i18n.language);
+                    updateWizardData('text', generated);
+                    setError('');
+                  } catch (error) {
+                    console.error('Error generating wizard text:', error);
+                    setError(error.response?.data?.error || 'Failed to generate meditation text. Please check your Claude API configuration.');
+                  } finally {
+                    setIsGeneratingText(false);
+                  }
+                }}
+                className="generate-text-btn"
+                disabled={isGeneratingText}
+              >
+                {isGeneratingText ? t('generating', 'Genereren...') : `🔄 ${t('regenerate', 'Voorbeeld tekst')}`}
+              </button>
+              
+              {user && (
+                <button
+                  onClick={() => {
+                    const filteredSavedTexts = userMeditations
+                      .filter(m => m.meditationType === wizardData.meditationType && m.language === i18n.language)
+                      .sort((a, b) => {
+                        const aIsModified = a.isModified || (a.updatedAt && a.createdAt && a.updatedAt !== a.createdAt);
+                        const bIsModified = b.isModified || (b.updatedAt && b.createdAt && b.updatedAt !== b.createdAt);
+                        if (aIsModified !== bIsModified) {
+                          return bIsModified - aIsModified;
+                        }
+                        const aDate = new Date(a.updatedAt || a.createdAt);
+                        const bDate = new Date(b.updatedAt || b.createdAt);
+                        return bDate - aDate;
+                      });
+                    
+                    if (filteredSavedTexts.length > 0) {
+                      const firstSavedText = filteredSavedTexts[0];
+                      updateWizardData('text', firstSavedText.text);
+                    }
+                  }}
+                  className="view-saved-btn"
+                >
+                  {t('viewSaved', 'Opgeslagen')}
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      
+      case 3:
+        return (
+          <VoiceSlider
+            voices={voices}
+            selectedVoiceId={wizardData.voiceId}
+            onVoiceSelect={(voiceId) => updateWizardData('voiceId', voiceId)}
+            voiceProvider="elevenlabs"
+            currentMeditationType={wizardData.meditationType}
+            speechTempo={wizardData.speechTempo}
+            onTempoChange={(tempo) => updateWizardData('speechTempo', tempo)}
+            isGeneratingAudio={isLoading}
+            genderFilter={wizardData.genderFilter}
+            onGenderFilterChange={(filter) => updateWizardData('genderFilter', filter)}
+          />
+        );
+      
+      case 4:
+        return (
+          <div className="background-step">
+            <div className="background-toggle">
+              <label className="toggle-label">
+                <input
+                  type="checkbox"
+                  checked={wizardData.useBackgroundMusic}
+                  onChange={(e) => updateWizardData('useBackgroundMusic', e.target.checked)}
+                />
+                <span>{t('useBackgroundMusic', 'Achtergrondmuziek gebruiken')}</span>
+              </label>
+            </div>
+            
+            {wizardData.useBackgroundMusic && (
+              <BackgroundSlider
+                ref={backgroundSliderRef}
+                selectedBackground={wizardData.background}
+                onBackgroundSelect={(bg) => updateWizardData('background', bg)}
+                meditationType={wizardData.meditationType}
+                customBackground={customBackgroundFile}
+                customBackgroundFile={customBackgroundFile}
+                savedCustomBackgrounds={savedCustomBackgrounds}
+                backgroundsLoading={backgroundsLoading}
+                onCustomBackgroundUpload={handleCustomBackgroundUpload}
+                onStopAllAudio={stopAllBackgroundAudio}
+              />
+            )}
+          </div>
+        );
+      
+      case 5:
+        return (
+          <ReviewStep
+            key={`review-${JSON.stringify(wizardData)}`}
+            wizardData={wizardData}
+            voices={voices}
+            savedCustomBackgrounds={savedCustomBackgrounds}
+          />
+        );
+      
+      default:
+        return null;
+    }
+  };
+
+  // Wizard handlers
+  const handleWizardSave = async () => {
+    // Save current wizard data as draft
+    try {
+      setIsSavingDraft(true);
+      // Use existing saveDraft functionality but with wizard data
+      const response = await axios.post(getFullUrl('/api/user-meditations/save'), {
+        text: wizardData.text,
+        meditationType: wizardData.meditationType,
+        language: i18n.language,
+        userId: user.id,
+        isModified: true
+      });
+      
+      setDraftSaveMessage(t('draftSaved', 'Draft saved'));
+      setTimeout(() => setDraftSaveMessage(''), 2000);
+    } catch (error) {
+      console.error('Error saving wizard draft:', error);
+      setDraftSaveMessage(t('errorSavingDraft', 'Error saving draft'));
+      setTimeout(() => setDraftSaveMessage(''), 3000);
+    } finally {
+      setIsSavingDraft(false);
+    }
+  };
+
+  const handleWizardGenerate = async () => {
+    // Copy wizard data to main state and generate
+    setText(wizardData.text);
+    setMeditationType(wizardData.meditationType);
+    setVoiceId(wizardData.voiceId);
+    setBackground(wizardData.background);
+    setUseBackgroundMusic(wizardData.useBackgroundMusic);
+    setSpeechTempo(wizardData.speechTempo);
+    setGenderFilter(wizardData.genderFilter);
+    
+    // Generate audio using existing function
+    await generateAudio();
   };
   
   // Load saved texts into main textbox
@@ -513,15 +779,15 @@ const App = () => {
     try {
       // Prepare form data for file upload if custom background is used
       const formData = new FormData();
-      formData.append('text', text);
-      formData.append('background', background);
+      formData.append('text', wizardData.text);
+      formData.append('background', wizardData.background);
       formData.append('language', i18n.language);
       formData.append('audioLanguage', i18n.language);
-      formData.append('voiceId', voiceId);
-      formData.append('meditationType', meditationType);
+      formData.append('voiceId', wizardData.voiceId);
+      formData.append('meditationType', wizardData.meditationType);
       formData.append('userId', user?.id);
-      formData.append('useBackgroundMusic', useBackgroundMusic);
-      formData.append('speechTempo', speechTempo);
+      formData.append('useBackgroundMusic', wizardData.useBackgroundMusic);
+      formData.append('speechTempo', wizardData.speechTempo);
       
       // Add custom background file if selected
       if (customBackgroundFile) {
@@ -963,391 +1229,25 @@ const App = () => {
               />
             </div>
 
-            <div className="main-title">{t('createMeditation', 'Create Your Meditation')}</div>
+            <WizardContainer
+              currentStep={currentStep}
+              totalSteps={5}
+              onNext={nextStep}
+              onPrev={prevStep}
+              onGoToStep={goToStep}
+              isStepValid={isStepValid}
+              onSave={handleWizardSave}
+              onGenerate={handleWizardGenerate}
+              isGenerating={isLoading}
+            >
+              {renderWizardStep()}
+            </WizardContainer>
 
-      <MeditationTypeSlider 
-        selectedType={meditationType}
-        onTypeSelect={selectMeditationType}
-      />
-
-
-      {!showVoiceSelector && (
-        <div className="text-preview-section" style={{ 
-          marginTop: '20px', 
-          marginBottom: '20px',
-          padding: '20px',
-          background: 'rgba(255, 255, 255, 0.1)',
-          borderRadius: '15px',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
-        }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            marginBottom: '15px'
-          }}>
-            <h3 style={{ 
-              color: '#fff',
-              fontSize: '18px',
-              fontWeight: '600',
-              margin: 0
-            }}>
-              ✨ {t('textLabel', 'Meditation Text')}
-            </h3>
-            
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-              {text.trim() && (
-                <button
-                  onClick={clearText}
-                  style={{
-                    background: 'rgba(245, 101, 101, 0.8)',
-                    color: 'white',
-                    border: 'none',
-                    padding: '4px 8px',
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    cursor: 'pointer',
-                    minWidth: '28px',
-                    height: '28px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.2s ease'
-                  }}
-                  title="Clear text"
-                >
-                  🗑️
-                </button>
-              )}
-              
-              {userMeditations.length > 0 && (
-                <button
-                  onClick={loadSavedTextsIntoTextbox}
-                  style={{
-                    background: showingSavedTexts ? 'rgba(72, 187, 120, 0.8)' : 'rgba(103, 126, 234, 0.8)',
-                    color: 'white',
-                    border: 'none',
-                    padding: '6px 12px',
-                    borderRadius: '15px',
-                    fontSize: '11px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  {showingSavedTexts ? t('showingSaved', 'Showing Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div style={{
-            background: 'rgba(0, 0, 0, 0.3)',
-            padding: '15px',
-            borderRadius: '10px',
-            marginBottom: '15px'
-          }}>
-            <textarea
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-                setIsTextModified(e.target.value !== originalGeneratedText);
-              }}
-              placeholder={t('textPlaceholder', 'Enter your meditation text here...')}
-              rows={6}
-              style={{
-                width: '100%',
-                background: 'transparent',
-                border: 'none',
-                color: '#fff',
-                fontSize: '14px',
-                lineHeight: '1.6',
-                resize: 'vertical',
-                outline: 'none'
-              }}
-            />
-            
-            {/* Navigation for saved texts */}
-            {showingSavedTexts && savedTexts.length > 1 && (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: '8px',
-                padding: '0 5px'
-              }}>
-                <button
-                  onClick={() => navigateSavedText('prev')}
-                  disabled={currentSavedIndex === 0}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: currentSavedIndex === 0 ? '#666' : '#fff',
-                    fontSize: '18px',
-                    cursor: currentSavedIndex === 0 ? 'not-allowed' : 'pointer',
-                    padding: '4px 8px'
-                  }}
-                >
-                  ◀️
-                </button>
-                
-                <span style={{ 
-                  color: '#fff', 
-                  fontSize: '12px',
-                  fontWeight: '500'
-                }}>
-                  {currentSavedIndex + 1} van {savedTexts.length} opgeslagen teksten
-                </span>
-                
-                <button
-                  onClick={() => navigateSavedText('next')}
-                  disabled={currentSavedIndex === savedTexts.length - 1}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: currentSavedIndex === savedTexts.length - 1 ? '#666' : '#fff',
-                    fontSize: '18px',
-                    cursor: currentSavedIndex === savedTexts.length - 1 ? 'not-allowed' : 'pointer',
-                    padding: '4px 8px'
-                  }}
-                >
-                  ▶️
-                </button>
+            {error && (
+              <div className="error-message">
+                {error}
               </div>
             )}
-          </div>
-          {isTextModified && (
-            <div style={{ 
-              textAlign: 'center', 
-              marginBottom: '15px',
-              padding: '8px 12px',
-              background: 'rgba(255, 193, 7, 0.2)',
-              borderRadius: '8px',
-              border: '1px solid rgba(255, 193, 7, 0.4)'
-            }}>
-              <span style={{ 
-                color: '#ffc107', 
-                fontSize: '12px',
-                fontWeight: '500'
-              }}>
-                ⚠️ {t('textModified', 'Text has been modified')}
-              </span>
-            </div>
-          )}
-          
-          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {isTextModified && (
-              <button
-                onClick={saveDraft}
-                disabled={isSavingDraft || !text.trim()}
-                style={{
-                  background: 'linear-gradient(135deg, #4299e1 0%, #3182ce 100%)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  fontSize: '12px',
-                  cursor: isSavingDraft ? 'not-allowed' : 'pointer',
-                  opacity: isSavingDraft ? 0.6 : 1
-                }}
-              >
-                {isSavingDraft ? (
-                  <>
-                    <div className="loading-spinner" style={{ display: 'inline-block', width: '12px', height: '12px', marginRight: '5px' }}>
-                      <div className="spinner"></div>
-                    </div>
-                    {t('saving', 'Saving...')}
-                  </>
-                ) : (
-                  <>
-                    💾 {t('saveText', 'Save Text')}
-                  </>
-                )}
-              </button>
-            )}
-            
-            <button
-              onClick={regenerateText}
-              disabled={isGeneratingText}
-              style={{
-                background: isGeneratingText 
-                  ? 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)' 
-                  : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                cursor: isGeneratingText ? 'not-allowed' : 'pointer',
-                opacity: isGeneratingText ? 0.6 : 1,
-                transition: 'all 0.3s ease'
-              }}
-            >
-              {isGeneratingText ? (
-                <>
-                  ⏳ {t('generating', 'Generating...')}
-                </>
-              ) : (
-                <>
-                  🔄 {t('regenerate', 'Sample text')}
-                </>
-              )}
-            </button>
-            
-            <button
-              onClick={handleTextApproved}
-              disabled={!text.trim() || isLoading}
-              style={{
-                background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                cursor: 'pointer'
-              }}
-            >
-              ✓ {t('useText', 'Use This Text')}
-            </button>
-          </div>
-          
-          {draftSaveMessage && (
-            <div style={{ 
-              textAlign: 'center', 
-              marginTop: '10px',
-              fontSize: '12px',
-              color: draftSaveMessage.includes('Error') ? '#f56565' : '#48bb78',
-              padding: '4px 8px',
-              borderRadius: '4px',
-              background: draftSaveMessage.includes('Error') ? 'rgba(245, 101, 101, 0.1)' : 'rgba(72, 187, 120, 0.1)'
-            }}>
-              {draftSaveMessage}
-            </div>
-          )}
-        </div>
-      )}
-
-      {showVoiceSelector && !useBackgroundMusic && (
-        <div className="voice-selector-section" style={{ 
-          marginTop: '20px', 
-          marginBottom: '20px',
-          padding: '20px',
-          background: 'rgba(255, 255, 255, 0.1)',
-          borderRadius: '15px',
-          backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
-        }}>
-          <h3 style={{ 
-            color: '#fff',
-            marginBottom: '15px',
-            fontSize: '18px',
-            fontWeight: '600'
-          }}>
-            🎙️ {t('selectVoice', 'Select Voice')}
-          </h3>
-          
-          <VoiceSlider 
-            voices={voices}
-            selectedVoiceId={voiceId}
-            onVoiceSelect={setVoiceId}
-            voiceProvider="elevenlabs"
-            currentMeditationType={meditationType}
-            speechTempo={speechTempo}
-            onTempoChange={setSpeechTempo}
-            isGeneratingAudio={isLoading}
-            genderFilter={genderFilter}
-            onGenderFilterChange={setGenderFilter}
-          />
-          
-        </div>
-      )}
-
-      {showVoiceSelector && (
-        <div className="background-toggle-section" style={{ 
-          marginTop: '15px', 
-          textAlign: 'center'
-        }}>
-          <div className="background-music-toggle">
-            <label className="checkbox-container">
-              <input
-                type="checkbox"
-                checked={useBackgroundMusic}
-                onChange={(e) => handleBackgroundMusicToggle(e.target.checked)}
-                className="checkbox-input"
-              />
-              <span className="checkbox-label">{t('backgroundMusicLabel', 'Add Background Music')}</span>
-            </label>
-          </div>
-        </div>
-      )}
-
-      {showVoiceSelector && useBackgroundMusic && (
-        <div style={{ marginTop: '10px', marginBottom: '15px' }}>
-          <BackgroundSlider 
-            ref={backgroundSliderRef}
-            selectedBackground={background}
-            onBackgroundSelect={handleBackgroundSelection}
-            meditationType={meditationType}
-            customBackground={customBackgroundName ? {
-              value: 'custom',
-              name: customBackgroundName,
-              icon: '🎵'
-            } : null}
-            customBackgroundFile={customBackgroundFile}
-            savedCustomBackgrounds={savedCustomBackgrounds}
-            backgroundsLoading={backgroundsLoading}
-            onCustomBackgroundUpload={handleBackgroundUploadFromSlider}
-            showUploadFirst={true}
-            onStopAllAudio={stopAllBackgroundAudio}
-          />
-        </div>
-      )}
-
-      {showVoiceSelector && (
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          marginTop: '20px' 
-        }}>
-          <button
-            onClick={generateAudio}
-            disabled={isLoading || !text.trim() || !voiceId}
-            style={{
-              background: 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)',
-              color: 'white',
-              border: 'none',
-              padding: '12px 30px',
-              borderRadius: '25px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: (isLoading || !text.trim() || !voiceId) ? 'not-allowed' : 'pointer',
-              opacity: (isLoading || !text.trim() || !voiceId) ? 0.6 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px'
-            }}
-          >
-            {isLoading ? (
-              <>
-                <div className="loading-spinner">
-                  <div className="spinner"></div>
-                </div>
-                {t('generating', 'Generating...')}
-              </>
-            ) : (
-              <>
-                🎵 {t('generateAudio', 'Generate Audio')}
-              </>
-            )}
-          </button>
-        </div>
-      )}
-
-      {error && (
-        <div className="error-message">
-          {error}
-        </div>
-      )}
           </div>
         );
     }

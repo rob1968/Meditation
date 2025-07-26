@@ -349,5 +349,21 @@
   "slowTempo": "Langzaam",
   "normalTempo": "Normaal",
   "fastTempo": "Sneller",
-  "saveText": "Tekst Opslaan"
+  "saveText": "Tekst Opslaan",
+  "stepMeditationType": "Meditatie Type",
+  "stepText": "Meditatie Tekst",
+  "stepVoice": "Stem Keuze",
+  "stepBackground": "Achtergrond",
+  "stepReview": "Overzicht",
+  "previous": "Vorige",
+  "next": "Volgende",
+  "stepProgress": "Stap {{current}} van {{total}}",
+  "saveDraft": "Opslaan",
+  "reviewDescription": "Controleer je keuzes voordat je de audio genereert",
+  "textLength": "{{count}} karakters",
+  "tempo": "Tempo",
+  "currentLanguage": "Nederlands",
+  "estimatedDuration": "Geschatte duur",
+  "calculating": "Berekenen...",
+  "noBackground": "Geen achtergrond"
 }

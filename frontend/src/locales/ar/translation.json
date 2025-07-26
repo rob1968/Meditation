@@ -221,5 +221,16 @@
   "normalTempo": "عادي",
   "fastTempo": "أسرع",
   "saveText": "احفظ النص",
-  "voiceJournals": "اليوميات"
+  "voiceJournals": "اليوميات",
+  "reviewDescription": "راجع اختياراتك قبل إنشاء الصوت",
+  "textLength": "{{count}} حرف",
+  "tempo": "الإيقاع",
+  "noBackground": "بدون خلفية",
+  "stepMeditationType": "نوع التأمل",
+  "stepText": "نص التأمل",
+  "stepVoice": "اختيار الصوت",
+  "stepBackground": "موسيقى الخلفية",
+  "stepReview": "مراجعة",
+  "previous": "السابق",
+  "next": "التالي"
 }

@@ -221,5 +221,16 @@
   "normalTempo": "सामान्य",
   "fastTempo": "तेज़",
   "saveText": "टेक्स्ट सेव करें",
-  "voiceJournals": "पत्रिकाएं"
+  "voiceJournals": "पत्रिकाएं",
+  "reviewDescription": "ऑडियो जनरेट करने से पहले अपनी पसंद की समीक्षा करें",
+  "textLength": "{{count}} अक्षर",
+  "tempo": "गति",
+  "noBackground": "कोई पृष्ठभूमि नहीं",
+  "stepMeditationType": "ध्यान प्रकार",
+  "stepText": "ध्यान पाठ",
+  "stepVoice": "आवाज़ चयन",
+  "stepBackground": "पृष्ठभूमि संगीत",
+  "stepReview": "समीक्षा",
+  "previous": "पिछला",
+  "next": "अगला"
 }

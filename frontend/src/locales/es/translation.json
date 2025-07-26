@@ -251,5 +251,16 @@
   "normalTempo": "Normal",
   "fastTempo": "Más Rápido",
   "saveText": "Guardar Texto",
-  "voiceJournals": "Diarios"
+  "voiceJournals": "Diarios",
+  "reviewDescription": "Revisa tus opciones antes de generar el audio",
+  "textLength": "{{count}} caracteres",
+  "tempo": "Tempo",
+  "noBackground": "Sin fondo",
+  "stepMeditationType": "Tipo de Meditación",
+  "stepText": "Texto de Meditación",
+  "stepVoice": "Selección de Voz",
+  "stepBackground": "Música de Fondo",
+  "stepReview": "Revisión",
+  "previous": "Anterior",
+  "next": "Siguiente"
 }

@@ -201,5 +201,16 @@
   "fastTempo": "更快",
   "saveText": "保存文本",
   "voiceJournals": "日记",
-  "meditations": "冥想"
+  "meditations": "冥想",
+  "reviewDescription": "在生成音频之前查看您的选择",
+  "textLength": "{{count}} 个字符",
+  "tempo": "节奏",
+  "noBackground": "无背景",
+  "stepMeditationType": "冥想类型",
+  "stepText": "冥想文本",
+  "stepVoice": "语音选择",
+  "stepBackground": "背景音乐",
+  "stepReview": "预览",
+  "previous": "上一步",
+  "next": "下一步"
 }

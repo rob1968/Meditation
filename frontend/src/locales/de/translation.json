@@ -270,5 +270,16 @@
   "normalTempo": "Normal",
   "fastTempo": "Schneller",
   "saveText": "Text Speichern",
-  "voiceJournals": "Tagebücher"
+  "voiceJournals": "Tagebücher",
+  "reviewDescription": "Überprüfen Sie Ihre Auswahl vor der Audiogenerierung",
+  "textLength": "{{count}} Zeichen",
+  "tempo": "Tempo",
+  "noBackground": "Kein Hintergrund",
+  "stepMeditationType": "Meditation Art",
+  "stepText": "Meditations text",
+  "stepVoice": "Stimm auswahl",
+  "stepBackground": "Hintergrund Musik",
+  "stepReview": "Überprüfung",
+  "previous": "Zurück",
+  "next": "Weiter"
 }

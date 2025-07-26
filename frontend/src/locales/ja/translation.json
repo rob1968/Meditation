@@ -201,5 +201,16 @@
   "fastTempo": "速い",
   "saveText": "テキストを保存",
   "voiceJournals": "ジャーナル",
-  "meditations": "瞑想"
+  "meditations": "瞑想",
+  "reviewDescription": "オーディオを生成する前に選択内容を確認してください",
+  "textLength": "{{count}} 文字",
+  "tempo": "テンポ",
+  "noBackground": "背景なし",
+  "stepMeditationType": "瞑想タイプ",
+  "stepText": "瞑想テキスト",
+  "stepVoice": "音声選択",
+  "stepBackground": "背景音楽",
+  "stepReview": "確認",
+  "previous": "前へ",
+  "next": "次へ"
 }

@@ -204,5 +204,16 @@
   "fastTempo": "Быстрее",
   "saveText": "Сохранить Текст",
   "voiceJournals": "Дневники",
-  "meditations": "Медитации"
+  "meditations": "Медитации",
+  "reviewDescription": "Проверьте ваш выбор перед генерацией аудио",
+  "textLength": "{{count}} символов",
+  "tempo": "Темп",
+  "noBackground": "Без фона",
+  "stepMeditationType": "Тип медитации",
+  "stepText": "Текст медитации",
+  "stepVoice": "Выбор голоса",
+  "stepBackground": "Фоновая музыка",
+  "stepReview": "Обзор",
+  "previous": "Назад",
+  "next": "Далее"
 }

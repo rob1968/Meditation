@@ -664,9 +664,6 @@ const BackgroundSlider = forwardRef(({
               <div className="background-name">{currentBackground.label}</div>
             </div>
             
-            <div className="background-description">
-              {currentBackground.description}
-            </div>
             
             {/* Upload Button for upload card, Play Button for others */}
             <div className="background-preview">

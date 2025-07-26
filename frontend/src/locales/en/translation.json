@@ -351,5 +351,16 @@
   "slowTempo": "Slow",
   "normalTempo": "Normal",
   "fastTempo": "Faster",
-  "saveText": "Save Text"
+  "saveText": "Save Text",
+  "reviewDescription": "Review your choices before generating audio",
+  "textLength": "{{count}} characters",
+  "tempo": "Tempo",
+  "noBackground": "No background",
+  "stepMeditationType": "Meditation Type",
+  "stepText": "Meditation Text",
+  "stepVoice": "Voice Selection",
+  "stepBackground": "Background Music",
+  "stepReview": "Review",
+  "previous": "Previous",
+  "next": "Next"
 }
