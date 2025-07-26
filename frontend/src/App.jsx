@@ -217,11 +217,16 @@ const App = () => {
     setIsTextModified(false);
   };
   
-  // Auto-load appropriate text: saved texts first, then sample texts as fallback
+  // Auto-load appropriate text: saved texts first, then empty text as fallback
   const autoLoadAppropriateText = async (savedMeditations = userMeditations) => {
     if (!user?.id) {
-      // No user logged in, generate sample text
-      await generateTextPreview();
+      // No user logged in, show empty text with placeholder
+      setText("");
+      setGeneratedText("");
+      setOriginalGeneratedText("");
+      setIsTextModified(false);
+      setShowTextPreview(false);
+      setShowingSavedTexts(false);
       return;
     }
     
@@ -255,9 +260,13 @@ const App = () => {
       setCurrentMeditationId(firstSavedText.id);
       setShowTextPreview(true);
     } else {
-      // No saved texts found - fallback to sample text
+      // No saved texts found - show empty text with placeholder
+      setText("");
+      setGeneratedText("");
+      setOriginalGeneratedText("");
+      setIsTextModified(false);
+      setShowTextPreview(false);
       setShowingSavedTexts(false);
-      await generateTextPreview();
     }
   };
   
@@ -1026,7 +1035,7 @@ const App = () => {
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  📚 {showingSavedTexts ? t('showingSaved', 'Showing Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
+                  {showingSavedTexts ? t('showingSaved', 'Showing Saved') : t('viewSaved', 'View Saved')} ({userMeditations.filter(m => m.meditationType === meditationType && m.language === i18n.language).length})
                 </button>
               )}
             </div>

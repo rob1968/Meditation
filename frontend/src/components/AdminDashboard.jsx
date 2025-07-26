@@ -108,7 +108,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
   const meditationTypeLabels = {
     sleep: 'Sleep',
-    stress: 'Stress Relief',
+    stress: 'Stress',
     focus: 'Focus',
     anxiety: 'Anxiety',
     energy: 'Energy',

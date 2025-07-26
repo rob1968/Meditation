@@ -42,7 +42,7 @@
   "italian": "意大利语",
   "meditationType": "冥想类型",
   "sleepMeditation": "睡眠",
-  "stressMeditation": "压力缓解",
+  "stressMeditation": "压力",
   "focusMeditation": "专注",
   "anxietyMeditation": "焦虑",
   "energyMeditation": "能量",
@@ -104,6 +104,8 @@
   "textModified": "文本已被修改",
   "savingDraft": "正在保存草稿...",
   "draftSaved": "草稿已保存",
+  "viewSaved": "已保存",
+  "showingSaved": "已保存",
   "login": "登录",
   "register": "注册",
   "loginSubtitle": "欢迎回来",
@@ -197,5 +199,7 @@
   "slowTempo": "慢",
   "normalTempo": "正常",
   "fastTempo": "更快",
-  "saveText": "保存文本"
+  "saveText": "保存文本",
+  "voiceJournals": "日记",
+  "meditations": "冥想"
 }

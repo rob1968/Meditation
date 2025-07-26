@@ -45,7 +45,7 @@
   "italian": "Итальянский",
   "meditationType": "Тип Медитации",
   "sleepMeditation": "Сон",
-  "stressMeditation": "Снятие Стресса",
+  "stressMeditation": "Стресс",
   "focusMeditation": "Фокус",
   "anxietyMeditation": "Тревога",
   "energyMeditation": "Энергия",
@@ -107,6 +107,8 @@
   "textModified": "Текст был изменен",
   "savingDraft": "Сохранение черновика...",
   "draftSaved": "Черновик сохранен",
+  "viewSaved": "Сохранено",
+  "showingSaved": "Сохранено",
   "login": "Вход",
   "register": "Регистрация",
   "loginSubtitle": "С возвращением",
@@ -200,5 +202,7 @@
   "slowTempo": "Медленно",
   "normalTempo": "Нормально",
   "fastTempo": "Быстрее",
-  "saveText": "Сохранить Текст"
+  "saveText": "Сохранить Текст",
+  "voiceJournals": "Дневники",
+  "meditations": "Медитации"
 }

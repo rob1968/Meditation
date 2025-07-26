@@ -109,6 +109,8 @@
   "textModified": "Text wurde geändert",
   "savingDraft": "Entwurf wird gespeichert...",
   "draftSaved": "Entwurf gespeichert",
+  "viewSaved": "Gespeichert",
+  "showingSaved": "Gespeichert",
   "login": "Anmelden",
   "register": "Registrieren",
   "loginSubtitle": "Willkommen zurück",
@@ -169,7 +171,7 @@
   "noMeditations": "Noch keine Meditationen",
   "createFirst": "Erstellen Sie Ihre erste Meditation",
   "audioNotSupported": "Ihr Browser unterstützt das Audio-Element nicht.",
-  "reliefMeditation": "Entspannung",
+  "reliefMeditation": "Stress",
   "wordsRemaining": "Wörter übrig",
   "discover": "Entdecken",
   "creeer": "Erstellen",
@@ -267,5 +269,6 @@
   "slowTempo": "Langsam",
   "normalTempo": "Normal",
   "fastTempo": "Schneller",
-  "saveText": "Text Speichern"
+  "saveText": "Text Speichern",
+  "voiceJournals": "Tagebücher"
 }

@@ -26,7 +26,7 @@ const ShareMeditationDialog = ({ meditation, onShare, onClose, isSharing, t }) =
 
   const meditationTypeLabels = {
     sleep: t('sleepMeditation', 'Sleep'),
-    stress: t('stressMeditation', 'Stress Relief'),
+    stress: t('stressMeditation', 'Stress'),
     focus: t('focusMeditation', 'Focus'),
     anxiety: t('anxietyMeditation', 'Anxiety'),
     energy: t('energyMeditation', 'Energy'),

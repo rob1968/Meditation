@@ -799,13 +799,6 @@ const BackgroundSlider = forwardRef(({
                 }}>
                   {t('uploadBackgroundMusic', 'Upload Background Music')}
                 </h3>
-                <p style={{
-                  margin: '4px 0 0 0',
-                  color: 'var(--text-secondary)',
-                  fontSize: '14px'
-                }}>
-                  Voeg je eigen achtergrondmuziek toe
-                </p>
               </div>
             </div>
             

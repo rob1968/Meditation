@@ -32,11 +32,11 @@ const TempoSlider = ({ speechTempo, onTempoChange }) => {
     <div className="tempo-slider-container">
       <div className="section-title">
         <span className="tempo-icon">🎵</span>
-        {t('speechTempo', 'Spraak Tempo')}
+        {t('speechTempo', 'Speech Tempo')}
       </div>
       
       <div className="tempo-description">
-        {t('tempoDescription', 'Kies de snelheid van de stem voor jouw ideale meditatie-ervaring')}
+        {t('tempoDescription', 'Choose the speech speed for your ideal meditation experience')}
       </div>
       
       <div className="tempo-slider-wrapper">

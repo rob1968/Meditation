@@ -13,7 +13,6 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
   const [showImageOptions, setShowImageOptions] = useState(null);
   const [showShareDialog, setShowShareDialog] = useState(null);
   const [isSharing, setIsSharing] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const { t } = useTranslation();
   const prevIsGenerating = useRef(isGenerating);
@@ -84,23 +83,9 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
   // Get unique meditation types from user's meditations
   const availableTypes = [...new Set(meditations.map(m => m.meditationType))];
 
-  // Filter meditations based on search term and type filter
+  // Filter meditations based on type filter only
   const filteredMeditations = meditations.filter(meditation => {
-    const matchesType = filterType === 'all' || meditation.meditationType === filterType;
-    
-    if (!searchTerm) return matchesType;
-    
-    const searchLower = searchTerm.toLowerCase();
-    const typeLabel = meditationTypeLabels[meditation.meditationType] || meditation.meditationType;
-    
-    const matchesSearch = (
-      typeLabel.toLowerCase().includes(searchLower) ||
-      meditation.language.toLowerCase().includes(searchLower) ||
-      meditation.text.toLowerCase().includes(searchLower) ||
-      formatDate(meditation.createdAt).toLowerCase().includes(searchLower)
-    );
-    
-    return matchesType && matchesSearch;
+    return filterType === 'all' || meditation.meditationType === filterType;
   });
 
   const handleImageUpload = async (meditationId, file) => {
@@ -310,7 +295,7 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
 
   const meditationTypeLabels = {
     sleep: t('sleepMeditation', 'Sleep'),
-    stress: t('stressMeditation', 'Stress Relief'),
+    stress: t('stressMeditation', 'Stress'),
     focus: t('focusMeditation', 'Focus'),
     anxiety: t('anxietyMeditation', 'Anxiety'),
     energy: t('energyMeditation', 'Energy'),
@@ -353,49 +338,31 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
         <h2>{t('myMeditation', 'My Meditations')}</h2>
       </div>
         
-      <div className="search-section">
-        <div className="search-bar">
-          <span className="search-icon">🔍</span>
-            <input
-              type="text"
-              placeholder={t('searchMeditations', 'Search your meditations...')}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            {searchTerm && (
-              <button 
-                className="clear-search"
-                onClick={() => setSearchTerm('')}
-              >
-                ✕
-              </button>
-            )}
+      {availableTypes.length > 0 && (
+        <div className="filter-section" style={{ marginBottom: '24px' }}>
+          <div className="filter-pills">
+            <button 
+              className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
+              onClick={() => setFilterType('all')}
+            >
+              {t('allTypes', 'All')} ({meditations.length})
+            </button>
+            {availableTypes.map(type => {
+              const count = meditations.filter(m => m.meditationType === type).length;
+              return (
+                <button 
+                  key={type}
+                  className={`filter-pill ${filterType === type ? 'active' : ''}`}
+                  onClick={() => setFilterType(type)}
+                >
+                  {meditationTypeLabels[type] || type} ({count})
+                </button>
+              );
+            })}
           </div>
-
-          {availableTypes.length > 0 && (
-            <div className="filter-pills">
-              <button 
-                className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
-                onClick={() => setFilterType('all')}
-              >
-                {t('allTypes', 'All')} ({meditations.length})
-              </button>
-              {availableTypes.map(type => {
-                const count = meditations.filter(m => m.meditationType === type).length;
-                return (
-                  <button 
-                    key={type}
-                    className={`filter-pill ${filterType === type ? 'active' : ''}`}
-                    onClick={() => setFilterType(type)}
-                  >
-                    {meditationTypeLabels[type] || type} ({count})
-                  </button>
-                );
-              })}
-            </div>
-          )}
         </div>
+      )}
+        
 
       {error && (
         <div className="error-banner" style={{ 
@@ -438,35 +405,8 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
       {filteredMeditations.length === 0 && !isGenerating ? (
         <div className="empty-state">
           <div className="empty-icon">🎵</div>
-          {searchTerm ? (
-            <>
-              <h3>{t('noSearchResults', 'No meditations found')}</h3>
-              <p>{t('tryDifferentSearch', 'Try searching with different keywords')}</p>
-              <button 
-                className="clear-search-btn"
-                onClick={() => {
-                  setSearchTerm('');
-                  setFilterType('all');
-                }}
-                style={{
-                  background: 'var(--glass-light)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '8px',
-                  color: 'var(--text-primary)',
-                  padding: '8px 16px',
-                  cursor: 'pointer',
-                  marginTop: '16px'
-                }}
-              >
-                {t('clearFilters', 'Clear filters')}
-              </button>
-            </>
-          ) : (
-            <>
-              <h3>{t('noMeditations', 'No meditations yet')}</h3>
-              <p>{t('createFirst', 'Create your first meditation to see it here')}</p>
-            </>
-          )}
+          <h3>{t('noMeditations', 'No meditations yet')}</h3>
+          <p>{t('createFirst', 'Create your first meditation to see it here')}</p>
         </div>
       ) : filteredMeditations.length > 0 && (
         <div className="meditations-list">

@@ -45,7 +45,7 @@
   "italian": "इतालवी",
   "meditationType": "मेडिटेशन प्रकार",
   "sleepMeditation": "नींद",
-  "stressMeditation": "तनाव राहत",
+  "stressMeditation": "तनाव",
   "focusMeditation": "फोकस",
   "anxietyMeditation": "चिंता",
   "energyMeditation": "ऊर्जा",
@@ -91,6 +91,7 @@
   "neutral": "तटस्थ",
   "voicePreviewText": "गहरी सांस लें... और धीरे-धीरे छोड़ें। महसूस करें कि हर सांस के साथ आपका शरीर शांत हो रहा है। सभी तनाव को छोड़ दें और इस शांत क्षण में स्वयं को पाएं।",
   "myMeditation": "मेरे मेडिटेशन",
+  "meditations": "मेडिटेशन",
   "myMeditationSubtitle": "आपका मेडिटेशन इतिहास",
   "meditationFiles": "मेडिटेशन फाइलें",
   "generateMeditation": "मेडिटेशन जेनरेट करें",
@@ -124,6 +125,8 @@
   "textModified": "टेक्स्ट संशोधित किया गया है",
   "savingDraft": "ड्राफ्ट सहेजा जा रहा है...",
   "draftSaved": "ड्राफ्ट सहेजा गया",
+  "viewSaved": "सहेजा गया",
+  "showingSaved": "सहेजा गया",
   "login": "लॉग इन",
   "register": "रजिस्टर करें",
   "loginSubtitle": "वापस आपका स्वागत है",
@@ -217,5 +220,6 @@
   "slowTempo": "धीमा",
   "normalTempo": "सामान्य",
   "fastTempo": "तेज़",
-  "saveText": "टेक्स्ट सेव करें"
+  "saveText": "टेक्स्ट सेव करें",
+  "voiceJournals": "पत्रिकाएं"
 }

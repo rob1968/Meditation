@@ -115,6 +115,8 @@
   "textModified": "El texto ha sido modificado",
   "savingDraft": "Guardando borrador...",
   "draftSaved": "Borrador guardado",
+  "viewSaved": "Guardado",
+  "showingSaved": "Guardado",
   "login": "Iniciar Sesión",
   "register": "Registrarse",
   "loginSubtitle": "Bienvenido de nuevo",
@@ -248,5 +250,6 @@
   "slowTempo": "Lento",
   "normalTempo": "Normal",
   "fastTempo": "Más Rápido",
-  "saveText": "Guardar Texto"
+  "saveText": "Guardar Texto",
+  "voiceJournals": "Diarios"
 }

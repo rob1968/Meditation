@@ -8,12 +8,11 @@ const CommunityHub = ({ user }) => {
   const [sharedMeditations, setSharedMeditations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [filterType, setFilterType] = useState('all');
-  const [filterLanguage, setFilterLanguage] = useState('all');
   const [selectedMeditation, setSelectedMeditation] = useState(null);
   const [playingMeditationId, setPlayingMeditationId] = useState(null);
   const [likedMeditations, setLikedMeditations] = useState(new Set());
   const [activeSubTab, setActiveSubTab] = useState('meditations'); // 'meditations' or 'journals'
+  const [filterType, setFilterType] = useState('all');
   const { t } = useTranslation();
 
   const meditationTypes = ['sleep', 'stress', 'focus', 'anxiety', 'energy', 'mindfulness', 'compassion', 'walking', 'breathing', 'morning'];
@@ -21,7 +20,7 @@ const CommunityHub = ({ user }) => {
 
   const meditationTypeLabels = {
     sleep: t('sleepMeditation', 'Sleep'),
-    stress: t('stressMeditation', 'Stress Relief'),
+    stress: t('stressMeditation', 'Stress'),
     focus: t('focusMeditation', 'Focus'),
     anxiety: t('anxietyMeditation', 'Anxiety'),
     energy: t('energyMeditation', 'Energy'),
@@ -78,10 +77,7 @@ const CommunityHub = ({ user }) => {
   };
 
   const filteredMeditations = sharedMeditations.filter(meditation => {
-    const matchesType = filterType === 'all' || meditation.meditationType === filterType;
-    const matchesLanguage = filterLanguage === 'all' || meditation.language === filterLanguage;
-    
-    return matchesType && matchesLanguage;
+    return filterType === 'all' || meditation.meditationType === filterType;
   });
 
   const formatDate = (dateString) => {
@@ -233,18 +229,6 @@ const CommunityHub = ({ user }) => {
 
   return (
     <div className="community-hub-spotify">
-      {/* Header */}
-      <div className="spotify-header">
-        <div className="spotify-header-content">
-          <div className="spotify-title-section">
-            <div className="spotify-icon">🎵</div>
-            <div className="spotify-title-text">
-              <h1 className="spotify-main-title">{t('communityHub', 'Community Hub')}</h1>
-              <p className="spotify-subtitle">{t('communitySubtitle', 'Discover and share meditation experiences with others')}</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Sub-tabs for meditations and journals */}
       <div className="community-subtabs">
@@ -258,33 +242,34 @@ const CommunityHub = ({ user }) => {
           className={`subtab-btn ${activeSubTab === 'journals' ? 'active' : ''}`}
           onClick={() => setActiveSubTab('journals')}
         >
-          📔 {t('voiceJournals', 'Stem Dagboeken')}
+          📔 {t('voiceJournals', 'Dagboeken')}
         </button>
       </div>
 
       {/* Render content based on active sub-tab */}
       {activeSubTab === 'meditations' ? (
         <>
-          {/* Spotify-style Search and Filters */}
-          <div className="spotify-controls">
-            <div className="spotify-filter-pills">
-              <div className="filter-pill-group">
-                <button 
-                  className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
-                  onClick={() => setFilterType('all')}
-                >
-                  {t('allTypes', 'All')}
-                </button>
-                {meditationTypes.slice(0, 5).map(type => (
+          {/* Filter buttons */}
+          <div className="filter-section" style={{ marginTop: '16px', marginBottom: '24px' }}>
+            <div className="filter-pills">
+              <button 
+                className={`filter-pill ${filterType === 'all' ? 'active' : ''}`}
+                onClick={() => setFilterType('all')}
+              >
+                {t('allTypes', 'All')} ({sharedMeditations.length})
+              </button>
+              {meditationTypes.map(type => {
+                const count = sharedMeditations.filter(m => m.meditationType === type).length;
+                return (
                   <button 
                     key={type}
                     className={`filter-pill ${filterType === type ? 'active' : ''}`}
                     onClick={() => setFilterType(type)}
                   >
-                    {meditationTypeLabels[type] || type}
+                    {meditationTypeLabels[type] || type} ({count})
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
 
@@ -298,11 +283,6 @@ const CommunityHub = ({ user }) => {
             </div>
           ) : (
             <>
-              {/* My Meditation Style Header */}
-              <div className="community-header">
-                <h2>🌟 Recently Shared</h2>
-                <p>{filteredMeditations.length} meditation{filteredMeditations.length !== 1 ? 's' : ''} available</p>
-              </div>
 
               {/* My Meditation Style List */}
               <div className="community-meditations-list">

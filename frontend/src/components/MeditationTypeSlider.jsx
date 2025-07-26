@@ -23,7 +23,7 @@ const MeditationTypeSlider = ({ selectedType, onTypeSelect }) => {
     { 
       type: 'stress', 
       icon: '😌', 
-      label: t('reliefMeditation', 'Relief'),
+      label: t('stressMeditation', 'Stress'),
       description: t('stressMeditationDesc', 'Release tension and find calm in stressful moments'),
       color: '#10b981'
     },

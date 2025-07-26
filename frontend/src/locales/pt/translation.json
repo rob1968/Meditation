@@ -45,7 +45,7 @@
   "italian": "Italiano",
   "meditationType": "Tipo de Meditação",
   "sleepMeditation": "Sono",
-  "stressMeditation": "Alívio do Estresse",
+  "stressMeditation": "Estresse",
   "focusMeditation": "Foco",
   "anxietyMeditation": "Ansiedade",
   "energyMeditation": "Energia",
@@ -107,6 +107,8 @@
   "textModified": "O texto foi modificado",
   "savingDraft": "Salvando rascunho...",
   "draftSaved": "Rascunho salvo",
+  "viewSaved": "Salvo",
+  "showingSaved": "Salvo",
   "login": "Entrar",
   "register": "Registrar",
   "loginSubtitle": "Bem-vindo de volta",
@@ -246,5 +248,6 @@
   "slowTempo": "Lento",
   "normalTempo": "Normal",
   "fastTempo": "Mais Rápido",
-  "saveText": "Salvar Texto"
+  "saveText": "Salvar Texto",
+  "voiceJournals": "Diários"
 }

@@ -42,7 +42,7 @@
   "italian": "イタリア語",
   "meditationType": "瞑想の種類",
   "sleepMeditation": "睡眠",
-  "stressMeditation": "ストレス解消",
+  "stressMeditation": "ストレス",
   "focusMeditation": "集中",
   "anxietyMeditation": "不安",
   "energyMeditation": "エネルギー",
@@ -104,6 +104,8 @@
   "textModified": "テキストが変更されました",
   "savingDraft": "下書きを保存中...",
   "draftSaved": "下書きが保存されました",
+  "viewSaved": "保存済み",
+  "showingSaved": "保存済み",
   "login": "ログイン",
   "register": "登録",
   "loginSubtitle": "おかえりなさい",
@@ -197,5 +199,7 @@
   "slowTempo": "遅い",
   "normalTempo": "普通",
   "fastTempo": "速い",
-  "saveText": "テキストを保存"
+  "saveText": "テキストを保存",
+  "voiceJournals": "ジャーナル",
+  "meditations": "瞑想"
 }

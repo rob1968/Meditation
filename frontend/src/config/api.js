@@ -7,7 +7,7 @@ const getApiUrl = () => {
   
   // Auto-detect based on current window location
   const hostname = window.location.hostname;
-  const port = 5002;
+  const port = 5003;
   
   // If accessing via localhost, use localhost
   if (hostname === 'localhost' || hostname === '127.0.0.1') {

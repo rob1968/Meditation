@@ -80,7 +80,7 @@ const Profile = ({ user, onLogout, onBackToCreate }) => {
 
   const meditationTypeLabels = {
     sleep: t('sleepMeditation', 'Sleep'),
-    stress: t('stressMeditation', 'Stress Relief'),
+    stress: t('stressMeditation', 'Stress'),
     focus: t('focusMeditation', 'Focus'),
     anxiety: t('anxietyMeditation', 'Anxiety'),
     energy: t('energyMeditation', 'Energy')

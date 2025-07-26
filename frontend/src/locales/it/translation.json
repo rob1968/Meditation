@@ -45,7 +45,7 @@
   "italian": "Italiano",
   "meditationType": "Tipo di Meditazione",
   "sleepMeditation": "Sonno",
-  "stressMeditation": "Sollievo dallo Stress",
+  "stressMeditation": "Stress",
   "focusMeditation": "Concentrazione",
   "anxietyMeditation": "Ansia",
   "energyMeditation": "Energia",
@@ -79,9 +79,9 @@
   "birds": "Uccelli",
   "birdsDesc": "Canto allegro degli uccelli per energia e concentrazione",
   "wind": "Vento",
-  "windDesc": "Brezza dolce per alleviare lo stress e la calma",
+  "windDesc": "Brezza dolce per stress e calma",
   "stream": "Ruscello",
-  "streamDesc": "Acqua che scorre per alleviare lo stress e la concentrazione",
+  "streamDesc": "Acqua che scorre per stress e concentrazione",
   "rainDesc": "Pioggia dolce per rilassamento pacifico",
   "oceanDesc": "Onde calmanti per concentrazione profonda e tranquillità",
   "forestDesc": "Suoni naturali della foresta per radicamento ed energia",
@@ -123,6 +123,8 @@
   "textModified": "Il testo è stato modificato",
   "savingDraft": "Salvataggio bozza...",
   "draftSaved": "Bozza salvata",
+  "viewSaved": "Salvato",
+  "showingSaved": "Salvato",
   "login": "Accedi",
   "register": "Registrati",
   "loginSubtitle": "Bentornato",
@@ -262,5 +264,6 @@
   "slowTempo": "Lento",
   "normalTempo": "Normale",
   "fastTempo": "Più Veloce",
-  "saveText": "Salva Testo"
+  "saveText": "Salva Testo",
+  "voiceJournals": "Diari"
 }

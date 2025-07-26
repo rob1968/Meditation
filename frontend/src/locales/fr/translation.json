@@ -71,9 +71,9 @@
   "birds": "Oiseaux",
   "birdsDesc": "Chant d'oiseaux joyeux pour l'énergie et la concentration",
   "wind": "Vent",
-  "windDesc": "Brise douce pour soulager le stress et la tranquillité",
+  "windDesc": "Brise douce pour stress et tranquillité",
   "stream": "Ruisseau",
-  "streamDesc": "Eau qui coule pour soulager le stress et la concentration",
+  "streamDesc": "Eau qui coule pour stress et concentration",
   "rainDesc": "Pluie douce pour une relaxation paisible",
   "oceanDesc": "Vagues apaisantes pour une concentration profonde et la tranquillité",
   "forestDesc": "Sons naturels de la forêt pour l'ancrage et l'énergie",
@@ -115,6 +115,8 @@
   "textModified": "Le texte a été modifié",
   "savingDraft": "Enregistrement du brouillon...",
   "draftSaved": "Brouillon enregistré",
+  "viewSaved": "Enregistré",
+  "showingSaved": "Enregistré",
   "login": "Se Connecter",
   "register": "S'Inscrire",
   "loginSubtitle": "Bon retour",
@@ -156,7 +158,7 @@
   "noSearchResults": "Aucune méditation trouvée",
   "noMeditations": "Aucune méditation encore",
   "createFirst": "Créez votre première méditation",
-  "reliefMeditation": "Détente",
+  "reliefMeditation": "Stress",
   "insufficientCredits": "Crédits insuffisants. Vous avez besoin d'1 crédit pour générer l'audio.",
   "textPreview": "Aperçu du Texte",
   "previewText": "Voir le Texte",
@@ -256,5 +258,6 @@
   "slowTempo": "Lent",
   "normalTempo": "Normal",
   "fastTempo": "Plus Rapide",
-  "saveText": "Enregistrer Texte"
+  "saveText": "Enregistrer Texte",
+  "voiceJournals": "Journaux"
 }

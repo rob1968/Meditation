@@ -45,7 +45,7 @@
   "italian": "이탈리아어",
   "meditationType": "명상 유형",
   "sleepMeditation": "수면",
-  "stressMeditation": "스트레스 해소",
+  "stressMeditation": "스트레스",
   "focusMeditation": "집중",
   "anxietyMeditation": "불안",
   "energyMeditation": "에너지",
@@ -107,6 +107,8 @@
   "textModified": "텍스트가 수정되었습니다",
   "savingDraft": "초안 저장 중...",
   "draftSaved": "초안이 저장되었습니다",
+  "viewSaved": "저장됨",
+  "showingSaved": "저장됨",
   "login": "로그인",
   "register": "회원가입",
   "loginSubtitle": "다시 오신 것을 환영합니다",
@@ -200,5 +202,7 @@
   "slowTempo": "느림",
   "normalTempo": "보통",
   "fastTempo": "빠름",
-  "saveText": "텍스트 저장"
+  "saveText": "텍스트 저장",
+  "voiceJournals": "저널",
+  "meditations": "명상"
 }

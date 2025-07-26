@@ -98,3 +98,26 @@ ENV/
 
 # Azure
 .azure/
+
+# Google Cloud credentials
+*.json
+!package*.json
+pihappy-*.json
+
+# Test files
+test-*.js
+**/test-*.js
+
+# Access logs
+access.log
+error.log
+
+# Generated audio files (large)
+assets/meditations/*.mp3
+backend/user-meditations/*/
+backend/custom-backgrounds/*/
+
+# Deployment files (for security)
+ecosystem.config.js
+deploy*.sh
+build-production.sh

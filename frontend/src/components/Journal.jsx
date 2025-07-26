@@ -889,27 +889,27 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
       if (error.response?.status === 400) {
         const apiError = error.response?.data?.error || '';
         if (apiError.includes('No speech detected')) {
-          errorMessage = 'Geen spraak gedetecteerd. Spreek duidelijker in de microfoon.';
+          errorMessage = 'No speech detected. Please speak more clearly into the microphone.';
         } else if (apiError.includes('too large')) {
-          errorMessage = 'Audio bestand te groot. Maximaal 10MB toegestaan.';
+          errorMessage = 'Audio file too large. Maximum 10MB allowed.';
         } else if (apiError.includes('Invalid audio format')) {
-          errorMessage = 'Ongeldig audio formaat. Probeer opnieuw op te nemen.';
+          errorMessage = 'Invalid audio format. Please try recording again.';
         } else {
-          errorMessage = apiError || 'Ongeldig audio formaat. Probeer opnieuw.';
+          errorMessage = apiError || 'Invalid audio format. Please try again.';
         }
       } else if (error.response?.status === 500) {
         const apiError = error.response?.data?.error || '';
         if (apiError.includes('Google Cloud API key')) {
-          errorMessage = 'Google Speech service niet geconfigureerd. Neem contact op met de beheerder.';
+          errorMessage = 'Google Speech service not configured. Please contact the administrator.';
         } else if (apiError.includes('quota exceeded')) {
-          errorMessage = 'Google Speech quota overschreden. Probeer later opnieuw.';
+          errorMessage = 'Google Speech quota exceeded. Please try again later.';
         } else {
-          errorMessage = 'Transcriptie service tijdelijk niet beschikbaar.';
+          errorMessage = 'Transcription service temporarily unavailable.';
         }
       } else if (error.code === 'ECONNABORTED') {
-        errorMessage = 'Time-out bij transcriptie. Audio te lang of verbinding te langzaam.';
+        errorMessage = 'Transcription timeout. Audio too long or connection too slow.';
       } else if (error.message?.includes('Network Error')) {
-        errorMessage = 'Netwerkfout. Controleer je internetverbinding.';
+        errorMessage = 'Network error. Please check your internet connection.';
       }
       
       setError(errorMessage);
@@ -985,9 +985,9 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
             }}
           >
             {hasTodaysEntry ? (
-              <>📝 {t('editTodaysEntry', 'Bewerk Vandaag')}</>
+              <>📝 {t('editTodaysEntry', 'Edit Today')}</>
             ) : (
-              <>✏️ {t('newEntry', 'Nieuwe Invoer')}</>
+              <>✏️ {t('newEntry', 'New Entry')}</>
             )}
           </button>
           
@@ -995,7 +995,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
             className="calendar-entry-btn"
             onClick={() => setShowDatePicker(true)}
           >
-            📅 {t('selectDate', 'Kies Datum')}
+            📅 {t('selectDate', 'Choose Date')}
           </button>
         </div>
       </div>
@@ -1013,11 +1013,11 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
         <div className="journal-form-overlay">
           <div className="date-picker-modal">
             <div className="form-header">
-              <h3>📅 {t('selectDate', 'Kies Datum')}</h3>
+              <h3>📅 {t('selectDate', 'Choose Date')}</h3>
               <button className="close-btn" onClick={() => setShowDatePicker(false)}>✕</button>
             </div>
             <div className="date-picker-content">
-              <p>{t('selectDateHelp', 'Selecteer een datum om een dagboek voor die dag te maken of bewerken:')}</p>
+              <p>{t('selectDateHelp', 'Select a date to create or edit a journal entry for that day:')}</p>
               <input
                 type="date"
                 value={selectedDate}
@@ -1076,12 +1076,12 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
             <div className="form-header">
               <h3>
                 {editingEntry && hasTodaysEntry ? 
-                  t('editTodaysEntry', 'Bewerk Vandaag') : 
+                  t('editTodaysEntry', 'Edit Today') : 
                   editingEntry ? 
-                    t('editEntry', 'Invoer Bewerken') : 
+                    t('editEntry', 'Edit Entry') : 
                     hasTodaysEntry ?
-                      t('appendToToday', 'Voeg toe aan vandaag') :
-                      t('newEntry', 'Nieuwe Invoer')
+                      t('appendToToday', 'Add to today') :
+                      t('newEntry', 'New Entry')
                 }
               </h3>
               <button className="close-btn" onClick={resetForm}>✕</button>
@@ -1114,7 +1114,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                 <div className="tags-input">
                   <input
                     type="text"
-                    placeholder={t('addTag', 'Voeg tag toe...')}
+                    placeholder={t('addTag', 'Add tag...')}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
@@ -1310,7 +1310,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                   <div className="generate-audio-section">
                     {/* Voice Selector */}
                     <div className="voice-selector">
-                      <label>{t('selectVoice', 'Kies Stem')}:</label>
+                      <label>{t('selectVoice', 'Select Voice')}:</label>
                       <select 
                         value={selectedVoiceId} 
                         onChange={(e) => setSelectedVoiceId(e.target.value)}
@@ -1404,9 +1404,9 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                                   disabled={uploadingVoice}
                                 >
                                   {uploadingVoice ? (
-                                    <><div className="spinner"></div> {t('uploading', 'Uploaden...')}</>
+                                    <><div className="spinner"></div> {t('uploading', 'Uploading...')}</>
                                   ) : (
-                                    `💾 ${t('saveVoice', 'Stem Opslaan')} (2 credits)`
+                                    `💾 ${t('saveVoice', 'Save Voice')} (2 credits)`
                                   )}
                                 </button>
                               </div>
