@@ -887,9 +887,35 @@ const App = () => {
     setShowBackgroundOptions(false); // Reset background options
   };
 
-  const handleCustomBackgroundUpload = (event) => {
-    const file = event.target.files[0];
+  const handleCustomBackgroundUpload = async (data) => {
+    // Handle both old event-based calls and new object-based calls
+    let file, name, description;
+    
+    if (data && data.target && data.target.files) {
+      // Old style: event object
+      file = data.target.files[0];
+      name = null;
+      description = null;
+    } else if (data && data.file) {
+      // New style: object with file, name, description
+      file = data.file;
+      name = data.name;
+      description = data.description;
+    } else {
+      console.error('Invalid upload data:', data);
+      return { success: false, error: 'Invalid upload data' };
+    }
+    
     if (file) {
+      // Check file size (50MB limit)
+      const maxSize = 50 * 1024 * 1024; // 50MB in bytes
+      if (file.size > maxSize) {
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+        setError(t('fileTooLarge', `File is too large (${fileSizeMB}MB). Maximum size is 50MB.`));
+        if (data.target) data.target.value = ''; // Clear the input for event-based calls
+        return { success: false, error: 'File too large' };
+      }
+      
       // Check if it's a supported audio file (MP3, M4A, AAC, AMR, AIFF, CAF)
       const supportedTypes = [
         'audio/mpeg',     // MP3
@@ -911,16 +937,65 @@ const App = () => {
                          supportedExtensions.some(ext => fileName.endsWith(ext));
       
       if (isValidType) {
-        setCustomBackgroundFile(file);
-        setShowNameInput(true); // Show name input after file selection
-        setError(''); // Clear any previous errors
+        // If we have name and description, upload immediately
+        if (name && description !== undefined && user?.id) {
+          try {
+            // Upload and save the background immediately
+            const formData = new FormData();
+            formData.append('customBackground', file);
+            formData.append('userId', user.id);
+            formData.append('customName', name);
+            formData.append('customDescription', description);
+
+            console.log('Frontend: Uploading background with name:', name);
+            
+            const response = await axios.post(getFullUrl('/api/meditation/custom-background/upload'), formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+
+            if (response.data.success) {
+              // Update the custom background file to include the server response
+              setCustomBackgroundFile({
+                name: response.data.filename,
+                savedBackground: {
+                  id: response.data.backgroundId,
+                  filename: response.data.filename,
+                  customName: name,
+                  userId: user.id
+                }
+              });
+
+              setBackground('custom');
+              
+              // Refresh the list of saved backgrounds
+              fetchSavedCustomBackgrounds();
+              
+              console.log('Background uploaded successfully:', response.data);
+              return { success: true, backgroundId: response.data.backgroundId };
+            }
+          } catch (error) {
+            console.error('Error uploading custom background:', error);
+            setError(t('uploadError', 'Failed to upload background. Please try again.'));
+            return { success: false, error: 'Upload failed' };
+          }
+        } else {
+          // For old-style calls, just set the file and show name input
+          setCustomBackgroundFile(file);
+          setShowNameInput(true); // Show name input after file selection
+          setError(''); // Clear any previous errors
+          return { success: true };
+        }
       } else {
         setError(t('invalidFileType', 'Please select a valid audio file (MP3, M4A, AAC, AMR, AIFF).'));
-        event.target.value = ''; // Clear the input
+        if (data.target) data.target.value = ''; // Clear the input for event-based calls
+        return { success: false, error: 'Invalid file type' };
       }
     }
     // Reset file input value to allow re-selecting the same file
-    event.target.value = '';
+    if (data.target) data.target.value = '';
+    return { success: false, error: 'No file provided' };
   };
 
   const handleCustomBackgroundNameSubmit = async () => {
