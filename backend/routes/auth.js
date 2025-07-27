@@ -86,7 +86,17 @@ const getAudioDuration = async (filePath) => {
 // Register new user
 router.post('/register', async (req, res) => {
   try {
-    const { username } = req.body;
+    const { 
+      username, 
+      birthDate, 
+      age, 
+      country, 
+      countryCode, 
+      city, 
+      gender, 
+      preferredLanguage, 
+      bio 
+    } = req.body;
     
     if (!username || username.trim().length < 3) {
       return res.status(400).json({ error: 'Username must be at least 3 characters long' });
@@ -98,11 +108,36 @@ router.post('/register', async (req, res) => {
       return res.status(409).json({ error: 'Username already exists' });
     }
     
-    // Create new user
-    const user = new User({
+    // Create new user with profile information
+    const userData = {
       username: username.trim()
-    });
+    };
     
+    // Add optional profile fields if provided
+    if (birthDate) {
+      userData.birthDate = new Date(birthDate);
+    }
+    if (age) {
+      userData.age = age;
+    }
+    if (city || country || countryCode) {
+      userData.location = {
+        city: city || '',
+        country: country || '',
+        countryCode: countryCode || ''
+      };
+    }
+    if (gender) {
+      userData.gender = gender;
+    }
+    if (preferredLanguage) {
+      userData.preferredLanguage = preferredLanguage;
+    }
+    if (bio) {
+      userData.bio = bio;
+    }
+    
+    const user = new User(userData);
     await user.save();
     
     // Initialize credits for new user
@@ -113,6 +148,12 @@ router.post('/register', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
+        birthDate: user.birthDate,
+        age: user.age,
+        location: user.location,
+        gender: user.gender,
+        preferredLanguage: user.preferredLanguage,
+        bio: user.bio,
         credits: user.credits,
         createdAt: user.createdAt
       }
@@ -147,8 +188,15 @@ router.post('/login', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
+        birthDate: user.birthDate,
+        age: user.age,
+        location: user.location,
+        gender: user.gender,
+        preferredLanguage: user.preferredLanguage,
+        bio: user.bio,
         credits: user.credits,
-        lastLogin: user.lastLogin
+        lastLogin: user.lastLogin,
+        createdAt: user.createdAt
       }
     });
   } catch (error) {
@@ -575,6 +623,59 @@ router.post('/user/:id/credits/add', async (req, res) => {
   } catch (error) {
     console.error('Error adding credits:', error);
     res.status(500).json({ error: 'Failed to add credits' });
+  }
+});
+
+// Update user profile
+router.put('/user/:id/profile', async (req, res) => {
+  try {
+    const { preferredLanguage, city, country, countryCode, gender, bio } = req.body;
+    const user = await User.findById(req.params.id);
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    // Update user profile fields
+    if (preferredLanguage !== undefined) {
+      user.preferredLanguage = preferredLanguage;
+    }
+    
+    if (city !== undefined || country !== undefined || countryCode !== undefined) {
+      user.location = {
+        city: city || user.location?.city || '',
+        country: country || user.location?.country || '',
+        countryCode: countryCode || user.location?.countryCode || ''
+      };
+    }
+    
+    if (gender !== undefined) {
+      user.gender = gender;
+    }
+    
+    if (bio !== undefined) {
+      user.bio = bio;
+    }
+    
+    await user.save();
+    
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      user: {
+        id: user._id,
+        username: user.username,
+        preferredLanguage: user.preferredLanguage,
+        location: user.location,
+        gender: user.gender,
+        bio: user.bio,
+        age: user.age,
+        createdAt: user.createdAt
+      }
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({ error: 'Failed to update profile' });
   }
 });
 

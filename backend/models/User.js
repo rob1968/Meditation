@@ -10,6 +10,51 @@ const UserSchema = new mongoose.Schema({
     maxlength: 20
   },
   
+  // Profile information
+  birthDate: {
+    type: Date,
+    required: false
+  },
+  age: {
+    type: Number,
+    required: false,
+    min: 13,
+    max: 120
+  },
+  location: {
+    city: {
+      type: String,
+      trim: true,
+      maxlength: 100
+    },
+    country: {
+      type: String,
+      trim: true,
+      maxlength: 100
+    },
+    countryCode: {
+      type: String,
+      trim: true,
+      maxlength: 5
+    }
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other', 'prefer_not_to_say'],
+    required: false
+  },
+  preferredLanguage: {
+    type: String,
+    enum: ['en', 'de', 'es', 'fr', 'it', 'pt', 'ru', 'ja', 'ko', 'zh', 'ar', 'hi', 'nl'],
+    required: false
+  },
+  bio: {
+    type: String,
+    trim: true,
+    maxlength: 500,
+    required: false
+  },
+  
   // User's meditation history
   meditations: [{
     type: mongoose.Schema.Types.ObjectId,

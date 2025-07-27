@@ -7,7 +7,7 @@ import './styles/wizard.css';
 import Auth from './components/Auth';
 import BottomNavigation from './components/BottomNavigation';
 import MyAudio from './components/MyAudio';
-import Profile from './components/Profile';
+import ProfileContainer from './components/ProfileContainer';
 import CommunityHub from './components/CommunityHub';
 import AdminDashboard from './components/AdminDashboard';
 import Inbox from './components/Inbox';
@@ -59,6 +59,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [activeTab, setActiveTab] = useState('create');
   const [unreadCount, setUnreadCount] = useState(0);
+  const [profileSection, setProfileSection] = useState('profile');
   
   // Credits state
   const [userCredits, setUserCredits] = useState(null);
@@ -1293,14 +1294,18 @@ const App = () => {
       case 'inbox':
         return <Inbox user={user} onUnreadCountChange={setUnreadCount} />;
       case 'profile':
-        return <Profile user={user} onLogout={handleLogout} onBackToCreate={() => handleTabChange('create')} />;
+        return <ProfileContainer user={user} onLogout={handleLogout} onBackToCreate={() => handleTabChange('create')} selectedSection={profileSection} />;
       default:
         return (
           <div className="create-content">
             <div className="create-language-header">
               <PageHeader 
                 user={user}
-                onProfileClick={() => setActiveTab('profile')}
+                onProfileClick={(section = 'profile') => {
+                  setActiveTab('profile');
+                  // Pass the section to ProfileContainer somehow
+                  setProfileSection(section);
+                }}
               />
             </div>
 

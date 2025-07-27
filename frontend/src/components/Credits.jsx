@@ -3,32 +3,87 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl } from '../config/api';
 
-const Credits = ({ user, onBackToCreate }) => {
+const Credits = ({ user }) => {
   const [credits, setCredits] = useState(null);
   const [creditHistory, setCreditHistory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [elevenlabsStats, setElevenlabsStats] = useState(null);
   const [showCreditHistory, setShowCreditHistory] = useState(false);
-  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
+
+  // Credit tier packages
+  const creditTiers = [
+    {
+      id: 'starter',
+      name: t('starterTier', 'Starter'),
+      price: '€4.99',
+      credits: 50,
+      features: [
+        t('basicMeditations', '50 meditation generations'),
+        t('allVoices', 'Access to all voices'),
+        t('allBackgrounds', 'All background sounds'),
+        t('standardSupport', 'Standard support')
+      ]
+    },
+    {
+      id: 'popular',
+      name: t('popularTier', 'Popular'),
+      price: '€9.99',
+      credits: 150,
+      popular: true,
+      savings: '20%',
+      features: [
+        t('popularMeditations', '150 meditation generations'),
+        t('allVoices', 'Access to all voices'),
+        t('allBackgrounds', 'All background sounds'),
+        t('prioritySupport', 'Priority support'),
+        t('bonusCredits', '+10 bonus credits')
+      ]
+    },
+    {
+      id: 'premium',
+      name: t('premiumTier', 'Premium'),
+      price: '€19.99',
+      credits: 400,
+      savings: '30%',
+      features: [
+        t('premiumMeditations', '400 meditation generations'),
+        t('allVoices', 'Access to all voices'),
+        t('allBackgrounds', 'All background sounds'),
+        t('premiumSupport', 'Premium support'),
+        t('bonusCredits', '+50 bonus credits'),
+        t('earlyAccess', 'Early access to new features')
+      ]
+    }
+  ];
 
   useEffect(() => {
     if (user) {
       fetchUserCredits();
+      if (user.username === 'rob') {
+        fetchElevenlabsStats();
+      }
     }
   }, [user]);
 
   const fetchUserCredits = async () => {
-    if (!user?.id) return;
-    
     try {
       setIsLoading(true);
       const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/credits`));
       setCredits(response.data);
     } catch (error) {
       console.error('Error fetching user credits:', error);
-      setError(t('failedToLoadStats', 'Failed to load credit information'));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const fetchElevenlabsStats = async () => {
+    try {
+      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/elevenlabs-stats`));
+      setElevenlabsStats(response.data);
+    } catch (error) {
+      console.error('Error fetching ElevenLabs stats:', error);
     }
   };
 
@@ -47,209 +102,168 @@ const Credits = ({ user, onBackToCreate }) => {
 
   if (isLoading) {
     return (
-      <div className="credits-container">
-        <div className="credits-header">
-          <button 
-            className="back-to-create-btn" 
-            onClick={onBackToCreate}
-            title={t('backToCreate', 'Back')}
-          >
-            ← {t('backToCreate', 'Back')}
-          </button>
-          <h1>💳 {t('credits', 'Credits')}</h1>
+      <div className="credits-section">
+        <div className="credits-loading">
+          <div className="spinner-large"></div>
         </div>
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          {t('loading', 'Loading...')}
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="credits-container">
-        <div className="credits-header">
-          <button 
-            className="back-to-create-btn" 
-            onClick={onBackToCreate}
-            title={t('backToCreate', 'Back')}
-          >
-            ← {t('backToCreate', 'Back')}
-          </button>
-          <h1>💳 {t('credits', 'Credits')}</h1>
-        </div>
-        <div className="error-message">{error}</div>
       </div>
     );
   }
 
   return (
-    <div className="credits-container">
+    <div className="credits-section">
       <div className="credits-header">
+        <h3>💎 {t('credits', 'Credits')}</h3>
         <button 
-          className="back-to-create-btn" 
-          onClick={onBackToCreate}
-          title={t('backToCreate', 'Back to Create')}
+          className="credits-purchase-btn"
+          onClick={() => alert(t('paymentComingSoon', 'Payment system coming soon!'))}
         >
-          ← {t('backToCreate', 'Back')}
+          {t('buyCredits', 'Buy Credits')}
         </button>
-        <div className="credits-title-section">
-          <h1>💳 {t('credits', 'Credits')}</h1>
-          <p className="credits-subtitle">{t('manageCredits', 'Manage your meditation credits')}</p>
-        </div>
       </div>
-
+      
       {credits && (
-        <div className="credits-main-section">
-          {/* Current Balance Card */}
-          <div className="credits-balance-card">
-            <div className="balance-header">
-              <div className="balance-icon">💎</div>
-              <div className="balance-info">
-                <h2>{t('availableCredits', 'Available Credits')}</h2>
-                <p className="balance-description">{t('creditsDescription', 'Use credits to generate meditation audio')}</p>
-              </div>
-            </div>
-            
-            <div className="balance-amount">
-              <span className="credit-number">{credits.credits}</span>
-              <span className="credit-label">{t('credits', 'Credits')}</span>
+        <div className="credits-display">
+          <div className="credits-main">
+            <div className="credits-balance">
+              <span className="credits-amount">{credits.credits}</span>
+              <span className="credits-label">{t('availableCredits', 'Available Credits')}</span>
             </div>
             
             {credits.credits < 3 && (
-              <div className="low-credits-warning">
-                <div className="warning-icon">⚠️</div>
-                <div className="warning-text">
-                  <strong>{t('lowCreditsTitle', 'Low Credits!')}</strong>
-                  <p>{t('lowCreditsWarning', 'You need credits to generate meditations. Consider purchasing more.')}</p>
-                </div>
+              <div className="credits-warning">
+                ⚠️ {t('lowCreditsWarning', 'Low credits! Consider purchasing more.')}
               </div>
             )}
           </div>
-
-          {/* Purchase Credits Card */}
-          <div className="purchase-credits-card">
-            <div className="purchase-header">
-              <h3>🛒 {t('buyCredits', 'Buy Credits')}</h3>
-              <p>{t('purchaseDescription', 'Get more credits to create unlimited meditations')}</p>
+          
+          <div className="credits-stats">
+            <div className="credit-stat">
+              <span className="stat-label">{t('totalEarned', 'Total Earned')}</span>
+              <span className="stat-value">{credits.totalCreditsEarned}</span>
             </div>
-            
-            <div className="credit-packages">
-              <div className="credit-package">
-                <div className="package-credits">10</div>
-                <div className="package-label">{t('credits', 'Credits')}</div>
-                <div className="package-price">€5.99</div>
-                <button className="package-btn" onClick={() => alert(t('paymentComingSoon', 'Payment system coming soon!'))}>
-                  {t('selectPackage', 'Select')}
-                </button>
-              </div>
-              
-              <div className="credit-package popular">
-                <div className="package-badge">{t('popular', 'Popular')}</div>
-                <div className="package-credits">25</div>
-                <div className="package-label">{t('credits', 'Credits')}</div>
-                <div className="package-price">€12.99</div>
-                <div className="package-savings">€2 {t('savings', 'savings')}</div>
-                <button className="package-btn" onClick={() => alert(t('paymentComingSoon', 'Payment system coming soon!'))}>
-                  {t('selectPackage', 'Select')}
-                </button>
-              </div>
-              
-              <div className="credit-package">
-                <div className="package-credits">50</div>
-                <div className="package-label">{t('credits', 'Credits')}</div>
-                <div className="package-price">€19.99</div>
-                <div className="package-savings">€10 {t('savings', 'savings')}</div>
-                <button className="package-btn" onClick={() => alert(t('paymentComingSoon', 'Payment system coming soon!'))}>
-                  {t('selectPackage', 'Select')}
-                </button>
-              </div>
+            <div className="credit-stat">
+              <span className="stat-label">{t('totalSpent', 'Total Spent')}</span>
+              <span className="stat-value">{credits.totalCreditsSpent}</span>
             </div>
           </div>
-
-          {/* Credits Overview */}
-          <div className="credits-overview-card">
-            <h3>📊 {t('creditsOverview', 'Credits Overview')}</h3>
-            <div className="credits-stats-grid">
-              <div className="credit-stat-item">
-                <div className="stat-icon">📈</div>
-                <div className="stat-content">
-                  <div className="stat-value">{credits.totalCreditsEarned}</div>
-                  <div className="stat-label">{t('totalEarned', 'Total Earned')}</div>
-                </div>
-              </div>
-              
-              <div className="credit-stat-item">
-                <div className="stat-icon">📉</div>
-                <div className="stat-content">
-                  <div className="stat-value">{credits.totalCreditsSpent}</div>
-                  <div className="stat-label">{t('totalSpent', 'Total Spent')}</div>
-                </div>
-              </div>
-              
-              <div className="credit-stat-item">
-                <div className="stat-icon">🎵</div>
-                <div className="stat-content">
-                  <div className="stat-value">{credits.totalCreditsSpent}</div>
-                  <div className="stat-label">{t('meditationsGenerated', 'Meditations Generated')}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Credit History */}
-          <div className="credit-history-card">
-            <div className="history-header">
-              <h3>📋 {t('creditHistory', 'Credit History')}</h3>
-              <button 
-                className="toggle-history-btn"
-                onClick={() => {
-                  setShowCreditHistory(!showCreditHistory);
-                  if (!showCreditHistory && creditHistory.length === 0) {
-                    fetchCreditHistory();
-                  }
-                }}
-              >
-                {showCreditHistory ? 
-                  `📤 ${t('hideHistory', 'Hide History')}` : 
-                  `📋 ${t('viewHistory', 'View History')}`
-                }
-              </button>
-            </div>
-            
-            {showCreditHistory && (
-              <div className="credit-history-content">
-                {creditHistory.length === 0 ? (
-                  <div className="no-transactions">
-                    <div className="no-transactions-icon">📝</div>
-                    <p>{t('noTransactions', 'No transactions yet.')}</p>
-                  </div>
-                ) : (
-                  <div className="credit-transactions">
-                    {creditHistory.map((transaction, index) => (
-                      <div key={index} className="credit-transaction">
-                        <div className="transaction-icon">
+          
+          <button 
+            className="credit-history-btn"
+            onClick={() => {
+              setShowCreditHistory(!showCreditHistory);
+              if (!showCreditHistory && creditHistory.length === 0) {
+                fetchCreditHistory();
+              }
+            }}
+          >
+            {showCreditHistory ? '📤 ' + t('hideHistory', 'Hide History') : '📋 ' + t('viewHistory', 'View History')}
+          </button>
+          
+          {showCreditHistory && (
+            <div className="credit-history">
+              <h4>{t('creditHistory', 'Credit History')}</h4>
+              {creditHistory.length === 0 ? (
+                <p>{t('noTransactions', 'No transactions yet.')}</p>
+              ) : (
+                <div className="credit-transactions">
+                  {creditHistory.map((transaction, index) => (
+                    <div key={index} className="credit-transaction">
+                      <div className="transaction-info">
+                        <span className="transaction-type">
                           {transaction.type === 'initial' && '🎁'}
                           {transaction.type === 'generation' && '🎵'}
                           {transaction.type === 'sharing' && '🌟'}
                           {transaction.type === 'purchase' && '💳'}
                           {transaction.type === 'bonus' && '🎉'}
-                        </div>
-                        <div className="transaction-info">
-                          <div className="transaction-description">{transaction.description}</div>
-                          <div className="transaction-date">{formatDate(transaction.createdAt)}</div>
-                        </div>
-                        <div className={`transaction-amount ${transaction.amount > 0 ? 'positive' : 'negative'}`}>
-                          {transaction.amount > 0 ? '+' : ''}{transaction.amount}
-                        </div>
+                          {transaction.description}
+                        </span>
+                        <span className="transaction-date">
+                          {formatDate(transaction.createdAt)}
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                )}
+                      <span className={`transaction-amount ${transaction.amount > 0 ? 'positive' : 'negative'}`}>
+                        {transaction.amount > 0 ? '+' : ''}{transaction.amount}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Credit Tiers Section */}
+      <div className="credit-tiers-section">
+        <h3 className="credit-tiers-header">
+          🎯 {t('chooseCreditPackage', 'Choose Your Credit Package')}
+        </h3>
+        
+        <div className="credit-tiers-grid">
+          {creditTiers.map((tier) => (
+            <div key={tier.id} className={`credit-tier-card ${tier.popular ? 'popular' : ''}`}>
+              {tier.popular && (
+                <div className="tier-badge">{t('mostPopular', 'Most Popular')}</div>
+              )}
+              {tier.savings && (
+                <div className="tier-savings">{t('save', 'Save')} {tier.savings}</div>
+              )}
+              
+              <div className="tier-header">
+                <h4 className="tier-name">{tier.name}</h4>
+                <div className="tier-price">{tier.price}</div>
+                <div className="tier-price-label">{t('oneTimePayment', 'One-time payment')}</div>
               </div>
-            )}
+              
+              <div className="tier-credits">
+                <div className="tier-credits-amount">{tier.credits}</div>
+                <div className="tier-credits-label">{t('credits', 'Credits')}</div>
+              </div>
+              
+              <div className="tier-features">
+                <ul className="tier-features-list">
+                  {tier.features.map((feature, index) => (
+                    <li key={index} className="tier-feature">
+                      <span className="tier-feature-icon">✓</span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <button 
+                className="tier-select-btn"
+                onClick={() => alert(`${t('paymentComingSoon', 'Payment system coming soon!')} - ${tier.name} (${tier.price})`)}
+              >
+                {t('selectPackage', 'Select Package')}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ElevenLabs Credits Display - Only for user 'rob' */}
+      {user.username === 'rob' && elevenlabsStats && (
+        <div className="elevenlabs-credits-display">
+          <h3>🔊 ElevenLabs Credits</h3>
+          <div className="elevenlabs-info">
+            <span className="elevenlabs-icon">🔊</span>
+            <div className="elevenlabs-text">
+              <div className="elevenlabs-remaining">
+                {elevenlabsStats.currentTier?.limit ? 
+                  (elevenlabsStats.currentTier.limit - elevenlabsStats.charactersUsedThisMonth).toLocaleString() :
+                  '∞'
+                } tekens over
+              </div>
+              <div className="elevenlabs-tier">{elevenlabsStats.currentTier?.name || 'Free'} tier</div>
+            </div>
           </div>
+          {elevenlabsStats.lastReset && (
+            <div className="elevenlabs-reset-date">
+              Monthly stats reset on: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
+            </div>
+          )}
         </div>
       )}
     </div>

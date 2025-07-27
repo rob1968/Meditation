@@ -3,9 +3,8 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, API_ENDPOINTS } from '../config/api';
 
-const Statistics = ({ user, onBackToCreate }) => {
+const Statistics = ({ user }) => {
   const [stats, setStats] = useState(null);
-  const [elevenlabsStats, setElevenlabsStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const { t } = useTranslation();
@@ -13,10 +12,6 @@ const Statistics = ({ user, onBackToCreate }) => {
   useEffect(() => {
     if (user) {
       fetchUserStats();
-      // Only fetch ElevenLabs stats for user 'rob'
-      if (user.username === 'rob') {
-        fetchElevenlabsStats();
-      }
     }
   }, [user]);
 
@@ -33,15 +28,6 @@ const Statistics = ({ user, onBackToCreate }) => {
     }
   };
 
-  const fetchElevenlabsStats = async () => {
-    try {
-      const response = await axios.get(getFullUrl(`/api/auth/user/${user.id}/elevenlabs-stats`));
-      setElevenlabsStats(response.data);
-    } catch (error) {
-      console.error('Error fetching ElevenLabs stats:', error);
-    }
-  };
-
   const formatTime = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -52,220 +38,153 @@ const Statistics = ({ user, onBackToCreate }) => {
     return `${remainingMinutes}m`;
   };
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString();
+  const meditationTypeLabels = {
+    sleep: t('sleepMeditation', 'Sleep'),
+    stress: t('stressMeditation', 'Stress'),
+    focus: t('focusMeditation', 'Focus'),
+    anxiety: t('anxietyMeditation', 'Anxiety'),
+    energy: t('energyMeditation', 'Energy')
+  };
+
+  const getTypeEmoji = (type) => {
+    const emojiMap = {
+      sleep: '😴',
+      stress: '🧘‍♀️',
+      focus: '🎯',
+      anxiety: '💚',
+      energy: '⚡'
+    };
+    return emojiMap[type] || '🧘';
+  };
+
+  const getTypeGradient = (type) => {
+    const gradientMap = {
+      sleep: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      stress: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      focus: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+      anxiety: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+      energy: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+    };
+    return gradientMap[type] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
   };
 
   if (isLoading) {
     return (
-      <div className="statistics-container">
-        <div className="statistics-header">
-          <button 
-            className="back-to-create-btn" 
-            onClick={onBackToCreate}
-            title={t('backToCreate', 'Back')}
-          >
-            ← {t('backToCreate', 'Back')}
-          </button>
-          <h1>📊 {t('statistics', 'Statistics')}</h1>
-        </div>
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          {t('loading', 'Loading...')}
-        </div>
+      <div className="loading-spinner">
+        <div className="spinner"></div>
+        {t('loading', 'Loading...')}
       </div>
     );
   }
 
   if (error) {
-    return (
-      <div className="statistics-container">
-        <div className="statistics-header">
-          <button 
-            className="back-to-create-btn" 
-            onClick={onBackToCreate}
-            title={t('backToCreate', 'Back')}
-          >
-            ← {t('backToCreate', 'Back')}
-          </button>
-          <h1>📊 {t('statistics', 'Statistics')}</h1>
-        </div>
-        <div className="error-message">{error}</div>
-      </div>
-    );
+    return <div className="error-message">{error}</div>;
   }
 
   return (
-    <div className="statistics-container">
+    <div className="statistics-section">
       <div className="statistics-header">
-        <button 
-          className="back-to-create-btn" 
-          onClick={onBackToCreate}
-          title={t('backToCreate', 'Back')}
-        >
-          ← {t('backToCreate', 'Back')}
-        </button>
-        <div className="statistics-title-section">
-          <h1>📊 {t('statistics', 'Statistics')}</h1>
-          <p className="statistics-subtitle">{t('viewMeditationStats', 'View your meditation statistics and progress')}</p>
+        <h3>📊 {t('statistics', 'Statistics')}</h3>
+        <p className="statistics-subtitle">{t('memberSince', 'Member since')} {new Date(user.createdAt).toLocaleDateString()}</p>
+      </div>
+      
+      <div className="statistics-overview">
+        <div className="stats-grid">
+          <div className="stat-card primary">
+            <div className="stat-card-header">
+              <div className="stat-icon">🧘</div>
+              <div className="stat-label">{t('totalMeditations', 'Total Meditations')}</div>
+            </div>
+            <div className="stat-value large">{stats?.totalMeditations || 0}</div>
+            <div className="stat-progress">
+              <div className="stat-progress-bar" style={{width: `${Math.min((stats?.totalMeditations || 0) / 100 * 100, 100)}%`}}></div>
+            </div>
+          </div>
+
+          <div className="stat-card secondary">
+            <div className="stat-card-header">
+              <div className="stat-icon">⏰</div>
+              <div className="stat-label">{t('totalTime', 'Total Time')}</div>
+            </div>
+            <div className="stat-value large">{stats ? formatTime(stats.totalTime) : '0m'}</div>
+            <div className="stat-sublabel">{t('minutesOfMeditation', 'minutes of meditation')}</div>
+          </div>
+
+          <div className="stat-card accent">
+            <div className="stat-card-header">
+              <div className="stat-icon">🌍</div>
+              <div className="stat-label">{t('languages', 'Languages Used')}</div>
+            </div>
+            <div className="stat-value large">{stats?.uniqueLanguages || 0}</div>
+            <div className="stat-sublabel">{t('differentLanguages', 'different languages')}</div>
+          </div>
+
+          <div className="stat-card success">
+            <div className="stat-card-header">
+              <div className="stat-icon">🎵</div>
+              <div className="stat-label">{t('meditationFiles', 'Audio Files')}</div>
+            </div>
+            <div className="stat-value large">{stats?.totalAudioFiles || 0}</div>
+            <div className="stat-sublabel">{t('audioFilesCreated', 'files created')}</div>
+          </div>
         </div>
       </div>
 
-      {stats && (
-        <div className="statistics-main-section">
-          {/* Overview Stats */}
-          <div className="stats-overview-card">
-            <h3>🧘 {t('meditationOverview', 'Meditation Overview')}</h3>
-            <div className="stats-grid">
-              <div className="stat-card">
-                <div className="stat-icon">🎵</div>
-                <div className="stat-info">
-                  <div className="stat-value">{stats.totalMeditations}</div>
-                  <div className="stat-label">{t('totalMeditations', 'Total Meditations')}</div>
-                </div>
-              </div>
-
-              <div className="stat-card">
-                <div className="stat-icon">⏰</div>
-                <div className="stat-info">
-                  <div className="stat-value">{formatTime(stats.totalTime)}</div>
-                  <div className="stat-label">{t('totalTime', 'Total Time')}</div>
-                </div>
-              </div>
-
-              <div className="stat-card">
-                <div className="stat-icon">🌍</div>
-                <div className="stat-info">
-                  <div className="stat-value">{stats.uniqueLanguages}</div>
-                  <div className="stat-label">{t('languages', 'Languages')}</div>
-                </div>
-              </div>
-
-              <div className="stat-card">
-                <div className="stat-icon">🎼</div>
-                <div className="stat-info">
-                  <div className="stat-value">{stats.totalAudioFiles}</div>
-                  <div className="stat-label">{t('audioFiles', 'Audio Files')}</div>
-                </div>
-              </div>
+      <div className="statistics-details">
+        <div className="stat-detail-card">
+          <div className="stat-detail-header">
+            <div className="stat-detail-icon">⭐</div>
+            <h4>{t('favoriteType', 'Most Used Type')}</h4>
+          </div>
+          <div className="favorite-type-display">
+            <div className="favorite-type-name">
+              {stats ? (meditationTypeLabels[stats.favoriteType] || stats.favoriteType || t('noData', 'No data')) : '-'}
+            </div>
+            <div className="favorite-type-badge">
+              {stats?.favoriteType && getTypeEmoji(stats.favoriteType)}
             </div>
           </div>
-
-          {/* Meditation Types Breakdown */}
-          <div className="meditation-breakdown-card">
-            <h3>📈 {t('meditationBreakdown', 'Meditation Types Breakdown')}</h3>
-            <div className="meditation-types-grid">
-              {Object.entries(stats.meditationTypes).map(([type, count]) => (
-                <div key={type} className="meditation-type-stat">
-                  <div className="meditation-type-icon">
-                    {type === 'sleep' && '😴'}
-                    {type === 'stress' && '😌'}
-                    {type === 'focus' && '🎯'}
-                    {type === 'anxiety' && '🌸'}
-                    {type === 'energy' && '⚡'}
-                  </div>
-                  <div className="meditation-type-info">
-                    <div className="meditation-type-name">
-                      {t(type, type.charAt(0).toUpperCase() + type.slice(1))}
-                    </div>
-                    <div className="meditation-type-count">
-                      {count} {t('sessions', 'sessions')}
-                    </div>
-                  </div>
-                  <div className="meditation-type-percentage">
-                    {Math.round((count / stats.totalMeditations) * 100)}%
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {stats.favoriteType && (
-              <div className="favorite-type">
-                <div className="favorite-icon">⭐</div>
-                <div className="favorite-text">
-                  <strong>{t('favoriteType', 'Favorite Type')}: </strong>
-                  {t(stats.favoriteType, stats.favoriteType.charAt(0).toUpperCase() + stats.favoriteType.slice(1))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Progress Insights */}
-          <div className="progress-insights-card">
-            <h3>🎯 {t('progressInsights', 'Progress Insights')}</h3>
-            <div className="insights-grid">
-              <div className="insight-item">
-                <div className="insight-icon">🔥</div>
-                <div className="insight-content">
-                  <div className="insight-title">{t('consistency', 'Consistency')}</div>
-                  <div className="insight-description">
-                    {stats.totalMeditations > 10 
-                      ? t('greatConsistency', 'Great consistency! Keep up the regular practice.')
-                      : t('buildConsistency', 'Build consistency with regular meditation sessions.')
-                    }
-                  </div>
-                </div>
-              </div>
-
-              <div className="insight-item">
-                <div className="insight-icon">📊</div>
-                <div className="insight-content">
-                  <div className="insight-title">{t('averageSession', 'Average Session')}</div>
-                  <div className="insight-description">
-                    {stats.totalMeditations > 0 
-                      ? `${formatTime(Math.round(stats.totalTime / stats.totalMeditations))} ${t('perSession', 'per session')}`
-                      : t('noSessionsYet', 'No sessions yet')
-                    }
-                  </div>
-                </div>
-              </div>
-
-              <div className="insight-item">
-                <div className="insight-icon">🌟</div>
-                <div className="insight-content">
-                  <div className="insight-title">{t('achievement', 'Achievement')}</div>
-                  <div className="insight-description">
-                    {stats.totalTime >= 60 
-                      ? t('hourAchievement', 'You\'ve meditated for over an hour! 🎉')
-                      : stats.totalMeditations >= 5
-                      ? t('fiveSessionAchievement', 'Five meditation sessions completed! 🎊')
-                      : t('justStarted', 'Your meditation journey has begun! 🌱')
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* ElevenLabs Stats (only for rob) */}
-          {user.username === 'rob' && elevenlabsStats && (
-            <div className="elevenlabs-stats-card">
-              <h3>🎤 {t('elevenLabsUsage', 'ElevenLabs Usage')}</h3>
-              <div className="elevenlabs-grid">
-                <div className="elevenlabs-stat">
-                  <div className="stat-label">{t('charactersUsed', 'Characters Used (Total)')}</div>
-                  <div className="stat-value">{elevenlabsStats.charactersUsedTotal?.toLocaleString() || 0}</div>
-                </div>
-                
-                <div className="elevenlabs-stat">
-                  <div className="stat-label">{t('charactersThisMonth', 'Characters This Month')}</div>
-                  <div className="stat-value">{elevenlabsStats.charactersUsedThisMonth?.toLocaleString() || 0}</div>
-                </div>
-                
-                <div className="elevenlabs-stat">
-                  <div className="stat-label">{t('currentTier', 'Current Tier')}</div>
-                  <div className="stat-value">{elevenlabsStats.currentTier?.name || t('free', 'Free')}</div>
-                </div>
-                
-                <div className="elevenlabs-stat">
-                  <div className="stat-label">{t('estimatedCost', 'Estimated Cost')}</div>
-                  <div className="stat-value">${elevenlabsStats.estimatedCostThisMonth?.toFixed(2) || '0.00'}</div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
-      )}
+
+        {stats && stats.meditationTypes && Object.keys(stats.meditationTypes).length > 0 && (
+          <div className="stat-detail-card">
+            <div className="stat-detail-header">
+              <div className="stat-detail-icon">📈</div>
+              <h4>{t('meditationBreakdown', 'Type Breakdown')}</h4>
+            </div>
+            <div className="breakdown-chart">
+              {Object.entries(stats.meditationTypes)
+                .sort(([,a], [,b]) => b - a)
+                .map(([type, count]) => {
+                  const percentage = ((count / (stats?.totalMeditations || 1)) * 100).toFixed(1);
+                  return (
+                    <div key={type} className="breakdown-item">
+                      <div className="breakdown-item-header">
+                        <div className="breakdown-type">
+                          <span className="breakdown-emoji">{getTypeEmoji(type)}</span>
+                          <span className="breakdown-name">{meditationTypeLabels[type] || type}</span>
+                        </div>
+                        <div className="breakdown-stats">
+                          <span className="breakdown-count">{count}</span>
+                          <span className="breakdown-percentage">({percentage}%)</span>
+                        </div>
+                      </div>
+                      <div className="breakdown-progress">
+                        <div 
+                          className="breakdown-progress-bar" 
+                          style={{
+                            width: `${percentage}%`,
+                            background: getTypeGradient(type)
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

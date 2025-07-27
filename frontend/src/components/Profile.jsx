@@ -195,32 +195,44 @@ const Profile = ({ user, onLogout, onBackToCreate }) => {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <button 
-          className="back-to-create-btn" 
-          onClick={onBackToCreate}
-          title={t('backToCreate', 'Back to Create')}
-        >
-          ← {t('backToCreate', 'Back')}
-        </button>
-        <div className="profile-avatar">👤</div>
-        <h2>{user.username}</h2>
-        <p>{t('memberSince', 'Member since')} {formatDate(user.createdAt)}</p>
+    <div className="profile-info-section">
+      <div className="profile-section-header">
+        <h3>👤 {t('profileInformation', 'Profile Information')}</h3>
+        {!isEditMode ? (
+          <button className="edit-profile-btn" onClick={startEdit}>
+            <span className="edit-icon">✏️</span>
+            {t('edit', 'Edit')}
+          </button>
+        ) : (
+          <div className="edit-actions">
+            <button className="save-btn" onClick={saveProfile} disabled={isSaving}>
+              {isSaving ? (
+                <>
+                  <span className="spinner-small"></span>
+                  {t('saving', 'Saving...')}
+                </>
+              ) : (
+                <>
+                  <span className="save-icon">💾</span>
+                  {t('save', 'Save')}
+                </>
+              )}
+            </button>
+            <button className="cancel-btn" onClick={cancelEdit} disabled={isSaving}>
+              <span className="cancel-icon">❌</span>
+              {t('cancel', 'Cancel')}
+            </button>
+          </div>
+        )}
       </div>
 
-      {isLoading ? (
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          {t('loading', 'Loading...')}
+      {saveMessage && (
+        <div className={`save-message ${saveMessage.includes('success') ? 'success' : 'error'}`}>
+          {saveMessage}
         </div>
-      ) : error ? (
-        <div className="error-message">{error}</div>
-      ) : stats ? (
-        <>
-          {/* Credits Section */}
-          {credits && (
-            <div className="credits-section">
+      )}
+
+      <div className="profile-info-card">
               <div className="credits-header">
                 <h3>💎 {t('credits', 'Credits')}</h3>
                 <button 

@@ -7,13 +7,13 @@ import PageHeader from './PageHeader';
 
 const Auth = ({ onLogin }) => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [country, setCountry] = useState('');
   const [countryCode, setCountryCode] = useState('');
+  const [city, setCity] = useState('');
   const [gender, setGender] = useState('');
+  const [preferredLanguage, setPreferredLanguage] = useState('');
+  const [bio, setBio] = useState('');
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,6 +21,23 @@ const Auth = ({ onLogin }) => {
 
   // Get sorted countries for the current language
   const countries = getSortedCountries(i18n.language);
+  
+  // Available languages
+  const availableLanguages = [
+    { code: 'en', name: 'English' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'pt', name: 'Português' },
+    { code: 'ru', name: 'Русский' },
+    { code: 'ja', name: '日本語' },
+    { code: 'ko', name: '한국어' },
+    { code: 'zh', name: '中文' },
+    { code: 'ar', name: 'العربية' },
+    { code: 'hi', name: 'हिंदी' },
+    { code: 'nl', name: 'Nederlands' }
+  ];
 
   const calculateAge = (birthDate) => {
     const today = new Date();
@@ -51,16 +68,6 @@ const Auth = ({ onLogin }) => {
 
     // Validation for registration
     if (!isLogin) {
-      if (password !== confirmPassword) {
-        setError(t('passwordMismatch', 'Passwords do not match'));
-        setIsLoading(false);
-        return;
-      }
-      if (password.length < 6) {
-        setError(t('passwordTooShort', 'Password must be at least 6 characters'));
-        setIsLoading(false);
-        return;
-      }
       if (birthDate) {
         const age = calculateAge(birthDate);
         if (age < 13 || age > 120) {
@@ -74,16 +81,17 @@ const Auth = ({ onLogin }) => {
     try {
       const endpoint = isLogin ? API_ENDPOINTS.LOGIN : API_ENDPOINTS.REGISTER;
       const requestData = isLogin 
-        ? { username: username.trim(), password }
+        ? { username: username.trim() }
         : { 
             username: username.trim(), 
-            email: email.trim(), 
-            password,
             birthDate: birthDate || null,
             age: birthDate ? calculateAge(birthDate) : null,
             country: country || null,
             countryCode: countryCode || null,
-            gender: gender || null
+            city: city.trim() || null,
+            gender: gender || null,
+            preferredLanguage: preferredLanguage || null,
+            bio: bio.trim() || null
           };
 
       const response = await axios.post(getFullUrl(endpoint), requestData);
@@ -108,13 +116,13 @@ const Auth = ({ onLogin }) => {
 
   const resetForm = () => {
     setUsername('');
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
     setBirthDate('');
     setCountry('');
     setCountryCode('');
+    setCity('');
     setGender('');
+    setPreferredLanguage('');
+    setBio('');
     setError('');
   };
 
@@ -145,46 +153,7 @@ const Auth = ({ onLogin }) => {
           </div>
 
           {!isLogin && (
-            <div className="form-group">
-              <label>{t('email', 'Email')}</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('enterEmail', 'Enter email address')}
-                required
-                className="auth-input"
-              />
-            </div>
-          )}
-
-          <div className="form-group">
-            <label>{t('password', 'Password')}</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={t('enterPassword', 'Enter password')}
-              required
-              minLength={6}
-              className="auth-input"
-            />
-          </div>
-
-          {!isLogin && (
             <>
-              <div className="form-group">
-                <label>{t('confirmPassword', 'Confirm Password')}</label>
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder={t('confirmPasswordPlaceholder', 'Confirm your password')}
-                  required
-                  minLength={6}
-                  className="auth-input"
-                />
-              </div>
 
               <div className="form-group">
                 <label>{t('birthDate', 'Birth Date')} ({t('optional', 'Optional')})</label>
@@ -215,6 +184,17 @@ const Auth = ({ onLogin }) => {
               </div>
 
               <div className="form-group">
+                <label>{t('location', 'City')} ({t('optional', 'Optional')})</label>
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  placeholder={t('enterCity', 'Enter your city')}
+                  className="auth-input"
+                />
+              </div>
+
+              <div className="form-group">
                 <label>{t('gender', 'Gender')} ({t('optional', 'Optional')})</label>
                 <select
                   value={gender}
@@ -228,6 +208,37 @@ const Auth = ({ onLogin }) => {
                   <option value="prefer_not_to_say">{t('preferNotToSay', 'Prefer not to say')}</option>
                 </select>
               </div>
+
+              <div className="form-group">
+                <label>{t('preferredLanguage', 'Preferred Language')} ({t('optional', 'Optional')})</label>
+                <select
+                  value={preferredLanguage}
+                  onChange={(e) => setPreferredLanguage(e.target.value)}
+                  className="auth-input"
+                >
+                  <option value="">{t('selectLanguage', 'Select your language')}</option>
+                  {availableLanguages.map(lang => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>{t('bio', 'Bio')} ({t('optional', 'Optional')})</label>
+                <textarea
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  placeholder={t('bioPlaceholder', 'Tell us about yourself...')}
+                  maxLength={500}
+                  rows={3}
+                  className="auth-input"
+                />
+                <div className="character-count">
+                  {500 - bio.length} {t('charactersRemaining', 'characters remaining')}
+                </div>
+              </div>
             </>
           )}
 
@@ -235,7 +246,7 @@ const Auth = ({ onLogin }) => {
 
           <button 
             type="submit" 
-            disabled={isLoading || username.trim().length < 3 || (!isLogin && !email.trim()) || password.length < 6}
+            disabled={isLoading || username.trim().length < 3}
             className="auth-button"
           >
             {isLoading ? (

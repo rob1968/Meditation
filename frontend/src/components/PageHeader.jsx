@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = false, onBackClick }) => {
   const { t, i18n } = useTranslation();
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
 
   const uiLanguages = [
     { value: 'en', label: '🇺🇸 English', flag: '🇺🇸' },
@@ -29,11 +31,14 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
     setLanguageOpen(false);
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setLanguageOpen(false);
+      }
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
+        setProfileMenuOpen(false);
       }
     };
 
@@ -42,6 +47,21 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Profile menu items
+  const profileMenuItems = [
+    { id: 'profile', icon: '👤', label: t('profileInformation', 'Profile Information') },
+    { id: 'credits', icon: '💎', label: t('credits', 'Credits') },
+    { id: 'statistics', icon: '📊', label: t('statistics', 'Statistics') }
+  ];
+
+  const handleProfileMenuSelect = (sectionId) => {
+    setProfileMenuOpen(false);
+    // Call the original onProfileClick with the section parameter
+    if (onProfileClick) {
+      onProfileClick(sectionId);
+    }
+  };
 
   return (
     <div className="page-header">
@@ -56,13 +76,31 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
           </button>
         )}
         {user && onProfileClick && (
-          <button 
-            className="profile-button" 
-            onClick={onProfileClick}
-            title={user?.username || 'Profile'}
-          >
-            <span className="profile-username">{user?.username}</span>
-          </button>
+          <div className="profile-dropdown" ref={profileDropdownRef}>
+            <button 
+              className="profile-button" 
+              onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              title={user?.username || 'Profile'}
+            >
+              <span className="profile-username">{user?.username}</span>
+              <span className="dropdown-arrow">{profileMenuOpen ? '▲' : '▼'}</span>
+            </button>
+            
+            {profileMenuOpen && (
+              <div className="profile-menu-list">
+                {profileMenuItems.map(item => (
+                  <button
+                    key={item.id}
+                    className="profile-menu-item"
+                    onClick={() => handleProfileMenuSelect(item.id)}
+                  >
+                    <span className="menu-icon">{item.icon}</span>
+                    <span className="menu-label">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         )}
       </div>
 
