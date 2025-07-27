@@ -5,11 +5,11 @@ const BottomNavigation = ({ activeTab, onTabChange, user, onLogout, unreadCount 
   const { t } = useTranslation();
 
   const tabs = [
+    { id: 'myAudio', icon: '🧘', label: t('meditations', 'Meditations') },
     { id: 'create', icon: '✨', label: t('creeer', 'Create') },
-    { id: 'myAudio', icon: '🧘', label: t('mediteer', 'Meditate') },
-    { id: 'journal', icon: '📔', label: t('dagboek', 'Diary') },
-    { id: 'community', icon: '🔮', label: t('ontdek', 'Discover') },
-    { id: 'inbox', icon: '💬', label: t('bericht', 'Message'), badge: unreadCount }
+    { id: 'community', icon: '🔮', label: t('community', 'Community') },
+    { id: 'journal', icon: '📔', label: t('journal', 'Journal') },
+    { id: 'inbox', icon: '📬', label: t('inbox', 'Inbox'), badge: unreadCount }
   ];
 
   // Add admin tab for user 'rob'
@@ -27,7 +27,7 @@ const BottomNavigation = ({ activeTab, onTabChange, user, onLogout, unreadCount 
         >
           <div className="nav-icon-container">
             <div className="nav-icon">{tab.icon}</div>
-            {tab.badge > 0 && (
+            {tab.badge !== undefined && tab.badge > 0 && (
               <div className="nav-badge">{tab.badge}</div>
             )}
           </div>

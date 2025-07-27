@@ -362,5 +362,7 @@
   "stepBackground": "Background Music",
   "stepReview": "Review",
   "previous": "Previous",
-  "next": "Next"
+  "next": "Next",
+  "solarEnergy": "Solar Energy",
+  "lunarEnergy": "Lunar Energy"
 }
