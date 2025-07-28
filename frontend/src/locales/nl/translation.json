@@ -433,5 +433,6 @@
   "minutesOfMeditation": "minuten meditatie",
   "differentLanguages": "verschillende talen",
   "audioFilesCreated": "bestanden gemaakt",
-  "noData": "Geen gegevens"
+  "noData": "Geen gegevens",
+  "stepProgress": "Stap {{current}} van {{total}}"
 }

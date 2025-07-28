@@ -389,5 +389,6 @@
   "minutesOfMeditation": "minutes of meditation",
   "differentLanguages": "different languages",
   "audioFilesCreated": "files created",
-  "noData": "No data"
+  "noData": "No data",
+  "stepProgress": "Step {{current}} of {{total}}"
 }

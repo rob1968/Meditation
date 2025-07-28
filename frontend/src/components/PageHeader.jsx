@@ -63,6 +63,27 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
     }
   };
 
+  // Close panel when clicking outside or pressing escape
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape' && profileMenuOpen) {
+        setProfileMenuOpen(false);
+      }
+    };
+
+    if (profileMenuOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [profileMenuOpen]);
+
   return (
     <div className="page-header">
       <div className="page-header-left">
@@ -76,31 +97,66 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
           </button>
         )}
         {user && onProfileClick && (
-          <div className="profile-dropdown" ref={profileDropdownRef}>
+          <>
             <button 
-              className="profile-button" 
+              className="profile-avatar-button" 
               onClick={() => setProfileMenuOpen(!profileMenuOpen)}
               title={user?.username || 'Profile'}
             >
-              <span className="profile-username">{user?.username}</span>
-              <span className="dropdown-arrow">{profileMenuOpen ? '▲' : '▼'}</span>
+              <div className="avatar-circle">
+                <span className="avatar-initial">{user?.username?.charAt(0)?.toUpperCase()}</span>
+              </div>
+              <div className="avatar-info">
+                <span className="avatar-name">{user?.username}</span>
+                <span className="avatar-status">Online</span>
+              </div>
             </button>
             
+            {/* Slide-out Profile Panel */}
             {profileMenuOpen && (
-              <div className="profile-menu-list">
-                {profileMenuItems.map(item => (
-                  <button
-                    key={item.id}
-                    className="profile-menu-item"
-                    onClick={() => handleProfileMenuSelect(item.id)}
-                  >
-                    <span className="menu-icon">{item.icon}</span>
-                    <span className="menu-label">{item.label}</span>
-                  </button>
-                ))}
-              </div>
+              <>
+                <div 
+                  className="profile-overlay" 
+                  onClick={() => setProfileMenuOpen(false)}
+                />
+                <div className="profile-slide-panel" ref={profileDropdownRef}>
+                  <div className="profile-panel-header">
+                    <div className="profile-panel-avatar">
+                      <div className="panel-avatar-circle">
+                        <span className="panel-avatar-initial">{user?.username?.charAt(0)?.toUpperCase()}</span>
+                      </div>
+                      <div className="panel-user-info">
+                        <h3 className="panel-username">{user?.username}</h3>
+                        <p className="panel-member-since">{t('memberSince', 'Member since')} {new Date(user.createdAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                    <button 
+                      className="panel-close-btn"
+                      onClick={() => setProfileMenuOpen(false)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  
+                  <div className="profile-panel-menu">
+                    {profileMenuItems.map(item => (
+                      <button
+                        key={item.id}
+                        className="profile-panel-item"
+                        onClick={() => handleProfileMenuSelect(item.id)}
+                      >
+                        <div className="panel-item-icon">{item.icon}</div>
+                        <div className="panel-item-content">
+                          <span className="panel-item-label">{item.label}</span>
+                          <span className="panel-item-arrow">→</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
             )}
-          </div>
+          </>
         )}
       </div>
 

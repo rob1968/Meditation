@@ -18,30 +18,17 @@ const StepNavigation = ({
 
   return (
     <div className="step-navigation">
-      {/* Navigation buttons side by side */}
-      {!isLastStep && (
-        <>
-          {/* Previous Button */}
-          <button
-            className={`nav-btn prev-btn ${isFirstStep ? 'disabled' : ''}`}
-            onClick={onPrev}
-            disabled={isFirstStep}
-          >
-            ← {t('previous', 'Vorige')}
-          </button>
+      {/* Previous Button - Left side */}
+      <button
+        className={`nav-btn prev-btn ${isFirstStep ? 'disabled' : ''}`}
+        onClick={onPrev}
+        disabled={isFirstStep}
+        style={{ visibility: isFirstStep ? 'hidden' : 'visible' }}
+      >
+        ← {t('previous', 'Vorige')}
+      </button>
 
-          {/* Next Button */}
-          <button
-            className={`nav-btn next-btn ${!isCurrentStepValid ? 'disabled' : ''}`}
-            onClick={onNext}
-            disabled={!isCurrentStepValid}
-          >
-            {t('next', 'Volgende')} →
-          </button>
-        </>
-      )}
-
-      {/* Generate button for final step */}
+      {/* Generate button for final step only */}
       {isLastStep && (
         <button
           className="generate-btn primary"
@@ -51,6 +38,16 @@ const StepNavigation = ({
           {isGenerating ? t('generating', 'Genereren...') : `🎵 ${t('generateAudio', 'Audio Genereren')}`}
         </button>
       )}
+
+      {/* Next Button - Right side */}
+      <button
+        className={`nav-btn next-btn ${!isCurrentStepValid || isLastStep ? 'disabled' : ''}`}
+        onClick={onNext}
+        disabled={!isCurrentStepValid || isLastStep}
+        style={{ visibility: isLastStep ? 'hidden' : 'visible' }}
+      >
+        {t('next', 'Volgende')} →
+      </button>
     </div>
   );
 };

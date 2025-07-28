@@ -35,20 +35,11 @@
 }
 
 .step-progress-bar {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 1px;
+  display: none;
 }
 
 .step-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  border-radius: 1px;
-  transition: width 0.3s ease;
+  display: none;
 }
 
 .step-items {
@@ -123,23 +114,25 @@
 /* Step Navigation */
 .step-navigation {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
   gap: 20px;
+  min-height: 48px;
 }
 
 .nav-btn {
-  padding: 12px 24px;
+  padding: 10px 16px;
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  min-width: 100px;
 }
 
 .nav-btn:hover:not(.disabled) {
@@ -162,6 +155,14 @@
 .step-info {
   color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
+}
+
+.step-progress-text {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
 }
 
 .final-actions {
@@ -427,12 +428,13 @@
   }
   
   .step-navigation {
-    flex-direction: column;
     gap: 15px;
   }
   
-  .nav-center {
-    order: -1;
+  .nav-btn {
+    min-width: 90px;
+    padding: 8px 12px;
+    font-size: 13px;
   }
   
   .final-actions {
@@ -462,5 +464,19 @@
   
   .review-section {
     padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-navigation {
+    gap: 12px;
+  }
+  
+  .nav-btn {
+    min-width: 80px;
+    padding: 8px 10px;
+    font-size: 12px;
+    flex: 1;
+    max-width: 120px;
   }
 }

@@ -636,21 +636,60 @@ router.put('/user/:id/profile', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
     
+    // Validate gender enum before saving
+    if (gender !== undefined && gender !== null && gender !== '') {
+      const validGenders = ['male', 'female', 'other', 'prefer_not_to_say'];
+      if (!validGenders.includes(gender)) {
+        return res.status(400).json({ 
+          error: 'Invalid gender value. Must be one of: ' + validGenders.join(', ')
+        });
+      }
+    }
+    
+    // Validate preferredLanguage enum before saving
+    if (preferredLanguage !== undefined && preferredLanguage !== null && preferredLanguage !== '') {
+      const validLanguages = ['en', 'de', 'es', 'fr', 'it', 'pt', 'ru', 'ja', 'ko', 'zh', 'ar', 'hi', 'nl'];
+      if (!validLanguages.includes(preferredLanguage)) {
+        return res.status(400).json({ 
+          error: 'Invalid language value. Must be one of: ' + validLanguages.join(', ')
+        });
+      }
+    }
+    
+    // Validate field lengths
+    if (bio !== undefined && bio !== null && bio.length > 500) {
+      return res.status(400).json({ error: 'Bio must be 500 characters or less' });
+    }
+    if (city !== undefined && city !== null && city.length > 100) {
+      return res.status(400).json({ error: 'City name must be 100 characters or less' });
+    }
+    if (country !== undefined && country !== null && country.length > 100) {
+      return res.status(400).json({ error: 'Country name must be 100 characters or less' });
+    }
+    if (countryCode !== undefined && countryCode !== null && countryCode.length > 5) {
+      return res.status(400).json({ error: 'Country code must be 5 characters or less' });
+    }
+    
     // Update user profile fields
     if (preferredLanguage !== undefined) {
-      user.preferredLanguage = preferredLanguage;
+      user.preferredLanguage = preferredLanguage === '' ? undefined : preferredLanguage;
     }
     
     if (city !== undefined || country !== undefined || countryCode !== undefined) {
+      // Ensure location object exists
+      if (!user.location) {
+        user.location = {};
+      }
+      
       user.location = {
-        city: city || user.location?.city || '',
-        country: country || user.location?.country || '',
-        countryCode: countryCode || user.location?.countryCode || ''
+        city: city !== undefined ? city : (user.location.city || ''),
+        country: country !== undefined ? country : (user.location.country || ''),
+        countryCode: countryCode !== undefined ? countryCode : (user.location.countryCode || '')
       };
     }
     
     if (gender !== undefined) {
-      user.gender = gender;
+      user.gender = gender === '' ? undefined : gender;
     }
     
     if (bio !== undefined) {
@@ -675,6 +714,21 @@ router.put('/user/:id/profile', async (req, res) => {
     });
   } catch (error) {
     console.error('Error updating user profile:', error);
+    
+    // Handle specific Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const validationErrors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ 
+        error: 'Validation failed',
+        details: validationErrors
+      });
+    }
+    
+    // Handle cast errors (invalid ObjectId, etc.)
+    if (error.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid user ID format' });
+    }
+    
     res.status(500).json({ error: 'Failed to update profile' });
   }
 });
