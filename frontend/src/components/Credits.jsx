@@ -254,14 +254,14 @@ const Credits = ({ user }) => {
                 {elevenlabsStats.currentTier?.limit ? 
                   (elevenlabsStats.currentTier.limit - elevenlabsStats.charactersUsedThisMonth).toLocaleString() :
                   '∞'
-                } tekens over
+                } {t('charactersRemaining', 'tekens over')}
               </div>
-              <div className="elevenlabs-tier">{elevenlabsStats.currentTier?.name || 'Free'} tier</div>
+              <div className="elevenlabs-tier">{elevenlabsStats.currentTier?.name || t('free', 'Free')} {t('tier', 'tier')}</div>
             </div>
           </div>
           {elevenlabsStats.lastReset && (
             <div className="elevenlabs-reset-date">
-              Monthly stats reset on: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
+              {t('monthlyStatsReset', 'Monthly stats reset on')}: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
             </div>
           )}
         </div>

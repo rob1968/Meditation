@@ -215,7 +215,7 @@
 }
 
 .text-input-section {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .meditation-text-input {
@@ -248,7 +248,7 @@
   justify-content: center;
 }
 
-.generate-text-btn, .view-saved-btn {
+.generate-text-btn, .view-saved-btn, .clear-text-btn {
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
@@ -258,11 +258,73 @@
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-right: 10px;
+}
+
+.clear-text-btn {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.clear-text-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .generate-text-btn:hover, .view-saved-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
+}
+
+.clear-text-btn:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Text validation styles */
+.text-validation {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.word-count-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.word-count {
+  font-weight: 600;
+}
+
+.word-count.valid {
+  color: #10b981;
+}
+
+.word-count.invalid {
+  color: #ef4444;
+}
+
+.word-count-hint {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.validation-error {
+  color: #ef4444;
+  font-size: 12px;
+}
+
+.text-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* Background Step */

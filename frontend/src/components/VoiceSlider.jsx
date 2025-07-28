@@ -374,7 +374,7 @@ const VoiceSlider = ({ voices, selectedVoiceId, onVoiceSelect, voiceProvider, cu
                   className="preview-button-centered"
                   onClick={isPlaying ? stopPreview : playPreview}
                   disabled={isGeneratingPreview}
-                  aria-label={isGeneratingPreview ? 'Generating...' : (isPlaying ? 'Stop Preview' : 'Play Preview')}
+                  aria-label={isGeneratingPreview ? t('generating', 'Generating...') : (isPlaying ? t('stopPreview', 'Stop Preview') : t('playPreview', 'Play Preview'))}
                 >
                   {isGeneratingPreview ? '⏳' : (isPlaying ? '⏸️' : '▶️')}
                 </button>

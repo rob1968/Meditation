@@ -43,7 +43,8 @@ const Statistics = ({ user }) => {
     stress: t('stressMeditation', 'Stress'),
     focus: t('focusMeditation', 'Focus'),
     anxiety: t('anxietyMeditation', 'Anxiety'),
-    energy: t('energyMeditation', 'Energy')
+    energy: t('energyMeditation', 'Energy'),
+    mindfulness: t('mindfulnessMeditation', 'Mindfulness')
   };
 
   const getTypeEmoji = (type) => {
@@ -52,7 +53,8 @@ const Statistics = ({ user }) => {
       stress: '🧘‍♀️',
       focus: '🎯',
       anxiety: '💚',
-      energy: '⚡'
+      energy: '⚡',
+      mindfulness: '🧘'
     };
     return emojiMap[type] || '🧘';
   };
@@ -63,7 +65,8 @@ const Statistics = ({ user }) => {
       stress: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
       focus: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
       anxiety: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-      energy: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+      energy: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+      mindfulness: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
     };
     return gradientMap[type] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
   };
@@ -106,14 +109,14 @@ const Statistics = ({ user }) => {
               <div className="stat-icon">⏰</div>
               <div className="stat-label">{t('totalTime', 'Total Time')}</div>
             </div>
-            <div className="stat-value large">{stats ? formatTime(stats.totalTime) : '0m'}</div>
+            <div className="stat-value large">{stats ? formatTime(stats.totalTime) : t('zeroMinutes', '0m')}</div>
             <div className="stat-sublabel">{t('minutesOfMeditation', 'minutes of meditation')}</div>
           </div>
 
           <div className="stat-card accent">
             <div className="stat-card-header">
               <div className="stat-icon">🌍</div>
-              <div className="stat-label">{t('languages', 'Languages Used')}</div>
+              <div className="stat-label">{t('languages', 'Languages')}</div>
             </div>
             <div className="stat-value large">{stats?.uniqueLanguages || 0}</div>
             <div className="stat-sublabel">{t('differentLanguages', 'different languages')}</div>
@@ -134,11 +137,11 @@ const Statistics = ({ user }) => {
         <div className="stat-detail-card">
           <div className="stat-detail-header">
             <div className="stat-detail-icon">⭐</div>
-            <h4>{t('favoriteType', 'Most Used Type')}</h4>
+            <h4>{t('favoriteType', 'Favorite Type')}</h4>
           </div>
           <div className="favorite-type-display">
             <div className="favorite-type-name">
-              {stats ? (meditationTypeLabels[stats.favoriteType] || stats.favoriteType || t('noData', 'No data')) : '-'}
+              {stats ? (meditationTypeLabels[stats.favoriteType] || stats.favoriteType || t('noData', 'No data')) : t('noData', 'No data')}
             </div>
             <div className="favorite-type-badge">
               {stats?.favoriteType && getTypeEmoji(stats.favoriteType)}
@@ -150,7 +153,7 @@ const Statistics = ({ user }) => {
           <div className="stat-detail-card">
             <div className="stat-detail-header">
               <div className="stat-detail-icon">📈</div>
-              <h4>{t('meditationBreakdown', 'Type Breakdown')}</h4>
+              <h4>{t('meditationBreakdown', 'Meditation Breakdown')}</h4>
             </div>
             <div className="breakdown-chart">
               {Object.entries(stats.meditationTypes)

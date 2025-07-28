@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getFullUrl } from '../config/api';
 import { getSortedCountries } from '../data/countries';
 
-const ProfileInfo = ({ user }) => {
+const ProfileInfo = ({ user, onUserUpdate }) => {
   // Edit mode states
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedUser, setEditedUser] = useState({});
@@ -94,6 +94,13 @@ const ProfileInfo = ({ user }) => {
       // Update UI language if language changed
       if (editedUser.preferredLanguage && editedUser.preferredLanguage !== user.preferredLanguage) {
         i18n.changeLanguage(editedUser.preferredLanguage);
+        // Also save to localStorage for consistency
+        localStorage.setItem('selectedLanguage', editedUser.preferredLanguage);
+      }
+      
+      // Update user state in parent component
+      if (onUserUpdate) {
+        onUserUpdate(updatedUser);
       }
       
       setIsEditMode(false);
@@ -101,9 +108,6 @@ const ProfileInfo = ({ user }) => {
       
       // Clear message after 3 seconds
       setTimeout(() => setSaveMessage(''), 3000);
-      
-      // Refresh page to show updated data
-      window.location.reload();
       
     } catch (error) {
       console.error('Error updating profile:', error);

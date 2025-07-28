@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const ReviewStep = ({ wizardData, voices, savedCustomBackgrounds }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const getVoiceName = (voiceId) => {
     const voice = voices.find(v => v.voice_id === voiceId);
@@ -85,10 +85,29 @@ const ReviewStep = ({ wizardData, voices, savedCustomBackgrounds }) => {
         <div className="review-section">
           <div className="review-section-header">
             <div className="review-icon">🌍</div>
-            <h3>{t('language', 'Taal')}</h3>
+            <h3>{t('languageLabel', 'Language')}</h3>
           </div>
           <div className="review-content">
-            <span className="review-value">{t('currentLanguage', 'Nederlands')}</span>
+            <span className="review-value">
+              {(() => {
+                const languageMap = {
+                  'en': 'English',
+                  'nl': 'Nederlands',
+                  'de': 'Deutsch',
+                  'es': 'Español',
+                  'fr': 'Français',
+                  'it': 'Italiano',
+                  'pt': 'Português',
+                  'ru': 'Русский',
+                  'ja': '日本語',
+                  'ko': '한국어',
+                  'zh': '中文',
+                  'ar': 'العربية',
+                  'hi': 'हिन्दी'
+                };
+                return languageMap[i18n.language] || i18n.language;
+              })()}
+            </span>
           </div>
         </div>
 
@@ -96,12 +115,11 @@ const ReviewStep = ({ wizardData, voices, savedCustomBackgrounds }) => {
         <div className="review-section">
           <div className="review-section-header">
             <div className="review-icon">📝</div>
-            <h3>{t('meditationText', 'Meditatie Tekst')}</h3>
+            <h3>{t('textLabel', 'Meditatie Tekst')}</h3>
           </div>
           <div className="review-content">
-            <div className="text-preview">
-              {wizardData.text.substring(0, 200)}
-              {wizardData.text.length > 200 && '...'}
+            <div className="text-preview text-preview-scrollable">
+              {wizardData.text}
             </div>
             <div className="text-stats">
               {t('textLength', '{{count}} karakters', { count: wizardData.text.length })}
@@ -113,7 +131,7 @@ const ReviewStep = ({ wizardData, voices, savedCustomBackgrounds }) => {
         <div className="review-section">
           <div className="review-section-header">
             <div className="review-icon">🎤</div>
-            <h3>{t('voice', 'Stem')}</h3>
+            <h3>{t('voiceLabel', 'Voice')}</h3>
           </div>
           <div className="review-content">
             <div className="voice-info">
@@ -129,7 +147,7 @@ const ReviewStep = ({ wizardData, voices, savedCustomBackgrounds }) => {
         <div className="review-section">
           <div className="review-section-header">
             <div className="review-icon">🎵</div>
-            <h3>{t('background', 'Achtergrond Muziek')}</h3>
+            <h3>{t('backgroundMusicLabel', 'Background Music')}</h3>
           </div>
           <div className="review-content">
             <span className="review-value">

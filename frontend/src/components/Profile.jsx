@@ -183,8 +183,7 @@ const Profile = ({ user, onLogout, onBackToCreate }) => {
       // Clear message after 3 seconds
       setTimeout(() => setSaveMessage(''), 3000);
       
-      // Refresh page to show updated data
-      window.location.reload();
+      // Note: Profile.jsx is legacy, ProfileInfo.jsx handles updates properly
       
     } catch (error) {
       console.error('Error updating profile:', error);
@@ -563,7 +562,7 @@ const Profile = ({ user, onLogout, onBackToCreate }) => {
       {user.username === 'rob' && elevenlabsStats && (
         <div className="elevenlabs-credits-display">
           <h3 style={{ color: 'var(--text-primary)', marginBottom: 'var(--space-lg)' }}>
-            🔊 ElevenLabs Credits
+            🔊 {t('elevenLabsCredits', 'ElevenLabs Credits')}
           </h3>
           <div className="credits-info">
             <span className="credits-icon">🔊</span>
@@ -572,14 +571,14 @@ const Profile = ({ user, onLogout, onBackToCreate }) => {
                 {elevenlabsStats.currentTier?.limit ? 
                   (elevenlabsStats.currentTier.limit - elevenlabsStats.charactersUsedThisMonth).toLocaleString() :
                   '∞'
-                } tekens over
+                } {t('charactersRemaining', 'tekens over')}
               </div>
-              <div className="credits-tier">{elevenlabsStats.currentTier?.name || 'Free'} tier</div>
+              <div className="credits-tier">{elevenlabsStats.currentTier?.name || t('free', 'Free')} {t('tier', 'tier')}</div>
             </div>
           </div>
           {elevenlabsStats.lastReset && (
             <div style={{ fontSize: '14px', color: 'var(--text-secondary)', textAlign: 'center', marginTop: 'var(--space-sm)' }}>
-              Monthly stats reset on: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
+              {t('monthlyStatsReset', 'Monthly stats reset on')}: {new Date(elevenlabsStats.lastReset).toLocaleDateString()}
             </div>
           )}
         </div>

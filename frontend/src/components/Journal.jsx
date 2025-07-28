@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import i18n from 'i18next';
 import axios from 'axios';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from '../config/api';
+import PageHeader from './PageHeader';
 
-const Journal = ({ user, userCredits, onCreditsUpdate }) => {
+const Journal = ({ user, userCredits, onCreditsUpdate, onProfileClick, unreadCount, onInboxClick, onCreateClick }) => {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -330,13 +331,13 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
       let errorMessage = t('microphoneAccessDenied', 'Microphone access denied. Please allow microphone access.');
       
       if (error.name === 'NotFoundError') {
-        errorMessage = 'Geen microfoon gevonden. Controleer of je apparaat een microfoon heeft.';
+        errorMessage = t('microphoneNotFound', 'Geen microfoon gevonden. Controleer of je apparaat een microfoon heeft.');
       } else if (error.name === 'NotAllowedError') {
-        errorMessage = 'Microfoon toegang geweigerd. Sta microfoon toegang toe in je browser.';
+        errorMessage = t('microphoneAccessDenied', 'Microfoon toegang geweigerd. Sta microfoon toegang toe in je browser.');
       } else if (error.name === 'NotSupportedError' || error.message.includes('not supported')) {
-        errorMessage = 'Audio opname wordt niet ondersteund door je browser. Probeer Chrome of Safari.';
+        errorMessage = t('audioRecordingNotSupported', 'Audio opname wordt niet ondersteund door je browser. Probeer Chrome of Safari.');
       } else if (error.name === 'NotReadableError') {
-        errorMessage = 'Microfoon wordt gebruikt door een andere app. Sluit andere apps die de microfoon gebruiken.';
+        errorMessage = t('microphoneInUse', 'Microfoon wordt gebruikt door een andere app. Sluit andere apps die de microfoon gebruiken.');
       }
       
       setError(errorMessage);
@@ -378,7 +379,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
 
   const saveCustomVoice = async (voiceName) => {
     if (!recordedVoiceBlob || !voiceName.trim()) {
-      setError('Voice name and recording are required');
+      setError(t('voiceNameAndRecordingRequired', 'Voice name and recording are required'));
       return;
     }
 
@@ -778,13 +779,13 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
       let errorMessage = t('microphoneAccessDenied', 'Microphone access denied. Please allow microphone access.');
       
       if (error.name === 'NotFoundError') {
-        errorMessage = 'Geen microfoon gevonden. Controleer of je apparaat een microfoon heeft.';
+        errorMessage = t('microphoneNotFound', 'Geen microfoon gevonden. Controleer of je apparaat een microfoon heeft.');
       } else if (error.name === 'NotAllowedError') {
-        errorMessage = 'Microfoon toegang geweigerd. Sta microfoon toegang toe in je browser.';
+        errorMessage = t('microphoneAccessDenied', 'Microfoon toegang geweigerd. Sta microfoon toegang toe in je browser.');
       } else if (error.name === 'NotSupportedError' || error.message.includes('not supported')) {
-        errorMessage = 'Audio opname wordt niet ondersteund door je browser. Probeer Chrome of Safari.';
+        errorMessage = t('audioRecordingNotSupported', 'Audio opname wordt niet ondersteund door je browser. Probeer Chrome of Safari.');
       } else if (error.name === 'NotReadableError') {
-        errorMessage = 'Microfoon wordt gebruikt door een andere app. Sluit andere apps die de microfoon gebruiken.';
+        errorMessage = t('microphoneInUse', 'Microfoon wordt gebruikt door een andere app. Sluit andere apps die de microfoon gebruiken.');
       }
       
       setError(errorMessage);
@@ -877,7 +878,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
           }));
           setError('');
         } else {
-          setError('Geen spraak gedetecteerd. Probeer opnieuw te spreken.');
+          setError(t('noSpeechDetectedRetry', 'Geen spraak gedetecteerd. Probeer opnieuw te spreken.'));
         }
       } else {
         setError(t('transcriptionFailed', 'Speech transcription failed. Please try again.'));
@@ -889,27 +890,27 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
       if (error.response?.status === 400) {
         const apiError = error.response?.data?.error || '';
         if (apiError.includes('No speech detected')) {
-          errorMessage = 'No speech detected. Please speak more clearly into the microphone.';
+          errorMessage = t('noSpeechDetected', 'No speech detected. Please speak more clearly into the microphone.');
         } else if (apiError.includes('too large')) {
-          errorMessage = 'Audio file too large. Maximum 10MB allowed.';
+          errorMessage = t('audioFileTooLarge', 'Audio file too large. Maximum 10MB allowed.');
         } else if (apiError.includes('Invalid audio format')) {
-          errorMessage = 'Invalid audio format. Please try recording again.';
+          errorMessage = t('invalidAudioFormat', 'Invalid audio format. Please try recording again.');
         } else {
-          errorMessage = apiError || 'Invalid audio format. Please try again.';
+          errorMessage = apiError || t('invalidAudioFormatRetry', 'Invalid audio format. Please try again.');
         }
       } else if (error.response?.status === 500) {
         const apiError = error.response?.data?.error || '';
         if (apiError.includes('Google Cloud API key')) {
-          errorMessage = 'Google Speech service not configured. Please contact the administrator.';
+          errorMessage = t('googleSpeechNotConfigured', 'Google Speech service not configured. Please contact the administrator.');
         } else if (apiError.includes('quota exceeded')) {
-          errorMessage = 'Google Speech quota exceeded. Please try again later.';
+          errorMessage = t('googleSpeechQuotaExceeded', 'Google Speech quota exceeded. Please try again later.');
         } else {
-          errorMessage = 'Transcription service temporarily unavailable.';
+          errorMessage = t('transcriptionServiceUnavailable', 'Transcription service temporarily unavailable.');
         }
       } else if (error.code === 'ECONNABORTED') {
-        errorMessage = 'Transcription timeout. Audio too long or connection too slow.';
+        errorMessage = t('transcriptionTimeout', 'Transcription timeout. Audio too long or connection too slow.');
       } else if (error.message?.includes('Network Error')) {
-        errorMessage = 'Network error. Please check your internet connection.';
+        errorMessage = t('networkError', 'Network error. Please check your internet connection.');
       }
       
       setError(errorMessage);
@@ -951,11 +952,15 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
 
   return (
     <div className="journal-container">
+      <PageHeader 
+        user={user}
+        onProfileClick={onProfileClick}
+        title={t('dagboek', 'Dagboek')}
+        unreadCount={unreadCount}
+        onInboxClick={onInboxClick}
+        onCreateClick={onCreateClick}
+      />
       <div className="journal-header">
-        <div className="journal-title-section">
-          <div className="journal-title-icon">📔</div>
-          <h2>{t('dagboek', 'Dagboek')}</h2>
-        </div>
         <div className="journal-header-buttons">
           <button 
             className="new-entry-btn"
@@ -1144,7 +1149,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                         type="button"
                         className="voice-input-btn"
                         onClick={startRecording}
-                        title="Start spraak opname"
+                        title={t('startVoiceRecording', 'Start spraak opname')}
                       >
                         🎤 {t('speakEntry', 'Inspreek dagboek')}
                       </button>
@@ -1157,7 +1162,7 @@ const Journal = ({ user, userCredits, onCreditsUpdate }) => {
                           type="button"
                           className="stop-recording-btn"
                           onClick={stopRecording}
-                          title="Stop opname"
+                          title={t('stopRecording', 'Stop opname')}
                         >
                           ⏹ {t('stopRecording', 'Stop opname')}
                         </button>

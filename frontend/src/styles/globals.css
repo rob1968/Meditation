@@ -1265,6 +1265,16 @@ body {
   .stat-value {
     font-size: 20px;
   }
+  
+  .meditation-text-display {
+    max-height: 110px;
+    font-size: 12px;
+  }
+  
+  .text-preview-scrollable {
+    max-height: 220px;
+    font-size: 13px;
+  }
 }
 
 .background-badge {
@@ -2166,6 +2176,39 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.meditation-text-display {
+  background: var(--glass-light);
+  border-radius: 8px;
+  padding: var(--space-md);
+  margin-top: var(--space-sm);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-height: 120px;
+  overflow-y: auto;
+  border-left: 3px solid var(--gradient-card-1);
+  backdrop-filter: blur(10px);
+  white-space: pre-wrap;
+}
+
+.meditation-text-display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.meditation-text-display::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.meditation-text-display::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.meditation-text-display::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
 .meditation-controls {
   display: flex;
   flex-direction: column;
@@ -2964,6 +3007,30 @@ body {
   max-height: 200px;
   overflow-y: auto;
   border-left: 4px solid var(--gradient-card-1);
+}
+
+.text-preview-scrollable {
+  max-height: 300px;
+  backdrop-filter: blur(10px);
+  white-space: pre-wrap;
+}
+
+.text-preview-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.text-preview-scrollable::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.text-preview-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.text-preview-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .details-grid {
@@ -4258,6 +4325,18 @@ body {
     min-width: 100px;
     font-size: 12px;
     padding: var(--space-xs) var(--space-sm);
+  }
+  
+  .meditation-text-display {
+    max-height: 100px;
+    font-size: 12px;
+    padding: var(--space-sm);
+  }
+  
+  .text-preview-scrollable {
+    max-height: 180px;
+    font-size: 13px;
+    padding: var(--space-md);
   }
 }
 
@@ -6467,6 +6546,53 @@ body {
   letter-spacing: 0.5px;
 }
 
+/* Hamburger Menu Button */
+.hamburger-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: var(--space-sm);
+  background: var(--glass-medium);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.hamburger-menu-button:hover {
+  background: var(--glass-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 14px;
+}
+
+.hamburger-icon span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-menu-button:hover .hamburger-icon span {
+  background: var(--text-primary);
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+}
+
 /* Profile Slide Panel Overlay */
 .profile-overlay {
   position: fixed;
@@ -6616,6 +6742,13 @@ body {
   opacity: 1;
 }
 
+.panel-item-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .panel-item-icon {
   width: 48px;
   height: 48px;
@@ -6627,6 +6760,24 @@ body {
   font-size: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.panel-item-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  animation: pulse 2s infinite;
 }
 
 .panel-item-content {

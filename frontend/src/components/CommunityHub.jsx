@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS, API_BASE_URL } from '../config/api';
 import JournalHub from './JournalHub';
+import PageHeader from './PageHeader';
 
-const CommunityHub = ({ user }) => {
+const CommunityHub = ({ user, onProfileClick, unreadCount, onInboxClick, onCreateClick }) => {
   const [sharedMeditations, setSharedMeditations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -70,7 +71,7 @@ const CommunityHub = ({ user }) => {
       }
     } catch (error) {
       console.error('Error fetching shared meditations:', error);
-      setError('Failed to load community meditations');
+      setError(t('failedToLoadCommunityMeditations', 'Failed to load community meditations'));
     } finally {
       setIsLoading(false);
     }
@@ -204,7 +205,7 @@ const CommunityHub = ({ user }) => {
       }
     } catch (error) {
       console.error('Error liking meditation:', error);
-      setError('Failed to like meditation');
+      setError(t('failedToLikeMeditation', 'Failed to like meditation'));
     }
   };
 
@@ -229,6 +230,14 @@ const CommunityHub = ({ user }) => {
 
   return (
     <div className="community-hub-spotify">
+      <PageHeader 
+        user={user}
+        onProfileClick={onProfileClick}
+        title={t('community', 'Community')}
+        unreadCount={unreadCount}
+        onInboxClick={onInboxClick}
+        onCreateClick={onCreateClick}
+      />
 
       {/* Sub-tabs for meditations and journals */}
       <div className="community-subtabs">

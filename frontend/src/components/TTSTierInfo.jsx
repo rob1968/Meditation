@@ -36,7 +36,7 @@ const TTSTierInfo = () => {
       setTierInfo(response.data.data);
     } catch (error) {
       console.error('Error fetching TTS tier info:', error);
-      setError('Failed to load TTS tier information');
+      setError(t('failedToLoadTTSInfo', 'Failed to load TTS tier information'));
     } finally {
       setIsLoading(false);
     }
@@ -92,10 +92,10 @@ const TTSTierInfo = () => {
 
   const getTierDisplayName = (tier) => {
     switch (tier) {
-      case 'free': return 'Free Tier';
-      case 'standard': return 'Standard';
-      case 'premium': return 'Premium';
-      default: return 'Unknown';
+      case 'free': return t('freeTier', 'Free Tier');
+      case 'standard': return t('standardTier', 'Standard');
+      case 'premium': return t('premiumTier', 'Premium');
+      default: return t('unknownTier', 'Unknown');
     }
   };
 
@@ -125,7 +125,7 @@ const TTSTierInfo = () => {
     return (
       <div className="tts-tier-info loading">
         <div className="spinner"></div>
-        <span>Loading TTS information...</span>
+        <span>{t('loadingTTSInfo', 'Loading TTS information...')}</span>
       </div>
     );
   }
@@ -134,7 +134,7 @@ const TTSTierInfo = () => {
     return (
       <div className="tts-tier-info error">
         <div className="error-icon">⚠️</div>
-        <span>{error || 'Unable to load TTS information'}</span>
+        <span>{error || t('unableToLoadTTSInfo', 'Unable to load TTS information')}</span>
       </div>
     );
   }
@@ -142,12 +142,12 @@ const TTSTierInfo = () => {
   return (
     <div className="tts-tier-info">
       <div className="tts-header">
-        <h3>🗣️ Google Cloud TTS</h3>
+        <h3>🗣️ {t('googleCloudTTS', 'Google Cloud TTS')}</h3>
         <button 
           className="details-toggle"
           onClick={() => setShowDetails(!showDetails)}
         >
-          {showDetails ? '▼' : '▶'} Details
+          {showDetails ? '▼' : '▶'} {t('details', 'Details')}
         </button>
       </div>
 
@@ -157,14 +157,14 @@ const TTSTierInfo = () => {
         </div>
         
         <div className="project-info">
-          <span className="project-label">Project:</span>
+          <span className="project-label">{t('project', 'Project')}:</span>
           <span className="project-id">{tierInfo.projectId}</span>
         </div>
 
         {tierInfo.usage && (
           <div className="usage-summary">
             <div className="usage-item">
-              <span className="usage-label">24h Requests:</span>
+              <span className="usage-label">{t('24hRequests', '24h Requests')}:</span>
               <span className="usage-value">{formatNumber(tierInfo.usage.requests)}</span>
             </div>
           </div>
@@ -196,7 +196,7 @@ const TTSTierInfo = () => {
                   rel="noopener noreferrer"
                   className="alert-action"
                 >
-                  Take Action →
+                  {t('takeAction', 'Take Action')} →
                 </a>
               )}
             </div>
@@ -209,19 +209,19 @@ const TTSTierInfo = () => {
           {/* Pricing Information */}
           {pricing && (
             <div className="pricing-section">
-              <h4>💰 Pricing</h4>
+              <h4>💰 {t('pricing', 'Pricing')}</h4>
               <div className="pricing-grid">
                 <div className="pricing-card free">
                   <div className="pricing-header">
-                    <span className="pricing-type">Free Tier</span>
-                    <span className="pricing-cost">Free</span>
+                    <span className="pricing-type">{t('freeTier', 'Free Tier')}</span>
+                    <span className="pricing-cost">{t('free', 'Free')}</span>
                   </div>
                   <div className="pricing-limit">{pricing.free_tier?.limit}</div>
                 </div>
                 
                 <div className="pricing-card wavenet">
                   <div className="pricing-header">
-                    <span className="pricing-type">WaveNet</span>
+                    <span className="pricing-type">{t('waveNet', 'WaveNet')}</span>
                     <span className="pricing-cost">{pricing.wavenet?.price}</span>
                   </div>
                   <div className="pricing-desc">{pricing.wavenet?.description}</div>
@@ -232,10 +232,10 @@ const TTSTierInfo = () => {
 
           {/* Usage Estimator */}
           <div className="estimator-section">
-            <h4>📊 Monthly Usage Estimator</h4>
+            <h4>📊 {t('monthlyUsageEstimator', 'Monthly Usage Estimator')}</h4>
             <div className="estimator-inputs">
               <div className="input-group">
-                <label htmlFor="dailyRequests">Daily Requests:</label>
+                <label htmlFor="dailyRequests">{t('dailyRequests', 'Daily Requests')}:</label>
                 <input
                   id="dailyRequests"
                   type="number"
@@ -247,7 +247,7 @@ const TTSTierInfo = () => {
               </div>
               
               <div className="input-group">
-                <label htmlFor="avgChars">Avg Characters:</label>
+                <label htmlFor="avgChars">{t('avgCharacters', 'Avg Characters')}:</label>
                 <input
                   id="avgChars"
                   type="number"
@@ -262,23 +262,23 @@ const TTSTierInfo = () => {
             {estimate && (
               <div className="estimate-results">
                 <div className="estimate-item">
-                  <span>Monthly Requests:</span>
+                  <span>{t('monthlyRequests', 'Monthly Requests')}:</span>
                   <span>{formatNumber(estimate.monthlyRequests)}</span>
                 </div>
                 <div className="estimate-item">
-                  <span>Monthly Characters:</span>
+                  <span>{t('monthlyCharacters', 'Monthly Characters')}:</span>
                   <span>{formatNumber(estimate.monthlyCharacters)}</span>
                 </div>
                 <div className="estimate-item">
-                  <span>Free Characters:</span>
+                  <span>{t('freeCharacters', 'Free Characters')}:</span>
                   <span>{formatNumber(estimate.freeCharacters)}</span>
                 </div>
                 <div className="estimate-item">
-                  <span>Paid Characters:</span>
+                  <span>{t('paidCharacters', 'Paid Characters')}:</span>
                   <span>{formatNumber(estimate.paidCharacters)}</span>
                 </div>
                 <div className="estimate-item total">
-                  <span>Estimated Cost:</span>
+                  <span>{t('estimatedCost', 'Estimated Cost')}:</span>
                   <span>${estimate.estimatedCost} USD</span>
                 </div>
               </div>
@@ -287,21 +287,21 @@ const TTSTierInfo = () => {
 
           {/* Service Status */}
           <div className="service-status">
-            <h4>🔧 Service Status</h4>
+            <h4>🔧 {t('serviceStatus', 'Service Status')}</h4>
             <div className="status-grid">
               <div className="status-item">
-                <span>Service Enabled:</span>
+                <span>{t('serviceEnabled', 'Service Enabled')}:</span>
                 <span className={tierInfo.service?.enabled ? 'status-enabled' : 'status-disabled'}>
-                  {tierInfo.service?.enabled ? '✅ Yes' : '❌ No'}
+                  {tierInfo.service?.enabled ? `✅ ${t('yes', 'Yes')}` : `❌ ${t('no', 'No')}`}
                 </span>
               </div>
               <div className="status-item">
-                <span>Voice Quality:</span>
-                <span>🎵 WaveNet (Premium)</span>
+                <span>{t('voiceQuality', 'Voice Quality')}:</span>
+                <span>🎵 {t('waveNetPremium', 'WaveNet (Premium)')}</span>
               </div>
               <div className="status-item">
-                <span>Supported Languages:</span>
-                <span>🌍 12 Languages</span>
+                <span>{t('supportedLanguages', 'Supported Languages')}:</span>
+                <span>🌍 {t('12Languages', '12 Languages')}</span>
               </div>
             </div>
           </div>
@@ -309,7 +309,7 @@ const TTSTierInfo = () => {
           {/* Recommendations */}
           {recommendations && recommendations.length > 0 && (
             <div className="recommendations-section">
-              <h4>💡 Recommendations</h4>
+              <h4>💡 {t('recommendations', 'Recommendations')}</h4>
               <div className="recommendations-list">
                 {recommendations.map((rec, index) => (
                   <div key={index} className="recommendation-card">
@@ -338,7 +338,7 @@ const TTSTierInfo = () => {
               rel="noopener noreferrer"
               className="action-link"
             >
-              📊 View Quotas in Console
+              📊 {t('viewQuotasInConsole', 'View Quotas in Console')}
             </a>
             <a 
               href={`https://console.cloud.google.com/billing?project=${tierInfo.projectId}`}
@@ -346,7 +346,7 @@ const TTSTierInfo = () => {
               rel="noopener noreferrer"
               className="action-link"
             >
-              💳 View Billing
+              💳 {t('viewBilling', 'View Billing')}
             </a>
           </div>
         </div>

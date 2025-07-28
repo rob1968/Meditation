@@ -256,10 +256,25 @@ const App = () => {
   };
   
   const clearText = () => {
+    updateWizardData('text', '');
     setText("");
     setGeneratedText("");
     setOriginalGeneratedText("");
     setIsTextModified(false);
+  };
+
+  // Word count function
+  const countWords = (text) => {
+    if (!text.trim()) return 0;
+    return text.trim().split(/\s+/).length;
+  };
+
+  // Validate text length
+  const validateTextLength = (text) => {
+    const wordCount = countWords(text);
+    if (wordCount < 50) return { valid: false, message: t('textTooShort', 'Tekst te kort (minimaal 50 woorden)') };
+    if (wordCount > 10000) return { valid: false, message: t('textTooLong', 'Tekst te lang (maximaal 10.000 woorden)') };
+    return { valid: true, wordCount };
   };
   
   // Auto-load appropriate text: saved texts first, then empty text as fallback
@@ -346,7 +361,7 @@ const App = () => {
       case 1:
         return wizardData.meditationType !== '';
       case 2:
-        return wizardData.text.trim() !== '';
+        return wizardData.text.trim() !== '' && validateTextLength(wizardData.text).valid;
       case 3:
         return wizardData.voiceId !== '';
       case 4:
@@ -372,16 +387,6 @@ const App = () => {
       case 2:
         return (
           <div className="text-step">
-            <div className="text-input-section">
-              <textarea
-                value={wizardData.text}
-                onChange={(e) => updateWizardData('text', e.target.value)}
-                placeholder={t('textPlaceholder', 'Type hier je meditatie tekst in om een audio van te maken')}
-                className="meditation-text-input"
-                rows={10}
-              />
-            </div>
-            
             <div className="text-actions">
               <button
                 onClick={async () => {
@@ -405,33 +410,52 @@ const App = () => {
               >
                 {isGeneratingText ? t('generating', 'Genereren...') : `🔄 ${t('regenerate', 'Voorbeeld tekst')}`}
               </button>
-              
-              {user && (
-                <button
-                  onClick={() => {
-                    const filteredSavedTexts = userMeditations
-                      .filter(m => m.meditationType === wizardData.meditationType && m.language === i18n.language)
-                      .sort((a, b) => {
-                        const aIsModified = a.isModified || (a.updatedAt && a.createdAt && a.updatedAt !== a.createdAt);
-                        const bIsModified = b.isModified || (b.updatedAt && b.createdAt && b.updatedAt !== b.createdAt);
-                        if (aIsModified !== bIsModified) {
-                          return bIsModified - aIsModified;
-                        }
-                        const aDate = new Date(a.updatedAt || a.createdAt);
-                        const bDate = new Date(b.updatedAt || b.createdAt);
-                        return bDate - aDate;
-                      });
-                    
-                    if (filteredSavedTexts.length > 0) {
-                      const firstSavedText = filteredSavedTexts[0];
-                      updateWizardData('text', firstSavedText.text);
-                    }
-                  }}
-                  className="view-saved-btn"
-                >
-                  {t('viewSaved', 'Opgeslagen')}
-                </button>
-              )}
+              <button
+                onClick={clearText}
+                className="clear-text-btn"
+                disabled={isGeneratingText || !wizardData.text.trim()}
+              >
+                🗑️ {t('clearText', 'Leeg maken')}
+              </button>
+            </div>
+            
+            <div className="text-input-section">
+              <textarea
+                value={wizardData.text}
+                onChange={(e) => updateWizardData('text', e.target.value)}
+                placeholder={t('textPlaceholder', 'Type hier je meditatie tekst in om een audio van te maken')}
+                className="meditation-text-input"
+                rows={10}
+              />
+              <div className="text-validation">
+                {(() => {
+                  const validation = validateTextLength(wizardData.text);
+                  const wordCount = countWords(wizardData.text);
+                  
+                  if (wordCount === 0) {
+                    return (
+                      <div className="word-count-info">
+                        <span className="word-count-hint">
+                          {t('wordCountMin', 'Minimaal 50 woorden vereist')}
+                        </span>
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <div className="word-count-info">
+                      <span className={`word-count ${validation.valid ? 'valid' : 'invalid'}`}>
+                        {t('wordCount', '{{count}} woorden', { count: wordCount })}
+                      </span>
+                      {!validation.valid && (
+                        <span className="validation-error">
+                          - {validation.message}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
             </div>
           </div>
         );
@@ -683,13 +707,23 @@ const App = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const userData = JSON.parse(storedUser);
+      setUser(userData);
+      
+      // Set UI language to user's preferred language if available
+      if (userData.preferredLanguage) {
+        i18n.changeLanguage(userData.preferredLanguage);
+        // Also save to localStorage for consistency
+        localStorage.setItem('selectedLanguage', userData.preferredLanguage);
+      }
     }
     
-    // Load saved language preference
-    const savedLanguage = localStorage.getItem('selectedLanguage');
-    if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage);
+    // Fallback: Load saved language preference from localStorage if no user preferred language
+    if (!storedUser) {
+      const savedLanguage = localStorage.getItem('selectedLanguage');
+      if (savedLanguage) {
+        i18n.changeLanguage(savedLanguage);
+      }
     }
   }, []);
   
@@ -732,6 +766,13 @@ const App = () => {
 
   const handleLogin = (userData) => {
     setUser(userData);
+    
+    // Set UI language to user's preferred language if available
+    if (userData.preferredLanguage) {
+      i18n.changeLanguage(userData.preferredLanguage);
+      localStorage.setItem('selectedLanguage', userData.preferredLanguage);
+    }
+    
     handleTabChange('create');
   };
 
@@ -1282,30 +1323,33 @@ const App = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'myAudio':
-        return <MyAudio user={user} userCredits={userCredits} isGenerating={isLoading} onCreditsUpdate={fetchUserCredits} />;
+        return <MyAudio user={user} userCredits={userCredits} isGenerating={isLoading} onCreditsUpdate={fetchUserCredits} onProfileClick={(section = 'profile') => { setActiveTab('profile'); setProfileSection(section); }} unreadCount={unreadCount} onInboxClick={() => handleTabChange('inbox')} onCreateClick={() => handleTabChange('create')} />;
       case 'journal':
-        return <Journal user={user} userCredits={userCredits} onCreditsUpdate={fetchUserCredits} />;
+        return <Journal user={user} userCredits={userCredits} onCreditsUpdate={fetchUserCredits} onProfileClick={(section = 'profile') => { setActiveTab('profile'); setProfileSection(section); }} unreadCount={unreadCount} onInboxClick={() => handleTabChange('inbox')} onCreateClick={() => handleTabChange('create')} />;
       case 'community':
-        return <CommunityHub user={user} />;
+        return <CommunityHub user={user} onProfileClick={(section = 'profile') => { setActiveTab('profile'); setProfileSection(section); }} unreadCount={unreadCount} onInboxClick={() => handleTabChange('inbox')} onCreateClick={() => handleTabChange('create')} />;
       case 'journalHub':
         return <JournalHub user={user} />;
       case 'admin':
-        return <AdminDashboard user={user} onLogout={handleLogout} />;
+        return <AdminDashboard user={user} onLogout={handleLogout} onProfileClick={(section = 'profile') => { setActiveTab('profile'); setProfileSection(section); }} unreadCount={unreadCount} onInboxClick={() => handleTabChange('inbox')} onCreateClick={() => handleTabChange('create')} />;
       case 'inbox':
-        return <Inbox user={user} onUnreadCountChange={setUnreadCount} />;
+        return <Inbox user={user} onUnreadCountChange={setUnreadCount} onProfileClick={(section = 'profile') => { setActiveTab('profile'); setProfileSection(section); }} headerUnreadCount={unreadCount} onInboxClick={() => handleTabChange('inbox')} onCreateClick={() => handleTabChange('create')} />;
       case 'profile':
-        return <ProfileContainer user={user} onLogout={handleLogout} onBackToCreate={() => handleTabChange('create')} selectedSection={profileSection} />;
+        return <ProfileContainer user={user} onLogout={handleLogout} onBackToCreate={() => handleTabChange('create')} selectedSection={profileSection} onUserUpdate={setUser} />;
       default:
         return (
           <div className="create-content">
             <div className="create-language-header">
               <PageHeader 
                 user={user}
+                unreadCount={unreadCount}
                 onProfileClick={(section = 'profile') => {
                   setActiveTab('profile');
                   // Pass the section to ProfileContainer somehow
                   setProfileSection(section);
                 }}
+                onInboxClick={() => handleTabChange('inbox')}
+                onCreateClick={() => handleTabChange('create')}
               />
             </div>
 
@@ -1344,7 +1388,6 @@ const App = () => {
         onTabChange={handleTabChange}
         user={user}
         onLogout={handleLogout}
-        unreadCount={unreadCount}
       />
     </div>
   );

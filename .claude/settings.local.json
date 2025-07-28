@@ -18,7 +18,8 @@
       "Bash(node:*)",
       "Bash(rm:*)",
       "Bash(cd /mnt/c/Meditation/backend)",
-      "Bash(node -e \"\nrequire(''dotenv'').config();\nconst mongoose = require(''mongoose'');\nconst User = require(''./models/User'');\n\nmongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })\n  .then(async () => {\n    const user = await User.findById(''6884e35398baad48238abd64'');\n    console.log(''User found:'', user ? true : false);\n    if (user) {\n      console.log(''User location:'', user.location);\n      console.log(''User gender:'', user.gender);\n      console.log(''User preferredLanguage:'', user.preferredLanguage);\n      console.log(''User bio:'', user.bio);\n    }\n    process.exit(0);\n  })\n  .catch(err => {\n    console.error(''Error:'', err.message);\n    process.exit(1);\n  });\n\")"
+      "Bash(node -e \"\nrequire(''dotenv'').config();\nconst mongoose = require(''mongoose'');\nconst User = require(''./models/User'');\n\nmongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })\n  .then(async () => {\n    const user = await User.findById(''6884e35398baad48238abd64'');\n    console.log(''User found:'', user ? true : false);\n    if (user) {\n      console.log(''User location:'', user.location);\n      console.log(''User gender:'', user.gender);\n      console.log(''User preferredLanguage:'', user.preferredLanguage);\n      console.log(''User bio:'', user.bio);\n    }\n    process.exit(0);\n  })\n  .catch(err => {\n    console.error(''Error:'', err.message);\n    process.exit(1);\n  });\n\")",
+      "Bash(python3:*)"
     ],
     "deny": []
   }

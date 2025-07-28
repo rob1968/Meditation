@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = false, onBackClick }) => {
+const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = false, onBackClick, unreadCount = 0, onInboxClick, onCreateClick }) => {
   const { t, i18n } = useTranslation();
   const [languageOpen, setLanguageOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -50,6 +50,8 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
 
   // Profile menu items
   const profileMenuItems = [
+    { id: 'create', icon: '✨', label: t('creeer', 'Creëer') },
+    { id: 'inbox', icon: '📬', label: t('inbox', 'Inbox'), badge: unreadCount },
     { id: 'profile', icon: '👤', label: t('profileInformation', 'Profile Information') },
     { id: 'credits', icon: '💎', label: t('credits', 'Credits') },
     { id: 'statistics', icon: '📊', label: t('statistics', 'Statistics') }
@@ -57,8 +59,15 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
 
   const handleProfileMenuSelect = (sectionId) => {
     setProfileMenuOpen(false);
-    // Call the original onProfileClick with the section parameter
-    if (onProfileClick) {
+    
+    if (sectionId === 'create' && onCreateClick) {
+      // Handle create click separately
+      onCreateClick();
+    } else if (sectionId === 'inbox' && onInboxClick) {
+      // Handle inbox click separately
+      onInboxClick();
+    } else if (onProfileClick) {
+      // Call the original onProfileClick with the section parameter
       onProfileClick(sectionId);
     }
   };
@@ -99,16 +108,14 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
         {user && onProfileClick && (
           <>
             <button 
-              className="profile-avatar-button" 
+              className="hamburger-menu-button" 
               onClick={() => setProfileMenuOpen(!profileMenuOpen)}
-              title={user?.username || 'Profile'}
+              title={t('menu', 'Menu')}
             >
-              <div className="avatar-circle">
-                <span className="avatar-initial">{user?.username?.charAt(0)?.toUpperCase()}</span>
-              </div>
-              <div className="avatar-info">
-                <span className="avatar-name">{user?.username}</span>
-                <span className="avatar-status">Online</span>
+              <div className="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
             </button>
             
@@ -145,7 +152,12 @@ const PageHeader = ({ user, onProfileClick, title, subtitle, showBackButton = fa
                         className="profile-panel-item"
                         onClick={() => handleProfileMenuSelect(item.id)}
                       >
-                        <div className="panel-item-icon">{item.icon}</div>
+                        <div className="panel-item-icon-container">
+                          <div className="panel-item-icon">{item.icon}</div>
+                          {item.badge !== undefined && item.badge > 0 && (
+                            <div className="panel-item-badge">{item.badge}</div>
+                          )}
+                        </div>
                         <div className="panel-item-content">
                           <span className="panel-item-label">{item.label}</span>
                           <span className="panel-item-arrow">→</span>

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl } from '../config/api';
+import PageHeader from './PageHeader';
 
-const Inbox = ({ user, onUnreadCountChange }) => {
+const Inbox = ({ user, onUnreadCountChange, onProfileClick, headerUnreadCount, onInboxClick, onCreateClick }) => {
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -33,7 +34,7 @@ const Inbox = ({ user, onUnreadCountChange }) => {
       }
     } catch (error) {
       console.error('Error fetching notifications:', error);
-      setError('Failed to load notifications');
+      setError(t('failedToLoadNotifications', 'Failed to load notifications'));
     } finally {
       setIsLoading(false);
     }
@@ -142,12 +143,14 @@ const Inbox = ({ user, onUnreadCountChange }) => {
 
   return (
     <div className="inbox-container">
-      <div className="inbox-header">
-        <h2>📨 {t('inbox', 'Inbox')}</h2>
-        {unreadCount > 0 && (
-          <div className="unread-badge">{unreadCount}</div>
-        )}
-      </div>
+      <PageHeader 
+        user={user}
+        onProfileClick={onProfileClick}
+        title={t('inbox', 'Inbox')}
+        unreadCount={headerUnreadCount}
+        onInboxClick={onInboxClick}
+        onCreateClick={onCreateClick}
+      />
 
       <div className="inbox-controls">
         <div className="filter-buttons">
@@ -161,19 +164,19 @@ const Inbox = ({ user, onUnreadCountChange }) => {
             className={`filter-btn ${filter === 'unread' ? 'active' : ''}`}
             onClick={() => setFilter('unread')}
           >
-            {t('unread', 'Unread')} ({unreadCount})
+            {t('unread', 'Ongelezen')} ({unreadCount})
           </button>
           <button 
             className={`filter-btn ${filter === 'read' ? 'active' : ''}`}
             onClick={() => setFilter('read')}
           >
-            {t('read', 'Read')} ({notifications.length - unreadCount})
+            {t('read', 'Gelezen')} ({notifications.length - unreadCount})
           </button>
         </div>
         
         {unreadCount > 0 && (
           <button className="mark-all-read-btn" onClick={markAllAsRead}>
-            ✅ {t('markAllRead', 'Mark all read')}
+            ✅ {t('markAllRead', 'Alles markeren als gelezen')}
           </button>
         )}
       </div>
@@ -181,8 +184,8 @@ const Inbox = ({ user, onUnreadCountChange }) => {
       {filteredNotifications.length === 0 ? (
         <div className="empty-inbox">
           <div className="empty-icon">📭</div>
-          <h3>{t('noNotifications', 'No notifications')}</h3>
-          <p>{t('notificationsAppearHere', 'Notifications about your meditations will appear here')}</p>
+          <h3>{t('noNotifications', 'Geen berichten')}</h3>
+          <p>{t('notificationsAppearHere', 'Berichten over je meditaties verschijnen hier')}</p>
         </div>
       ) : (
         <div className="notifications-list">
@@ -207,13 +210,13 @@ const Inbox = ({ user, onUnreadCountChange }) => {
                 
                 {notification.moderationNotes && (
                   <div className="moderation-notes">
-                    <strong>{t('adminNotes', 'Admin notes')}:</strong> {notification.moderationNotes}
+                    <strong>{t('adminNotes', 'Beheerder notities')}:</strong> {notification.moderationNotes}
                   </div>
                 )}
                 
                 <div className="notification-meditation">
                   <span className="meditation-ref">
-                    📿 {notification.meditationId?.title || t('deletedMeditation', 'Deleted meditation')}
+                    📿 {notification.meditationId?.title || t('deletedMeditation', 'Verwijderde meditatie')}
                   </span>
                 </div>
               </div>
@@ -223,7 +226,7 @@ const Inbox = ({ user, onUnreadCountChange }) => {
                   <button 
                     className="mark-read-btn"
                     onClick={() => markAsRead(notification._id)}
-                    title={t('markAsRead', 'Mark as read')}
+                    title={t('markAsRead', 'Markeren als gelezen')}
                   >
                     👁️
                   </button>

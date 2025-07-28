@@ -1,15 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const BottomNavigation = ({ activeTab, onTabChange, user, onLogout, unreadCount = 0 }) => {
+const BottomNavigation = ({ activeTab, onTabChange, user, onLogout }) => {
   const { t } = useTranslation();
 
   const tabs = [
     { id: 'myAudio', icon: '🧘', label: t('meditations', 'Meditations') },
-    { id: 'create', icon: '✨', label: t('creeer', 'Create') },
     { id: 'community', icon: '🔮', label: t('community', 'Community') },
-    { id: 'journal', icon: '📔', label: t('journal', 'Journal') },
-    { id: 'inbox', icon: '📬', label: t('inbox', 'Inbox'), badge: unreadCount }
+    { id: 'create', icon: '✨', label: t('creeer', 'Create') },
+    { id: 'journal', icon: '📔', label: t('journal', 'Journal') }
   ];
 
   // Add admin tab for user 'rob'

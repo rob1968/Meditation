@@ -4,13 +4,13 @@ import ProfileInfo from './ProfileInfo';
 import Credits from './Credits';
 import Statistics from './Statistics';
 
-const ProfileContainer = ({ user, onLogout, onBackToCreate, selectedSection = 'profile' }) => {
+const ProfileContainer = ({ user, onLogout, onBackToCreate, selectedSection = 'profile', onUserUpdate }) => {
   const { t } = useTranslation();
 
   const renderContent = () => {
     switch (selectedSection) {
       case 'profile':
-        return <ProfileInfo user={user} />;
+        return <ProfileInfo user={user} onUserUpdate={onUserUpdate} />;
       case 'credits':
         return <Credits user={user} />;
       case 'statistics':

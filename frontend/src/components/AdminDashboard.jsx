@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS, API_BASE_URL } from '../config/api';
+import PageHeader from './PageHeader';
 
-const AdminDashboard = ({ user, onLogout }) => {
+const AdminDashboard = ({ user, onLogout, onProfileClick, unreadCount, onInboxClick, onCreateClick }) => {
   const [pendingMeditations, setPendingMeditations] = useState([]);
   const [approvedMeditations, setApprovedMeditations] = useState([]);
   const [rejectedMeditations, setRejectedMeditations] = useState([]);
@@ -107,24 +108,24 @@ const AdminDashboard = ({ user, onLogout }) => {
   };
 
   const meditationTypeLabels = {
-    sleep: 'Sleep',
-    stress: 'Stress',
-    focus: 'Focus',
-    anxiety: 'Anxiety',
-    energy: 'Energy',
-    mindfulness: 'Mindfulness',
-    compassion: 'Compassion',
-    walking: 'Walking',
-    breathing: 'Breathing',
-    morning: 'Morning'
+    sleep: t('sleepMeditation', 'Sleep'),
+    stress: t('stressMeditation', 'Stress'),
+    focus: t('focusMeditation', 'Focus'),
+    anxiety: t('anxietyMeditation', 'Anxiety'),
+    energy: t('energyMeditation', 'Energy'),
+    mindfulness: t('mindfulnessMeditation', 'Mindfulness'),
+    compassion: t('compassionMeditation', 'Compassion'),
+    walking: t('walkingMeditation', 'Walking'),
+    breathing: t('breathingMeditation', 'Breathing'),
+    morning: t('morningMeditation', 'Morning')
   };
 
   if (!user || user.username !== 'rob') {
     return (
       <div className="admin-dashboard">
         <div className="access-denied">
-          <h2>🚫 Access Denied</h2>
-          <p>You don't have permission to access this page.</p>
+          <h2>🚫 {t('accessDenied', 'Access Denied')}</h2>
+          <p>{t('noPermissionMessage', 'You don\'t have permission to access this page.')}</p>
         </div>
       </div>
     );
@@ -135,7 +136,7 @@ const AdminDashboard = ({ user, onLogout }) => {
       <div className="admin-dashboard">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          Loading...
+          {t('loading', 'Loading...')}
         </div>
       </div>
     );
@@ -172,7 +173,7 @@ const AdminDashboard = ({ user, onLogout }) => {
     if (meditations.length === 0) {
       return (
         <div className="empty-state">
-          <p>No meditations in this category</p>
+          <p>{t('noMeditationsInCategory', 'No meditations in this category')}</p>
         </div>
       );
     }
@@ -216,7 +217,7 @@ const AdminDashboard = ({ user, onLogout }) => {
 
               {meditation.moderationNotes && (
                 <div className="moderation-notes">
-                  <strong>Notes:</strong> {meditation.moderationNotes}
+                  <strong>{t('notes', 'Notes')}:</strong> {meditation.moderationNotes}
                 </div>
               )}
 
@@ -225,7 +226,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                   className="view-btn"
                   onClick={() => setSelectedMeditation(meditation)}
                 >
-                  👁️ View Details
+                  👁️ {t('viewDetails', 'View Details')}
                 </button>
                 
                 {meditation.status === 'pending' && (
@@ -237,7 +238,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                         setModerationNote('');
                       }}
                     >
-                      ✅ Approve
+                      ✅ {t('approve', 'Approve')}
                     </button>
                     <button 
                       className="reject-btn"
@@ -246,7 +247,7 @@ const AdminDashboard = ({ user, onLogout }) => {
                         setModerationNote('');
                       }}
                     >
-                      ❌ Reject
+                      ❌ {t('reject', 'Reject')}
                     </button>
                   </>
                 )}
@@ -260,29 +261,34 @@ const AdminDashboard = ({ user, onLogout }) => {
 
   return (
     <div className="admin-dashboard">
-      <div className="admin-header">
-        <h2>🛡️ Admin Dashboard</h2>
-        <p>Meditation Moderation Center</p>
-      </div>
+      <PageHeader 
+        user={user}
+        onProfileClick={onProfileClick}
+        title={t('adminDashboard', 'Admin Dashboard')}
+        subtitle={t('meditationModerationCenter', 'Meditation Moderation Center')}
+        unreadCount={unreadCount}
+        onInboxClick={onInboxClick}
+        onCreateClick={onCreateClick}
+      />
 
       <div className="admin-tabs">
         <button 
           className={`admin-tab ${activeTab === 'pending' ? 'active' : ''}`}
           onClick={() => setActiveTab('pending')}
         >
-          Pending ({pendingMeditations.length})
+          {t('pending', 'Pending')} ({pendingMeditations.length})
         </button>
         <button 
           className={`admin-tab ${activeTab === 'approved' ? 'active' : ''}`}
           onClick={() => setActiveTab('approved')}
         >
-          Approved ({approvedMeditations.length})
+          {t('approved', 'Approved')} ({approvedMeditations.length})
         </button>
         <button 
           className={`admin-tab ${activeTab === 'rejected' ? 'active' : ''}`}
           onClick={() => setActiveTab('rejected')}
         >
-          Rejected ({rejectedMeditations.length})
+          {t('rejected', 'Rejected')} ({rejectedMeditations.length})
         </button>
       </div>
 
@@ -296,7 +302,7 @@ const AdminDashboard = ({ user, onLogout }) => {
         <div className="moderation-modal">
           <div className="moderation-content">
             <div className="modal-header">
-              <h3>Review Meditation</h3>
+              <h3>{t('reviewMeditation', 'Review Meditation')}</h3>
               <button className="close-btn" onClick={() => setSelectedMeditation(null)}>✕</button>
             </div>
 
@@ -305,26 +311,26 @@ const AdminDashboard = ({ user, onLogout }) => {
               <p className="description">{selectedMeditation.description}</p>
               
               <div className="detail-section">
-                <h5>Meditation Text:</h5>
+                <h5>{t('meditationText', 'Meditation Text')}:</h5>
                 <div className="text-preview">
                   {selectedMeditation.text}
                 </div>
               </div>
 
               <div className="detail-section">
-                <h5>Details:</h5>
+                <h5>{t('details', 'Details')}:</h5>
                 <div className="details-grid">
-                  <div>Type: {meditationTypeLabels[selectedMeditation.meditationType]}</div>
-                  <div>Language: {selectedMeditation.language}</div>
-                  <div>Duration: {formatDuration(selectedMeditation.duration)}</div>
-                  <div>Author: {selectedMeditation.author.username}</div>
-                  <div>Submitted: {formatDate(selectedMeditation.createdAt)}</div>
+                  <div>{t('type', 'Type')}: {meditationTypeLabels[selectedMeditation.meditationType]}</div>
+                  <div>{t('languageLabel', 'Language')}: {selectedMeditation.language}</div>
+                  <div>{t('duration', 'Duration')}: {formatDuration(selectedMeditation.duration)}</div>
+                  <div>{t('author', 'Author')}: {selectedMeditation.author.username}</div>
+                  <div>{t('submitted', 'Submitted')}: {formatDate(selectedMeditation.createdAt)}</div>
                 </div>
               </div>
 
               {selectedMeditation.audioFile && (
                 <div className="detail-section">
-                  <h5>Audio Preview:</h5>
+                  <h5>{t('audioPreview', 'Audio Preview')}:</h5>
                   <audio controls className="audio-preview">
                     <source 
                       src={`${API_BASE_URL}/assets/audio/shared/${selectedMeditation.audioFile.filename}`} 
@@ -332,18 +338,18 @@ const AdminDashboard = ({ user, onLogout }) => {
                     />
                   </audio>
                   <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
-                    Filename: {selectedMeditation.audioFile.filename}
+                    {t('filename', 'Filename')}: {selectedMeditation.audioFile.filename}
                   </p>
                 </div>
               )}
 
               {selectedMeditation.status === 'pending' && (
                 <div className="moderation-section">
-                  <h5>Moderation Notes (optional for approval, required for rejection):</h5>
+                  <h5>{t('moderationNotesLabel', 'Moderation Notes (optional for approval, required for rejection)')}:</h5>
                   <textarea
                     value={moderationNote}
                     onChange={(e) => setModerationNote(e.target.value)}
-                    placeholder="Enter notes about your decision..."
+                    placeholder={t('enterNotesPlaceholder', 'Enter notes about your decision...')}
                     rows={3}
                   />
 
@@ -353,14 +359,14 @@ const AdminDashboard = ({ user, onLogout }) => {
                       onClick={() => handleApprove(selectedMeditation._id)}
                       disabled={isProcessing}
                     >
-                      {isProcessing ? 'Processing...' : '✅ Approve & Publish'}
+                      {isProcessing ? t('processing', 'Processing...') : `✅ ${t('approveAndPublish', 'Approve & Publish')}`}
                     </button>
                     <button 
                       className="reject-btn-large"
                       onClick={() => handleReject(selectedMeditation._id)}
                       disabled={isProcessing || !moderationNote.trim()}
                     >
-                      {isProcessing ? 'Processing...' : '❌ Reject'}
+                      {isProcessing ? t('processing', 'Processing...') : `❌ ${t('reject', 'Reject')}`}
                     </button>
                   </div>
                 </div>

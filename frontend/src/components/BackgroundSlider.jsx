@@ -585,11 +585,11 @@ const BackgroundSlider = forwardRef(({
       <div className="background-slider">
         <div className="background-slider-header">
           <h2 className="section-title">🎵</h2>
-          <div className="background-counter">Loading...</div>
+          <div className="background-counter">{t('loading', 'Loading...')}</div>
         </div>
         <div className="background-card" style={{ padding: '40px', textAlign: 'center' }}>
           <div style={{ color: 'var(--text-secondary)' }}>
-            Loading backgrounds...
+            {t('loadingBackgrounds', 'Loading backgrounds...')}
             <br />
             <small>
               savedCustomBackgrounds: {savedCustomBackgrounds?.length || 0} | 
@@ -611,7 +611,7 @@ const BackgroundSlider = forwardRef(({
         </div>
         <div className="background-card" style={{ padding: '40px', textAlign: 'center' }}>
           <div style={{ color: 'var(--text-secondary)' }}>
-            No backgrounds available
+            {t('noBackgroundsAvailable', 'No backgrounds available')}
             <br />
             <small>
               savedCustomBackgrounds: {savedCustomBackgrounds?.length || 0} | 
@@ -694,7 +694,7 @@ const BackgroundSlider = forwardRef(({
                     e.stopPropagation();
                     isPlaying ? stopBackgroundSound() : playBackgroundSound();
                   }}
-                  aria-label={isPlaying ? 'Stop Preview' : 'Play Preview'}
+                  aria-label={isPlaying ? t('stopPreview', 'Stop Preview') : t('playPreview', 'Play Preview')}
                   disabled={currentBackground.value === 'custom' && !customBackgroundFile}
                   style={currentBackground.value === 'custom' && !customBackgroundFile ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
                 >
@@ -863,7 +863,7 @@ const BackgroundSlider = forwardRef(({
                 >
                   {t('description', 'Description')}
                   <span style={{ color: 'var(--text-tertiary)', fontSize: '13px', fontWeight: '400', marginLeft: '4px' }}>
-                    (optioneel)
+                    {t('optional', '(optional)')}
                   </span>
                 </label>
                 <textarea

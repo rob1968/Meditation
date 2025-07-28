@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { getFullUrl, getAssetUrl, API_ENDPOINTS } from '../config/api';
 import ShareMeditationDialog from './ShareMeditationDialog';
+import PageHeader from './PageHeader';
 
-const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
+const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate, onProfileClick, unreadCount, onInboxClick, onCreateClick }) => {
   const [meditations, setMeditations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -334,9 +335,14 @@ const MyAudio = ({ user, userCredits, isGenerating, onCreditsUpdate }) => {
 
   return (
     <div className="my-audio-container">
-      <div className="my-audio-header">
-        <h2>{t('myMeditation', 'My Meditations')}</h2>
-      </div>
+      <PageHeader 
+        user={user}
+        onProfileClick={onProfileClick}
+        title={t('myMeditation', 'My Meditations')}
+        unreadCount={unreadCount}
+        onInboxClick={onInboxClick}
+        onCreateClick={onCreateClick}
+      />
         
       {availableTypes.length > 0 && (
         <div className="filter-section" style={{ marginBottom: '24px' }}>
